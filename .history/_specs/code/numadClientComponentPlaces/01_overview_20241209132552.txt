@@ -1,0 +1,420 @@
+Please review it carefully and implement the controls and interactions. Ask any questions if you have any. For the controls implementation, please reference the gallery carousels for code structure, naming conventions, etc as they both have controls but function slightly different. The new controls should be a dom element in controls.js file and imported into array.js (please update all code so its done this way). **NOTE: do not change any classes, object, const, etc names or code structure and if any of it is changed, make sure to tell me. if there are new ones, make sure to make a note of it as a commented out line in the code. add console logs too so i can send you the console response and you have the right data to debug. This should al be coded in vanilla js, nodejs, css, html, and mongodb**
+
+
+
+Places specs
+
+
+
+01: Places html code
+<div class="business-hours">
+ <div class="container">
+   <div class="datavis">
+     <div class="datavis-item active-current">
+       <div class="datavis-visual">
+         <div class="datavis-container">
+           <div class="datavis-indicator"></div>
+         </div>
+         <div class="datavis-info">
+           <div class="primary">
+             <div class="pill">
+               <div class="content">
+                 <span class="label text02">Mon</span>
+               </div>
+             </div>
+           </div>
+           <span class="time secondary sentance">
+             <i class="icon-indicator-live"></i>
+             <span class="time word">
+               <span id="time-hour">
+                 8
+               </span>
+               <span id="time-meridian">
+                 am
+               </span>
+             </span>
+           </span>
+         </div>
+       </div>
+     </div>
+     <div class="datavis-item-active">
+       <div class="datavis-visual">
+         <div class="datavis-container">
+           <div class="datavis-indicator"></div>
+         </div>
+         <div class="datavis-info">
+           <div class="secondary">
+             <span id="time" class="text02 word">
+               <span id="time-hour">
+                 4
+               </span>
+               <span id="time-meridian">
+                 am
+               </span>
+             </span>
+           </div>
+         </div>
+       </div>
+     </div>
+     <div class="datavis-item-inactive">
+       <div class="datavis-visual">
+         <div class="datavis-container">
+           <div class="datavis-indicator"></div>
+         </div>
+         <div class="datavis-info">
+           <div class="secondary">
+             <span id="time" class="text02 word">
+               <span id="time-hour">
+                 8
+               </span>
+               <span id="time-meridian">
+                 am
+               </span>
+             </span>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
+ <div class="tools">
+   <div class="detail">
+     <div class="status">
+       <span class="label text02">Currently Packed</span>
+     </div>
+       ${seperatorCluster}
+     <span class="text02 detail-conditions sentance">
+       <span class="temp">
+         60°F
+       </span>
+         ${seperatorWord}
+       <span class="text02">Light Rain</span>
+     </span>
+   </div>
+   <div class="control">
+     <button class="control-jump">
+       <div class="label">
+         <span class="text02">Today</span>
+       </div>
+     </button>
+     <div class="navigation">
+       <button class="control-previous">
+         <i class="icon-action-prev"></i>
+       </button>
+       <button class="control-next">
+         <i class="icon-action-next"></i>
+       </button>
+     </div>
+   </div>
+ </div>
+</div>
+
+
+
+
+02: Places css code
+.business-hours {
+ background: var(--bg-white-03, #fbfbff);
+ border-radius: var(--spacer-gap-s07, 15px);
+ border-style: solid;
+ border-color: var(--ink-shade-04, #eef1f3);
+ border-width: 1px;
+ padding: var(--spacer-gap-s07, 15px);
+ display: flex;
+ flex-direction: column;
+ gap: var(--spacer-gap-s05, 9px);
+ align-items: flex-start;
+ justify-content: flex-start;
+ position: relative;
+ overflow: hidden;
+}
+.business-hours .container {
+ display: flex;
+ flex-direction: row;
+ gap: var(--spacer-gap-s02, 3px);
+ align-items: flex-start;
+ justify-content: flex-start;
+ align-self: stretch;
+ flex-shrink: 0;
+ position: relative;
+}
+.datavis {
+ display: flex;
+ flex-direction: row;
+ gap: 3px;
+ align-items: center;
+ justify-content: flex-start;
+ flex-shrink: 0;
+ position: absolute;
+ left: 0px;
+ top: 0px;
+}
+.datavis .datavis-item.active.current {
+ display: flex;
+ flex-direction: column;
+ gap: 0px;
+ align-items: flex-start;
+ justify-content: flex-start;
+ flex-shrink: 0;
+ width: 130.5px;
+ height: 130.5px;
+ position: relative;
+ overflow: hidden;
+}
+.datavis .datavis-visual {
+ border-radius: var(--spacer-gap-s05, 9px);
+ display: flex;
+ flex-direction: row;
+ align-items: flex-end;
+ justify-content: flex-start;
+ align-self: stretch;
+ flex: 1;
+ overflow: hidden;
+ }
+.datavis .datavis-container {
+ display: flex;
+ flex-direction: column;
+ gap: 0px;
+ align-items: flex-end;
+ justify-content: flex-start;
+ align-self: stretch;
+ flex: 1;
+ position: relative;
+ overflow: hidden;
+}
+.datavis .datavis-indicator.active.current {
+ background: var(--utility-rank-good03, #26e615);
+ border-radius: var(--spacer-gap-s05, 9px);
+ align-self: stretch;
+ flex: 1;
+ position: relative;
+ overflow: hidden;
+}
+.datavis .datavis-visual .datavis-info {
+ position: absolute;
+ display: flex;
+ flex-direction: column;
+ align-items: flex-start;
+ justify-content: space-between;
+ align-self: stretch;
+ flex: 1;
+ position: relative;
+}
+.datavis .datavis-info .primary {
+ padding: var(--spacer-gap-s05, 9px);
+ display: flex;
+ flex-direction: row;
+ gap: var(--spacer-gap-s02, 3px);
+ align-items: flex-start;
+ justify-content: flex-start;
+ align-self: stretch;
+ flex: 1;
+ position: relative;
+}
+.datavis .datavis-info .secondary {
+ padding: var(--spacer-gap-s05, 9px);
+ display: flex;
+ flex-direction: row;
+ gap: var(--spacer-gap-s02, 3px);
+ align-items: flex-end;
+ justify-content: flex-start;
+ align-self: stretch;
+ flex: 1;
+ position: relative;
+}
+.datavis .datavis-info .indicator-live {
+ border-radius: 333333px;
+ border-style: solid;
+ border-color: var(--utility-functional-action, #3a3aff);
+ border-width: 1px;
+ padding: 1.5px;
+ display: flex;
+ flex-direction: row;
+ gap: 10px;
+ align-items: center;
+ justify-content: flex-start;
+ flex-shrink: 0;
+ width: 9px;
+ height: 9px;
+ position: relative;
+}
+.time {
+ display: flex;
+ flex-direction: row;
+ gap: 0px;
+ align-items: center;
+ justify-content: flex-start;
+ flex-shrink: 0;
+ position: relative;
+}
+.time .time-hour {
+ display: flex;
+ flex-direction: column;
+ gap: 0px;
+ align-items: center;
+ justify-content: center;
+ flex-shrink: 0;
+ position: relative;
+}
+
+
+.time .time-meridian {
+ display: flex;
+ flex-direction: row;
+ gap: 10px;
+ align-items: center;
+ justify-content: center;
+ flex-shrink: 0;
+ position: relative;
+}
+.datavis-item-active {
+ display: flex;
+ flex-direction: column;
+ gap: 0px;
+ align-items: flex-start;
+ justify-content: flex-start;
+ flex-shrink: 0;
+ width: 130.5px;
+ height: 130.5px;
+ position: relative;
+ overflow: hidden;
+}
+
+
+.datavis .datavis-indicator.active {
+ background: var(--utility-rank-good01, #acffb0);
+ border-radius: var(--spacer-gap-s05, 9px);
+ align-self: stretch;
+ flex: 1;
+ position: relative;
+ overflow: hidden;
+}
+.datavis .datavis-item-inactive {
+ display: flex;
+ flex-direction: column;
+ gap: 0px;
+ align-items: flex-start;
+ justify-content: flex-start;
+ flex-shrink: 0;
+ width: 130.5px;
+ height: 130.5px;
+ position: relative;
+ overflow: hidden;
+}
+.datavis .datavis-indicator.inactive {
+ background: var(--bg-white-05, #f7f8fd);
+ border-radius: var(--spacer-gap-s05, 9px);
+ align-self: stretch;
+ flex: 1;
+ position: relative;
+ overflow: hidden;
+}
+.business-hours .tools {
+ display: flex;
+ flex-direction: row;
+ align-items: center;
+ justify-content: space-between;
+ align-self: stretch;
+ flex-shrink: 0;
+ position: relative;
+}
+.tools .detail {
+ display: flex;
+ flex-direction: row;
+ gap: 9px;
+ align-items: center;
+ justify-content: flex-start;
+ flex: 1;
+ position: relative;
+}
+.tools .detail .status {
+ display: flex;
+ flex-direction: row;
+ gap: var(--spacer-gap-s00, 0px);
+ align-items: center;
+ justify-content: flex-start;
+ flex-shrink: 0;
+ position: relative;
+}
+
+
+.tools .detail .condition {
+ display: flex;
+ flex-direction: row;
+ gap: 0px;
+ align-items: center;
+ justify-content: flex-start;
+ flex-shrink: 0;
+ position: relative;
+}
+.tools .detail .condition .temp {
+ display: flex;
+ flex-direction: row;
+ gap: 0px;
+ align-items: flex-start;
+ justify-content: flex-start;
+ flex-shrink: 0;
+ position: relative;
+}
+.tools .control {
+ display: flex;
+ flex-direction: row;
+ gap: 15px;
+ align-items: center;
+ justify-content: flex-start;
+ align-self: stretch;
+ flex-shrink: 0;
+ position: relative;
+}
+.tools .control .control-jump {
+ background: var(--bg-white-02, #e1ecf4);
+ border-radius: 15px;
+ padding: 9px 15px 9px 15px;
+ display: flex;
+ flex-direction: row;
+ gap: 0px;
+ align-items: center;
+ justify-content: center;
+ flex-shrink: 0;
+ position: relative;
+}
+.tools .control .navigation {
+ display: flex;
+ flex-direction: row;
+ gap: var(--spacer-gap-s04, 6px);
+ align-items: center;
+ justify-content: flex-start;
+ flex-shrink: 0;
+ position: relative;
+}
+.tools .control .navigation .control-previous {
+ background: var(--bg-white-02, #e1ecf4);
+ border-radius: 30px;
+ padding: var(--spacer-gap-s05, 9px);
+ display: flex;
+ flex-direction: row;
+ gap: 10px;
+ align-items: center;
+ justify-content: flex-start;
+ flex-shrink: 0;
+ position: relative;
+}
+.tools .control .navigation .control-next {
+ background: var(--bg-white-02, #e1ecf4);
+ border-radius: 30px;
+ padding: var(--spacer-gap-s05, 9px);
+ display: flex;
+ flex-direction: row;
+ gap: 10px;
+ align-items: center;
+ justify-content: flex-start;
+ flex-shrink: 0;
+ position: relative;
+}
+
+
+
+
+
+
+

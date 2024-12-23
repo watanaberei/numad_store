@@ -1,0 +1,2925 @@
+CLIENT
+
+
+//////////////////////////////////////////////////////////
+CLIENT START /// CLIENT START /// CLIENT START /// CLIENT STAR
+//////////////////////////////////////////////////////////
+CLIENT START /// CLIENT START /// CLIENT START /// CLIENT STAR
+//////////////////////////////////////////////////////////
+CLIENT START /// CLIENT START /// CLIENT START /// CLIENT STAR
+//////////////////////////////////////////////////////////
+
+
+
+//////////////////////////////////////////////////////////
+index.html start /// index.html start /// index.html start ///
+//////////////////////////////////////////////////////////
+
+//'./src/client/index.html
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Numad Store</title>
+    <!-- Include Mapbox GL CSS -->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.js"></script>
+    <script src="./style/style.js"></script>
+  </head>
+<body>
+
+  <!-- <div  class="grid05 array" id="card-gallery"></div> -->
+
+
+
+  <div id="store" class="main grid05">
+    
+    <div id="section" class="hero col05">.
+      <div class="col05 array content" id="store-hero">
+        <!-- This will be populated by the JS -->
+      </div>
+    </div>
+    
+    <div id="container" class="content col05 ">
+      
+      <div id="container" class=" primary col04 store">
+        <div id="section" class="section col04">
+          <div class=" col04 array content" id="store-overview"></div>
+        </div>
+        <div id="section" class="section col04">
+          <div class=" col04 array content" id="store-experience"></div>
+        </div>
+        <div id="section" class="section col04">
+          <div class=" col04 array content" id="store-service"></div> 
+        </div>
+        <div id="section" class="section col04">
+          <div class="header">Business</div>
+          <div class="grid04-overflow array" id="business-hours"></div>
+          <div class="footer col04"></div>
+          <div class=" col04 array content" id="store-business"></div> 
+        </div>
+        <div id="section" class="section col04">
+          <div class=" col04 array content" id="store-location"></div> 
+        </div>
+        <div id="section" class="section col04">
+          <div class=" col04 array content" id="card-gallery-item"></div> 
+        </div>
+      </div>
+     
+      <div id="details" class="secondary col01 store store-details">
+        
+        sidebar here
+      </div>
+ 
+    </div>
+  </div>
+
+<div id="store" class="section store">
+  <div class="grid05 array" id="business-hours"></div>
+</div>
+
+
+
+  <div id="store" class="section store">
+    <span class="text06">COMPONENTS</span>
+  </div>
+    <!-- storeDetail -->
+  <div id="store" class="section store">
+    <div class="grid05 array" id="store-detail"></div>
+    <!-- galleryComponent -->
+    <div class="grid05 array" id="hero-gallery"></div> 
+    <!-- heroComponent -->
+    <div class="grid05 array" id="store-headline"></div>
+    <!-- title -->
+    <div class="grid05 array" id="section-header"></div>
+    <!-- sectionFooter -->
+    <div class="grid05 array" id="section-footer"></div>
+    <!-- cardSmain storeubStore -->
+    <div class="grid10 array" id="card-substore-item"></div>
+    <!-- cardCategory -->
+    <div class="grid05 array" id="card-category-item"></div>
+    <!-- summaryCard -->
+    <div class="grid05 array" id="card-summary-item"></div>
+    <!-- textComponent -->
+    <div class="grid05 array" id="text-block"></div>
+    <!-- cardAttributesComponent -->
+    <div class="grid05 array" id="card-attributes"></div>
+    <!-- mapRadiusComponent -->
+    <div class="grid05 array" id="map-nearby"></div>
+    <!-- titleComponent -->
+    <div class="grid05 array" id="title-container"></div>
+    <!-- cardGalleryComponent -->
+    <!-- <div class="grid05 array" id="card-gallery-item"></div>  -->
+  </div>
+  <script type="module" src="main.js"></script>
+</body>
+</html>
+
+//////////////////////////////////////////////////////////
+index.html end /// index.html end /// index.html end ///
+//////////////////////////////////////////////////////////
+
+
+
+//////////////////////////////////////////////////////////
+main.js start /// main.js start /// main.js start ///
+//////////////////////////////////////////////////////////
+
+// ./src/client/main.js
+
+import * as components from "./components/components.js";
+import * as data from "../server/data/data.js";
+import { style } from "./style/style.js";
+import { glyph } from "./icon/glyph.js";
+import { initMap } from "./map/map.js";
+import { TextBlock } from "./text/text.js";
+import * as array from "./components/array.js";
+import * as control from "./components/controls.js";
+import './styles/style.js';
+
+console.log("debug log: Initializing application");
+
+// Main data access constants
+const store = data.store?.item?.[0];
+const storeLocation = store?.location?.[0];
+const storeCity = store?.city;
+
+console.log("debug log: store-init01 - Initial store data:", store);
+
+// Extracted data structures
+const storeOverviewData = data.store?.item?.[0]?.overview?.[0];
+const storeServiceData = data.store?.item?.[0]?.service?.[0];
+const storeExperienceData = data.store?.item?.[0]?.experience?.[0];
+const storeHeroData = data.store?.item?.[0]?.hero?.[0];
+const storeLocationData = data.store?.item?.[0]?.location;
+
+console.log("debug log: Extracted data:", {
+  overview: storeOverviewData,
+  service: storeServiceData,
+  experience: storeExperienceData,
+  location: storeLocationData,
+  hero: storeHeroData,
+});
+
+document.addEventListener("DOMContentLoaded", async () => {
+  console.log("debug log: DOM content loaded");
+
+  try {
+    // Initialize the business hours section using initializeTimeline
+    array.create.initializeTimeline("business-hours");
+
+    console.log("debug log: Initializing application data");
+    const { storeData } = await data.initializeData();
+
+    const businessHoursContainer = document.getElementById("business-hours");
+    if (businessHoursContainer && storeData?.hours) {
+      console.log("Rendering business hours with data:", storeData.hours[0]);
+      businessHoursContainer.innerHTML =
+        components.storeBusinessHours.render(storeData);
+      components.storeBusinessHours.afterRender();
+    }
+
+    if (storeData?.hours) {
+      console.log("Rendering business hours with data:", storeData.hours[0]);
+      const businessHoursContainer = document.getElementById("business-hours");
+      if (!businessHoursContainer) {
+        console.error("Element with ID 'business-hours' not found.");
+        return;
+      }
+      businessHoursContainer.innerHTML = components.storeBusinessHours.render(storeData);
+      components.storeBusinessHours.afterRender();
+    }
+
+    // Render other sections
+    const sections = [
+      { id: "store-hero", data: storeHeroData, render: components.storeHero },
+      { id: "store-overview", data: storeOverviewData, render: components.storeOverview },
+      { id: "store-service", data: storeServiceData, render: components.storeService },
+      { id: "store-experience", data: storeExperienceData, render: components.storeExperience },
+      { id: "store-location", data: storeLocationData, render: components.storeLocation },
+    ];
+
+    for (const section of sections) {
+      const container = document.getElementById("business-hours");      
+      if (!container && section.data) {
+        console.error("Element with ID 'business-hours' not found.");
+        try {
+          container.innerHTML = section.render.render(section.data);
+          section.render.afterRender?.();
+        } catch (error) {
+          console.error(`Error rendering ${section.id}:`, error);
+        }
+      }
+    }
+
+    // Initialize remaining components
+    const mapNearby = document.getElementById("map-nearby");
+    if (mapNearby) {
+      mapNearby.innerHTML = components.mapNearby.render(data.mapRadiusData);
+      initMap();
+    }
+
+    console.log("debug log: Application initialization complete");
+  } catch (error) {
+    console.error("Error initializing application:", error);
+  }
+});
+
+//////////////////////////////////////////////////////////
+main.js end /// main.js end /// main.js end /// main.js en
+//////////////////////////////////////////////////////////
+
+
+
+//////////////////////////////////////////////////////////
+CLIENT END /// CLIENT END /// CLIENT END /// CLIENT STAR
+//////////////////////////////////////////////////////////
+CLIENT END /// CLIENT END /// CLIENT END /// CLIENT STAR
+//////////////////////////////////////////////////////////
+CLIENT END /// CLIENT END /// CLIENT END /// CLIENT STAR
+//////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+Style
+src/client/style/…
+
+…/datavisStyle.js
+export const datavisStyle = `
+.datavis.time-item {
+ aspect-ratio: var(--aspect-ratio-1x1);
+}
+.datavis.time-item .datavis-item-details {
+ display: none;
+}
+.datavis.time-item:hover .datavis-item-details {
+ display: flex;
+ flex-direction: column;
+ alignItems: center;
+ justifyContent: center;
+}
+.datavis.time-item .datavis-visual.active {
+ background: var(--utility-rank-good03, #26e615);
+}
+.datavis.time-item .datavis-visual.inactive {
+ background: #EAF2F4;
+}
+.datavis.time-item.current {
+ border: 2px solid var(--utility-rank-good03);
+ order: -1;
+}
+.datavis.time-item .time-item-current {
+ padding: var(--spacer-gap-s05, 9px) 0px var(--spacer-gap-s05, 9px) 0px;
+ display: flex;
+ flex-direction: column;
+ gap: 0px;
+ align-items: flex-start;
+ justify-content: flex-start;
+ width: 126px;
+ height: 165px;
+ position: relative;
+ overflow: hidden;
+}
+.datavis.time-item .datavis {
+ border-radius: var(--spacer-gap-s05, 9px);
+ border-style: solid;
+ border-color: #000000;
+ border-width: 1px;
+ display: flex;
+ flex-direction: row;
+ align-items: flex-end;
+ justify-content: flex-start;
+ align-self: stretch;
+ flex-shrink: 0;
+ height: 130.5px;
+ position: relative;
+ overflow: hidden;
+}
+.datavis.time-item .datavis-visual {
+ display: flex;
+ flex-direction: column;
+ gap: 0px;
+ align-items: center;
+ justify-content: center;
+ flex: 1;
+ height: 134.25px;
+ position: relative;
+ overflow: hidden;
+}
+.datavis.time-item .active {
+ background: var(--utility-rank-good03, #26e615);
+ border-radius: var(--spacer-gap-s05, 9px);
+ align-self: stretch;
+ flex-shrink: 0;
+ height: 134.25px;
+ position: relative;
+ overflow: hidden;
+}
+.datavis.time-item .datavis-item-details {
+ margin: 0 0 0 -3333333px;
+ display: flex;
+ flex-direction: column;
+ gap: 0px;
+ align-items: center;
+ justify-content: center;
+ flex: 1;
+ height: 134.25px;
+ position: relative;
+ overflow: hidden;
+}
+.datavis.time-item .timez {
+ color: var(--ink-black-03, #272727);
+ text-align: left;
+ position: relative;
+}
+.datavis.time-item .time {
+ padding: var(--spacer-gap-s04, 6px) 0px var(--spacer-gap-s04, 6px) 0px;
+ display: flex;
+ flex-direction: row;
+ gap: var(--spacer-gap-s00, 0px);
+ align-items: center;
+ justify-content: flex-start;
+ flex-shrink: 0;
+ position: relative;
+}
+.datavis.time-item .time-hour {
+ flex-shrink: 0;
+ width: 7px;
+ height: 9px;
+ position: static;
+}
+.datavis.time-item .time-meridian {
+ display: flex;
+ flex-direction: row;
+ gap: 10px;
+ align-items: center;
+ justify-content: center;
+ flex-shrink: 0;
+ position: relative;
+}
+.datavis.time-item .time-meridian {
+ background: linear-gradient(to left, #272727, #272727);
+ background-clip: text;
+ -webkit-background-clip: text;
+ -webkit-text-fill-color: transparent;
+ text-align: left;
+ font-family: var(
+   --numad-text02m-font-family,
+   "HelveticaNeue-Bold",
+   sans-serif
+ );
+ font-size: var(--numad-text02m-font-size, 12px);
+ line-height: var(--numad-text02m-line-height, 18px);
+ letter-spacing: var(--numad-text02m-letter-spacing, 0.003em);
+ font-weight: var(--numad-text02m-font-weight, 700);
+ position: relative;
+}
+
+
+ `;
+
+
+
+
+export const timelineStyle = `
+/* Add to styles.css or create a new places.css */
+
+
+.business-hours {
+ background: var(--bg-white-03, #fbfbff);
+ border-radius: var(--spacer-gap-s07, 15px);
+ border-style: solid;
+ border-color: var(--ink-shade-04, #eef1f3);
+ border-width: 1px;
+ padding: var(--spacer-gap-s07, 15px);
+ display: flex;
+ flex-direction: column;
+ gap: var(--spacer-gap-s05, 9px);
+ align-items: flex-start;
+ justify-content: flex-start;
+ position: relative;
+ overflow: hidden;
+}
+
+
+/* Container styles */
+.business-hours .container {
+ display: flex;
+ flex-direction: row;
+ gap: var(--spacer-gap-s02, 3px);
+ align-items: flex-start;
+ justify-content: flex-start;
+ align-self: stretch;
+ flex-shrink: 0;
+ position: relative;
+}
+
+
+/* Datavis styles */
+.business-hours .datavis {
+ display: flex;
+ flex-direction: row;
+ gap: 3px;
+ align-items: center;
+ justify-content: flex-start;
+ flex-shrink: 0;
+ position: absolute;
+ left: 0px;
+ top: 0px;
+}
+
+
+/* All remaining CSS classes from the spec document */
+/* ... Include all CSS classes exactly as provided in the spec ... */
+
+
+/* Add new console logging styles for debugging */
+.debug-log {
+ display: none; /* Hidden by default */
+ color: #666;
+ font-size: 12px;
+ padding: 4px;
+ margin: 2px 0;
+ background: #f5f5f5;
+ border-left: 3px solid #999;
+}
+
+
+/* Add any additional helper classes needed for functionality */
+.scroll-container {
+ overflow-x: auto;
+ scroll-behavior: smooth;
+ -webkit-overflow-scrolling: touch;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.business-hours {
+ background: var(--bg-white-03, #fbfbff);
+ border-radius: var(--spacer-gap-s07, 15px);
+ border-style: solid;
+ border-color: var(--ink-shade-04, #eef1f3);
+ border-width: 1px;
+ padding: var(--spacer-gap-s07, 15px);
+ display: flex;
+ flex-direction: column;
+ gap: var(--spacer-gap-s05, 9px);
+ align-items: flex-start;
+ justify-content: flex-start;
+ position: relative;
+ overflow: hidden;
+}
+.business-hours .container {
+ display: flex;
+ flex-direction: row;
+ gap: var(--spacer-gap-s02, 3px);
+ align-items: flex-start;
+ justify-content: flex-start;
+ align-self: stretch;
+ flex-shrink: 0;
+ position: relative;
+}
+.datavis {
+ display: flex;
+ flex-direction: row;
+ gap: 3px;
+ align-items: center;
+ justify-content: flex-start;
+ flex-shrink: 0;
+ position: absolute;
+ left: 0px;
+ top: 0px;
+}
+.datavis .datavis-item.active.current {
+ display: flex;
+ flex-direction: column;
+ gap: 0px;
+ align-items: flex-start;
+ justify-content: flex-start;
+ flex-shrink: 0;
+ width: 130.5px;
+ height: 130.5px;
+ position: relative;
+ overflow: hidden;
+}
+.datavis .datavis-visual {
+ border-radius: var(--spacer-gap-s05, 9px);
+ display: flex;
+ flex-direction: row;
+ align-items: flex-end;
+ justify-content: flex-start;
+ align-self: stretch;
+ flex: 1;
+ overflow: hidden;
+ }
+.datavis .datavis-container {
+ display: flex;
+ flex-direction: column;
+ gap: 0px;
+ align-items: flex-end;
+ justify-content: flex-start;
+ align-self: stretch;
+ flex: 1;
+ position: relative;
+ overflow: hidden;
+}
+.datavis .datavis-indicator.active.current {
+ background: var(--utility-rank-good03, #26e615);
+ border-radius: var(--spacer-gap-s05, 9px);
+ align-self: stretch;
+ flex: 1;
+ position: relative;
+ overflow: hidden;
+}
+.datavis .datavis-visual .datavis-info {
+ position: absolute;
+ display: flex;
+ flex-direction: column;
+ align-items: flex-start;
+ justify-content: space-between;
+ align-self: stretch;
+ flex: 1;
+ position: relative;
+}
+.datavis .datavis-info .primary {
+ padding: var(--spacer-gap-s05, 9px);
+ display: flex;
+ flex-direction: row;
+ gap: var(--spacer-gap-s02, 3px);
+ align-items: flex-start;
+ justify-content: flex-start;
+ align-self: stretch;
+ flex: 1;
+ position: relative;
+}
+.datavis .datavis-info .secondary {
+ padding: var(--spacer-gap-s05, 9px);
+ display: flex;
+ flex-direction: row;
+ gap: var(--spacer-gap-s02, 3px);
+ align-items: flex-end;
+ justify-content: flex-start;
+ align-self: stretch;
+ flex: 1;
+ position: relative;
+}
+.datavis .datavis-info .indicator-live {
+ border-radius: 333333px;
+ border-style: solid;
+ border-color: var(--utility-functional-action, #3a3aff);
+ border-width: 1px;
+ padding: 1.5px;
+ display: flex;
+ flex-direction: row;
+ gap: 10px;
+ align-items: center;
+ justify-content: flex-start;
+ flex-shrink: 0;
+ width: 9px;
+ height: 9px;
+ position: relative;
+}
+.time {
+ display: flex;
+ flex-direction: row;
+ gap: 0px;
+ align-items: center;
+ justify-content: flex-start;
+ flex-shrink: 0;
+ position: relative;
+}
+.time .time-hour {
+ display: flex;
+ flex-direction: column;
+ gap: 0px;
+ align-items: center;
+ justify-content: center;
+ flex-shrink: 0;
+ position: relative;
+}
+.time .time-meridian {
+ display: flex;
+ flex-direction: row;
+ gap: 10px;
+ align-items: center;
+ justify-content: center;
+ flex-shrink: 0;
+ position: relative;
+}
+.datavis-item-active {
+ display: flex;
+ flex-direction: column;
+ gap: 0px;
+ align-items: flex-start;
+ justify-content: flex-start;
+ flex-shrink: 0;
+ width: 130.5px;
+ height: 130.5px;
+ position: relative;
+ overflow: hidden;
+}
+.datavis .datavis-indicator.active {
+ background: var(--utility-rank-good01, #acffb0);
+ border-radius: var(--spacer-gap-s05, 9px);
+ align-self: stretch;
+ flex: 1;
+ position: relative;
+ overflow: hidden;
+}
+.datavis .datavis-item-inactive {
+ display: flex;
+ flex-direction: column;
+ gap: 0px;
+ align-items: flex-start;
+ justify-content: flex-start;
+ flex-shrink: 0;
+ width: 130.5px;
+ height: 130.5px;
+ position: relative;
+ overflow: hidden;
+}
+.datavis .datavis-indicator.inactive {
+ background: var(--bg-white-05, #f7f8fd);
+ border-radius: var(--spacer-gap-s05, 9px);
+ align-self: stretch;
+ flex: 1;
+ position: relative;
+ overflow: hidden;
+}
+.business-hours .tools {
+ display: flex;
+ flex-direction: row;
+ align-items: center;
+ justify-content: space-between;
+ align-self: stretch;
+ flex-shrink: 0;
+ position: relative;
+}
+.tools .detail {
+ display: flex;
+ flex-direction: row;
+ gap: 9px;
+ align-items: center;
+ justify-content: flex-start;
+ flex: 1;
+ position: relative;
+}
+.tools .detail .status {
+ display: flex;
+ flex-direction: row;
+ gap: var(--spacer-gap-s00, 0px);
+ align-items: center;
+ justify-content: flex-start;
+ flex-shrink: 0;
+ position: relative;
+}
+.tools .detail .condition {
+ display: flex;
+ flex-direction: row;
+ gap: 0px;
+ align-items: center;
+ justify-content: flex-start;
+ flex-shrink: 0;
+ position: relative;
+}
+.tools .detail .condition .temp {
+ display: flex;
+ flex-direction: row;
+ gap: 0px;
+ align-items: flex-start;
+ justify-content: flex-start;
+ flex-shrink: 0;
+ position: relative;
+}
+.tools .control {
+ display: flex;
+ flex-direction: row;
+ gap: 15px;
+ align-items: center;
+ justify-content: flex-start;
+ align-self: stretch;
+ flex-shrink: 0;
+ position: relative;
+}
+.tools .control .control-jump {
+ background: var(--bg-white-02, #e1ecf4);
+ border-radius: 15px;
+ padding: 9px 15px 9px 15px;
+ display: flex;
+ flex-direction: row;
+ gap: 0px;
+ align-items: center;
+ justify-content: center;
+ flex-shrink: 0;
+ position: relative;
+}
+.tools .control .navigation {
+ display: flex;
+ flex-direction: row;
+ gap: var(--spacer-gap-s04, 6px);
+ align-items: center;
+ justify-content: flex-start;
+ flex-shrink: 0;
+ position: relative;
+}
+.tools .control .navigation .control-previous {
+ background: var(--bg-white-02, #e1ecf4);
+ border-radius: 30px;
+ padding: var(--spacer-gap-s05, 9px);
+ display: flex;
+ flex-direction: row;
+ gap: 10px;
+ align-items: center;
+ justify-content: flex-start;
+ flex-shrink: 0;
+ position: relative;
+}
+.tools .control .navigation .control-next {
+ background: var(--bg-white-02, #e1ecf4);
+ border-radius: 30px;
+ padding: var(--spacer-gap-s05, 9px);
+ display: flex;
+ flex-direction: row;
+ gap: 10px;
+ align-items: center;
+ justify-content: flex-start;
+ flex-shrink: 0;
+ position: relative;
+}
+`
+
+
+// Apply global styles to the document
+const datavisElement = document.createElement('style');
+datavisElement.textContent = datavisStyle + timelineStyle;
+document.head.appendChild(datavisElement);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////
+COMPONENTS START /// COMPONENTS START /// COMPONENTS START
+//////////////////////////////////////////////////////////
+COMPONENTS START /// COMPONENTS START /// COMPONENTS START
+//////////////////////////////////////////////////////////
+COMPONENTS START /// COMPONENTS START /// COMPONENTS START
+//////////////////////////////////////////////////////////
+
+
+
+//////////////////////////////////////////////////////////
+components.js start /// components.js start /// components
+//////////////////////////////////////////////////////////
+
+//'./src/client/components/components.js'
+
+import * as glyph from '../icon/glyph.js';
+import * as style from '../style/style.js';
+import * as icon from '../icon/icon.js';
+import * as Pictogram from '../icon/pictogram.js';
+import * as Tag from '../tags/tag.js';
+import * as geotag from  '../tags/geotag.js';
+import * as objtag from '../tags/objtag.js';
+import * as amtag from '../tags/amtag.js';
+import * as attrtag from '../tags/attrtag.js';
+import * as array from './array.js';
+import { getStatsScore } from './functionScore.js';
+import { initMap } from '../map/map.js';
+import * as cards from '../cards/cards.js';
+import * as text from '../text/text.js';
+// Add to your imports at the top of components.js
+import * as places from './place.js';
+
+export const storeBusinessHours = {
+ render: (data) => {
+   console.log('Rendering business hours:', data);
+   return `
+     <div class="business-hours-container col04">
+       <div class="business-hours-title">
+         <h3 class="text03">Business Hours</h3>
+       </div>
+       ${places.businessHours.render(data)}
+       ${places.businessHourDetails.render(data)}
+     </div>
+   `;
+ },
+ afterRender: () => {
+   array.create.initializeTimeline('business-hours');
+ }
+};
+
+export const storeHero = {
+ render: (hero) => {
+   console.log('storeHero rendering with data:', hero);
+  
+   return `
+     <div class="grid05 array" id="store-detail">
+       ${hero ? storeDetail.render(hero) : ''}
+     </div>
+     <div class="col05 body">
+       <div class="col05" id="hero-gallery">
+         ${hero ? heroGallery.render(hero) : ''}
+       </div>
+       ${dividerComponent.render()}
+       <div class="col05" id="hero-headline">
+         ${hero ? storeHeadline.render(hero) : ''}
+       </div>
+     </div>
+   `;
+ },
+ afterRender: () => {
+   console.log('storeHero afterRender called');
+   // Initialize any needed gallery interactions
+   const galleryContainer = document.querySelector('#hero-gallery');
+   if (galleryContainer) {
+     console.log('Found gallery container, initializing interactions');
+     // Add hover listeners to gallery images
+     const images = galleryContainer.querySelectorAll('.gallery-image');
+     images.forEach(image => {
+       image.addEventListener('mouseenter', (e) => {
+         console.log('Image hover:', e.target.style.backgroundImage);
+         e.target.classList.add('hover');
+       });
+       image.addEventListener('mouseleave', (e) => {
+         e.target.classList.remove('hover');
+       });
+     });
+   }
+       // Initialize user action buttons
+       const actionButtons = document.querySelectorAll('.user-action');
+       actionButtons.forEach(button => {
+         button.addEventListener('click', (e) => {
+           console.log('Action button clicked:', e.target.closest('.user-action').querySelector('span').textContent);
+           // Add interaction feedback
+           button.classList.add('active');
+           setTimeout(() => button.classList.remove('active'), 200);
+         });
+       });
+ }
+};
+
+export const storeOverview = {
+ render: (headerData, textData, overviewSummaryData, footerData) => {
+   return `
+       <div class="col04 array" id="header">
+         ${headerData ? sectionHeader.render(headerData) : ''}
+       </div>
+      
+       <div class="col04 container body">
+         ${overviewSummaryData ? storeSummary.render(overviewSummaryData) : ''}
+         ${dividerComponent.render()}
+         <div class="col04 " id="text">
+           ${textData ? textBlock.render(textData) : ''}
+         </div>
+       </div>
+      
+    
+       <div class="col04" id="footer">
+         ${footerData ? sectionFooter.render(footerData) : ''}
+       </div>
+
+
+   `;
+ },
+ afterRender: () => {
+   text.textBlock.afterRender();
+ }
+};
+
+export const storeService = {
+ render: (serviceHeaderData, serviceTextData, serviceCategoryData, serviceFooterData) => {     
+   console.log('storeService render with serviceCategoryData:', serviceCategoryData);
+  
+   return `
+     <div class="col04 array" id="header">
+       ${serviceHeaderData ? sectionHeader.render(serviceHeaderData) : ''}
+     </div>
+   
+     <div class="col04 container body">
+       <div class="col04 array content">
+         ${(() => {
+           console.log('Category data:', serviceCategoryData);
+           return storeCategory.render(serviceCategoryData);
+         })()}
+       </div>
+       ${dividerComponent.render()}
+       <div class="col04" id="text">
+         ${serviceTextData ? textBlock.render(serviceTextData) : ''}
+       </div>
+     </div>
+    
+     <div class="col04" id="footer">
+       ${serviceFooterData ? sectionFooter.render(serviceFooterData) : ''}
+     </div>
+   `;
+ },
+ afterRender: () => {
+   text.textBlock.afterRender();
+   array.create.initializeCarousel('category');
+ }
+};
+
+export const storeLocation = {
+ render: (locationHeaderData, locationAttributeData, locationFooterData) => {
+
+
+    return `
+     <div class="col04 array" id="header">
+       ${locationHeaderData ? sectionHeader.render(locationHeaderData) : ''}
+     </div>
+   
+     <div class="col04 container body">
+       <div class="col04 array content">
+         ${mapNearby.render(locationAttributeData)}
+       </div>
+       ${dividerComponent.render()}
+       <div class="col04 array content">
+         ${locationAttributeData ? locationAttributes.render(locationAttributeData) : ''}
+       </div>
+
+
+     
+     </div>
+    
+     <div class="col04" id="footer">
+       ${locationFooterData ? sectionFooter.render(locationFooterData) : ''}
+     </div>
+   `;
+ }
+};
+
+// Logging helper for debugging data flow
+function logStoreLocationData() {
+ console.log('Store Data:', {
+   location: data.store?.location?.[0],
+   locationAttributes: data.store?.location?.[0]?.attribute,
+   city: data.store?.item?.[0]?.location?.city
+ });
+}
+
+export const storeExperience = {
+ render: (experienceHeaderData,  experienceTextData, experienceFooterData, experienceAreaData, experienceAttributesData) => {     
+   console.log('storeExperience render with experienceAreaData:', experienceAreaData);
+  
+   return `
+     <div class="col04 array" id="header">
+       ${experienceHeaderData ? sectionHeader.render(experienceHeaderData) : ''}
+     </div>
+    
+     <div class="col04 container body">
+       <div class="col04 array content">
+         ${experienceAreaData ? storeArea.render(experienceAreaData) : ''}
+       </div>
+       ${dividerComponent.render()}
+       <div class="col04" id="attributes">
+       ${experienceAttributesData ? storeAttributes.render(experienceAttributesData) : ''}
+       </div>
+       <div class="col04" id="text">
+       <!--$ {experienceAttributesData ? storeAttributes.render(experienceAttributesData) : ''}-->
+         ${experienceTextData ? textBlock.render(experienceTextData) : ''}
+       </div>
+     </div>
+    
+     <div class="col04" id="footer">
+       ${experienceFooterData ? sectionFooter.render(experienceFooterData) : ''}
+     </div>
+   `;
+ },
+ afterRender: () => {
+   text.textBlock.afterRender();
+   array.create.initializeCarousel('area');
+ }
+};
+
+export const storeArea = {
+ render: (data) => {
+   console.log('Rendering store area:', data);
+  
+   // Format areas array from the item array
+   const areas = Array.isArray(data.item) ? data.item.map(area => ({
+     area: area.area,
+     images: area.images,
+     links: area.links || {}
+   })) : [];
+
+
+   console.log('Formatted areas:', areas);
+  
+   return array.create.createCarousel(
+     {
+       render: (areaData) => {
+         console.log('Rendering area item:', areaData);
+         return cards.cardGalleryItem.render(areaData);
+       }
+     },
+     areas,
+     'area',
+     'regular',
+     'area-carousel',
+     6
+   );
+ }
+};
+
+export const storeGallery = {
+ render: (data, type = 'gallery', sort = 'popularity', size = 'regular', limit = 6) => {
+   return array.create.create.createCarousel(
+     cardGalleryItem,
+     data,
+     type,
+     sort,
+     size,
+     limit
+   );
+ }
+};
+
+export const cardGalleryItem = {
+ render: (config) => {
+   return array.create.createCarousel(
+     {
+       render: (item) => `
+         <div class="card-gallery col01">
+           <div class="primary">
+             ${amtag.amtagGroup.render({ category: item.type })}
+             ${item.source?.logo ? `
+               <div class="badge">
+                 <img src="${item.source.logo}" alt="Partner logo" class="partner-logo-thumbnail" width="15" height="15">
+               </div>
+             ` : ''}
+           </div>
+           <div class="content">
+             <img src="${item.thumbnail}" alt="${item.name}" />
+             <div class="item-info">
+               <span class="name text02">${item.name}</span>
+               <span class="type text02">${item.type}</span>
+             </div>
+           </div>
+         </div>
+       `
+     },
+     config.items,
+     config.type || 'gallery',
+     'popularity',
+     config.style || 'regular',
+     config.limit || '1/-1'
+   );
+ }
+};
+
+export const storeAttributes = {
+ render: store => {
+   return `
+     ${store.bestfor ? cards.cardStoreAttributes.render(store.bestfor, "Best For", "BestFor") : ""}
+     ${store.working ? cards.cardStoreAttributes.render(store.working, "Working", "Working") : ""}
+     ${store.environment ? cards.cardStoreAttributes.render(store.environment, "Environment", "Environment") : ""}
+     ${store.facility ? cards.cardStoreAttributes.render(store.facility, "Facility", "Facility") : ""}
+   `;
+ }
+};
+
+export const cardSubStoreItem = {
+ render: (data) => {
+   return cards.cardSubStoreItem.render(data);
+ }
+};
+
+export const cardSummaryItem = {
+ render: (data) => {
+   return cards.cardSummaryItem.render(data);
+ },
+  afterRender: () => {
+   const amtagButtons = document.querySelectorAll('.amtag');
+   amtagButtons.forEach(button => {
+     button.addEventListener('mouseenter', (e) => {
+       button.classList.add('hovered');
+     });
+     button.addEventListener('mouseleave', (e) => {
+       button.classList.remove('hovered');
+     });
+    
+     const scoreIcons = button.querySelectorAll('.score-icon');
+     scoreIcons.forEach(icon => {
+       icon.addEventListener('click', (e) => {
+         e.stopPropagation();
+         const newScore = parseInt(icon.getAttribute('data-score'));
+         button.setAttribute('data-score', newScore);
+         scoreIcons.forEach((si, index) => {
+           si.classList.toggle('active', index <= newScore);
+         });
+         button.classList.add('selected');
+         button.querySelector('.single-icon').innerHTML = icon.innerHTML;
+       });
+     });
+   });
+ }
+};
+
+export const storeSummary = {
+ render: (data) => {
+   const limit = 2; // Maximum number of lines for tags
+   const overviewSummaryData = [
+     {
+       title: 'Experience',
+       score: data.experienceScore,
+       tags: data.experience.sort((a, b) => b.user - a.user)
+     },
+     {
+       title: 'Service',
+       score: data.serviceScore,
+       tags: data.service.sort((a, b) => b.user - a.user)
+     },
+     {
+       title: 'Business',
+       score: data.businessScore,
+       tags: data.business.sort((a, b) => b.user - a.user)
+     },
+     {
+       title: 'Location',
+       score: data.locationScore,
+       tags: data.location.sort((a, b) => b.user - a.user)
+     }
+   ].filter(item => item.tags && item.tags.length > 0);
+
+
+   return `
+
+
+       ${array.create.create(cards.cardSummaryItem, overviewSummaryData.map(item => ({...item, limit})), 'nest', '1/-1')}
+
+
+   `;
+ }
+};
+
+export const summaryComponent = {
+ render: (data) => {
+   const array = array.create;
+   return `
+     <div class="summary-component">
+       ${array.create(cardSummaryItem, [
+         { title: 'Experience', score: data.experienceScore, tags: data.experience },
+         { title: 'Service', score: data.serviceScore, tags: data.service },
+         { title: 'Business', score: data.businessScore, tags: data.business },
+         { title: 'Location', score: data.locationScore, tags: data.location }
+       ], 'nest', '1/-1')}
+     </div>
+   `;
+ }
+};
+
+export const storeCategory = {
+ render: (data) => {
+   console.log('Rendering storeCategory:', data);
+  
+   // Format data for carousel
+   const categories = Object.entries(data).map(([key, value]) => ({
+     category: value.category,
+     items: value.items,
+     url: value.url
+   }));
+
+
+   console.log('Formatted categories:', categories);
+  
+   return array.create.createCarousel(
+     {
+       render: (categoryData) => {
+         console.log('Rendering category:', categoryData);
+         return cardCategoryItem.render(categoryData);
+       }
+     },
+     categories,
+     'category',
+     'regular',
+     'category-carousel',
+     6
+   );
+ }
+};
+
+// Update cardCategoryItem to match cardSummaryItem pattern
+export const cardCategoryItem = {
+ render: (data) => {
+   console.log('cardCategoryItem rendering with data:', data);
+   return cards.cardCategoryItem.render(data);
+ }
+};
+
+export const itemTag = {
+   render: (data) => {
+     const arrow = glyph.glyphActionArrow;
+     return `
+     <div class="item-tag">
+       <div class="label">
+         ${arrow}
+         <span class="text02">${data.label}</span>
+       </div>
+     </div>
+  
+     `;
+ }
+};
+
+export const mapNearby = {
+ render: (data) => {
+   return `
+     <div class="location col04">
+       <div class="map-container col04">
+         <div id="map" class="map col04">
+           <div class="overlay col04">
+             <div class="search col01">
+               <div class="text02">
+                 $ {data.address}
+               </div>
+               ${icon.iconActionCopy}
+             </div>
+           </div>
+         </div>
+       </div>
+       <div class="sidebar  col04">
+         <div id="listings"class="listings grid08-overflow span04 row01"></div>
+       </div>
+       </div>
+   `;
+ },
+ afterRender: () => {
+   initMap();  // Call the map initialization from map.js
+ }
+};
+
+// Render the component on page load
+document.addEventListener('DOMContentLoaded', () => {
+ const mapContainer = document.getElementById('mapRadiusComponent');
+ if (mapContainer) {
+   mapContainer.innerHTML = mapRadiusComponent.render();
+   mapRadiusComponent.afterRender();
+ }
+});
+
+export const dividerComponent = {
+ render: () => {
+   return `
+     <div class="col04 divider-v"></div>
+   `;
+ }
+};
+
+export const titleComponent = {
+ render: (data) => {
+   return `
+     <div class="title stretch span04">
+       <div class="primary left">
+         <button class="category">
+           <span class="span">${data.title}</span>
+           ${glyph.glyphActionArrow}
+         </button>
+       </div>
+       <div class="secondary array right">
+         <div class="pagination">
+           <div class="pagination2">
+             <div class="ellipse"></div>
+             <div class="ellipse inactive"></div>
+             <div class="ellipse inactive"></div>
+           </div>
+         </div>
+         <div class="controls array">
+           <button class="controls-button">${icon.iconActionPrev}</button>
+           <button class="controls-button">${icon.iconActionNext}</button>
+         </div>
+       </div>
+     </div>
+   `;
+ }
+};
+
+export const locationAttributes = {
+ render: (data) => {
+   console.log('debug log: storeLocation09 - Location data received:', data);
+
+
+   if (!data.geotags || !Array.isArray(data.geotags)) {
+     console.warn('No geotags data found');
+     return '';
+   }
+
+
+   const visibleSections = data.geotags.slice(0, 3);
+   const hiddenSectionsCount = Math.max(0, data.geotags.length - 3);
+
+
+   return `
+     <div class="location-attributes-container  col04">
+       <div class="title">
+         <span class="text03">
+           The Area
+         </span>
+       </div>
+       ${visibleSections.map(section => {
+         console.log('debug log: storeLocation10 - Processing section:', section);
+        
+         if (!section.attributes || section.attributes.length === 0) {
+           return '';
+         }
+
+
+         const limit = 2;
+         const tagsPerLine = 3;
+         const visibleTags = section.attributes.slice(0, limit * tagsPerLine);
+         const hiddenTagsCount = section.attributes.length - visibleTags.length;
+         const title = section.title;
+         const count = section.attributes.reduce((total, attr) => total + attr.count, 0);
+         let geotagData = {
+           geotag: title,
+           count: count
+         };
+         console.log('debug log: storeLocation11 - title:', title);
+         return `
+           <div class="tag-line line col04">
+
+
+             ${geotag.geotagCountItem.render(geotagData)}
+
+
+             <div class="tag-line">
+               ${attrtag.attrtagScore.render({
+                 tags: visibleTags.map(attr => ({
+                   label: attr.label,
+                   score: attr.score,
+                   count: attr.count
+                 })),
+                 limit
+               })}
+               ${hiddenTagsCount > 0 ? `
+                 <button class="button-more tag-more">
+                   ${glyph.glyphSymbolPlus}
+                   <span class="text02" id="count">
+                     ${hiddenTagsCount}
+                   </span>
+                   <span class="text02">
+                     more
+                   </span>
+                 </button>
+               ` : ''}
+             </div>
+           </div>
+         `;
+       }).join('')}
+       ${hiddenSectionsCount > 0 ? `
+         <button class="button-more sections-more">
+           ${glyph.glyphSymbolPlus}
+           <span class="text02" id="sections-count">
+             ${hiddenSectionsCount}
+           </span>
+           <span class="text02">
+             more sections
+           </span>
+         </button>
+       ` : ''}
+     </div>
+   `;
+ },
+ afterRender: () => {
+   console.log('debug log: storeLocation11 - Running afterRender');
+  
+   // Existing geotag button handlers
+   const geotagButtons = document.querySelectorAll('.amtag');
+   console.log('debug log: storeLocation12 - Found geotag buttons:', geotagButtons.length);
+  
+   geotagButtons.forEach(button => {
+     button.addEventListener('mouseenter', (e) => {
+       button.classList.add('hovered');
+     });
+     button.addEventListener('mouseleave', (e) => {
+       button.classList.remove('hovered');
+     });
+    
+     const scoreIcons = button.querySelectorAll('.score-icon');
+     console.log('debug log: storeLocation13 - Score icons for button:', scoreIcons.length);
+    
+     scoreIcons.forEach(icon => {
+       icon.addEventListener('click', (e) => {
+         e.stopPropagation();
+         const newScore = parseInt(icon.getAttribute('data-score'));
+         button.setAttribute('data-score', newScore);
+         scoreIcons.forEach((si, index) => {
+           si.classList.toggle('active', index <= newScore);
+         });
+         button.classList.add('selected');
+         button.querySelector('.single-icon').innerHTML = icon.innerHTML;
+       });
+     });
+   });
+
+
+   // New section more button handler
+   const sectionMoreButton = document.querySelector('.sections-more');
+   if (sectionMoreButton) {
+     console.log('debug log: storeLocation14 - Found sections-more button');
+     sectionMoreButton.addEventListener('click', () => {
+       console.log('debug log: storeLocation15 - Show more sections clicked');
+       // Add your show more sections logic here
+     });
+   }
+ }
+};
+
+export const geotagAttributes = {
+ render: (data) => {
+   const geotagAttribute = geotag.geotagScore;
+   const amtagScore = "s";
+   return `
+   <div class="array">
+     ${geotagAttribute}
+     <div class="tag-array">
+       ${data.map(item => geotagAttribute.render(item)).join('')}
+     </div>
+   </div>
+   `;
+ }
+};
+
+export const locationTitle ={
+ render: (data) => {
+   const geotagAttribute = geotag.geotagScore;
+   const area = data.area;
+   const city = data.city;
+   return `
+     <div class="tag-array">
+       <span class="sentence text02">${area}, ${city}</span>
+     </div>
+   `;
+ }
+};
+
+export const storeDetail = {
+ render: (data) => {
+   console.log('storeDetail rendering with data:', data);
+  
+   return `
+     <div class="hero-detail array col04">
+       <div class="hero-primary tag-array">
+         ${geotag.geotagRating.render({ rating: data.rating })}
+         ${geotag.geotagCostEstimate.render({ priceRange: data.costEstimate })}            
+       </div>
+       <div class="hero-secondary tag-array">
+         <span class="objtag info-type text02">${data.storeType}</span>
+         <span class="objtag info-distance text02">${data.distance} away in</span>
+         <span class="objtag info-city text02">${data.city}, ${data.state}</span>
+       </div>
+     </div>
+     <div class="hero-controls array col01">
+       <button class="user-action share">
+         ${glyph.glyphControlShare}
+         <span class="text02">Share</span>
+       </button>
+       <button class="user-action save">
+         ${glyph.glyphControlSave}
+         <span class="text02">Save</span>
+       </button>
+       <button class="user-action checkin">
+         ${glyph.glyphControlCheckin}
+         <span class="text02">Check in</span>
+       </button>
+     </div>
+   `;
+ }
+};
+
+export const heroGallery = {
+ render: (data) => {
+   console.log('heroGallery rendering with data:', data);
+  
+   // Ensure we have gallery images before rendering
+   if (!data.galleryImages || !data.galleryImages.length) {
+     console.warn('No gallery images provided');
+     return '';
+   }
+
+
+   return `
+     <div class="hero-gallery00 grid05-overflow">
+       ${data.galleryImages.slice(0, 4).map((image, index) => `
+         <div
+           class="gallery-image ${index < 2 ? 'col03' : 'col02'}"
+           style="background-image: url(${image});"
+           data-index="${index}"
+         ></div>
+       `).join('')}
+     </div>
+   `;
+ }
+};
+
+export const storeHeadline = {
+ render: (data) => {
+   console.log('storeHeadline rendering with data:', data);
+  
+   return `
+     <span class="hero-title array span04">
+       <span class="store-name text05">${data.storeName}</span>
+       <span class="store-city text05">${data.city}</span>
+     </span>
+     <div class="hero-distance word col01">
+       <span class="glyph05 glyph-location-pin">${glyph.glyphLocationPin}</span>
+       <span class="distance-value text05">${data.distanceMiles}</span>
+       <span class="distance-unit text05">mi</span>
+     </div>
+     ${geotag.geotagStatus.render({ status: data.status })}
+   `;
+ }
+};
+
+export const sectionHeader = {
+ render: (data) => {
+   return text.textHeader.render(data || {});
+ }
+};
+
+export const textBlock = {
+ render: (data) => {
+   return text.textBlock.render(data || {});
+ },
+ afterRender: text.textBlock.afterRender
+};
+
+export const sectionFooter = {
+ render: (data) => {
+   const user = icon.iconUserRating;
+   const comment = icon.iconUserComment;
+   const review = icon.iconUserReview;
+   const like = icon.iconUserImpressionsLike;
+   const dislike = icon.iconUserImpressionsDislike;
+   return `
+     <div class="info sentance alignV-center text02 col02">
+       <span class="impression-item text02 glyph">
+         ${user}
+         <span class="count">
+           ${data?.contributionsCount || 0}
+         </span>
+       </span>
+       <div class="dividerV"></div>
+       <div class="sentance">
+         Modified ${data?.modifiedDate || 'N/A'}, ${data?.modifiedTime || 0} min
+       </div>
+     </div>
+     <div class="controls col02 array  alignH-right">
+       <span class="impression-item text02 glyph">
+         ${comment}
+         Comments
+         <span class="count">
+           ${data?.commentsCount || 0}
+         </span>
+       </span>
+       <span class="impression-item text02 glyph">
+         ${review}
+         Reviews
+         <span class="count">
+           ${data?.reviewsCount || 0}
+         </span>
+       </span>
+       <div class="divider"></div>
+       <div class="impressions pair">
+         <span class="impression-item text02 glyph">
+           ${like}
+           ${data?.likesCount || 0}
+         </span>
+         <span class="impression-item text02 glyph">
+           ${dislike}
+           ${data?.dislikesCount || 0}
+         </span>
+       </div>
+     </div>
+   `;
+ }
+};
+
+//////////////////////////////////////////////////////////
+components.js end /// components.js end /// components end
+//////////////////////////////////////////////////////////
+
+
+
+//////////////////////////////////////////////////////////
+places.js start /// places.js start /// places.js start //
+//////////////////////////////////////////////////////////
+
+//./src/client/components/places.js
+
+import * as style from "../style/style.js";
+import * as icon from "../icon/icon.js";
+import * as array from "./array.js";
+
+export const businessHours = {
+  render: (schedule) => {
+    const now = new Date();
+    const currentHour = now.getHours();
+
+    const hoursData = Array.from({ length: 24 }, (_, i) => {
+      const meridian = i >= 12 ? "PM" : "AM";
+      const status = schedule?.hours?.[0]?.open.some(
+        (slot) =>
+          i >= parseInt(slot.start) / 100 && i <= parseInt(slot.end) / 100
+      )
+        ? "active"
+        : "inactive";
+      console.log("______", i, status, i === currentHour, {
+        time: `${i}:00`,
+        meridian,
+        activity: status === "active" ? "Open" : "Closed"
+      });
+      return {
+        hour: i,
+        status,
+        current: i === currentHour,
+        info: {
+          time: `${i}:00`,
+          meridian,
+          activity: status === "active" ? "Open" : "Closed"
+        }
+      };
+    });
+    console.log(i, status, i === currentHour, {
+      time: `${i}:00`,
+      meridian,
+      activity: status === "active" ? "Open" : "Closed"
+    });
+
+    return array.create.createTimeline(
+      {
+        render: (datavis) => `
+            <div id="time" class="col01 datavis-item time-item ${
+              datavis.current ? "current" : ""
+            }" data-hour="${datavis.hour}">
+                <div class="datavis-visual ${datavis.status}">
+                    <div class="datavis-container ${datavis.status}">
+                        <div class="datavis-indicator "></div>
+                    </div>
+                </div>
+                <div class="datavis-info">
+                    <div class="primary">
+                        ${datavis.info.activity}
+                    </div>
+                    <div class="secondary">
+                        <div class="time">
+                            <span class="text02 word">
+                                <span id="time-hour" class="text02">${
+                                  datavis.hour
+                                }</span>
+                                <span id="time-meridian" class="text02">${
+                                  datavis.info.meridian
+                                }</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+
+              
+              <!--
+              <div class="time">
+                <span class="text02 word">
+                  <span id="time-hour" class="text02">$ {datavis.hour}:00</span>
+                  <span id="time-meridian" class="text02">$ {datavis.info.meridian}</span>
+                </span>
+              </div>
+              -->
+            </div>
+          `
+      },
+      hoursData,
+      "business-hours",
+      "chronological",
+      "timeline",
+      24
+    );
+  }
+};
+
+export const businessHourDetails = {
+  formatTime(militaryTime) {
+    const hour = parseInt(militaryTime.slice(0, 2));
+    const minute = militaryTime.slice(2);
+    const period = hour >= 12 ? "PM" : "AM";
+    const formattedHour = hour % 12 || 12;
+    return `${formattedHour}:${minute} ${period}`;
+  },
+
+  getDayName(dayNum) {
+    return [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
+    ][dayNum];
+  },
+
+  render(data) {
+    console.log("Rendering business hours for:", data?.name);
+
+    if (!data?.hours?.[0]?.open) {
+      console.warn("Missing hours data");
+      return '<div class="business-hours">Hours not available</div>';
+    }
+
+    const hours = data.hours[0].open;
+    const isOpen = data.hours[0].is_open_now;
+
+    // Get current time
+    const now = new Date();
+    const currentDay = now.getDay();
+    const currentHour = now.getHours().toString().padStart(2, "0");
+    const currentMinute = now.getMinutes().toString().padStart(2, "0");
+    const currentTime = `${currentHour}${currentMinute}`;
+
+    console.log("Current day/time:", this.getDayName(currentDay), currentTime);
+
+    const hoursHTML = hours
+      .map((timeSlot) => {
+        const isCurrentDay = timeSlot.day === currentDay;
+        const dayName = this.getDayName(timeSlot.day);
+        const startTime = this.formatTime(timeSlot.start);
+        const endTime = this.formatTime(timeSlot.end);
+        const isWithinHours =
+          isCurrentDay &&
+          currentTime >= timeSlot.start &&
+          currentTime <= timeSlot.end;
+
+        return `
+        <div class="business-hours-row ${isCurrentDay ? "current-day" : ""} ${
+          isWithinHours ? "open" : ""
+        }">
+          <span class="day text02">${dayName}</span>
+          <div class="hours">
+            <span class="time text02">${startTime} - ${endTime}</span>
+            ${
+              isCurrentDay
+                ? `
+              <span class="badge-current text02 ${isOpen ? "open" : "closed"}">
+                ${isOpen ? "Open Now" : "Closed"}
+              </span>
+            `
+                : ""
+            }
+          </div>
+        </div>
+      `;
+      })
+      .join("");
+
+    return `
+      <div class="business-hours">
+        <div class="business-hours-header">
+          <h3 class="text02">Business Hours - ${data.name}</h3>
+          $ {icon.iconTime}
+        </div>
+        <div class="business-hours-content">
+          ${hoursHTML}
+        </div>
+        <div class="current-time text02">
+          Current Time: ${this.formatTime(currentTime)}
+        </div>
+      </div>
+    `;
+  },
+
+  afterRender() {
+    const currentDayElement = document.querySelector(
+      ".business-hours-row.current-day"
+    );
+    if (currentDayElement) {
+      console.log("Scrolling to current day");
+      currentDayElement.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest"
+      });
+    }
+  }
+};
+
+//////////////////////////////////////////////////////////
+places.js end /// places.js end /// places.js end /// plac
+//////////////////////////////////////////////////////////
+
+
+
+//////////////////////////////////////////////////////////
+control.js start /// control.js start /// control.js start
+//////////////////////////////////////////////////////////
+
+//'./src/client/components/control.js'
+
+import * as glyph from "../icon/glyph.js";
+import * as icon from "../icon/icon.js";
+
+export const timelineControl = {
+  render: (data) => {
+    console.log("Rendering timeline controls with:", data);
+
+    return `
+      <div class="timeline-controls-container col04">
+        <div class="timeline-navigation array">
+          <button class="timeline-nav-button control-prev" aria-label="Previous hour">
+            <svg width="6" height="9" viewBox="0 0 6 9" fill="none">
+              <path d="M5 0.5L1 4.5L5 8.5" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+          </button>
+          
+          <div class="timeline-indicator">
+            <div class="current-time-marker"></div>
+            <div class="timeline-slots">
+              ${Array(24)
+                .fill()
+                .map(
+                  (_, i) => `
+                <div class="timeline-slot ${
+                  i === new Date().getHours() ? "current" : ""
+                }" 
+                     data-hour="${i}">
+                  <span class="hour-label">${i}:00</span>
+                </div>
+              `
+                )
+                .join("")}
+            </div>
+          </div>
+
+          <button class="timeline-nav-button control-next" aria-label="Next hour">
+            <svg width="6" height="9" viewBox="0 0 6 9" fill="none">
+              <path d="M1 0.5L5 4.5L1 8.5" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+          </button>
+        </div>
+        
+        <div class="timeline-status">
+          <span class="status-text text02">
+            ${
+              data.isCurrentlyActive ? "Currently Active" : "Currently Inactive"
+            } • 
+            ${data.periodLabel || "Light Rain"}
+          </span>
+        </div>
+      </div>
+    `;
+  },
+
+  initialize: (container, options = {}) => {
+    console.log("Initializing timeline controls:", container);
+
+    const timeline = container.querySelector(".timeline-slots");
+    const slots = container.querySelectorAll(".timeline-slot");
+    const prevButton = container.querySelector(".control-prev");
+    const nextButton = container.querySelector(".control-next");
+    const marker = container.querySelector(".current-time-marker");
+
+    let currentViewStart = 0;
+    const slotsPerView = options.slotsPerView || 8;
+    const totalSlots = slots.length;
+
+    const updateTimelineView = (newStart) => {
+      console.log("Updating timeline view to start at:", newStart);
+
+      currentViewStart = Math.max(
+        0,
+        Math.min(newStart, totalSlots - slotsPerView)
+      );
+
+      timeline.style.transform = `translateX(-${
+        (currentViewStart / totalSlots) * 100
+      }%)`;
+
+      slots.forEach((slot, index) => {
+        const isVisible =
+          index >= currentViewStart && index < currentViewStart + slotsPerView;
+        slot.classList.toggle("visible", isVisible);
+      });
+
+      prevButton.disabled = currentViewStart === 0;
+      nextButton.disabled = currentViewStart >= totalSlots - slotsPerView;
+    };
+
+    const updateCurrentTimeMarker = () => {
+      const now = new Date();
+      const percent =
+        ((now.getHours() * 60 + now.getMinutes()) / (24 * 60)) * 100;
+      marker.style.left = `${percent}%`;
+    };
+
+    updateTimelineView(0);
+    updateCurrentTimeMarker();
+
+    prevButton.addEventListener("click", () => {
+      updateTimelineView(currentViewStart - slotsPerView);
+    });
+
+    nextButton.addEventListener("click", () => {
+      updateTimelineView(currentViewStart + slotsPerView);
+    });
+
+    slots.forEach((slot) => {
+      slot.addEventListener("mouseenter", () => {
+        const hour = slot.dataset.hour;
+        slot.setAttribute("title", `${hour}:00`);
+        slot.classList.add("hover");
+      });
+
+      slot.addEventListener("mouseleave", () => {
+        slot.classList.remove("hover");
+      });
+    });
+
+    setInterval(updateCurrentTimeMarker, 60000);
+
+    return {
+      updateTimelineView,
+      updateCurrentTimeMarker,
+    };
+  },
+};
+
+//////////////////////////////////////////////////////////
+control.js end /// control.js end /// control.js end /// control.js end
+//////////////////////////////////////////////////////////
+
+
+
+//////////////////////////////////////////////////////////
+array.js start /// array.js start /// array.js start /// array.js star
+//////////////////////////////////////////////////////////
+
+//'./src/client/components/array.js'
+
+import { cardCategoryItem } from "../cards/cards.js";
+import { serviceCategoryData } from "../../server/data/data.js"; // Add this import
+import * as control from "./controls.js"; // Keep as-is for scalability
+import * as places from "./place.js"; // Keep as-is for scalability
+
+const timelineControl = control.timelineControl;
+
+function initializeMediaItem(card) {
+  const contents = card.querySelectorAll(".card-content");
+  const dots = card.querySelectorAll(".indicator-dot");
+  let currentIndex = 0;
+
+  // Create click zones for navigation
+  const leftZone = document.createElement("div");
+  leftZone.className = "click-zone left";
+  const rightZone = document.createElement("div");
+  rightZone.className = "click-zone right";
+
+  card.appendChild(leftZone);
+  card.appendChild(rightZone);
+
+  const showItem = (index, isNext = true) => {
+    console.log("Showing media item:", index, isNext);
+    const newIndex = isNext
+      ? (index + contents.length) % contents.length
+      : (index - 1 + contents.length) % contents.length;
+
+    contents.forEach((content, i) => {
+      content.classList.toggle("active", i === newIndex);
+    });
+
+    dots.forEach((dot, i) => {
+      dot.classList.toggle("inactive", i !== newIndex);
+    });
+
+    currentIndex = newIndex;
+  };
+
+  // Navigation zone clicks
+  leftZone.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    showItem(currentIndex, false);
+  });
+
+  rightZone.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    showItem(currentIndex, true);
+  });
+
+  // Initialize interactive elements
+  contents.forEach((content) => {
+    const mediaContainer = content.querySelector(".media-container");
+    if (mediaContainer) {
+      mediaContainer.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const galleryUrl = content.dataset.galleryUrl;
+        if (galleryUrl) {
+          console.log("Opening gallery:", galleryUrl);
+          // Add gallery modal handling here
+        }
+      });
+    }
+
+    // Add impression handlers if needed
+    const impressionCount = content.querySelector(".impression-count");
+    if (impressionCount) {
+      impressionCount.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const data = JSON.parse(content.dataset.impressions || "{}");
+        console.log("Impression data:", data);
+        // Handle impressions display
+      });
+    }
+  });
+}
+
+export const create = {
+  create: (component, dataSource, arrayType, limit) => {
+    let items = [];
+    let limitedData = dataSource;
+
+    if (limit !== "1/-1") {
+      if (typeof limit === "number") {
+        limitedData = dataSource.slice(0, limit);
+      } else if (typeof limit === "string") {
+        const [start, end] = limit.split("/").map(Number);
+        limitedData = dataSource.slice(start - 1, end);
+      }
+    }
+
+    switch (arrayType) {
+      case "nest":
+        items = limitedData.map((item) => places.businessHours.render(item));
+        break;
+      default:
+        items = limitedData.map((item) => component.render(item));
+    }
+
+    return items.join("");
+  },
+
+  createCarousel: (
+    component,
+    dataSource,
+    carouselType,
+    sourceType,
+    style,
+    limit
+  ) => {
+    console.log("Creating carousel with:", { carouselType, sourceType, style });
+
+    let processedData = Object.entries(dataSource)
+      .map(([key, value]) => ({ ...value, key }))
+      .sort((a, b) => a.rank - b.rank)
+      .slice(0, limit);
+
+    console.log("Processed carousel data:", processedData);
+
+    const totalPages = Math.ceil(processedData.length / 4);
+
+    return `
+      <div class="carousel-container col04 ${
+        style || ""
+      }" data-carousel-type="${carouselType}">
+        <div class="carousel-track grid04-overflow">
+          ${processedData
+            .map(
+              (item, index) => `
+            <div class="carousel-item col01 ${
+              index < 4 ? "active" : ""
+            }" data-index="${index}">
+              ${places.businessHours.render(datavis)}
+            </div>
+          `
+            )
+            .join("")}
+        </div>
+        
+        <div class="carousel-controls array">
+          <div class="pagination">
+            <div class="pagination-dot">
+              ${Array.from(
+                { length: totalPages },
+                (_, i) => `
+                <div class="ellipse-indicator ${
+                  i === 0 ? "active" : ""
+                }" data-index="${i}"></div>
+              `
+              ).join("")}
+            </div>
+          </div>
+          <div class="controls array">
+            <button class="control-button prev" aria-label="Previous" disabled>
+              <svg width="6" height="9" viewBox="0 0 6 9" fill="none">
+                <path d="M5 0.5L1 4.5L5 8.5" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+            </button>
+            <button class="control-button next" aria-label="Next" ${
+              processedData.length <= 4 ? "disabled" : ""
+            }>
+              <svg width="6" height="9" viewBox="0 0 6 9" fill="none">
+                <path d="M1 0.5L5 4.5L1 8.5" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+  },
+
+  initializeCarousel: (carouselType) => {
+    console.log("Initializing carousel:", carouselType);
+    const carousel = document.querySelector(
+      `[data-carousel-type="${carouselType}"]`
+    );
+    if (!carousel) return;
+
+    const track = carousel.querySelector(".carousel-track");
+    const items = carousel.querySelectorAll(".carousel-item");
+    const dots = carousel.querySelectorAll(".pagination-dot");
+    const prevBtn = carousel.querySelector(".control-button.prev");
+    const nextBtn = carousel.querySelector(".control-button.next");
+    let currentStart = 0;
+    const itemsPerPage = 4;
+    const totalPages = Math.ceil(items.length / itemsPerPage);
+
+    console.log(`Found ${items.length} total items, ${totalPages} pages`);
+
+    // Initialize items based on type
+    items.forEach((item) => {
+      const cardItem = item.querySelector(".card-item");
+      if (!cardItem) return;
+
+      console.log("Initializing card item type:", carouselType);
+
+      switch (carouselType) {
+        case "area":
+          initializeMediaItem(cardItem);
+          break;
+        case "category":
+          initializeCardItem(cardItem);
+          break;
+        default:
+          console.log("Unknown carousel type:", carouselType);
+      }
+    });
+
+    function initializeCardItem(card) {
+      const contents = card.querySelectorAll(".card-content");
+      const dots = card.querySelectorAll(".ellipse-indicator");
+      let currentIndex = 0;
+
+      // Create click zones for navigation
+      const leftZone = document.createElement("div");
+      leftZone.className = "click-zone left";
+      const rightZone = document.createElement("div");
+      rightZone.className = "click-zone right";
+
+      card.appendChild(leftZone);
+      card.appendChild(rightZone);
+
+      const showItem = (index, isNext = true) => {
+        const newIndex = isNext
+          ? (index + contents.length) % contents.length
+          : (index - 1 + contents.length) % contents.length;
+
+        contents.forEach((content, i) => {
+          content.classList.toggle("active", i === newIndex);
+        });
+
+        // Update dots visually but don't make them interactive
+        dots.forEach((dot, i) => {
+          dot.classList.toggle("inactive", i !== newIndex);
+        });
+
+        currentIndex = newIndex;
+      };
+
+      // Navigation zone clicks
+      leftZone.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        showItem(currentIndex, false); // false for previous
+      });
+
+      rightZone.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        showItem(currentIndex, true); // true for next
+      });
+
+      // Add click handlers for pills and description
+      contents.forEach((content) => {
+        // Area link (top left pill)
+        const areaPill = content.querySelector(".amtag-category");
+        if (areaPill) {
+          areaPill.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const area = card.dataset.area;
+            const areaData = store.experience.area.item.find(
+              (i) => i.area === area
+            );
+            const galleryLink =
+              content.closest(".card-content").dataset.galleryUrl;
+            if (galleryLink) {
+              window.location.href = galleryLink;
+            }
+          });
+        }
+        // const areaPill = content.querySelector('.amtag-category');
+        // if (areaPill) {
+        //   areaPill.addEventListener('click', (e) => {
+        //     e.stopPropagation();
+        //     const area = content.closest('.card-item').dataset.area;
+        //     const areaData = store.experience.area.item.find(i => i.area === area);
+        //     if (areaData?.links?.gallery) {
+        //       window.location.href = areaData.links.gallery;
+        //     }
+        //   });
+        // }
+
+        // Category link (top left pill)
+        const categoryPill = content.querySelector(".amtag-category");
+        if (categoryPill) {
+          categoryPill.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const category = content.closest(".card-item").dataset.category;
+            const categoryData = serviceCategoryData[category.toLowerCase()];
+            if (categoryData?.links?.image) {
+              window.location.href = categoryData.links.image;
+            }
+          });
+        }
+
+        // Source link (top right pill)
+        const sourcePill = content.querySelector(".badge");
+        if (sourcePill) {
+          sourcePill.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const imageIndex = content.dataset.index;
+            const area = content.closest(".card-item").dataset.area;
+            const areaData = store.experience.area.item.find(
+              (i) => i.area === area
+            );
+            const sourceUrl =
+              areaData?.images[imageIndex]?.source?.links?.source;
+            if (sourceUrl) {
+              window.open(sourceUrl, "_blank");
+            }
+          });
+        }
+
+        // Profile link (description)
+        const description = content.querySelector(".value.pill");
+        if (description) {
+          description.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const imageIndex = content.dataset.index;
+            const area = content.closest(".card-item").dataset.area;
+            const areaData = store.experience.area.item.find(
+              (i) => i.area === area
+            );
+            const profileUrl =
+              areaData?.images[imageIndex]?.thumbnail?.post?.poster?.links
+                ?.profile;
+            if (profileUrl) {
+              window.open(profileUrl, "_blank");
+            }
+          });
+        }
+      });
+    }
+
+    // Handle carousel navigation
+    const updateCarousel = (direction) => {
+      const oldStart = currentStart;
+
+      if (direction === "next") {
+        currentStart = Math.min(
+          currentStart + itemsPerPage,
+          items.length - itemsPerPage
+        );
+      } else if (direction === "prev") {
+        currentStart = Math.max(currentStart - itemsPerPage, 0);
+      }
+
+      if (oldStart === currentStart) return;
+
+      // Update carousel position
+      track.style.transform = `translateX(-${
+        currentStart * (100 / itemsPerPage)
+      }%)`;
+
+      // Update items visibility
+      items.forEach((item, i) => {
+        const isVisible = i >= currentStart && i < currentStart + itemsPerPage;
+        item.classList.toggle("active", isVisible);
+      });
+
+      // Update dots
+      const currentPage = Math.floor(currentStart / itemsPerPage);
+      dots.forEach((dot, i) => {
+        dot.classList.toggle("active", i === currentPage);
+      });
+
+      // Update button states
+      prevBtn.disabled = currentStart === 0;
+      nextBtn.disabled = currentStart >= items.length - itemsPerPage;
+    };
+
+    // Event listeners for carousel controls
+    prevBtn?.addEventListener("click", () => updateCarousel("prev"));
+    nextBtn?.addEventListener("click", () => updateCarousel("next"));
+  },
+
+  createTimeline: (
+    component,
+    dataSource,
+    type,
+    sortBy = "chronological",
+    style,
+    limit
+  ) => {
+    console.log("Creating timeline:", { type, sortBy, style, dataSource });
+
+    const processedData = dataSource.slice(0, limit).map((item, index) => ({
+      ...item,
+      index
+    }));
+
+    // Get current hour for initial state
+    const currentHour = new Date().getHours();
+
+    return `
+    <div class="business-hours col04">
+      <div class="container col04 ${style}" data-timeline-type="${type}">
+      
+        ${control.timelineControl.render({
+          isCurrentlyActive: processedData.some(
+            (item) => item.hour === currentHour && item.status === "active"
+          ),
+          periodLabel: processedData[currentHour]?.info?.activity || "Unknown"
+        })}
+
+        
+        <div class="datavis timeline-track grid08-overflow">
+          ${processedData
+            .map(
+              (item) => `
+            ${component.render(item)}
+            <!--
+            <div class="datavis-item col01 $ {item.hour === currentHour ? 'current' : ''}" 
+            data-hour="$ {item.hour}"
+            data-status="$ {item.status}">
+            </div>
+            -->
+          `
+            )
+            .join("")}
+        </div>
+      </div>
+    </div>
+  `;
+  },
+
+  // export const initializeNewFeature = (containerId) => {
+  //     console.log('Initializing new feature:', containerId);
+  //     newControl.init(containerId);
+  // };
+  initializeTimeline: (timelineType) => {
+    console.log(`Initializing timeline for type: ${timelineType}`);
+
+    // Find the container for the timeline
+    const container = document.getElementById(timelineType);
+    if (!container) {
+      console.error(`Timeline container not found for type: ${timelineType}`);
+      return;
+    }
+
+    // New addition: Initialize control for navigation
+    control.timelineControl.initialize(timelineType);
+
+    // Set up event listeners for interaction
+    const timelineItems = container.querySelectorAll(".timeline-item");
+    let currentIndex = 0;
+
+    const showTimelineItem = (index) => {
+      console.log(`Showing timeline item at index: ${index}`);
+      timelineItems.forEach((item, idx) => {
+        item.classList.toggle("active", idx === index);
+        item.classList.toggle("inactive", idx !== index);
+      });
+      currentIndex = index;
+    };
+
+    const navigateTimeline = (direction) => {
+      const newIndex =
+        (currentIndex + direction + timelineItems.length) %
+        timelineItems.length;
+      console.log(`Navigating timeline to index: ${newIndex}`);
+      showTimelineItem(newIndex);
+    };
+
+    container.addEventListener("click", (event) => {
+      if (event.target.classList.contains("control-prev")) {
+        navigateTimeline(-1); // Go to previous item
+      } else if (event.target.classList.contains("control-next")) {
+        navigateTimeline(1); // Go to next item
+      }
+    });
+
+    // Initialize the first timeline item
+    if (timelineItems.length > 0) {
+      showTimelineItem(0);
+    }
+
+    console.log(
+      `Timeline for ${timelineType} initialized with ${timelineItems.length} items.`
+    );
+  }
+};
+
+//////////////////////////////////////////////////////////
+array.js end /// array.js end /// array.js end /// array.js
+//////////////////////////////////////////////////////////
+
+
+
+//////////////////////////////////////////////////////////
+scoreFunction.js start /// scoreFunction.js start /// scor
+//////////////////////////////////////////////////////////
+
+//'./src/client/components/scoreFunction.js'
+
+import * as icon from '../icon/icon.js';
+
+export function getStatsScore(score) {
+  console.log('getStatsScore called with:', score);
+  
+  const scoreResult = {
+    icons: [
+      { icon: icon.iconScoreNone, tooltip: "Not rated", score: 0 },
+      { icon: icon.iconScoreHalf, tooltip: "Average", score: 1 },
+      { icon: icon.iconScoreFull, tooltip: "Excellent", score: 2 }
+    ],
+    currentScore: Math.min(Math.max(0, score || 0), 2)
+  };
+
+  console.log('Score result:', scoreResult);
+  return scoreResult;
+}
+
+//////////////////////////////////////////////////////////
+scoreFunction.js end /// scoreFunction.js end /// scoreFun
+//////////////////////////////////////////////////////////
+
+
+
+//////////////////////////////////////////////////////////
+// COMPONENTS END /// COMPONENTS END /// COMPONENTS END //
+//////////////////////////////////////////////////////////
+// COMPONENTS END /// COMPONENTS END /// COMPONENTS END //
+//////////////////////////////////////////////////////////
+// COMPONENTS END /// COMPONENTS END /// COMPONENTS END //
+//////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////
+ICONS START /// ICONS START /// ICONS START /// ICONS STAR
+//////////////////////////////////////////////////////////
+ICONS START /// ICONS START /// ICONS START /// ICONS STAR
+//////////////////////////////////////////////////////////
+ICONS START /// ICONS START /// ICONS START /// ICONS STAR
+//////////////////////////////////////////////////////////
+
+
+
+//////////////////////////////////////////////////////////
+icon.js start /// components.js start /// components
+//////////////////////////////////////////////////////////
+
+//'./src/client/icon/icons.js'
+
+export const iconActionPopup = `
+<svg
+  class="icon-action-popup"
+  width="12"
+  height="11"
+  viewBox="0 0 12 11"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    fill-rule="evenodd"
+    clip-rule="evenodd"
+    d="M11.6019 0.289062H11.1019H5.22605V1.28906H9.89491L4.89702 6.28733L5.60413 6.99444L10.6019 1.99624V6.66496H11.6019V0.789062V0.289062ZM9.59844 6.63969H8.59844V9.49203C8.59844 9.76817 8.37458 9.99203 8.09844 9.99203H2.39844C2.12229 9.99203 1.89844 9.76817 1.89844 9.49203V3.79203C1.89844 3.51589 2.12229 3.29203 2.39844 3.29203H5.25098V2.29203H2.39844C1.57001 2.29203 0.898438 2.9636 0.898438 3.79203V9.49203C0.898438 10.3205 1.57001 10.992 2.39844 10.992H8.09844C8.92686 10.992 9.59844 10.3205 9.59844 9.49203V6.63969Z"
+    fill="#373A42"
+  />
+</svg>
+`;
+
+export const iconActionCopy = `
+  <svg
+    class="icon-action-copy"
+    width="12"
+    height="12"
+    viewBox="0 0 12 12"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M2.74414 0.636719C1.5015 0.636719 0.494141 1.64408 0.494141 2.88672V7.95672H1.99414V2.88672C1.99414 2.4725 2.32993 2.13672 2.74414 2.13672H7.81414V0.636719H2.74414ZM4.48164 3.58203C3.90174 3.58203 3.43164 4.05213 3.43164 4.63203V10.602C3.43164 11.1819 3.90174 11.652 4.48164 11.652H10.4516C11.0315 11.652 11.5016 11.1819 11.5016 10.602V4.63203C11.5016 4.05213 11.0315 3.58203 10.4516 3.58203H4.48164ZM4.93164 10.152V5.08203H10.0016V10.152H4.93164Z"
+      fill="#272727"
+    />
+  </svg>
+`;
+
+// Apply hero styles to the document
+const IconAction = document.createElement("i");
+IconAction.textContent = iconActionPopup + iconActionCopy;
+document.head.appendChild(IconAction);
+
+export const iconUser = `
+<i class="icon icon03 icon-user-rating-people">
+<svg
+  class="icon icon03-user-rating-people"
+  width="21"
+  height="22"
+  viewBox="0 0 21 22"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    fill-rule="evenodd"
+    clip-rule="evenodd"
+    d="M9.625 8.91992C9.90114 8.91992 10.125 8.69606 10.125 8.41992C10.125 8.14378 9.90114 7.91992 9.625 7.91992C9.34886 7.91992 9.125 8.14378 9.125 8.41992C9.125 8.69606 9.34886 8.91992 9.625 8.91992ZM9.625 10.4199C10.7296 10.4199 11.625 9.52449 11.625 8.41992C11.625 7.31535 10.7296 6.41992 9.625 6.41992C8.52043 6.41992 7.625 7.31535 7.625 8.41992C7.625 9.52449 8.52043 10.4199 9.625 10.4199ZM7.625 12.6357C7.34886 12.6357 7.125 12.8596 7.125 13.1357C7.125 13.4119 7.34886 13.6357 7.625 13.6357H11.625C11.9011 13.6357 12.125 13.4119 12.125 13.1357C12.125 12.8596 11.9011 12.6357 11.625 12.6357H7.625ZM11.625 11.1357H7.625C6.52043 11.1357 5.625 12.0312 5.625 13.1357C5.625 14.2403 6.52043 15.1357 7.625 15.1357H11.625C12.7296 15.1357 13.625 14.2403 13.625 13.1357C13.625 12.0312 12.7296 11.1357 11.625 11.1357ZM12.375 8.91992C12.6511 8.91992 12.875 8.69606 12.875 8.41992C12.875 8.14378 12.6511 7.91992 12.375 7.91992V6.41992C13.4796 6.41992 14.375 7.31535 14.375 8.41992C14.375 9.52449 13.4796 10.4199 12.375 10.4199V8.91992ZM14.375 15.1357V13.6357C14.6511 13.6357 14.875 13.4119 14.875 13.1357C14.875 12.8596 14.6511 12.6357 14.375 12.6357V11.1357C15.4796 11.1357 16.375 12.0312 16.375 13.1357C16.375 14.2403 15.4796 15.1357 14.375 15.1357Z"
+    fill="#212322"
+  />
+</svg>
+</i>
+`;
+
+export const iconUserRating = `
+<i class="icon icon03 icon-user-rating-people">
+<svg
+  class="icon icon03-user-rating-people"
+  width="21"
+  height="22"
+  viewBox="0 0 21 22"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    fill-rule="evenodd"
+    clip-rule="evenodd"
+    d="M9.625 8.91992C9.90114 8.91992 10.125 8.69606 10.125 8.41992C10.125 8.14378 9.90114 7.91992 9.625 7.91992C9.34886 7.91992 9.125 8.14378 9.125 8.41992C9.125 8.69606 9.34886 8.91992 9.625 8.91992ZM9.625 10.4199C10.7296 10.4199 11.625 9.52449 11.625 8.41992C11.625 7.31535 10.7296 6.41992 9.625 6.41992C8.52043 6.41992 7.625 7.31535 7.625 8.41992C7.625 9.52449 8.52043 10.4199 9.625 10.4199ZM7.625 12.6357C7.34886 12.6357 7.125 12.8596 7.125 13.1357C7.125 13.4119 7.34886 13.6357 7.625 13.6357H11.625C11.9011 13.6357 12.125 13.4119 12.125 13.1357C12.125 12.8596 11.9011 12.6357 11.625 12.6357H7.625ZM11.625 11.1357H7.625C6.52043 11.1357 5.625 12.0312 5.625 13.1357C5.625 14.2403 6.52043 15.1357 7.625 15.1357H11.625C12.7296 15.1357 13.625 14.2403 13.625 13.1357C13.625 12.0312 12.7296 11.1357 11.625 11.1357ZM12.375 8.91992C12.6511 8.91992 12.875 8.69606 12.875 8.41992C12.875 8.14378 12.6511 7.91992 12.375 7.91992V6.41992C13.4796 6.41992 14.375 7.31535 14.375 8.41992C14.375 9.52449 13.4796 10.4199 12.375 10.4199V8.91992ZM14.375 15.1357V13.6357C14.6511 13.6357 14.875 13.4119 14.875 13.1357C14.875 12.8596 14.6511 12.6357 14.375 12.6357V11.1357C15.4796 11.1357 16.375 12.0312 16.375 13.1357C16.375 14.2403 15.4796 15.1357 14.375 15.1357Z"
+    fill="#212322"
+  />
+</svg>
+</i>
+`;
+
+export const iconUserComment = `
+<i class="icon icon03 icon-user-rating-comment">
+<svg
+  class="icon icon03-user-rating-comment"
+  width="22"
+  height="22"
+  viewBox="0 0 22 22"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <mask id="path-1-inside-1_3421_143918" fill="white">
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M8.20508 6.54492C7.37665 6.54492 6.70508 7.21649 6.70508 8.04492V13.6348C6.70508 14.4632 7.37665 15.1348 8.20508 15.1348H10.8166V17.2977H12.2488L15.2865 14.26L15.2949 14.2566V8.04492C15.2949 7.21649 14.6233 6.54492 13.7949 6.54492H8.20508Z"
+    />
+  </mask>
+  <path
+    d="M10.8166 15.1348H12.3166V13.6348H10.8166V15.1348ZM10.8166 17.2977H9.31663V18.7977H10.8166V17.2977ZM12.2488 17.2977V18.7977H12.8701L13.3095 18.3584L12.2488 17.2977ZM15.2865 14.26L14.7188 12.8716L14.4393 12.9859L14.2259 13.1993L15.2865 14.26ZM15.2949 14.2566L15.8627 15.6449L16.7949 15.2637V14.2566H15.2949ZM8.20508 8.04492V8.04492V5.04492C6.54822 5.04492 5.20508 6.38807 5.20508 8.04492H8.20508ZM8.20508 13.6348V8.04492H5.20508V13.6348H8.20508ZM8.20508 13.6348H5.20508C5.20508 15.2916 6.54822 16.6348 8.20508 16.6348V13.6348ZM10.8166 13.6348H8.20508V16.6348H10.8166V13.6348ZM9.31663 15.1348V17.2977H12.3166V15.1348H9.31663ZM10.8166 18.7977H12.2488V15.7977H10.8166V18.7977ZM13.3095 18.3584L16.3472 15.3206L14.2259 13.1993L11.1881 16.237L13.3095 18.3584ZM14.7272 12.8682L14.7188 12.8716L15.8543 15.6484L15.8627 15.6449L14.7272 12.8682ZM13.7949 8.04492V14.2566H16.7949V8.04492H13.7949ZM13.7949 8.04492H13.7949H16.7949C16.7949 6.38807 15.4518 5.04492 13.7949 5.04492V8.04492ZM8.20508 8.04492H13.7949V5.04492H8.20508V8.04492Z"
+    fill="#27272A"
+    mask="url(#path-1-inside-1_3421_143918)"
+  />
+</svg>
+</i>
+`;
+
+export const iconUserReview = `
+<i class="icon icon03 icon-user-rating-review">
+
+<svg
+  class="icon icon03-user-rating-review"
+  width="22"
+  height="22"
+  viewBox="0 0 22 22"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    fill-rule="evenodd"
+    clip-rule="evenodd"
+    d="M10.4737 14.8469L8.9819 15.6343C8.15633 16.07 7.18988 15.3686 7.34808 14.4487L7.63388 12.7867C7.65011 12.6923 7.65406 12.5975 7.64642 12.5042L7.67256 12.3521L7.60728 12.2884C7.55436 12.1022 7.45354 11.9301 7.31096 11.7909L6.1002 10.6091C5.53515 10.0576 5.71339 9.16038 6.34129 8.81723L7.35764 8.67145L8.94299 8.44405L9.22597 7.8696C9.23211 7.85816 9.23806 7.84659 9.24382 7.8349L9.98874 6.32308C10.3915 5.50564 11.5395 5.48633 11.9771 6.26624L12.3417 7.00364L13.054 8.44405L14.637 8.6715L15.6615 8.81871C16.2896 9.16292 16.4665 10.0619 15.899 10.6124L14.6889 11.7863C14.5476 11.9233 14.447 12.0927 14.393 12.2761L14.321 12.3459L14.35 12.5146C14.3437 12.6037 14.348 12.6942 14.3634 12.7842L14.6493 14.4488C14.8073 15.3687 13.8409 16.0698 13.0155 15.6341L11.5239 14.8469C11.1953 14.6735 10.8023 14.6735 10.4737 14.8469ZM7.57062 10.1563L8.92392 11.4775L9.28442 11.8295L9.20071 12.3164L8.88 14.1819L10.5539 13.2982L10.9971 13.0643L11.4406 13.2984L13.1143 14.1819L12.794 12.3166L12.7088 11.8202L13.0633 11.4762L14.4237 10.1563L12.5475 9.88668L12.0593 9.81654L11.8348 9.36252L10.9971 7.66851L10.162 9.36377L9.93901 9.81654L9.44278 9.88772L7.57062 10.1563Z"
+    fill="#27272A"
+  />
+</svg>
+</i>
+`;
+
+export const iconUserImpressionsLike = `
+<i class="impressions icon icon-user-impressions-like">
+
+  <svg
+    class="icon icon03-user-rating-like"
+    width="22"
+    height="22"
+    viewBox="0 0 22 22"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M9.38018 9.61041H10.0936L10.5438 9.05703L12.7702 6.32031H12.935V6.63039V8.13039H14.435H15.715V11.6101C15.715 12.0898 15.4856 12.5405 15.0978 12.8228L14.3415 13.3734C14.085 13.5601 13.7759 13.6607 13.4587 13.6607H9.52181H9.03516L9.03516 9.61041L9.38018 9.61041ZM9.38018 8.11041L12.0568 4.82031H12.935H14.435V5.13039V6.32031V6.63039H15.715C16.5434 6.63039 17.215 7.30196 17.215 8.13039V11.6101C17.215 12.5694 16.7562 13.4709 15.9806 14.0355L15.2243 14.5861C14.7113 14.9595 14.0932 15.1607 13.4587 15.1607H9.52181H9.03516C8.51333 15.1607 8.05375 14.8942 7.78504 14.4899L7.76967 14.4663C7.62119 14.2336 7.53516 13.9572 7.53516 13.6607V9.61041C7.53516 9.34837 7.60235 9.10202 7.72045 8.88766C7.73989 8.85237 7.76071 8.81795 7.78283 8.78447C8.05123 8.37833 8.51191 8.11041 9.03516 8.11041H9.38018ZM6.28516 14.4663C6.28516 14.5622 6.26718 14.6538 6.23442 14.738C6.12559 15.0179 5.85354 15.2163 5.53516 15.2163C5.12094 15.2163 4.78516 14.8805 4.78516 14.4663V8.88766C4.78516 8.47344 5.12094 8.13766 5.53516 8.13766C5.83852 8.13766 6.09981 8.31776 6.21794 8.57688C6.26111 8.67157 6.28516 8.7768 6.28516 8.88766V8.88826L6.28516 9.61041V13.6607V14.4663Z"
+      fill="#27272A"
+    />
+  </svg>
+</i>
+`;
+
+export const iconUserImpressionsDislike = `
+<i class="impressions icon icon-user-impressions-dislike">
+  <svg
+    class="icon icon03-user-rating-dislike"
+    width="21"
+    height="22"
+    viewBox="0 0 21 22"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M8.88018 12.1611H9.59357L10.0438 12.7145L12.2702 15.4512H12.435V15.1411V13.6411H13.935H15.215V10.1614C15.215 9.68173 14.9856 9.231 14.5978 8.94869L13.8415 8.39812C13.585 8.21141 13.2759 8.11083 12.9587 8.11083H9.02181H8.53516L8.53516 12.1611L8.88018 12.1611ZM8.88018 13.6611L11.5568 16.9512H12.435H13.935V16.6411V15.4512V15.1411H15.215C16.0434 15.1411 16.715 14.4695 16.715 13.6411V10.1614C16.715 9.20207 16.2562 8.3006 15.4806 7.73599L14.7243 7.18542C14.2113 6.812 13.5932 6.61083 12.9587 6.61083H9.02181H8.53516C8.01333 6.61083 7.55375 6.87729 7.28504 7.28157L7.26967 7.30516C7.12119 7.53788 7.03516 7.81431 7.03516 8.11083V12.1611C7.03516 12.4231 7.10235 12.6695 7.22045 12.8838C7.23989 12.9191 7.26071 12.9535 7.28283 12.987C7.55123 13.3932 8.01191 13.6611 8.53516 13.6611H8.88018ZM5.78516 7.30516C5.78516 7.20933 5.76718 7.1177 5.73442 7.03345C5.62559 6.75355 5.35354 6.55516 5.03516 6.55516C4.62094 6.55516 4.28516 6.89094 4.28516 7.30516V12.8838C4.28516 13.298 4.62094 13.6338 5.03516 13.6338C5.33852 13.6338 5.59981 13.4537 5.71794 13.1946C5.76111 13.0999 5.78516 12.9947 5.78516 12.8838V12.8832L5.78516 12.1611V8.11083V7.30516Z"
+      fill="#27272A"
+    />
+  </svg>
+</i>
+`;
+
+// Apply hero styles to the document
+const IconUserElement = document.createElement("i");
+IconUserElement.textContent =
+  iconUser +
+  iconUserComment +
+  iconUserRating +
+  iconUserReview +
+  iconUserImpressionsLike +
+  iconUserImpressionsDislike;
+document.head.appendChild(IconUserElement);
+
+export const IconRating = `
+  <i class="icon icon03 icon-rating">
+  <svg
+    class="rating"
+    width="9"
+    height="10"
+    viewBox="0 0 9 10"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <circle cx="4.49" cy="4.99586" r="3.99" stroke="#27272A" />
+    <path
+      d="M3.99 4.99586V5.01038V5.0249V5.0394V5.05389V5.06837V5.08284V5.0973V5.11175V5.12618V5.14061V5.15502V5.16942V5.18381V5.19819V5.21256V5.22691V5.24126V5.25559V5.26991V5.28421V5.29851V5.31279V5.32706V5.34132V5.35557V5.3698V5.38402V5.39823V5.41243V5.42661V5.44078V5.45494V5.46908V5.48321V5.49733V5.51143V5.52553V5.5396V5.55367V5.56772V5.58176V5.59578V5.60979V5.62379V5.63777V5.65174V5.6657V5.67964V5.69357V5.70748V5.72138V5.73527V5.74914V5.76299V5.77684V5.79066V5.80448V5.81827V5.83206V5.84583V5.85958V5.87332V5.88704V5.90075V5.91444V5.92812V5.94179V5.95543V5.96906V5.98268V5.99628V6.00987V6.02344V6.03699V6.05053V6.06405V6.07756V6.09105V6.10452V6.11798V6.13142V6.14485V6.15826V6.17165V6.18502V6.19838V6.21173V6.22505V6.23836V6.25165V6.26493V6.27819V6.29143V6.30465V6.31786V6.33105V6.34422V6.35737V6.37051V6.38363V6.39673V6.40982V6.42288V6.43593V6.44896V6.46198V6.47497V6.48795V6.50091V6.51385V6.52677V6.53967V6.55256V6.56542V6.57827V6.5911V6.60391V6.6167V6.62948V6.64223V6.65496V6.66768V6.68038V6.69305V6.70571V6.71835V6.73097V6.74357V6.75615V6.76871V6.78125V6.79377V6.80627V6.81876V6.83122V6.84366V6.85608V6.86848V6.88086V6.89322V6.90556V6.91788V6.93018V6.94246V6.95472V6.96695V6.97917V6.99137V7.00354V7.01569V7.02783V7.03994V7.05203V7.0641V7.07615V7.08817V7.10018V7.11216V7.12412V7.13606V7.14798V7.15987V7.17175V7.1836V7.19543V7.20724V7.21902V7.23079V7.24253V7.25425V7.26594V7.27762V7.28927V7.3009V7.3125V7.32409V7.33565V7.34719V7.3587V7.37019V7.38166V7.3931V7.40453V7.41592V7.4273V7.43865V7.44998V7.46128V7.47256V7.48382V7.49505V7.50626V7.51745V7.52861V7.53974V7.55086V7.56194V7.57301V7.58405V7.59506V7.60605V7.61702V7.62796V7.63888V7.64977V7.66064V7.67148V7.6823V7.69309V7.70386V7.7146V7.72532V7.73601V7.74667V7.75731V7.76793V7.77852V7.78908V7.79962V7.81013V7.82061V7.83107V7.84151V7.85192V7.8623V7.87265V7.88298V7.89328V7.90356V7.91381V7.92403V7.93423V7.9444V7.95454V7.96466V7.97475V7.98481V7.99484V8.00485V8.01483V8.02479V8.03471V8.04461V8.05448V8.06433V8.07414V8.08393V8.09369V8.10342V8.11313V8.12281V8.13245V8.14208V8.15167V8.16123V8.17077V8.18028V8.18976V8.19921V8.20863V8.21802V8.22739V8.23672V8.24603V8.25531V8.26456V8.27378V8.28297V8.29213V8.30126V8.31036V8.31944V8.32848V8.3375V8.34648V8.35544V8.36436V8.37326V8.38212V8.39096V8.39977V8.40854V8.41729V8.426V8.43469V8.44334V8.45197V8.46056V8.46912V8.47766V8.48616V8.49463V8.50307V8.51148V8.51986V8.5282V8.53652V8.54481V8.55306V8.56128V8.56947V8.57763V8.58576V8.59385V8.60192V8.60995V8.61795V8.62592V8.63386V8.64176V8.64964V8.65748V8.66529V8.67306V8.68081V8.68852V8.6962V8.70384V8.71146V8.71904V8.72659V8.7341V8.74158V8.74903V8.75645V8.76383V8.77118V8.7785V8.78578V8.79303V8.80025V8.80743V8.81458V8.8217V8.82878V8.83583V8.84284V8.84982V8.85677V8.86368V8.87056V8.8774V8.88421V8.89099V8.89773V8.90443V8.9111V8.91774V8.92434V8.93091V8.93744V8.94394V8.9504V8.95483C2.02238 8.70884 0.5 7.03014 0.5 4.99586C0.5 2.96158 2.02238 1.28287 3.99 1.03688V1.04132V1.04778V1.05428V1.06081V1.06738V1.07398V1.08061V1.08729V1.09399V1.10073V1.10751V1.11432V1.12116V1.12804V1.13495V1.1419V1.14888V1.15589V1.16294V1.17002V1.17714V1.18429V1.19147V1.19869V1.20594V1.21322V1.22054V1.22789V1.23527V1.24269V1.25014V1.25762V1.26513V1.27268V1.28026V1.28788V1.29552V1.3032V1.31091V1.31866V1.32643V1.33424V1.34208V1.34995V1.35786V1.3658V1.37377V1.38177V1.3898V1.39786V1.40596V1.41409V1.42225V1.43044V1.43866V1.44691V1.4552V1.46351V1.47186V1.48024V1.48865V1.49709V1.50556V1.51406V1.52259V1.53116V1.53975V1.54838V1.55703V1.56571V1.57443V1.58318V1.59195V1.60076V1.60959V1.61846V1.62736V1.63628V1.64524V1.65422V1.66324V1.67228V1.68135V1.69046V1.69959V1.70875V1.71794V1.72716V1.73641V1.74569V1.755V1.76433V1.7737V1.78309V1.79251V1.80196V1.81144V1.82095V1.83049V1.84005V1.84964V1.85926V1.86891V1.87859V1.88829V1.89803V1.90779V1.91758V1.92739V1.93724V1.94711V1.95701V1.96693V1.97688V1.98687V1.99687V2.00691V2.01697V2.02706V2.03718V2.04732V2.05749V2.06768V2.07791V2.08816V2.09843V2.10874V2.11907V2.12942V2.1398V2.15021V2.16064V2.1711V2.18159V2.1921V2.20264V2.2132V2.22379V2.23441V2.24505V2.25571V2.2664V2.27712V2.28786V2.29863V2.30942V2.32024V2.33108V2.34195V2.35284V2.36376V2.3747V2.38566V2.39665V2.40767V2.41871V2.42977V2.44086V2.45197V2.46311V2.47427V2.48546V2.49667V2.5079V2.51916V2.53044V2.54174V2.55307V2.56442V2.57579V2.58719V2.59861V2.61006V2.62153V2.63302V2.64453V2.65607V2.66763V2.67921V2.69082V2.70245V2.7141V2.72577V2.73747V2.74919V2.76093V2.77269V2.78448V2.79629V2.80812V2.81997V2.83184V2.84374V2.85566V2.8676V2.87956V2.89154V2.90355V2.91557V2.92762V2.93969V2.95178V2.96389V2.97602V2.98818V3.00035V3.01255V3.02476V3.037V3.04926V3.06154V3.07384V3.08616V3.0985V3.11086V3.12324V3.13564V3.14806V3.1605V3.17296V3.18544V3.19795V3.21047V3.22301V3.23557V3.24815V3.26075V3.27337V3.28601V3.29866V3.31134V3.32404V3.33675V3.34949V3.36224V3.37502V3.38781V3.40062V3.41345V3.4263V3.43916V3.45205V3.46495V3.47787V3.49081V3.50377V3.51675V3.52974V3.54275V3.55579V3.56883V3.5819V3.59499V3.60809V3.62121V3.63434V3.6475V3.66067V3.67386V3.68707V3.70029V3.71353V3.72679V3.74007V3.75336V3.76667V3.77999V3.79333V3.80669V3.82007V3.83346V3.84687V3.8603V3.87374V3.8872V3.90067V3.91416V3.92767V3.94119V3.95473V3.96828V3.98185V3.99544V4.00904V4.02265V4.03629V4.04993V4.0636V4.07727V4.09097V4.10468V4.1184V4.13214V4.14589V4.15966V4.17344V4.18724V4.20105V4.21488V4.22872V4.24258V4.25645V4.27034V4.28424V4.29815V4.31208V4.32602V4.33997V4.35394V4.36793V4.38192V4.39593V4.40996V4.424V4.43805V4.45211V4.46619V4.48028V4.49439V4.50851V4.52264V4.53678V4.55094V4.56511V4.57929V4.59349V4.6077V4.62192V4.63615V4.6504V4.66466V4.67893V4.69321V4.7075V4.72181V4.73613V4.75046V4.7648V4.77916V4.79353V4.8079V4.82229V4.8367V4.85111V4.86553V4.87997V4.89442V4.90888V4.92335V4.93783V4.95232V4.96682V4.98133V4.99586Z"
+      fill="#27272A"
+      stroke="#27272A"
+    />
+  </svg>
+  </i>
+  `;
+
+export const iconScoreNone = `
+  <i class=" icon03 icon-score-none">
+  <svg
+  class="icon-score"
+  width="10"
+  height="10"
+  viewBox="0 0 10 10"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    fill-rule="evenodd"
+    clip-rule="evenodd"
+    d="M4.49 9.22023C6.96976 9.22023 8.98 7.20999 8.98 4.73023C8.98 2.25048 6.96976 0.240234 4.49 0.240234C2.01024 0.240234 0 2.25048 0 4.73023C0 7.20999 2.01024 9.22023 4.49 9.22023ZM4.49 8.22023C6.41747 8.22023 7.98 6.65771 7.98 4.73023C7.98 2.80276 6.41747 1.24023 4.49 1.24023C2.56253 1.24023 1 2.80276 1 4.73023C1 6.65771 2.56253 8.22023 4.49 8.22023Z"
+    fill="#27272A"
+  />
+</svg>
+</i>
+`;
+
+export const iconScoreHalf = `
+<i class=" icon-score-half">
+<svg
+class="icon-score"
+width="10"
+  height="10"
+  viewBox="0 0 10 10"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <circle cx="4.49" cy="4.99586" r="3.99" stroke="#27272A" />
+  <path
+    d="M3.99 4.99586V5.01038V5.0249V5.0394V5.05389V5.06837V5.08284V5.0973V5.11175V5.12618V5.14061V5.15502V5.16942V5.18381V5.19819V5.21256V5.22691V5.24126V5.25559V5.26991V5.28421V5.29851V5.31279V5.32706V5.34132V5.35557V5.3698V5.38402V5.39823V5.41243V5.42661V5.44078V5.45494V5.46908V5.48321V5.49733V5.51143V5.52553V5.5396V5.55367V5.56772V5.58176V5.59578V5.60979V5.62379V5.63777V5.65174V5.6657V5.67964V5.69357V5.70748V5.72138V5.73527V5.74914V5.76299V5.77684V5.79066V5.80448V5.81827V5.83206V5.84583V5.85958V5.87332V5.88704V5.90075V5.91444V5.92812V5.94179V5.95543V5.96906V5.98268V5.99628V6.00987V6.02344V6.03699V6.05053V6.06405V6.07756V6.09105V6.10452V6.11798V6.13142V6.14485V6.15826V6.17165V6.18502V6.19838V6.21173V6.22505V6.23836V6.25165V6.26493V6.27819V6.29143V6.30465V6.31786V6.33105V6.34422V6.35737V6.37051V6.38363V6.39673V6.40982V6.42288V6.43593V6.44896V6.46198V6.47497V6.48795V6.50091V6.51385V6.52677V6.53967V6.55256V6.56542V6.57827V6.5911V6.60391V6.6167V6.62948V6.64223V6.65496V6.66768V6.68038V6.69305V6.70571V6.71835V6.73097V6.74357V6.75615V6.76871V6.78125V6.79377V6.80627V6.81876V6.83122V6.84366V6.85608V6.86848V6.88086V6.89322V6.90556V6.91788V6.93018V6.94246V6.95472V6.96695V6.97917V6.99137V7.00354V7.01569V7.02783V7.03994V7.05203V7.0641V7.07615V7.08817V7.10018V7.11216V7.12412V7.13606V7.14798V7.15987V7.17175V7.1836V7.19543V7.20724V7.21902V7.23079V7.24253V7.25425V7.26594V7.27762V7.28927V7.3009V7.3125V7.32409V7.33565V7.34719V7.3587V7.37019V7.38166V7.3931V7.40453V7.41592V7.4273V7.43865V7.44998V7.46128V7.47256V7.48382V7.49505V7.50626V7.51745V7.52861V7.53974V7.55086V7.56194V7.57301V7.58405V7.59506V7.60605V7.61702V7.62796V7.63888V7.64977V7.66064V7.67148V7.6823V7.69309V7.70386V7.7146V7.72532V7.73601V7.74667V7.75731V7.76793V7.77852V7.78908V7.79962V7.81013V7.82061V7.83107V7.84151V7.85192V7.8623V7.87265V7.88298V7.89328V7.90356V7.91381V7.92403V7.93423V7.9444V7.95454V7.96466V7.97475V7.98481V7.99484V8.00485V8.01483V8.02479V8.03471V8.04461V8.05448V8.06433V8.07414V8.08393V8.09369V8.10342V8.11313V8.12281V8.13245V8.14208V8.15167V8.16123V8.17077V8.18028V8.18976V8.19921V8.20863V8.21802V8.22739V8.23672V8.24603V8.25531V8.26456V8.27378V8.28297V8.29213V8.30126V8.31036V8.31944V8.32848V8.3375V8.34648V8.35544V8.36436V8.37326V8.38212V8.39096V8.39977V8.40854V8.41729V8.426V8.43469V8.44334V8.45197V8.46056V8.46912V8.47766V8.48616V8.49463V8.50307V8.51148V8.51986V8.5282V8.53652V8.54481V8.55306V8.56128V8.56947V8.57763V8.58576V8.59385V8.60192V8.60995V8.61795V8.62592V8.63386V8.64176V8.64964V8.65748V8.66529V8.67306V8.68081V8.68852V8.6962V8.70384V8.71146V8.71904V8.72659V8.7341V8.74158V8.74903V8.75645V8.76383V8.77118V8.7785V8.78578V8.79303V8.80025V8.80743V8.81458V8.8217V8.82878V8.83583V8.84284V8.84982V8.85677V8.86368V8.87056V8.8774V8.88421V8.89099V8.89773V8.90443V8.9111V8.91774V8.92434V8.93091V8.93744V8.94394V8.9504V8.95483C2.02238 8.70884 0.5 7.03014 0.5 4.99586C0.5 2.96158 2.02238 1.28287 3.99 1.03688V1.04132V1.04778V1.05428V1.06081V1.06738V1.07398V1.08061V1.08729V1.09399V1.10073V1.10751V1.11432V1.12116V1.12804V1.13495V1.1419V1.14888V1.15589V1.16294V1.17002V1.17714V1.18429V1.19147V1.19869V1.20594V1.21322V1.22054V1.22789V1.23527V1.24269V1.25014V1.25762V1.26513V1.27268V1.28026V1.28788V1.29552V1.3032V1.31091V1.31866V1.32643V1.33424V1.34208V1.34995V1.35786V1.3658V1.37377V1.38177V1.3898V1.39786V1.40596V1.41409V1.42225V1.43044V1.43866V1.44691V1.4552V1.46351V1.47186V1.48024V1.48865V1.49709V1.50556V1.51406V1.52259V1.53116V1.53975V1.54838V1.55703V1.56571V1.57443V1.58318V1.59195V1.60076V1.60959V1.61846V1.62736V1.63628V1.64524V1.65422V1.66324V1.67228V1.68135V1.69046V1.69959V1.70875V1.71794V1.72716V1.73641V1.74569V1.755V1.76433V1.7737V1.78309V1.79251V1.80196V1.81144V1.82095V1.83049V1.84005V1.84964V1.85926V1.86891V1.87859V1.88829V1.89803V1.90779V1.91758V1.92739V1.93724V1.94711V1.95701V1.96693V1.97688V1.98687V1.99687V2.00691V2.01697V2.02706V2.03718V2.04732V2.05749V2.06768V2.07791V2.08816V2.09843V2.10874V2.11907V2.12942V2.1398V2.15021V2.16064V2.1711V2.18159V2.1921V2.20264V2.2132V2.22379V2.23441V2.24505V2.25571V2.2664V2.27712V2.28786V2.29863V2.30942V2.32024V2.33108V2.34195V2.35284V2.36376V2.3747V2.38566V2.39665V2.40767V2.41871V2.42977V2.44086V2.45197V2.46311V2.47427V2.48546V2.49667V2.5079V2.51916V2.53044V2.54174V2.55307V2.56442V2.57579V2.58719V2.59861V2.61006V2.62153V2.63302V2.64453V2.65607V2.66763V2.67921V2.69082V2.70245V2.7141V2.72577V2.73747V2.74919V2.76093V2.77269V2.78448V2.79629V2.80812V2.81997V2.83184V2.84374V2.85566V2.8676V2.87956V2.89154V2.90355V2.91557V2.92762V2.93969V2.95178V2.96389V2.97602V2.98818V3.00035V3.01255V3.02476V3.037V3.04926V3.06154V3.07384V3.08616V3.0985V3.11086V3.12324V3.13564V3.14806V3.1605V3.17296V3.18544V3.19795V3.21047V3.22301V3.23557V3.24815V3.26075V3.27337V3.28601V3.29866V3.31134V3.32404V3.33675V3.34949V3.36224V3.37502V3.38781V3.40062V3.41345V3.4263V3.43916V3.45205V3.46495V3.47787V3.49081V3.50377V3.51675V3.52974V3.54275V3.55579V3.56883V3.5819V3.59499V3.60809V3.62121V3.63434V3.6475V3.66067V3.67386V3.68707V3.70029V3.71353V3.72679V3.74007V3.75336V3.76667V3.77999V3.79334V3.80669V3.82007V3.83346V3.84687V3.8603V3.87374V3.8872V3.90067V3.91416V3.92767V3.94119V3.95473V3.96828V3.98185V3.99544V4.00904V4.02265V4.03629V4.04993V4.0636V4.07727V4.09097V4.10468V4.1184V4.13214V4.14589V4.15966V4.17344V4.18724V4.20105V4.21488V4.22872V4.24258V4.25645V4.27034V4.28424V4.29815V4.31208V4.32602V4.33997V4.35394V4.36793V4.38192V4.39594V4.40996V4.424V4.43805V4.45211V4.46619V4.48028V4.49439V4.50851V4.52264V4.53678V4.55094V4.56511V4.57929V4.59349V4.6077V4.62192V4.63615V4.6504V4.66466V4.67893V4.69321V4.7075V4.72181V4.73613V4.75046V4.7648V4.77916V4.79353V4.8079V4.82229V4.8367V4.85111V4.86553V4.87997V4.89442V4.90888V4.92335V4.93783V4.95232V4.96682V4.98133V4.99586Z"
+    fill="#27272A"
+    stroke="#27272A"
+  />
+</svg>
+
+</i>
+`;
+
+export const iconScoreFull = `
+<i class=" icon-score-full">
+<svg
+class="icon-score-full icon-score"
+width="10"
+height="10"
+viewBox="0 0 10 10"
+fill="none"
+xmlns="http://www.w3.org/2000/svg"
+>
+<circle cx="4.99" cy="4.99586" r="3.99" stroke="#27272A" />
+<circle
+  cx="4.99"
+  cy="4.99586"
+  r="3.74"
+  fill="#27272A"
+  stroke="#27272A"
+  stroke-width="1.5"
+/>
+<path
+  d="M4.49 4.99586V5.01038V5.0249V5.0394V5.05389V5.06837V5.08284V5.0973V5.11175V5.12618V5.14061V5.15502V5.16942V5.18381V5.19819V5.21256V5.22691V5.24126V5.25559V5.26991V5.28421V5.29851V5.31279V5.32706V5.34132V5.35557V5.3698V5.38402V5.39823V5.41243V5.42661V5.44078V5.45494V5.46908V5.48321V5.49733V5.51143V5.52553V5.5396V5.55367V5.56772V5.58176V5.59578V5.60979V5.62379V5.63777V5.65174V5.6657V5.67964V5.69357V5.70748V5.72138V5.73527V5.74914V5.76299V5.77684V5.79066V5.80448V5.81827V5.83206V5.84583V5.85958V5.87332V5.88704V5.90075V5.91444V5.92812V5.94179V5.95543V5.96906V5.98268V5.99628V6.00987V6.02344V6.03699V6.05053V6.06405V6.07756V6.09105V6.10452V6.11798V6.13142V6.14485V6.15826V6.17165V6.18502V6.19838V6.21173V6.22505V6.23836V6.25165V6.26493V6.27819V6.29143V6.30465V6.31786V6.33105V6.34422V6.35737V6.37051V6.38363V6.39673V6.40982V6.42288V6.43593V6.44896V6.46198V6.47497V6.48795V6.50091V6.51385V6.52677V6.53967V6.55256V6.56542V6.57827V6.5911V6.60391V6.6167V6.62948V6.64223V6.65496V6.66768V6.68038V6.69305V6.70571V6.71835V6.73097V6.74357V6.75615V6.76871V6.78125V6.79377V6.80627V6.81876V6.83122V6.84366V6.85608V6.86848V6.88086V6.89322V6.90556V6.91788V6.93018V6.94246V6.95472V6.96695V6.97917V6.99137V7.00354V7.01569V7.02783V7.03994V7.05203V7.0641V7.07615V7.08817V7.10018V7.11216V7.12412V7.13606V7.14798V7.15987V7.17175V7.1836V7.19543V7.20724V7.21902V7.23079V7.24253V7.25425V7.26594V7.27762V7.28927V7.3009V7.3125V7.32409V7.33565V7.34719V7.3587V7.37019V7.38166V7.3931V7.40453V7.41592V7.4273V7.43865V7.44998V7.46128V7.47256V7.48382V7.49505V7.50626V7.51745V7.52861V7.53974V7.55086V7.56194V7.57301V7.58405V7.59506V7.60605V7.61702V7.62796V7.63888V7.64977V7.66064V7.67148V7.6823V7.69309V7.70386V7.7146V7.72532V7.73601V7.74667V7.75731V7.76793V7.77852V7.78908V7.79962V7.81013V7.82061V7.83107V7.84151V7.85192V7.8623V7.87265V7.88298V7.89328V7.90356V7.91381V7.92403V7.93423V7.9444V7.95454V7.96466V7.97475V7.98481V7.99484V8.00485V8.01483V8.02479V8.03471V8.04461V8.05448V8.06433V8.07414V8.08393V8.09369V8.10342V8.11313V8.12281V8.13245V8.14208V8.15167V8.16123V8.17077V8.18028V8.18976V8.19921V8.20863V8.21802V8.22739V8.23672V8.24603V8.25531V8.26456V8.27378V8.28297V8.29213V8.30126V8.31036V8.31944V8.32848V8.3375V8.34648V8.35544V8.36436V8.37326V8.38212V8.39096V8.39977V8.40854V8.41729V8.426V8.43469V8.44334V8.45197V8.46056V8.46912V8.47766V8.48616V8.49463V8.50307V8.51148V8.51986V8.5282V8.53652V8.54481V8.55306V8.56128V8.56947V8.57763V8.58576V8.59385V8.60192V8.60995V8.61795V8.62592V8.63386V8.64176V8.64964V8.65748V8.66529V8.67306V8.68081V8.68852V8.6962V8.70384V8.71146V8.71904V8.72659V8.7341V8.74158V8.74903V8.75645V8.76383V8.77118V8.7785V8.78578V8.79303V8.80025V8.80743V8.81458V8.8217V8.82878V8.83583V8.84284V8.84982V8.85677V8.86368V8.87056V8.8774V8.88421V8.89099V8.89773V8.90443V8.9111V8.91774V8.92434V8.93091V8.93744V8.94394V8.9504V8.95483C2.52238 8.70884 1 7.03014 1 4.99586C1 2.96158 2.52238 1.28287 4.49 1.03688V1.04132V1.04778V1.05428V1.06081V1.06738V1.07398V1.08061V1.08729V1.09399V1.10073V1.10751V1.11432V1.12116V1.12804V1.13495V1.1419V1.14888V1.15589V1.16294V1.17002V1.17714V1.18429V1.19147V1.19869V1.20594V1.21322V1.22054V1.22789V1.23527V1.24269V1.25014V1.25762V1.26513V1.27268V1.28026V1.28788V1.29552V1.3032V1.31091V1.31866V1.32643V1.33424V1.34208V1.34995V1.35786V1.3658V1.37377V1.38177V1.3898V1.39786V1.40596V1.41409V1.42225V1.43044V1.43866V1.44691V1.4552V1.46351V1.47186V1.48024V1.48865V1.49709V1.50556V1.51406V1.52259V1.53116V1.53975V1.54838V1.55703V1.56571V1.57443V1.58318V1.59195V1.60076V1.60959V1.61846V1.62736V1.63628V1.64524V1.65422V1.66324V1.67228V1.68135V1.69046V1.69959V1.70875V1.71794V1.72716V1.73641V1.74569V1.755V1.76433V1.7737V1.78309V1.79251V1.80196V1.81144V1.82095V1.83049V1.84005V1.84964V1.85926V1.86891V1.87859V1.88829V1.89803V1.90779V1.91758V1.92739V1.93724V1.94711V1.95701V1.96693V1.97688V1.98687V1.99687V2.00691V2.01697V2.02706V2.03718V2.04732V2.05749V2.06768V2.07791V2.08816V2.09843V2.10874V2.11907V2.12942V2.1398V2.15021V2.16064V2.1711V2.18159V2.1921V2.20264V2.2132V2.22379V2.23441V2.24505V2.25571V2.2664V2.27712V2.28786V2.29863V2.30942V2.32024V2.33108V2.34195V2.35284V2.36376V2.3747V2.38566V2.39665V2.40767V2.41871V2.42977V2.44086V2.45197V2.46311V2.47427V2.48546V2.49667V2.5079V2.51916V2.53044V2.54174V2.55307V2.56442V2.57579V2.58719V2.59861V2.61006V2.62153V2.63302V2.64453V2.65607V2.66763V2.67921V2.69082V2.70245V2.7141V2.72577V2.73747V2.74919V2.76093V2.77269V2.78448V2.79629V2.80812V2.81997V2.83184V2.84374V2.85566V2.8676V2.87956V2.89154V2.90355V2.91557V2.92762V2.93969V2.95178V2.96389V2.97602V2.98818V3.00035V3.01255V3.02476V3.037V3.04926V3.06154V3.07384V3.08616V3.0985V3.11086V3.12324V3.13564V3.14806V3.1605V3.17296V3.18544V3.19795V3.21047V3.22301V3.23557V3.24815V3.26075V3.27337V3.28601V3.29866V3.31134V3.32404V3.33675V3.34949V3.36224V3.37502V3.38781V3.40062V3.41345V3.4263V3.43916V3.45205V3.46495V3.47787V3.49081V3.50377V3.51675V3.52974V3.54275V3.55579V3.56883V3.5819V3.59499V3.60809V3.62121V3.63434V3.6475V3.66067V3.67386V3.68707V3.70029V3.71353V3.72679V3.74007V3.75336V3.76667V3.77999V3.79333V3.80669V3.82007V3.83346V3.84687V3.8603V3.87374V3.8872V3.90067V3.91416V3.92767V3.94119V3.95473V3.96828V3.98185V3.99544V4.00904V4.02265V4.03629V4.04993V4.0636V4.07727V4.09097V4.10468V4.1184V4.13214V4.14589V4.15966V4.17344V4.18724V4.20105V4.21488V4.22872V4.24258V4.25645V4.27034V4.28424V4.29815V4.31208V4.32602V4.33997V4.35394V4.36793V4.38192V4.39593V4.40996V4.424V4.43805V4.45211V4.46619V4.48028V4.49439V4.50851V4.52264V4.53678V4.55094V4.56511V4.57929V4.59349V4.6077V4.62192V4.63615V4.6504V4.66466V4.67893V4.69321V4.7075V4.72181V4.73613V4.75046V4.7648V4.77916V4.79353V4.8079V4.82229V4.8367V4.85111V4.86553V4.87997V4.89442V4.90888V4.92335V4.93783V4.95232V4.96682V4.98133V4.99586Z"
+  fill="#27272A"
+  stroke="#27272A"
+/>
+</svg>
+</i>
+`;
+
+export const iconMenuMore = `
+<svg
+  class="icon-menu-more"
+  width="18"
+  height="19"
+  viewBox="0 0 18 19"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M10.5 4.56055C10.5 5.38897 9.82843 6.06055 9 6.06055C8.17157 6.06055 7.5 5.38897 7.5 4.56055C7.5 3.73212 8.17157 3.06055 9 3.06055C9.82843 3.06055 10.5 3.73212 10.5 4.56055Z"
+    fill="#373A42"
+  />
+  <path
+    d="M10.5 9.06055C10.5 9.88897 9.82843 10.5605 9 10.5605C8.17157 10.5605 7.5 9.88897 7.5 9.06055C7.5 8.23212 8.17157 7.56055 9 7.56055C9.82843 7.56055 10.5 8.23212 10.5 9.06055Z"
+    fill="#373A42"
+  />
+  <path
+    d="M10.5 13.5605C10.5 14.389 9.82843 15.0605 9 15.0605C8.17157 15.0605 7.5 14.389 7.5 13.5605C7.5 12.7321 8.17157 12.0605 9 12.0605C9.82843 12.0605 10.5 12.7321 10.5 13.5605Z"
+    fill="#373A42"
+  />
+</svg>
+`;
+
+export const iconActionPrev = `
+<svg
+  class="icon-action-prev"
+  width="12"
+  height="12"
+  viewBox="0 0 12 12"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path d="M8.25 1.5L3.75 6L8.25 10.5" stroke="#F2F4F5" />
+</svg>
+`;
+
+export const iconActionNext = `
+<svg
+  class="icon-action-next"
+  width="12"
+  height="12"
+  viewBox="0 0 12 12"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path d="M3.75 1.5L8.25 6L3.75 10.5" stroke="#F2F4F5" />
+</svg>
+`;
+
+
+
+
+//////////////////////////////////////////////////////////
+ICONS END /// ICONS END /// ICONS END /// ICONS END /// IC
+//////////////////////////////////////////////////////////
+ICONS END /// ICONS END /// ICONS END /// ICONS END /// IC
+//////////////////////////////////////////////////////////
+ICONS END /// ICONS END /// ICONS END /// ICONS END /// IC
+//////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

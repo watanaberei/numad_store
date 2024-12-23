@@ -1,0 +1,661 @@
+import * as glyph from '../icon/glyph.js';
+import * as style from '../style/style.js';
+import * as icon from '../icon/icon.js';
+import * as Pictogram from '../icon/pictogram.js';
+import * as Tag from '../tags/tag.js';
+import * as geotag from  '../tags/geotag.js';
+import * as objtag from '../tags/objtag.js';
+import * as amtag from '../tags/amtag.js';
+import * as attrtag from '../tags/attrtag.js';
+import { getStatsScore } from '../components/functionScore.js';
+
+
+export const cardStoreAttributes = {
+  render: (section, title, objectKey) => {
+    const pictogramClass = `pictogram${objectKey.charAt(0).toUpperCase() + objectKey.slice(1)}`;
+    const pictogramHTML = Pictogram[`pictogram${objectKey.charAt(0).toUpperCase() + objectKey.slice(1)}`];
+
+    return `
+      <div class="card-attributes col02">
+        <div class="title">
+          <div class="text">
+            <span class="text03">${title}</span>
+            <div class="pictogram ${pictogramClass}">${pictogramHTML}</div>
+          </div>
+        </div>
+        <div class="tag-array">
+          ${section
+            .map(tag => {
+              let data = {
+                attribute: tag.label,
+                count: tag.count,
+              };
+              return `
+                ${attrtag.attrtagCount.render(data)}
+              `;
+            })
+            .join("")}
+        </div>
+      </div>
+    `;
+  }
+};
+
+export const cardSummaryItem = {
+  render: (data) => {
+    const tags = data.tags || [];
+    const tagsPerLine = 3; // Assuming 3 tags fit in one line
+    const visibleTags = tags.slice(0, data.limit * tagsPerLine);
+    const hiddenTagsCount = tags.length - visibleTags.length;
+    const scoreResult = getStatsScore(parseInt(data.score));
+    
+    return `
+      <div class="card-summary col01">
+        <div class="title anchor">
+          <span class="primary sentance">
+            <span class="text03">
+              <span class="experience">${data.title}</span>
+            </span>
+            <span class="status">
+              <span class="status-text text02">${data.score}</span>
+              ${scoreResult.icons[scoreResult.currentScore]?.icon || ''}
+            </span>
+          </span>
+          <div class="secondary action">
+            <i class="icon-action-popup">
+              ${icon.iconActionPopup}
+            </i>
+          </div>
+        </div>
+        <div class="tag-array">
+
+            ${visibleTags.map(tag => {
+              const tagScoreResult = getStatsScore(tag.score);
+              return `
+                <button class="amtag" id="amtag" data-name="value" data-score="${tag.score}">
+                  <div class="single-icon">
+                    ${tagScoreResult.icons[tagScoreResult.currentScore]?.icon || ''}
+                  </div>
+                  <div class="score-icons">
+                    ${tagScoreResult.icons.map((icon, index) => `
+                      <span class="score-icon ${index === tagScoreResult.currentScore ? 'active' : ''}" data-score="${index}" title="${icon.tooltip}">
+                        ${icon.icon}
+                      </span>
+                    `).join('')}
+                  </div>
+                  <div class="label">
+                    <span class="text02" id="text02">${tag.label}</span>
+                  </div>
+                </button>    
+              `;
+            }).join('')}
+
+          ${hiddenTagsCount > 0 ? `
+            <button class="button-more">
+              ${glyph.glyphSymbolPlus}
+              <span class="text02" id="count">
+                ${hiddenTagsCount}
+              </span>
+              <span class="text02">
+                more
+              </span>
+            </button>
+          ` : ''}
+        </div>
+      </div>
+    `;
+  }
+};
+
+
+// export const cardSummaryItem = {
+//   render: (data) => {
+//     const tags = data.tags || [];
+//     const visibleTags = tags.slice(0, 6);  // Show only first 6 tags
+//     const hiddenTagsCount = tags.length - visibleTags.length;
+//     const scoreResult = getStatsScore(parseInt(data.score));
+    
+//     return `
+//       <div class="card-summary col01">
+//         <div class="title anchor">
+//           <span class="primary sentance">
+//             <span class="text03">
+//               <span class="experience">${data.title}</span>
+//             </span>
+//             <span class="status">
+//               <span class="status-text text02">${data.score}</span>
+//               ${scoreResult.icons[scoreResult.currentScore]?.icon || ''}
+//             </span>
+//           </span>
+//           <div class="secondary action">
+//             <i class="icon-action-popup">
+//               ${icon.iconActionPopup}
+//             </i>
+//           </div>
+//         </div>
+//         <div class="tag-array">
+        
+//             ${visibleTags.map(tag => {
+//               const tagScoreResult = getStatsScore(tag.score);
+//               return `
+//                 <button class="amtag" id="amtag" data-name="value" data-score="${tag.score}">
+//                   <div class="single-icon">
+//                     ${tagScoreResult.icons[tagScoreResult.currentScore]?.icon || ''}
+//                   </div>
+//                   <div class="score-icons">
+//                     ${tagScoreResult.icons.map((icon, index) => `
+//                       <span class="score-icon ${index === tagScoreResult.currentScore ? 'active' : ''}" data-score="${index}" title="${icon.tooltip}">
+//                         ${icon.icon}
+//                       </span>
+//                     `).join('')}
+//                   </div>
+//                   <div class="label">
+//                     <span class="text02" id="text02">${tag.label}</span>
+//                   </div>
+//                 </button>    
+//               `;
+//             }).join('')}
+      
+//           ${hiddenTagsCount > 0 ? `
+//             <button class="button-more">
+//               ${glyph.glyphSymbolPlus}
+//               <span class="text02" id="count">
+//                 ${hiddenTagsCount}
+//               </span>
+//               <span class="text02">
+//                 more
+//               </span>
+//             </button>
+//           ` : ''}
+//         </div>
+//       </div>
+//     `;
+//   }
+// };
+// export const cardSummaryItem = {
+//   render: (data) => {
+//     const tags = data.tags || [];
+    
+//     return `
+//       <div class="card-summary col01">
+//         <div class="title anchor">
+//           <span class="primary sentance">
+//             <span class="text03">
+//               <span class="experience">${data.title}</span>
+//             </span>
+//             <span class="status">
+//               <span class="status-text text02">${data.status}</span>
+//               ${data.statusIcon}
+//             </span>
+//           </span>
+//           <div class="secondary action">
+//             <i class="icon-action-popup">
+//               ${icon.iconActionPopup}
+//             </i>
+//           </div>
+//         </div>
+//         <div class="tag-array">
+//           <div class="array">
+//             ${data.tags.map(tag => {
+//               const scoreResult = getStatsScore(tag.score);
+//               return `
+//                 <button class="amtag" id="amtag" data-name="value" data-score="${tag.score}">
+//                   <div class="single-icon">
+//                     ${scoreResult.icons[scoreResult.currentScore].icon}
+//                   </div>
+//                   <div class="score-icons">
+//                     ${scoreResult.icons.map((icon, index) => `
+//                       <span class="score-icon ${index === scoreResult.currentScore ? 'active' : ''}" data-score="${index}" title="${icon.tooltip}">
+//                         ${icon.icon}
+//                       </span>
+//                     `).join('')}
+//                   </div>
+//                   <div class="label">
+//                     <span class="text02" id="text02">${tag.label}</span>
+//                   </div>
+//                 </button>    
+//               `;
+//             }).join('')}
+//           </div>
+//           ${data.moreTags ? `
+//             <button class="button-more">
+//               ${glyph.glyphSymbolPlus}
+//               <span class="text02" id="count">
+//                 ${data.moreTags}
+//               </span>
+//               <span class="text02">
+//                 more
+//               </span>
+//             </button>
+//           ` : ''}
+//         </div>
+//       </div>
+//     `;
+//   }
+// };
+
+
+export const cardSubStoreItem = {
+  render: (data) => {
+    return `
+      <div class="card-sub-store col01">
+        <div class="content">
+          <div class="text array">
+            <i class="icon"></i>
+            <span class="distance">
+              <span class="count">
+                <span class="text02">
+                  ${data.distance}
+                </span>
+              </span>
+              <span class="unit">
+                <span class="miles">
+                  mi
+                </span>
+              </span>
+            </span>
+          </div>
+
+          <div class="logo">
+            <img src="background-image: url(${data.imageUrl});" class="substore-logo"></img>
+          </div>
+          
+          <div class="label">
+            <span class="brand text02">
+              <span class="label">
+                ${data.storeName}
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    `;
+  }
+};
+
+export const cardCategoryItem = {
+  render: (data) => {
+    console.log('Rendering card category:', data);
+    const items = Object.values(data.items || {});
+    
+    return `
+      <div class="card-collection col01" data-category="${data.category}">
+        <div class="content" style="background-image: url(${items[0]?.thumbnail?.media?.thumbnail || ''})">
+          <div class="primary">
+            ${amtag.amtagCategory.render({ category: data.category })}
+            ${items[0]?.source ? `
+              <div class="badge">
+                <img src="${items[0].source.logo}" alt="${items[0].source.name}" class="partner-logo-thumbnail">
+              </div>
+            ` : ''}
+          </div>
+          
+          <div class="tertiary">
+            <div class="controls pagination-indicator">
+              ${items.map((_, i) => `
+                <div class="indicator-dot ${i === 0 ? '' : 'inactive'}" data-index="${i}"></div>
+              `).join('')}
+            </div>
+          </div>
+          
+          <div class="secondary">
+            <div id="value" class="value pill array">
+              ${amtag.amtagItem.render({
+                rank: items[0]?.rank,
+                name: items[0]?.name
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  },
+  
+  afterRender: () => {
+    console.log('Initializing card cycling');
+    const containers = document.querySelectorAll('.card-collection');
+    
+    containers.forEach(container => {
+      const category = container.dataset.category;
+      const items = Object.values(window.cardCategoryData[category.toLowerCase()].items);
+      const dots = container.querySelectorAll('.indicator-dot');
+      const content = container.querySelector('.content');
+      let currentIndex = 0;
+      
+      const updateCard = (index) => {
+        console.log(`Updating card to item ${index}`);
+        const item = items[index];
+        
+        // Update background
+        content.style.backgroundImage = `url(${item.thumbnail.media.thumbnail})`;
+        
+        // Update badge if source exists
+        const badge = container.querySelector('.badge');
+        if (badge && item.source) {
+          badge.innerHTML = `<img src="${item.source.logo}" alt="${item.source.name}" class="partner-logo-thumbnail">`;
+        }
+        
+        // Update amtags
+        const valueContainer = container.querySelector('#value');
+        valueContainer.innerHTML = amtag.amtagItem.render({
+          rank: item.rank,
+          name: item.name
+        });
+        
+        // Update dots
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('inactive', i !== index);
+        });
+        
+        currentIndex = index;
+      };
+      
+      // Handle card click
+      container.addEventListener('click', (e) => {
+        if (!e.target.closest('.indicator-dot')) {
+          const nextIndex = (currentIndex + 1) % items.length;
+          updateCard(nextIndex);
+        }
+      });
+      
+      // Handle dot clicks
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', (e) => {
+          e.stopPropagation();
+          updateCard(index);
+        });
+      });
+      
+      // Auto advance
+      let autoAdvance = setInterval(() => {
+        if (!container.matches(':hover')) {
+          updateCard((currentIndex + 1) % items.length);
+        }
+      }, 5000);
+      
+      container.addEventListener('mouseenter', () => clearInterval(autoAdvance));
+      container.addEventListener('mouseleave', () => {
+        autoAdvance = setInterval(() => {
+          updateCard((currentIndex + 1) % items.length);
+        }, 5000);
+      });
+    });
+  }
+};
+// cardCategoryItem
+// export const cardCategoryItem = {
+//   render: (data) => {
+//     console.log('Rendering cardCategoryItem with data:', data);
+//     const items = Object.values(data.items || {});
+//     console.log('Processed items:', items);
+    
+//     return `
+//       <div class="card-collection col01" data-category="${data.category}">
+//         ${items.map((item, index) => `
+//           <div class="card-item content ${index === 0 ? 'active' : ''}" 
+//                data-index="${index}"
+//                style="background-image: url(${item.thumbnail?.media?.thumbnail || ''})">
+//             <div class="primary">
+//               ${amtag.amtagCategory.render({ category: data.category })}
+//               ${item.source ? `
+//                 <div class="badge">
+//                   <img src="${item.source.logo}" alt="${item.source.name}" class="partner-logo-thumbnail">
+//                 </div>
+//               ` : ''}
+//             </div>
+            
+//             <div class="tertiary">
+//               <div class="controls pagination-indicator">
+//                 ${items.map((_, i) => `
+//                   <div class="indicator-dot ${i === index ? '' : 'inactive'}" data-index="${i}"></div>
+//                 `).join('')}
+//               </div>
+//             </div>
+            
+//             <div class="secondary">
+//               <div id="value" class="value pill array">
+//                 ${amtag.amtagItem.render({
+//                   rank: item.rank,
+//                   name: item.name
+//                 })}
+//               </div>
+//             </div>
+//           </div>
+//         `).join('')}
+//       </div>
+//     `;
+//   },
+  
+//   afterRender: () => {
+//     console.log('Initializing cardCategoryItem afterRender');
+//     const containers = document.querySelectorAll('.card-collection');
+//     console.log('Found card containers:', containers.length);
+    
+//     containers.forEach((container, containerIndex) => {
+//       console.log(`Initializing container ${containerIndex}`);
+//       const contents = container.querySelectorAll('.card-item ');
+//       const dots = container.querySelectorAll('.indicator-dot');
+//       let currentIndex = 0;
+      
+//       console.log(`Container ${containerIndex} has ${contents.length} items and ${dots.length} dots`);
+      
+//       const showItem = (index) => {
+//         console.log(`Showing item ${index} in container ${containerIndex}`);
+//         contents.forEach((content, i) => {
+//           content.classList.toggle('active', i === index);
+//           console.log(`Content ${i} active:`, i === index);
+//         });
+        
+//         dots.forEach((dot, i) => {
+//           dot.classList.toggle('inactive', i !== index);
+//           console.log(`Dot ${i} inactive:`, i !== index);
+//         });
+        
+//         currentIndex = index;
+//       };
+      
+//       // Handle card click to advance
+//       container.addEventListener('click', (e) => {
+//         if (!e.target.closest('.indicator-dot')) {
+//           const nextIndex = (currentIndex + 1) % contents.length;
+//           console.log(`Card clicked, advancing to item ${nextIndex}`);
+//           showItem(nextIndex);
+//         }
+//       });
+      
+//       // Handle indicator clicks
+//       dots.forEach((dot, index) => {
+//         dot.addEventListener('click', (e) => {
+//           e.stopPropagation();
+//           console.log(`Dot ${index} clicked`);
+//           showItem(index);
+//         });
+//       });
+      
+//       // Auto advance
+//       let autoAdvance = setInterval(() => {
+//         if (!container.matches(':hover')) {
+//           const nextIndex = (currentIndex + 1) % contents.length;
+//           console.log(`Auto advancing to item ${nextIndex}`);
+//           showItem(nextIndex);
+//         }
+//       }, 5000);
+      
+//       // Clear interval on interaction
+//       container.addEventListener('mouseenter', () => {
+//         console.log('Mouse entered, clearing auto advance');
+//         clearInterval(autoAdvance);
+//       });
+      
+//       // Restart interval after interaction
+//       container.addEventListener('mouseleave', () => {
+//         console.log('Mouse left, restarting auto advance');
+//         autoAdvance = setInterval(() => {
+//           const nextIndex = (currentIndex + 1) % contents.length;
+//           showItem(nextIndex);
+//         }, 5000);
+//       });
+//     });
+//   }
+// };
+
+// export const cardCategoryItem = {
+//   render: (data) => {
+//     console.log('Rendering cardCategoryItem with data:', data);
+//     const items = Object.values(data.items || {});
+//     console.log('Processed items:', items);
+    
+//     return `
+//       <div class="card-collection col01" data-category="${data.category}">
+//         ${items.map((item, index) => `
+//           <div class="content ${index === 0 ? 'active' : ''}" 
+//                data-index="${index}"
+//                style="background-image: url(${item.thumbnail?.media?.thumbnail || ''})">
+//             <div class="primary">
+//               ${amtag.amtagCategory.render({ category: data.category })}
+//               ${item.source ? `
+//                 <div class="badge">
+//                   <img src="${item.source.logo}" alt="${item.source.name}" class="partner-logo-thumbnail">
+//                 </div>
+//               ` : ''}
+//             </div>
+            
+//             <div class="tertiary">
+//               <div class="controls pagination-indicator">
+//                 ${items.map((_, i) => `
+//                   <div class="indicator-dot ${i === index ? '' : 'inactive'}" data-index="${i}"></div>
+//                 `).join('')}
+//               </div>
+//             </div>
+            
+//             <div class="secondary">
+//               <div id="value" class="value pill array">
+//                 ${amtag.amtagItem.render({
+//                   rank: item.rank,
+//                   name: item.name
+//                 })}
+//               </div>
+//             </div>
+//           </div>
+//         `).join('')}
+//       </div>
+//     `;
+//   },
+  
+//   afterRender: () => {
+//     console.log('Initializing cardCategoryItem afterRender');
+//     const containers = document.querySelectorAll('.card-collection');
+//     console.log('Found card containers:', containers.length);
+    
+//     containers.forEach((container, containerIndex) => {
+//       console.log(`Initializing container ${containerIndex}`);
+//       const contents = container.querySelectorAll('.content');
+//       const dots = container.querySelectorAll('.indicator-dot');
+//       let currentIndex = 0;
+      
+//       console.log(`Container ${containerIndex} has ${contents.length} items and ${dots.length} dots`);
+      
+//       const showItem = (index) => {
+//         console.log(`Showing item ${index} in container ${containerIndex}`);
+//         contents.forEach((content, i) => {
+//           content.classList.toggle('active', i === index);
+//           console.log(`Content ${i} active:`, i === index);
+//         });
+        
+//         dots.forEach((dot, i) => {
+//           dot.classList.toggle('inactive', i !== index);
+//           console.log(`Dot ${i} inactive:`, i !== index);
+//         });
+        
+//         currentIndex = index;
+//       };
+      
+//       // Handle card click to advance
+//       container.addEventListener('click', (e) => {
+//         if (!e.target.closest('.indicator-dot')) {
+//           const nextIndex = (currentIndex + 1) % contents.length;
+//           console.log(`Card clicked, advancing to item ${nextIndex}`);
+//           showItem(nextIndex);
+//         }
+//       });
+      
+//       // Handle indicator clicks
+//       dots.forEach((dot, index) => {
+//         dot.addEventListener('click', (e) => {
+//           e.stopPropagation();
+//           console.log(`Dot ${index} clicked`);
+//           showItem(index);
+//         });
+//       });
+      
+//       // Auto advance
+//       let autoAdvance = setInterval(() => {
+//         if (!container.matches(':hover')) {
+//           const nextIndex = (currentIndex + 1) % contents.length;
+//           console.log(`Auto advancing to item ${nextIndex}`);
+//           showItem(nextIndex);
+//         }
+//       }, 5000);
+      
+//       // Clear interval on interaction
+//       container.addEventListener('mouseenter', () => {
+//         console.log('Mouse entered, clearing auto advance');
+//         clearInterval(autoAdvance);
+//       });
+      
+//       // Restart interval after interaction
+//       container.addEventListener('mouseleave', () => {
+//         console.log('Mouse left, restarting auto advance');
+//         autoAdvance = setInterval(() => {
+//           const nextIndex = (currentIndex + 1) % contents.length;
+//           showItem(nextIndex);
+//         }, 5000);
+//       });
+//     });
+//   }
+// };
+
+
+
+
+
+
+
+
+
+export const cardGalleryItem = {
+  render: (data) => {
+    let category = {
+      category: data.category,
+    };
+    return `
+      <div class="card-category col01">
+        <div class="primary">
+          ${amtag.amtagCategory.render(category)}
+
+          ${data.partnerLogo ? `
+            <div class="badge">
+              <img src="${data.partnerLogo}" alt="Partner logo" class="partner-logo-thumbnail" width="15" height="15">
+            </div>
+          ` : ''}
+        </div>
+        <div class="tertiary">
+          <div class="indicator">
+            <div class="indicator-dot"></div>
+            <div class="indicator-dot inactive"></div>
+            <div class="indicator-dot inactive"></div>
+          </div>
+        </div>
+        <div class="secondary">
+          ${data.comment ? `
+            <div class="comment">
+              ${data.userPicture ? `<img src="${data.userPicture}" alt="User picture" width="15" height="15">` : ''}
+              <span class="comment-text">${data.comment}</span>
+            </div>
+          ` : ''}
+        </div>
+      </div>
+    `;
+  }
+};

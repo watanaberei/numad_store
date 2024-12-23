@@ -1,0 +1,323 @@
+Please review it carefully and implement the controls and interactions. Ask any questions if you have any. For the controls implementation, please reference the gallery carousels for code structure, naming conventions, etc as they both have controls but function slightly different. The new controls should be a dom element in controls.js file and imported into array.js (please update all code so its done this way). **NOTE: do not change any classes, object, const, etc names or code structure and if any of it is changed, make sure to tell me. if there are new ones, make sure to make a note of it as a commented out line in the code. add console logs too so i can send you the console response and you have the right data to debug. This should al be coded in vanilla js, nodejs, css, html, and mongodb**
+
+//////////////////////////////////////////////////////////
+/// TECH STACK /// TECH STACK /// TECH STACK /// TECH STAC
+//////////////////////////////////////////////////////////
+
+We are building a web app called Numad, a specialty work centric reviews platform forserves local entrepreneurs, makers, idealists, capitalists, students and those with a passion for creativity.  
+Currently, we are finishing our build on the store details page. Our approach on coding is to create modular dom elements that are combined to create components, which come together to create sections. 
+EVERTHING is to be coded using only: 
+  vanilla js 
+  nodejs 
+  css
+  html 
+  mongodb
+
+//////////////////////////////////////////////////////////
+/// TECH STACK /// TECH STACK /// TECH STACK /// TECH STAC
+//////////////////////////////////////////////////////////
+
+
+
+//////////////////////////////////////////////////////////
+/// NOTES AND RULES /// NOTES AND RULES /// NOTES AND RULE
+//////////////////////////////////////////////////////////
+//  01. Maintain coding style
+//      NEVER change any of the names for all classes, object, const, etc names or code structure and if any of it is changed, make sure to tell me. The goal is to build on top of the files. if there are new ones, make sure to make a note of it as a commented out line in the code. add console logs too so i can send you the console response and you have the right data to debug. This should all be coded in vanilla js, nodejs, css, html, and mongodb. Please double check the previous files and rewrite the code files so it retains the previously declared naming conventions / coding structure.
+//  02. Monitor all changes and make sure to implement updates
+//      Make sure you are making sure to implement any updates to all related files after every response. The goal is to copy and paste your generated code which is expected to run smoothly.
+//  03. Do not optimize
+//      NEVER optimize the generated code or the code files i give you so that the overall code structure, approach, naming conventions, etc is retained as that is critical to this project. Give me full updates of code snippets (a function, class, const, statement, etc) and or files even if there are only small changes. I'd rather have a short conversation with full answers than a long conversation with optimized answers that make its implementation hard to track
+//  04. Updating the file
+//      When updating any code, make sure to add everything including all features, imports, functions, consts, objects, etc (completely maintain code structure and do not change unless you must, in which you are to point out where and why when you do) related or unrelated to the prompt. the goal is to copy and paste.
+//  05. Generate the whole file
+//      Please make sure to generate the entire file with all the functionality, structure, and everything else.
+//////////////////////////////////////////////////////////
+/// ALWAYS FOLLOW RULES /// ALWAYS FOLLOW RULES /// ALWAYS
+//////////////////////////////////////////////////////////
+
+
+
+//////////////////////////////////////////////////////////
+/// TREE DIRECTORY START /// TREE DIRECTORY START /// TREE
+//////////////////////////////////////////////////////////
+.
+├── config
+├── package-lock.json
+├── package.json
+├── src
+│   ├── client
+│   │   ├── api.js
+│   │   ├── cards
+│   │   │   └── cards.js
+│   │   ├── components
+│   │   │   ├── array.js
+│   │   │   ├── components.js
+│   │   │   ├── controls.js
+│   │   │   ├── functionScore.js
+│   │   │   └── place.js
+│   │   ├── icon
+│   │   │   ├── glyph.js
+│   │   │   ├── icon.js
+│   │   │   └── pictogram.js
+│   │   ├── index.html
+│   │   ├── main.js
+│   │   ├── map
+│   │   │   └── map.js
+│   │   ├── media
+│   │   │   ├── gallery.js
+│   │   │   └── media.js
+│   │   ├── screens
+│   │   ├── style
+│   │   │   ├── amenitiesStyle.js
+│   │   │   ├── arrayStyle.js
+│   │   │   ├── buttonStyle.js
+│   │   │   ├── cardStyle.js
+│   │   │   ├── controlStyle.js
+│   │   │   ├── datavisStyle.js
+│   │   │   ├── dividerStyle.js
+│   │   │   ├── footerStyle.js
+│   │   │   ├── globalStyle.js
+│   │   │   ├── glyphStyle.js
+│   │   │   ├── gridStyle.js
+│   │   │   ├── headerStyle.js
+│   │   │   ├── heroStyle.js
+│   │   │   ├── iconStyle.js
+│   │   │   ├── mapStyle.js
+│   │   │   ├── mediaStyle.js
+│   │   │   ├── sectionStyle.js
+│   │   │   ├── style.js
+│   │   │   ├── tagStyle.js
+│   │   │   ├── textStyle.js
+│   │   │   ├── tokenStyle.js
+│   │   │   └── typeStyle.js
+│   │   ├── tags
+│   │   │   ├── amtag.js
+│   │   │   ├── attrtag.js
+│   │   │   ├── geotag.js
+│   │   │   ├── objtag.js
+│   │   │   └── tag.js
+│   │   └── text
+│   │       └── text.js
+│   └── server
+│       ├── config
+│       │   ├── config.js
+│       │   └── redisClient.js
+│       ├── controllers
+│       │   └── controllerYelp.js
+│       ├── data
+│       │   ├── api
+│       │   │   ├── client.js
+│       │   │   └── index.js
+│       │   ├── contentful
+│       │   │   ├── client.js
+│       │   │   └── index.js
+│       │   ├── data.js
+│       │   ├── dataServices.js
+│       │   ├── geoData.js
+│       │   ├── index.js
+│       │   ├── mongodb
+│       │   │   └── mongodb.js
+│       │   └── yelp
+│       │       ├── api.js
+│       │       ├── client.js
+│       │       └── index.js
+│       ├── index.js
+│       ├── models
+│       │   ├── storeModel.js
+│       │   └── userModel.js
+│       ├── routes
+│       └── server.js
+└── webpack.config.cjs
+//////////////////////////////////////////////////////////
+/// TREE DIRECTORY END /// TREE DIRECTORY END /// TREE DIR
+//////////////////////////////////////////////////////////
+
+
+
+//////////////////////////////////////////////////////////
+/// WEBPACK.CONFIG.CJS START /// WEBPACK.CONFIG.CJS START 
+//////////////////////////////////////////////////////////
+
+//'./src/server/webpack.config.cjs'
+const path = require('path');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const webpack = require('webpack');
+
+module.exports = {
+  mode: 'development',
+  entry: {
+    main: './src/client/main.js',
+  },
+  devtool: 'inline-source-map',
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        }
+      },
+      {
+        test: /\.css$/, 
+        use: ['style-loader', 'css-loader']
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource'
+      }
+    ]
+  },
+  resolve: {
+    alias: {
+      Components: path.resolve(__dirname, "src/client/components"),
+      Screens: path.resolve(__dirname, "src/client/screens"),
+      Assets: path.resolve(__dirname, "src/client/assets")
+    },
+    fallback: {
+      "os": false,
+      "tls": false,
+      "net": false,
+      "path": false,
+      "zlib": false,
+      "http": false,
+      "https": false,
+      "stream": false,
+      "crypto": false,
+      "process": require.resolve("process/browser"),
+      "querystring": require.resolve("querystring-es3")
+    }
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/client/index.html',
+      filename: 'index.html',
+      inject: true
+    }),
+    new webpack.DefinePlugin({
+      'process.env.YELP_API_KEY': JSON.stringify(process.env.YELP_API_KEY),
+      'process.env.YELP_BASE_URL': JSON.stringify(process.env.YELP_BASE_URL),
+    }),
+    new webpack.ProvidePlugin({
+      process: 'process/browser'
+    })
+  ],
+  output: {
+    filename: '[name].bundle.js', // Generates main.bundle.js and style.bundle.js
+    path: path.resolve(__dirname, 'dist'),
+    clean: true,
+    publicPath: '/',
+  },
+  devServer: {
+    hot: true,
+    static: {
+      directory: path.resolve(__dirname, "dist"),
+    },
+    proxy: [{
+      context: ['/api'],
+      target: 'node', // Ensures the build targets Node.js environment
+      externals: {
+          dotenv: 'commonjs dotenv', // Exclude dotenv from bundling
+      },
+      changeOrigin: true,
+      secure: false,
+      headers: {
+        'Authorization': `Bearer MCJDC_QCB7cdpzWtzs1PlvrwASWyNcjcSMhLW0O52P1V9tYwZ6aTvlzys2Ylh1A939F9pAp3Qf_cXe2kQ2xAFwfPNLNUAydP5S6k_qDOufkdp203jNcu851fWSRBZ3Yx`,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }],
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+      "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
+    },
+    compress: true,
+    port: 3000,
+    open: true,
+    historyApiFallback: true,
+  },
+};
+//////////////////////////////////////////////////////////
+/// WEBPACK.CONFIG.CJS START /// WEBPACK.CONFIG.CJS START 
+//////////////////////////////////////////////////////////
+
+
+
+//////////////////////////////////////////////////////////
+/// PACKAGE.JSON START /// PACKAGE.JSON START /// PACKAGE.
+//////////////////////////////////////////////////////////
+{
+  "name": "numad_store",
+  "version": "1.0.0",
+  "description": "numadic store",
+  "main": "./src/client/main.js",
+  "scripts": {
+    "client": "webpack serve --mode development --config webpack.config.cjs",
+    "server": "nodemon ./src/server/server.js",
+    "authServer": "nodemon ./src/server/authServer.js",
+    "dev": "concurrently \"npm run server\" \"npm run authServer\" \"npm run client\"",
+    "build": "webpack --mode production --config webpack.client.config.cjs"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vm-browserify": "^1.1.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.1.0"
+  },
+  "dependencies": {
+    "@babel/preset-env": "^7.25.4",
+    "axios": "^1.7.8",
+    "Babel": "^0.0.1",
+    "babel-loader": "^9.2.1",
+    "browserify": "^17.0.0",
+    "crypto-browserify": "^3.12.0",
+    "dotenv": "^16.4.5",
+    "html-webpack-plugin": "^5.6.0",
+    "ioredis": "^5.4.1",
+    "mapbox": "^1.0.0-beta10",
+    "mapbox-gl": "^3.7.0",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
+    "redis": "^4.7.0",
+    "redis-url": "^1.2.1",
+    "stream-http": "^3.2.0",
+    "tls-browserify": "^0.2.2",
+    "webpack": "^5.94.0",
+    "proxy": "https://api.yelp.com/v3"
+  }
+}
+//////////////////////////////////////////////////////////
+/// PACKAGE.JSON START /// PACKAGE.JSON START /// PACKAGE.
+//////////////////////////////////////////////////////////
+
+
+
+//////////////////////////////////////////////////////////
+/// .ENV START /// .ENV START /// .ENV START /// .ENV STAR
+//////////////////////////////////////////////////////////
+YELP_API_KEY=MCJDC_QCB7cdpzWtzs1PlvrwASWyNcjcSMhLW0O52P1V9tYwZ6aTvlzys2Ylh1A939F9pAp3Qf_cXe2kQ2xAFwfPNLNUAydP5S6k_qDOufkdp203jNcu851fWSRBZ3Yx
+YELP_BASE_URL=https://api.yelp.com/v3
+MONGODB_URI=mongodb+srv://user:sshkey@cluster0.bgd0ike.mongodb.net/
+CONTENTFUL_SPACE_ID=i1hcb4885ci0
+CONTENTFUL_ACCESS_TOKEN=Bcy-B6Lvepv3RLYinX-rY9x4KDpxJcv8_IH0PgF6odw
+REDIS_URL=redis://localhost:6379
+PORT=3000
+AUTHPORT=4000
+SERVERPORT=4500
+REFRESH_TOKEN_SECRET=3fe93fb6f6ec1bf294a014e65ffdf1bf2466c6fbc96933e4778ff427b04c16b76727131d0a53ca213b2492382ac0d7ebd4f448af0c12765c34fada2c5d87c5d0
+ACCESS_TOKEN_SECRET=da2e5e79fb1d44db9d19d481197b5855c39a7542e0b331e696b5e7a4bfdd08d9aaf9fd1b10294d4843cba0d8a11a1807a0d004a011d2ed05539136589b07ec0f
+AUTH0_CLIENT_SECRET=5t9vScczdsoOnhPxb9TuUcTUFjkzfCrs22PB9Rp6FqxHMz8s5FUJTn18OPPAgH5o
+AUTH0_BASE_URL=dev-6rixmw8fmaozoez8.us.auth0.com
+AUTH0_CLIENT_ID=auAhXeiV7MIcFDR5cMBjV9TK95YMeaVG
+AUTH0_ISSUER_BASE_URL=dev-6rixmw8fmaozoez8.us.auth0.com
+AUTH0_API_IDENTIFIER=https://www.theneumad.com
+//////////////////////////////////////////////////////////
+/// .ENV END /// .ENV END /// .ENV END /// .ENV END /// .E
+//////////////////////////////////////////////////////////
+

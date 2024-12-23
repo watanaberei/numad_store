@@ -1,0 +1,667 @@
+import * as glyph from '../icon/glyph.js';
+import * as style from '../style/style.js';
+import * as icon from '../icon/icon.js';
+import * as Pictogram from '../icon/pictogram.js';
+import * as Tag from '../tags/tag.js';
+import * as geotag from  '../tags/geotag.js';
+import * as objtag from '../tags/objtag.js';
+import * as amtag from '../tags/amtag.js';
+import * as attrtag from '../tags/attrtag.js';
+import * as array from './array.js';
+import { getStatsScore } from './functionScore.js';
+import { initMap } from '../map/map.js';
+import * as cards from '../cards/cards.js';
+import * as text from '../text/text.js';
+
+// ... (keep other existing components)
+
+export const cardAttributes = {
+  render: store => {
+    return `
+      ${store.bestfor ? cards.cardStoreAttributes.render(store.bestfor, "Best For", "BestFor") : ""}
+      ${store.working ? cards.cardStoreAttributes.render(store.working, "Working", "Working") : ""}
+      ${store.environment ? cards.cardStoreAttributes.render(store.environment, "Environment", "Environment") : ""}
+      ${store.facility ? cards.cardStoreAttributes.render(store.facility, "Facility", "Facility") : ""}
+    `;
+  }
+};
+
+export const cardSubStoreItem = {
+  render: (data) => {
+    return cards.cardSubStoreItem.render(data);
+  }
+};
+
+export const cardSummaryItem = {
+  render: (data) => {
+    return cards.cardSummaryItem.render(data);
+  },
+  
+  afterRender: () => {
+    const amtagButtons = document.querySelectorAll('.amtag');
+    amtagButtons.forEach(button => {
+      button.addEventListener('mouseenter', (e) => {
+        button.classList.add('hovered');
+      });
+      button.addEventListener('mouseleave', (e) => {
+        button.classList.remove('hovered');
+      });
+      
+      const scoreIcons = button.querySelectorAll('.score-icon');
+      scoreIcons.forEach(icon => {
+        icon.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const newScore = parseInt(icon.getAttribute('data-score'));
+          button.setAttribute('data-score', newScore);
+          scoreIcons.forEach((si, index) => {
+            si.classList.toggle('active', index <= newScore);
+          });
+          button.classList.add('selected');
+          button.querySelector('.single-icon').innerHTML = icon.innerHTML;
+        });
+      });
+    });
+  }
+};
+
+export const storeSummary = {
+  render: (data) => {
+    const limit = 2; // Maximum number of lines for tags
+    const summaryData = [
+      { 
+        title: 'Experience', 
+        score: data.experienceScore,
+        tags: data.experience.sort((a, b) => b.user - a.user)
+      },
+      { 
+        title: 'Service', 
+        score: data.serviceScore,
+        tags: data.service.sort((a, b) => b.user - a.user)
+      },
+      { 
+        title: 'Business', 
+        score: data.businessScore,
+        tags: data.business.sort((a, b) => b.user - a.user)
+      },
+      { 
+        title: 'Location', 
+        score: data.locationScore,
+        tags: data.location.sort((a, b) => b.user - a.user)
+      }
+    ].filter(item => item.tags && item.tags.length > 0);
+
+    return `
+
+        ${array.create.create(cards.cardSummaryItem, summaryData.map(item => ({...item, limit})), 'nest', '1/-1')}
+
+    `;
+  }
+};
+// export const storeSummary = {
+//   render: (data) => {
+//     const summaryData = [
+//       { 
+//         title: 'Experience', 
+//         score: data.experienceScore,
+//         tags: data.experience
+//       },
+//       { 
+//         title: 'Service', 
+//         score: data.serviceScore,
+//         tags: data.service
+//       },
+//       { 
+//         title: 'Business', 
+//         score: data.businessScore,
+//         tags: data.business
+//       },
+//       { 
+//         title: 'Location', 
+//         score: data.locationScore,
+//         tags: data.location
+//       }
+//     ].filter(item => item.tags && item.tags.length > 0);
+
+//     return `
+//       <!--<div class="store-summary col04 grid04">-->
+//         ${array.create.create(cards.cardSummaryItem, summaryData, 'nest', '1/-1')}
+//       <!--</div>-->
+//     `;
+//   }
+// };
+
+
+export const summaryComponent = {
+  render: (data) => {
+    const array = array.create;
+    return `
+      <div class="summary-component">
+        ${array.create(cardSummaryItem, [
+          { title: 'Experience', score: data.experienceScore, tags: data.experience },
+          { title: 'Service', score: data.serviceScore, tags: data.service },
+          { title: 'Business', score: data.businessScore, tags: data.business },
+          { title: 'Location', score: data.locationScore, tags: data.location }
+        ], 'nest', '1/-1')}
+      </div>
+    `;
+  }
+};
+
+// OLD
+export const cardGalleryItem = {
+  render: (config) => {
+    return array.create.createCarousel(
+      {
+        render: (item) => `
+          <div class="card-gallery col01">
+            <div class="primary">
+              ${amtag.amtagCategory.render({ category: item.type })}
+              ${item.source?.logo ? `
+                <div class="badge">
+                  <img src="${item.source.logo}" alt="Partner logo" class="partner-logo-thumbnail" width="15" height="15">
+                </div>
+              ` : ''}
+            </div>
+            <div class="content">
+              <img src="${item.thumbnail}" alt="${item.name}" />
+              <div class="item-info">
+                <span class="name text02">${item.name}</span>
+                <span class="type text02">${item.type}</span>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      config.items,
+      config.type || 'gallery',
+      'popularity',
+      config.style || 'regular',
+      config.limit || '1/-1'
+    );
+  }
+};
+
+export const cardGallery = {
+  render: (data, type = 'gallery', sort = 'popularity', size = 'regular', limit = 6) => {
+    return array.create.create.createCarousel(
+      cardGalleryItem,
+      data,
+      type,
+      sort,
+      size,
+      limit
+    );
+  }
+};
+
+// export const cardCategoryItem = {
+//   render: (data) => {
+//     return cards.cardCategoryItem.render(data);
+//   }
+// };
+
+
+// OLD
+
+export const storeCategory = {
+  render: (data) => {
+    console.log('storeCategory data:', data);
+    
+    if (!data) {
+      console.error('No data provided to storeCategory');
+      return '';
+    }
+
+    const categoryData = Object.values(data).map(category => ({
+      category: category.category,
+      items: Object.values(category.items || {})
+    })).filter(category => category.items.length > 0);
+
+    console.log('Processed categoryData:', categoryData);
+
+    return `
+      <div class="store-category col04">
+        ${array.create.create(cards.cardCategoryItem, categoryData, 'nest', '1/-1')}
+      </div>
+    `;
+  }
+};
+
+
+// Update cardCategoryItem to match cardSummaryItem pattern
+export const cardCategoryItem = {
+  render: (data) => {
+    console.log('cardCategoryItem rendering with data:', data);
+    return cards.cardCategoryItem.render(data);
+  }
+};
+
+
+// export const storeCategory = {
+//   render: (data) => {
+//     const categoryData = Object.values(data).map(category => ({
+//       category: category.category,
+//       type: "category",
+//       items: Object.values(category.items),
+//       url: category.url
+//     }));
+
+//     return `
+//       <div class="category-carousel col04">
+//         ${array.create.createCarousel(
+//           cards.cardCategoryItem,
+//           categoryData,
+//           'category',
+//           'popularity',
+//           'regular',
+//           6
+//         )}
+//       </div>
+//     `;
+//   }
+// };
+
+// export const sectionFooter = {
+//   render: (data) => {
+//     const user = icon.iconUserRating;
+//     const comment = icon.iconUserComment;
+//     const review = icon.iconUserReview;
+//     const like = icon.iconUserImpressionsLike;
+//     const dislike = icon.iconUserImpressionsDislike;
+//     return `
+//       <!--<div class="footer-item grid05 col04">-->
+//         <div class="info sentance alignV-center text02 col02">
+//           <span class="impression-item text02 glyph">
+//             ${user}
+//             <span class="count">
+//               ${data.contributionsCount}
+//             </span>
+//           </span>
+//           <div class="dividerV"></div>
+//           <div class="sentance">
+//             Modified ${data.modifiedDate}, ${data.modifiedTime} min
+//           </div>
+//         </div>
+//         <div class="controls col02 array alignV-center alignH-right">
+//           <span class="impression-item text02 glyph">
+            
+//             ${comment}
+//             Comments 
+//             <span class="count">
+//               ${data.commentsCount}
+//             </span>
+//           </span>
+//           <span class="impression-item text02 glyph">
+//             ${review}
+//             Reviews 
+//             <span class="count">
+//               ${data.reviewsCount}
+//             </span>
+//           </span>
+//           <div class="divider"></div>
+//           <div class="impressions pair">
+//             <span class="impression-item text02 glyph">
+//               ${like}
+//               ${data.likesCount}
+//             </span>
+//             <span class="impression-item text02 glyph">
+              
+//               ${dislike}
+//               ${data.dislikesCount}
+//             </span>
+//           </div>
+//         </div>
+//         <!--</div>-->
+//     `;
+//   }
+// };
+
+
+
+export const itemTag = {
+    render: (data) => {
+      const arrow = glyph.glyphActionArrow;
+      return `
+      <div class="item-tag">
+        <div class="label">
+          ${arrow}
+          <span class="text02">${data.label}</span>
+        </div>
+      </div>
+    
+      `;
+  }
+};
+
+
+// export const textBlock = {
+//   render: (data) => {
+//     return text.textBlock.render(data);
+//   }
+// };
+
+
+// export const sectionHeader = {
+//   render: (data) => {
+//     return text.textHeader.render(data);
+//   }
+// };
+
+
+// export const textBlock = {
+//   render: (data) => {
+//     return `
+//       <div class="text-component span04">
+//         <div class="title">
+//           <div class="title-text text02">Summary</div>
+//           ${icon.iconMenuMore}
+//         </div>
+//         <div id="text-reveal" class="body-content text02">${data.content}</div>
+//         <button id="button-reveal" class="button-more reveal show-more text02">Show More</button>
+//       </div>
+//     `;
+//   },
+
+//   afterRender: () => {
+//     // Ensure that this function runs after the DOM is fully loaded
+//     window.onload = () => {
+//       const showMoreBtn = document.querySelector('#button-reveal');
+//       const content = document.querySelector('#text-reveal');
+      
+//       if (showMoreBtn && content) {
+//         let isExpanded = false;
+
+//         showMoreBtn.addEventListener('click', () => {
+//           if (isExpanded) {
+//             console.log('isClicked');
+//             content.style.webkitLineClamp = '3';
+//             showMoreBtn.textContent = 'Show More';
+//           } else {
+//             content.style.webkitLineClamp = 'unset';
+//             showMoreBtn.textContent = 'Show Less';
+//           }
+//           isExpanded = !isExpanded;
+//         });
+//       }
+//     };
+//   }
+// };
+
+
+export const mapNearby = {
+  render: (data) => {
+    return `
+      <div class="location col04">
+        <div class="map-container col04">
+          <div id="map" class="map">
+            <div class="overlay">
+              <div class="search">
+                <div class="text02">
+                  $ {data.address}
+                </div>
+                ${icon.iconActionCopy}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar  col04">
+          <div id="listings"class="listings grid08-overflow span04 row01"></div>
+        </div>
+        </div>
+    `;
+  },
+  afterRender: () => {
+    initMap();  // Call the map initialization from map.js
+  }
+};
+
+// Render the component on page load
+document.addEventListener('DOMContentLoaded', () => {
+  const mapContainer = document.getElementById('mapRadiusComponent');
+  if (mapContainer) {
+    mapContainer.innerHTML = mapRadiusComponent.render();
+    mapRadiusComponent.afterRender();
+  }
+});
+
+export const dividerComponent = {
+  render: () => {
+    return `
+      <div class="col04 divider-v"></div>
+    `;
+  }
+};
+
+export const titleComponent = {
+  render: (data) => {
+    return `
+      <div class="title stretch span04">
+        <div class="primary left">
+          <button class="category">
+            <span class="span">${data.title}</span>
+            ${glyph.glyphActionArrow}
+          </button>
+        </div>
+        <div class="secondary array right">
+          <div class="pagination">
+            <div class="pagination2">
+              <div class="ellipse"></div>
+              <div class="ellipse inactive"></div>
+              <div class="ellipse inactive"></div>
+            </div>
+          </div>
+          <div class="controls array">
+            <button class="controls-button">${icon.iconActionPrev}</button>
+            <button class="controls-button">${icon.iconActionNext}</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+};
+
+
+
+
+
+export const storeHero = {
+  render: (detail, gallery, headline) => {
+    return `
+        <div class="grid05 array" id="store-detail">
+          ${detail ? storeDetail.render(detail) : ''}
+        </div>
+        <div class="col05 body">
+          <div class="col05 " id="hero-gallery">
+            ${gallery ? heroGallery.render(gallery) : ''}
+          </div>
+          ${dividerComponent.render()}
+          <div class="col05 " id="hero-headline">
+            ${headline ? storeHeadline.render(headline) : ''}
+          </div>
+        </div>
+
+        `;
+      }
+    };
+
+export const storeDetail = {
+  render: (data) => {
+    let rating = {
+      rating: data.rating,
+    };
+    let costEstimate = {
+      priceRange: data.costEstimate,
+    };
+
+  
+    
+    const save = glyph.glyphControlSave;
+    const share = glyph.glyphControlShare;
+    const checkin = glyph.glyphControlCheckin;
+    return `
+        <div class="hero-detail array col04">
+          <div class="hero-primary tag-array">
+            ${geotag.geotagRating.render(rating)}
+            ${geotag.geotagCostEstimate.render(costEstimate)}             
+          </div>
+          <div class="hero-secondary tag-array">
+            <span class="objtag info-type text02">${data.storeType}</span>
+            <span class="objtag info-distance text02">${data.distance} away in</span>
+            <span class="objtag info-city text02">${data.city}, ${data.state}</span>
+          </div>
+        </div>
+        <div class="hero-controls array col01">
+          <button class="user-action share">
+            ${share}
+            <span class="text02">Share</span>
+          </button>
+          <button class="user-action save">
+            ${save}
+            <span class="text02">Save</span>
+          </button>
+          <button class="user-action checkin">
+            ${checkin}
+            <span class="text02">Check in</span>
+          </button>
+        </div>
+        
+    `;
+  }
+};
+
+
+export const heroGallery = {
+  render: (data) => {
+    return `
+      
+        
+        <div class="hero-gallery00 grid05-overflow">
+          <div class="gallery-image col03" style="background-image: url(${data.galleryImages[0]});"></div>
+          <div class="gallery-image col02" style="background-image: url(${data.galleryImages[1]});"></div>
+          <div class="gallery-image col03" style="background-image: url(${data.galleryImages[0]});"></div>
+          <div class="gallery-image col02" style="background-image: url(${data.galleryImages[1]});"></div>
+        </div>
+
+    `;
+  }
+};
+
+
+export const storeHeadline = {
+  render: (data) => {
+    const pin = glyph.glyphLocationPin;
+    let status = {
+      status: data.status,
+    };
+    return `
+      
+        <span class="hero-title array span04">
+          <span class="store-name text05">${data.storeName}</span>
+          <span class="store-city text05">${data.city}</span>
+        </span>
+        <div class="hero-distance word col01">
+          <span class="glyph05 glyph-location-pin">${pin}</span>
+          <span class="distance-value text05">${data.distanceMiles}</span>
+          <span class="distance-unit text05">mi</span>
+        </div>
+        ${geotag.geotagStatus.render(status)}   
+
+
+    `;
+  }
+};
+
+
+
+export const storeOverview = {
+  render: (headerData, textData, summaryData, footerData) => {
+    return `
+        <div class="col04 array" id="header">
+          ${headerData ? sectionHeader.render(headerData) : ''}
+        </div>
+       
+        <div class="col04 container body">
+          ${summaryData ? storeSummary.render(summaryData) : ''}
+          ${dividerComponent.render()}
+          <div class="col04 " id="text">
+            ${textData ? textBlock.render(textData) : ''}
+          </div>
+        </div>
+        
+      
+        <div class="col04" id="footer">
+          ${footerData ? sectionFooter.render(footerData) : ''}
+        </div>
+
+    `;
+  },
+  afterRender: () => {
+    text.textBlock.afterRender();
+  }
+};
+
+
+export const sectionHeader = {
+  render: (data) => {
+    return text.textHeader.render(data || {});
+  }
+};
+
+export const textBlock = {
+  render: (data) => {
+    return text.textBlock.render(data || {});
+  },
+  afterRender: text.textBlock.afterRender
+};
+
+
+export const sectionFooter = {
+  render: (data) => {
+    const user = icon.iconUserRating;
+    const comment = icon.iconUserComment;
+    const review = icon.iconUserReview;
+    const like = icon.iconUserImpressionsLike;
+    const dislike = icon.iconUserImpressionsDislike;
+    return `
+      <div class="info sentance alignV-center text02 col02">
+        <span class="impression-item text02 glyph">
+          ${user}
+          <span class="count">
+            ${data?.contributionsCount || 0}
+          </span>
+        </span>
+        <div class="dividerV"></div>
+        <div class="sentance">
+          Modified ${data?.modifiedDate || 'N/A'}, ${data?.modifiedTime || 0} min
+        </div>
+      </div>
+      <div class="controls col02 array  alignH-right">
+        <span class="impression-item text02 glyph">
+          ${comment}
+          Comments 
+          <span class="count">
+            ${data?.commentsCount || 0}
+          </span>
+        </span>
+        <span class="impression-item text02 glyph">
+          ${review}
+          Reviews 
+          <span class="count">
+            ${data?.reviewsCount || 0}
+          </span>
+        </span>
+        <div class="divider"></div>
+        <div class="impressions pair">
+          <span class="impression-item text02 glyph">
+            ${like}
+            ${data?.likesCount || 0}
+          </span>
+          <span class="impression-item text02 glyph">
+            ${dislike}
+            ${data?.dislikesCount || 0}
+          </span>
+        </div>
+      </div>
+    `;
+  }
+};

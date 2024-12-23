@@ -1,0 +1,798 @@
+import * as glyph from '../icon/glyph.js';
+import * as style from '../styles/style.js';
+import * as icon from '../icon/icon.js';
+import * as Pictogram from '../icon/pictogram.js';
+import * as Tag from '../tags/tag.js';
+import * as geotag from  '../tags/geotag.js';
+import * as objtag from '../tags/objtag.js';
+import * as amtag from '../tags/amtag.js';
+import * as attrtag from '../tags/attrtag.js';
+import { getStatsScore } from '../components/functionScore.js';
+import * as media from '../media/media.js';
+
+
+
+export const cardStoreAttributes = {
+  render: (section, title, objectKey) => {
+    const pictogramClass = `pictogram${objectKey.charAt(0).toUpperCase() + objectKey.slice(1)}`;
+    const pictogramHTML = Pictogram[`pictogram${objectKey.charAt(0).toUpperCase() + objectKey.slice(1)}`];
+
+    return `
+      <div class="card-attributes col02">
+        <div class="title">
+          <div class="text">
+            <span class="text03">${title}</span>
+            <div class="pictogram ${pictogramClass}">${pictogramHTML}</div>
+          </div>
+        </div>
+        <div class="tag-array">
+          ${section
+            .map(tag => {
+              let data = {
+                attribute: tag.label,
+                count: tag.count,
+              };
+              return `
+                ${attrtag.attrtagCount.render(data)}
+              `;
+            })
+            .join("")}
+        </div>
+      </div>
+    `;
+  }
+};
+
+
+export const cardSummaryItem = {
+  render: (data) => {
+    const tags = data.tags || [];
+    const tagsPerLine = 3; // Assuming 3 tags fit in one line
+    const visibleTags = tags.slice(0, data.limit * tagsPerLine);
+    const hiddenTagsCount = tags.length - visibleTags.length;
+    const scoreResult = getStatsScore(parseInt(data.score));
+    
+    return `
+      <div class="card-summary col01">
+        <div class="title anchor">
+          <span class="primary sentance">
+            <span class="text03">
+              <span class="experience">${data.title}</span>
+            </span>
+            <span class="status">
+              <span class="status-text text02">${data.score}</span>
+              ${scoreResult.icons[scoreResult.currentScore]?.icon || ''}
+            </span>
+          </span>
+          <div class="secondary action">
+            <i class="icon-action-popup">
+              ${icon.iconActionPopup}
+            </i>
+          </div>
+        </div>
+        <div class="tag-array">
+          <!--attrtagScore-->
+            ${visibleTags.map(tag => {
+              const tagScoreResult = getStatsScore(tag.score);
+              return `
+                <button class="amtag" id="amtag" data-name="value" data-score="${tag.score}">
+                  <div class="single-icon">
+                    ${tagScoreResult.icons[tagScoreResult.currentScore]?.icon || ''}
+                  </div>
+                  <div class="score-icons">
+                    ${tagScoreResult.icons.map((icon, index) => `
+                      <span class="score-icon ${index === tagScoreResult.currentScore ? 'active' : ''}" data-score="${index}" title="${icon.tooltip}">
+                        ${icon.icon}
+                      </span>
+                    `).join('')}
+                  </div>
+                  <div class="label">
+                    <span class="text02" id="text02">${tag.label}</span>
+                  </div>
+                </button>    
+              `;
+            }).join('')}
+
+          ${hiddenTagsCount > 0 ? `
+            <button class="button-more">
+              ${glyph.glyphSymbolPlus}
+              <span class="text02" id="count">
+                ${hiddenTagsCount}
+              </span>
+              <span class="text02">
+                more
+              </span>
+            </button>
+          ` : ''}
+        </div>
+      </div>
+    `;
+  }
+};
+
+
+// export const cardSummaryItem = {
+//   render: (data) => {
+//     const tags = data.tags || [];
+//     const visibleTags = tags.slice(0, 6);  // Show only first 6 tags
+//     const hiddenTagsCount = tags.length - visibleTags.length;
+//     const scoreResult = getStatsScore(parseInt(data.score));
+    
+//     return `
+//       <div class="card-summary col01">
+//         <div class="title anchor">
+//           <span class="primary sentance">
+//             <span class="text03">
+//               <span class="experience">${data.title}</span>
+//             </span>
+//             <span class="status">
+//               <span class="status-text text02">${data.score}</span>
+//               ${scoreResult.icons[scoreResult.currentScore]?.icon || ''}
+//             </span>
+//           </span>
+//           <div class="secondary action">
+//             <i class="icon-action-popup">
+//               ${icon.iconActionPopup}
+//             </i>
+//           </div>
+//         </div>
+//         <div class="tag-array">
+        
+//             ${visibleTags.map(tag => {
+//               const tagScoreResult = getStatsScore(tag.score);
+//               return `
+//                 <button class="amtag" id="amtag" data-name="value" data-score="${tag.score}">
+//                   <div class="single-icon">
+//                     ${tagScoreResult.icons[tagScoreResult.currentScore]?.icon || ''}
+//                   </div>
+//                   <div class="score-icons">
+//                     ${tagScoreResult.icons.map((icon, index) => `
+//                       <span class="score-icon ${index === tagScoreResult.currentScore ? 'active' : ''}" data-score="${index}" title="${icon.tooltip}">
+//                         ${icon.icon}
+//                       </span>
+//                     `).join('')}
+//                   </div>
+//                   <div class="label">
+//                     <span class="text02" id="text02">${tag.label}</span>
+//                   </div>
+//                 </button>    
+//               `;
+//             }).join('')}
+      
+//           ${hiddenTagsCount > 0 ? `
+//             <button class="button-more">
+//               ${glyph.glyphSymbolPlus}
+//               <span class="text02" id="count">
+//                 ${hiddenTagsCount}
+//               </span>
+//               <span class="text02">
+//                 more
+//               </span>
+//             </button>
+//           ` : ''}
+//         </div>
+//       </div>
+//     `;
+//   }
+// };
+// export const cardSummaryItem = {
+//   render: (data) => {
+//     const tags = data.tags || [];
+    
+//     return `
+//       <div class="card-summary col01">
+//         <div class="title anchor">
+//           <span class="primary sentance">
+//             <span class="text03">
+//               <span class="experience">${data.title}</span>
+//             </span>
+//             <span class="status">
+//               <span class="status-text text02">${data.status}</span>
+//               ${data.statusIcon}
+//             </span>
+//           </span>
+//           <div class="secondary action">
+//             <i class="icon-action-popup">
+//               ${icon.iconActionPopup}
+//             </i>
+//           </div>
+//         </div>
+//         <div class="tag-array">
+//           <div class="array">
+//             ${data.tags.map(tag => {
+//               const scoreResult = getStatsScore(tag.score);
+//               return `
+//                 <button class="amtag" id="amtag" data-name="value" data-score="${tag.score}">
+//                   <div class="single-icon">
+//                     ${scoreResult.icons[scoreResult.currentScore].icon}
+//                   </div>
+//                   <div class="score-icons">
+//                     ${scoreResult.icons.map((icon, index) => `
+//                       <span class="score-icon ${index === scoreResult.currentScore ? 'active' : ''}" data-score="${index}" title="${icon.tooltip}">
+//                         ${icon.icon}
+//                       </span>
+//                     `).join('')}
+//                   </div>
+//                   <div class="label">
+//                     <span class="text02" id="text02">${tag.label}</span>
+//                   </div>
+//                 </button>    
+//               `;
+//             }).join('')}
+//           </div>
+//           ${data.moreTags ? `
+//             <button class="button-more">
+//               ${glyph.glyphSymbolPlus}
+//               <span class="text02" id="count">
+//                 ${data.moreTags}
+//               </span>
+//               <span class="text02">
+//                 more
+//               </span>
+//             </button>
+//           ` : ''}
+//         </div>
+//       </div>
+//     `;
+//   }
+// };
+
+
+export const cardSubStoreItem = {
+  render: (data) => {
+    return `
+      <div class="card-sub-store col01">
+        <div class="content">
+          <div class="text array">
+            <i class="icon"></i>
+            <span class="distance">
+              <span class="count">
+                <span class="text02">
+                  ${data.distance}
+                </span>
+              </span>
+              <span class="unit">
+                <span class="miles">
+                  mi
+                </span>
+              </span>
+            </span>
+          </div>
+
+          <div class="logo">
+            <img src="background-image: url(${data.imageUrl});" class="substore-logo"></img>
+          </div>
+          
+          <div class="label">
+            <span class="brand text02">
+              <span class="label">
+                ${data.storeName}
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    `;
+  }
+};
+
+// export const cardCategoryItem = {
+//   render: (data) => {
+//     console.log('Rendering card category:', data);
+//     const items = Object.values(data.items || {});
+//     console.log('Items to render:', items);
+    
+//     return `
+//       <div class="card-collection col01" data-category="${data.category}">
+//         ${items.map((item, index) => `
+//           <div class="content ${index === 0 ? 'active' : ''}" data-index="${index}"
+//                style="background-image: url(${item.thumbnail?.media?.thumbnail || ''})">
+//             <div class="  primary">
+//               ${amtag.amtagGroup.render({ category: data.category })}
+//               ${item.source ? `
+//                 <div class="badge">
+//                   <img src="${item.source.logo}" alt="${item.source.name}" class="partner-logo-thumbnail">
+//                 </div>
+//               ` : ''}
+//             </div>
+            
+//             <div class="tertiary">
+//               <div class="controls pagination-indicator">
+//                 ${items.map((_, i) => `
+//                   <div class="indicator-dot ${i === index ? '' : 'inactive'}" data-index="${i}"></div>
+//                 `).join('')}
+//               </div>
+//             </div>
+            
+//             <div class="secondary">
+//               <div id="value-${index}" class="value pill array">
+//                 ${amtag.amtagItem.render({
+//                   rank: item.rank,
+//                   name: item.name
+//                 })}
+//               </div>
+//             </div>
+//           </div>
+//         `).join('')}
+//       </div>
+//     `;
+//   },
+  
+//   afterRender: () => {
+//     console.log('Initializing cardCategoryItem afterRender');
+//     const containers = document.querySelectorAll('.');
+    
+//     containers.forEach((container) => {
+//       const category = container.dataset.category;
+//       console.log('Processing category:', category);
+//       const items = Object.values(window.cardCategoryData[category.toLowerCase()]?.items || {});
+//       const content = container.querySelector('.card-collection');
+//       const dots = container.querySelectorAll('.indicator-dot');
+//       const valueContainer = container.querySelector('#value');
+//       let currentIndex = 0;
+
+//       const updateCard = (index) => {
+//         console.log(`Updating card to index ${index} for category ${category}`);
+//         const item = items[index];
+        
+//         // Update background with transition
+//         content.style.opacity = '0';
+//         setTimeout(() => {
+//           content.style.backgroundImage = `url(${item.thumbnail.media.thumbnail})`;
+//           content.style.opacity = '1';
+//         }, 150);
+
+//         // Update badge if exists
+//         const badge = container.querySelector('.badge');
+//         if (badge && item.source) {
+//           badge.innerHTML = `<img src="${item.source.logo}" alt="${item.source.name}" class="partner-logo-thumbnail">`;
+//         }
+
+//         // Update value
+//         valueContainer.innerHTML = amtag.amtagItem.render({
+//           rank: item.rank,
+//           name: item.name
+//         });
+
+//         // Update indicators
+//         dots.forEach((dot, i) => {
+//           dot.classList.toggle('inactive', i !== index);
+//         });
+
+//         currentIndex = index;
+//       };
+
+//       // Handle card click
+//       container.addEventListener('click', (e) => {
+//         if (!e.target.closest('.indicator-dot')) {
+//           const nextIndex = (currentIndex + 1) % items.length;
+//           console.log(`Card clicked, advancing to ${nextIndex}`);
+//           updateCard(nextIndex);
+//         }
+//       });
+
+//       // Handle indicator dots
+//       dots.forEach((dot, index) => {
+//         dot.addEventListener('click', (e) => {
+//           e.stopPropagation();
+//           console.log(`Dot ${index} clicked`);
+//           updateCard(index);
+//         });
+//       });
+
+//       // Auto advance setup
+//       let autoAdvance = setInterval(() => {
+//         if (!container.matches(':hover')) {
+//           const nextIndex = (currentIndex + 1) % items.length;
+//           updateCard(nextIndex);
+//         }
+//       }, 5000);
+
+//       container.addEventListener('mouseenter', () => clearInterval(autoAdvance));
+//       container.addEventListener('mouseleave', () => {
+//         autoAdvance = setInterval(() => {
+//           const nextIndex = (currentIndex + 1) % items.length;
+//           updateCard(nextIndex);
+//         }, 5000);
+//       });
+//     });
+//   }
+// };
+
+// export const cardCategoryItem = {
+//   render: (data) => {
+//     console.log('Rendering card category:', data);
+//     const items = Object.values(data.items || {});
+//     console.log('Items to render:', items);
+    
+//     return `
+//       <div class="card-collection col01" data-category="${data.category}">
+//         ${items.map((item, index) => `
+//           <div class="content ${index === 0 ? 'active' : ''}" data-index="${index}"
+//                style="background-image: url(${item.thumbnail?.media?.thumbnail || ''})">
+//             <div class="primary">
+//               ${amtag.amtagGroup.render({ category: data.category })}
+//               ${item.source ? `
+//                 <div class="badge">
+//                   <img src="${item.source.logo}" alt="${item.source.name}" class="partner-logo-thumbnail">
+//                 </div>
+//               ` : ''}
+//             </div>
+            
+//             <div class="tertiary">
+//               <div class="controls pagination-indicator">
+//                 ${items.map((_, i) => `
+//                   <div class="indicator-dot ${i === index ? '' : 'inactive'}" data-index="${i}"></div>
+//                 `).join('')}
+//               </div>
+//             </div>
+            
+//             <div class="secondary">
+//               <div id="value-${index}" class="value pill array">
+//                 ${amtag.amtagItem.render({
+//                   rank: item.rank,
+//                   name: item.name
+//                 })}
+//               </div>
+//             </div>
+//           </div>
+//         `).join('')}
+//       </div>
+//     `;
+//   },
+  
+//   afterRender: () => {
+//     console.log('Initializing cardCategoryItem afterRender');
+//     const containers = document.querySelectorAll('.card-collection');
+//     console.log('Found card containers:', containers.length);
+    
+//     containers.forEach((container, containerIndex) => {
+//       console.log(`Initializing container ${containerIndex}`);
+//       const category = container.dataset.category;
+//       const contents = container.querySelectorAll('.content');
+//       const dots = container.querySelectorAll('.indicator-dot');
+//       let currentIndex = 0;
+      
+//       console.log(`Container ${containerIndex} has ${contents.length} items and ${dots.length} dots`);
+      
+//       const showItem = (index) => {
+//         console.log(`Showing item ${index} in container ${containerIndex}`);
+        
+//         contents.forEach((content, i) => {
+//           const isActive = i === index;
+//           content.style.display = isActive ? 'grid' : 'none';
+//           content.classList.toggle('active', isActive);
+//           console.log(`Content ${i} active:`, isActive);
+//         });
+        
+//         dots.forEach((dot, i) => {
+//           dot.classList.toggle('inactive', i !== index);
+//           console.log(`Dot ${i} inactive:`, i !== index);
+//         });
+        
+//         currentIndex = index;
+//         console.log('Updated currentIndex to:', currentIndex);
+//       };
+      
+//       // Handle card click
+//       container.addEventListener('click', (e) => {
+//         console.log('Card clicked');
+//         if (!e.target.closest('.indicator-dot')) {
+//           const nextIndex = (currentIndex + 1) % contents.length;
+//           console.log(`Advancing to item ${nextIndex}`);
+//           showItem(nextIndex);
+//         }
+//       });
+      
+//       // Handle indicator clicks
+//       dots.forEach((dot, index) => {
+//         dot.addEventListener('click', (e) => {
+//           e.stopPropagation();
+//           console.log(`Dot ${index} clicked`);
+//           showItem(index);
+//         });
+//       });
+
+//       // Initialize first item
+//       showItem(0);
+//     });
+//   }
+// };
+
+
+export const cardCategoryItem = {
+  render: (data) => {
+    console.log('Rendering card category:', data);
+    
+    // Sort items by rank
+    const items = Object.values(data.items || {})
+      .sort((a, b) => parseInt(a.rank) - parseInt(b.rank))
+      .slice(0, 3); // Cap at 3 items
+
+    return `
+      <div class="card-item col01" data-category="${data.category}">
+        ${items.map((item, index) => `
+          <div class="card-content ${index === 0 ? 'active' : ''}" 
+               data-index="${index}"
+               style="background-image: url(${item.thumbnail.media.thumbnail})">
+            <div class="primary">
+              ${amtag.amtagGroup.render({ category: data.category })}
+              ${item.source?.logo ? `
+                <div class="badge">
+                  <img src="${item.source.logo}" alt="Partner logo" class="partner-logo-thumbnail">
+                </div>
+              ` : ''}
+            </div>
+            
+            <div class="tertiary">
+              <div class="controls pagination-indicator">
+                ${items.map((_, i) => `
+                  <div class="indicator-dot ${i === index ? '' : 'inactive'}" data-index="${i}"></div>
+                `).join('')}
+              </div>
+            </div>
+            
+            <div class="secondary">
+              <div class="value pill array">
+                ${amtag.amtagItem.render({
+                  rank: item.rank,
+                  name: item.name
+                })}
+              </div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  },
+
+  afterRender: () => {
+    const cards = document.querySelectorAll('.card-item');
+    
+    cards.forEach(card => {
+      const contents = card.querySelectorAll('.card-content');
+      const dots = card.querySelectorAll('.indicator-dot');
+      let currentIndex = 0;
+
+      const showItem = (index) => {
+        // Handle cycling
+        const newIndex = (index + contents.length) % contents.length;
+        
+        contents.forEach((content, i) => {
+          content.classList.toggle('active', i === newIndex);
+        });
+
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('inactive', i !== newIndex);
+        });
+
+        currentIndex = newIndex;
+      };
+
+      // Handle card click for cycling
+      card.addEventListener('click', () => {
+        showItem(currentIndex + 1);
+      });
+
+      // Handle dot clicks
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', (e) => {
+          e.stopPropagation(); // Prevent card click
+          showItem(index);
+        });
+      });
+    });
+  }
+};
+
+
+// export const cardCategoryItem = {
+//   render: (data) => {
+//     console.log('Rendering card category:', data);
+//     const items = Object.values(data.items || {});
+//     console.log('Items to render:', items);
+    
+//     return `
+//       <div id="card-item" class="card-item col01" data-category="${data.category}">
+//         ${items.map((item, index) => `
+//           <div class="card-content ${index === 0 ? 'active' : ''}" data-index="${index}"  data-category="${data.category}"
+//                style="background-image: url(${item.thumbnail?.media?.thumbnail || ''})">
+//             <div class="primary">
+//               ${amtag.amtagGroup.render({ category: data.category })}
+//               ${item.source ? `
+//                 <div class="badge">
+//                   <img src="${item.source.logo}" alt="${item.source.name}" class="partner-logo-thumbnail">
+//                 </div>
+//               ` : ''}
+//             </div>
+            
+//             <div class="tertiary">
+//               <div class="controls pagination-indicator">
+//                 ${items.map((_, i) => `
+//                   <div class="indicator-dot ${i === index ? '' : 'inactive'}" data-index="${i}"></div>
+//                 `).join('')}
+//               </div>
+//             </div>
+            
+//             <div class="secondary">
+//               <div id="value-${index}" class="value pill array">
+//                 ${amtag.amtagItem.render({
+//                   rank: item.rank,
+//                   name: item.name
+//                 })}
+//               </div>
+//             </div>
+//           </div>
+//         `).join('')}
+//       </div>
+//     `;
+//   },
+//   afterRender: () => {
+//     console.log('Initializing cardCategoryItem afterRender');
+//     const containers = document.querySelectorAll('.card-item');
+//     console.log('Found card containers:', containers.length);
+    
+//     containers.forEach((container, containerIndex) => {
+//       console.log(`Initializing container ${containerIndex}`);
+//       const category = container.dataset.category;
+//       const contents = container.querySelectorAll('.card-content');
+//       const dots = container.querySelectorAll('.indicator-dot');
+//       let currentIndex = 0;
+      
+//       console.log(`Container ${containerIndex} has ${contents.length} items and ${dots.length} dots`);
+      
+//       const showItem = (index) => {
+//         console.log(`Showing item ${index} in container ${containerIndex}`);
+        
+//         contents.forEach((content, i) => {
+//           const isActive = i === index;
+//           content.style.display = isActive ? 'grid' : 'none';
+//           content.classList.toggle('active', isActive);
+//           console.log(`Content ${i} active:`, isActive);
+//         });
+        
+//         dots.forEach((dot, i) => {
+//           dot.classList.toggle('inactive', i !== index);
+//           console.log(`Dot ${i} inactive:`, i !== index);
+//         });
+        
+//         currentIndex = index;
+//         console.log('Updated currentIndex to:', currentIndex);
+//       };
+      
+//       // Handle card click
+//       container.addEventListener('click', (e) => {
+//         console.log('Card clicked');
+//         if (!e.target.closest('.indicator-dot')) {
+//           const nextIndex = (currentIndex + 1) % contents.length;
+//           console.log(`Advancing to item ${nextIndex}`);
+//           showItem(nextIndex);
+//         }
+//       });
+      
+//       // Handle indicator clicks
+//       dots.forEach((dot, index) => {
+//         dot.addEventListener('click', (e) => {
+//           e.stopPropagation();
+//           console.log(`Dot ${index} clicked`);
+//           showItem(index);
+//         });
+//       });
+
+//       // Initialize first item
+//       showItem(0);
+//     });
+//   }
+// };
+
+
+export const cardGalleryItem = {
+render: (data) => {
+  console.log('Rendering gallery card:', data);
+  
+  const images = Object.values(data.images || {})
+    .sort((a, b) => parseInt(a.rank) - parseInt(b.rank))
+    .slice(0, 3);
+
+  console.log('Processed images for gallery card:', images);
+
+  return `
+    <div class="card-item col01" data-area="${data.area}">
+      ${images.map((image, index) => `
+        <div class="card-content ${index === 0 ? 'active' : ''}" 
+            data-index="${index}"
+            data-gallery-url="${data.links?.gallery || ''}"
+            data-source-url="${image.source?.links?.source || ''}"
+            data-profile-url="${image.thumbnail?.post?.poster?.link?.profile || ''}"
+            style="background-image: url(${image.thumbnail.media.thumbnail})">
+          <div class="media-container">
+            <!--<img src="$ {image.thumbnail.media.thumbnail}" alt="$ {image.thumbnail.post.description || ''}" class="media-image">-->
+            
+            <div class="primary">
+              ${amtag.amtagGroup.render({ 
+                category: data.area,
+                url: data.links?.gallery 
+              })}
+              
+              ${image.source ? amtag.amtagSource.render({
+                logo: image.source.logo,
+                name: image.source.name,
+                url: image.source.links.source,
+                extraClasses: 'overlay-source media-overlay'
+              }) : ''}
+            </div>
+
+            <div class="tertiary">
+              <div class="controls pagination-indicator">
+                ${images.map((_, i) => `
+                  <div class="indicator-dot ${i === index ? '' : 'inactive'}" data-index="${i}"></div>
+                `).join('')}
+              </div>
+            </div>
+            
+            <div class="secondary">
+              ${image.thumbnail.post.description ? `
+                <div class="overlay-description">
+                  ${amtag.amtagFootnote.render({
+                    name: image.thumbnail.post.description,
+                    url: image.thumbnail.post.poster.link.profile
+                  })}
+                </div>
+              ` : ''}
+            </div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+};
+
+
+// export const cardGalleryItem = {
+//   render: (data) => {
+//     console.log('Rendering area card:', data);
+    
+//     // Sort images by rank and limit to 3
+//     const images = Object.values(data.images || {})
+//       .sort((a, b) => parseInt(a.rank) - parseInt(b.rank))
+//       .slice(0, 3);
+
+//     return `
+//       <div class="card-item col01" data-area="${data.area}">
+//         ${images.map((image, index) => `
+//           <div class="card-content ${index === 0 ? 'active' : ''}" 
+//                data-index="${index}"
+//                style="background-image: url(${image.thumbnail.media.thumbnail})">
+//             <div class="primary">
+//               ${amtag.amtagGroup.render({ category: data.area })}
+//               ${image.source?.logo ? `
+//                 <div class="badge">
+//                   <img src="${image.source.logo}" alt="Partner logo" class="partner-logo-thumbnail">
+//                 </div>
+//               ` : ''}
+//             </div>
+            
+//             <div class="tertiary">
+//               <div class="controls pagination-indicator">
+//                 ${images.map((_, i) => `
+//                   <div class="indicator-dot ${i === index ? '' : 'inactive'}" data-index="${i}"></div>
+//                 `).join('')}
+//               </div>
+//             </div>
+            
+//             <div class="secondary">
+//               <div class="value pill array">
+//                 ${amtag.amtagItem.render({
+//                   rank: image.rank || (index + 1).toString(),
+//                   name: image.thumbnail.post.description || data.area
+//                 })}
+//               </div>
+//             </div>
+//           </div>
+//         `).join('')}
+//       </div>
+//     `;
+//   }
+// };

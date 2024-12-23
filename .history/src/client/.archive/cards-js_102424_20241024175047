@@ -1,0 +1,294 @@
+import * as glyph from '../icon/glyph.js';
+import * as style from '../style/style.js';
+import * as icon from '../icon/icon.js';
+import * as Pictogram from '../icon/pictogram.js';
+import * as Tag from '../tags/tag.js';
+import * as geotag from  '../tags/geotag.js';
+import * as objtag from '../tags/objtag.js';
+import * as amtag from '../tags/amtag.js';
+import * as attrtag from '../tags/attrtag.js';
+import { getStatsScore } from '../components/functionScore.js';
+import { initMap } from '../map/map.js';
+// import { getPictogram } from './helpers'; // Import the getPictogram function
+
+
+
+
+export const cardAttributes = {
+  render: store => {
+    // Helper function to capitalize the first letter of object key and prepend with 'pictogram'
+    function getPictogramClass(objectKey) {
+      return `pictogram${objectKey.charAt(0).toUpperCase() + objectKey.slice(1)}`;
+    }
+
+    function getPictogram(objectKey) {
+      // Return the Pictogram dynamically based on the key, assuming Pictogram object is available
+      return Pictogram[`pictogram${objectKey.charAt(0).toUpperCase() + objectKey.slice(1)}`];
+    }
+
+    // Example of handling card section rendering
+    function renderCardSection(section, title, objectKey) {
+      const pictogramClass = getPictogramClass(objectKey); // Dynamically get the class name
+      const pictogramHTML = getPictogram(objectKey); // Get the actual HTML or DOM content for the pictogram
+
+      // Return the HTML template string for the card section
+      return `
+        <div class="card-attributes col02">
+          <div class="title">
+            <div class="text">
+              <span class="text03">${title}</span>
+              <div class="pictogram ${pictogramClass}">${pictogramHTML}</div> <!-- Inject pictogram content here -->
+            </div>
+          </div>
+          <div class="tag-array">
+            ${section
+              .map(tag => {
+                let data = {
+                  attribute: tag.label,
+                  count: tag.count,
+                };
+                return `
+                  ${attrtag.attrtagCount.render(data)}
+                `;
+              })
+              .join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    // Render all four sections dynamically
+    return `
+          <!-- <div class="card-attributes"> -->
+              ${store.bestfor
+                ? renderCardSection(store.bestfor, "Best For", "BestFor")
+                : ""}
+              ${store.working
+                ? renderCardSection(store.working, "Working", "Working")
+                : ""}
+              ${store.environment
+                ? renderCardSection(
+                    store.environment,
+                    "Environment",
+                    "Environment"
+                  )
+                : ""}
+              ${store.facility
+                ? renderCardSection(store.facility, "Facility", "Facility")
+                : ""}
+         <!-- </div> -->
+    `;
+    // return `
+    // ${store.bestfor ? renderCardSection(store.bestfor, "Best For", "BestFor") : ""}
+    // ${store.working ? renderCardSection(store.working, "Working", "Working") : ""}
+    // ${store.environment ? renderCardSection(store.environment, "Environment", "Environment") : ""}
+    // ${store.facility ? renderCardSection(store.facility, "Facility", "Facility") : ""}
+    // `;
+  }
+};
+
+export const cardSubStoreItem = {
+  render: (data) => {
+    return `
+      <div class="card-sub-store col01">
+        <div class="content">
+          <div class="text array">
+            <i class="icon"></i>
+            <span class="distance">
+              <span class="count">
+                <span class="text02">
+                  ${data.distance}
+                </span>
+              </span>
+              <span class="unit">
+                <span class="miles">
+                  mi
+                </span>
+              </span>
+            </span>
+          </div>
+
+          <div class="logo">
+            <img src="background-image: url(${data.imageUrl});" class="substore-logo"></img>
+          </div>
+          
+          <div class="label">
+            <span class="brand text02">
+              <span class="label">
+                ${data.storeName}
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    `;
+  }
+};
+
+export const cardCategoryItem = {
+  render: (data) => {
+    return `
+      <div class="card-collection col01">
+        <div class="content">
+          <div class="primary">
+            <div id="pill" class="pill">
+              ${glyph.glyphAmenitiesGrocery}
+              <span class="pill-text label">${data.label}</span>
+              
+              <svg width="6" height="9" viewBox="0 0 6 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 0.5L5 4.5L1 8.5" stroke="#F2F4F5" stroke-width="1.5"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="tertiary">
+            <div class="indicator">
+              <div class="indicator-dot"></div>
+              <div class="indicator-dot inactive"></div>
+              <div class="indicator-dot inactive"></div>
+            </div>
+          </div>
+          <div class="secondary">
+            <div id="value" class="value pill array">
+              <div class=" objtag ">
+                <div class="rank">
+                  <i class="glyph glyph-pound"></i>
+                  <div class="count label">${data.rank}</div>
+                </div>
+                <span class="pill-text label">${data.itemName}</span>
+                <span class="count label">${data.itemCount}</span>
+                <svg width="6" height="9" viewBox="0 0 6 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 0.5L5 4.5L1 8.5" stroke="#F2F4F5" stroke-width="1.5"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+};
+
+export const cardSummaryItem = {
+  render: (data) => {
+    const tags = data.tags || [];
+    
+    return `
+      <div class="card-summary col01">
+        <div class="title anchor">
+          <span class="primary sentance">
+            <span class="text03">
+              <span class="experience">${data.title}</span>
+            </span>
+            <span class="status">
+              <span class="status-text text02">${data.status}</span>
+              ${data.statusIcon}
+            </span>
+          </span>
+          <div class="secondary action">
+            <i class="icon-action-popup">
+              ${icon.iconActionPopup}
+            </i>
+          </div>
+        </div>
+        <div class="tag-array">
+          <div class="array">
+            ${data.tags.map(tag => {
+              const scoreResult = getStatsScore(tag.score);
+              return `
+                <button class="amtag" id="amtag" data-name="value" data-score="${tag.score}">
+                  <div class="single-icon">
+                    ${scoreResult.icons[scoreResult.currentScore].icon}
+                  </div>
+                  <div class="score-icons">
+                    ${scoreResult.icons.map((icon, index) => `
+                      <span class="score-icon ${index === scoreResult.currentScore ? 'active' : ''}" data-score="${index}" title="${icon.tooltip}">
+                        ${icon.icon}
+                      </span>
+                    `).join('')}
+                  </div>
+                  <div class="label">
+                    <span class="text02" id="text02">${tag.label}</span>
+                  </div>
+                </button>    
+              `;
+            }).join('')}
+          </div>
+          ${data.moreTags ? `
+            <button class="button-more">
+              ${glyph.glyphSymbolPlus}
+              <span class="text02" id="count">
+                ${data.moreTags}
+              </span>
+              <span class="text02">
+                more
+              </span>
+            </button>
+          ` : ''}
+        </div>
+      </div>
+    `;
+  },
+  
+  afterRender: () => {
+    const amtagButtons = document.querySelectorAll('.amtag');
+    amtagButtons.forEach(button => {
+      button.addEventListener('mouseenter', (e) => {
+        button.classList.add('hovered');
+      });
+      button.addEventListener('mouseleave', (e) => {
+        button.classList.remove('hovered');
+      });
+      
+      const scoreIcons = button.querySelectorAll('.score-icon');
+      scoreIcons.forEach(icon => {
+        icon.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const newScore = parseInt(icon.getAttribute('data-score'));
+          button.setAttribute('data-score', newScore);
+          scoreIcons.forEach((si, index) => {
+            si.classList.toggle('active', index <= newScore);
+          });
+          button.classList.add('selected');
+          button.querySelector('.single-icon').innerHTML = icon.innerHTML;
+        });
+      });
+    });
+  }
+};
+
+export const cardGalleryItem = {
+  render: (data) => {
+    let category = {
+      category: data.category,
+    };
+    return `
+      <div class="card-category col01">
+        <div class="primary">
+          ${amtag.amtagCategory.render(category)}
+
+          ${data.partnerLogo ? `
+            <div class="badge">
+              <img src="${data.partnerLogo}" alt="Partner logo" class="partner-logo-thumbnail" width="15" height="15">
+            </div>
+          ` : ''}
+        </div>
+        <div class="tertiary">
+          <div class="indicator">
+            <div class="indicator-dot"></div>
+            <div class="indicator-dot inactive"></div>
+            <div class="indicator-dot inactive"></div>
+          </div>
+        </div>
+        <div class="secondary">
+          ${data.comment ? `
+            <div class="comment">
+              ${data.userPicture ? `<img src="${data.userPicture}" alt="User picture" width="15" height="15">` : ''}
+              <span class="comment-text">${data.comment}</span>
+            </div>
+          ` : ''}
+        </div>
+      </div>
+    `;
+  }
+};

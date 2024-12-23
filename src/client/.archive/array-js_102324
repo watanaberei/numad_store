@@ -1,0 +1,285 @@
+export const create = {
+//   create: (component, dataSource, arrayType, limit) => {
+//     let items = [];
+//     let limitedData = dataSource;
+
+//     if (limit !== '1/-1') {
+//       if (typeof limit === 'number') {
+//         limitedData = dataSource.slice(0, limit);
+//       } else if (typeof limit === 'string') {
+//         const [start, end] = limit.split('/').map(Number);
+//         limitedData = dataSource.slice(start - 1, end);
+//       }
+//     }
+
+//     switch (arrayType) {
+//       case 'nest':
+//         items = limitedData.map(item => component.render(item));
+//         break;
+//       default:
+//         items = limitedData.map(item => component.render(item));
+//     }
+
+//     return items.join('');
+//   },
+
+//   createCarousel: (component, dataSource, carouselType, sourceType, style, limit) => {
+//     // Convert object to array if necessary
+//     let processedData = [];
+    
+//     // Handle different data source structures
+//     if (dataSource && typeof dataSource === 'object') {
+//       if (Array.isArray(dataSource)) {
+//         processedData = dataSource;
+//       } else {
+//         // If it's an object with numbered keys (like first, second, etc.)
+//         processedData = Object.values(dataSource);
+//       }
+//     }
+
+//     // Apply limit
+//     if (limit !== '1/-1') {
+//       if (typeof limit === 'number') {
+//         processedData = processedData.slice(0, limit);
+//       } else if (typeof limit === 'string') {
+//         const [start, end] = limit.split('/').map(Number);
+//         processedData = processedData.slice(start - 1, end);
+//       }
+//     }
+
+//     // Create carousel container
+//     const carouselHTML = `
+//       <div class="carousel-container ${style}" data-type="${carouselType}">
+//         <div class="carousel-track grid04-overflow">
+//           ${processedData.map((item, index) => `
+//             <div class="carousel-item" data-index="${index}">
+//               ${component.render(item)}
+//             </div>
+//           `).join('')}
+//         </div>
+//         <div class="carousel-navigation">
+//           <button class="nav-button prev">
+//             <svg width="6" height="9" viewBox="0 0 6 9" fill="none">
+//               <path d="M5 0.5L1 4.5L5 8.5" stroke="currentColor" stroke-width="1.5"/>
+//             </svg>
+//           </button>
+//           <div class="carousel-indicators">
+//             ${processedData.map((_, index) => `
+//               <div class="indicator-dot ${index === 0 ? 'active' : ''}" data-index="${index}"></div>
+//             `).join('')}
+//           </div>
+//           <button class="nav-button next">
+//             <svg width="6" height="9" viewBox="0 0 6 9" fill="none">
+//               <path d="M1 0.5L5 4.5L1 8.5" stroke="currentColor" stroke-width="1.5"/>
+//             </svg>
+//           </button>
+//         </div>
+//       </div>
+//     `;
+
+//     // Add event listeners after render
+//     setTimeout(() => {
+//       const container = document.querySelector(`.carousel-container[data-type="${carouselType}"]`);
+//       if (!container) return;
+
+//       const track = container.querySelector('.carousel-track');
+//       const items = container.querySelectorAll('.carousel-item');
+//       const dots = container.querySelectorAll('.indicator-dot');
+//       const prevBtn = container.querySelector('.nav-button.prev');
+//       const nextBtn = container.querySelector('.nav-button.next');
+//       let currentIndex = 0;
+
+//       const updateCarousel = (index) => {
+//         track.style.transform = `translateX(-${index * 100}%)`;
+//         dots.forEach((dot, i) => {
+//           dot.classList.toggle('active', i === index);
+//         });
+//         currentIndex = index;
+//       };
+
+//       prevBtn?.addEventListener('click', () => {
+//         const newIndex = (currentIndex - 1 + items.length) % items.length;
+//         updateCarousel(newIndex);
+//       });
+
+//       nextBtn?.addEventListener('click', () => {
+//         const newIndex = (currentIndex + 1) % items.length;
+//         updateCarousel(newIndex);
+//       });
+
+//       dots.forEach((dot, index) => {
+//         dot.addEventListener('click', () => updateCarousel(index));
+//       });
+//     }, 0);
+
+//     return carouselHTML;
+//   }
+// };
+
+
+
+
+
+
+// export const create = {
+//   create: (component, dataSource, arrayType, limit) => {
+//     console.log('Create function called with:', { component, dataSource, arrayType, limit });
+    
+//     if (!component?.render || !dataSource) {
+//       console.error('Invalid component or data source:', { component, dataSource });
+//       return '';
+//     }
+
+//     let items = [];
+//     let limitedData = dataSource;
+  
+//     if (limit !== '1/-1') {
+//       if (typeof limit === 'number') {
+//         limitedData = dataSource.slice(0, limit);
+//       } else if (typeof limit === 'string') {
+//         const [start, end] = limit.split('/').map(Number);
+//         limitedData = dataSource.slice(start - 1, end);
+//       }
+//     }
+    
+//     console.log('Processing data:', limitedData);
+  
+//     switch (arrayType) {
+//       case 'nest':
+//         items = limitedData.map(item => {
+//           const rendered = component.render(item);
+//           console.log('Rendered item:', rendered);
+//           return rendered;
+//         });
+//         break;
+//       default:
+//         items = limitedData.map(item => component.render(item));
+//     }
+  
+//     return items.join('');
+//   }
+// };
+
+
+
+
+
+
+
+
+  // export const create = {
+  //   create: (component, dataSource, arrayType, limit) => {
+  //     let items = [];
+  //     let limitedData = dataSource;
+  
+  //     if (limit !== '1/-1') {
+  //       if (typeof limit === 'number') {
+  //         limitedData = dataSource.slice(0, limit);
+  //       } else if (typeof limit === 'string') {
+  //         const [start, end] = limit.split('/').map(Number);
+  //         limitedData = dataSource.slice(start - 1, end);
+  //       }
+  //     }
+  
+  //     switch (arrayType) {
+  //       case 'nest':
+  //         items = limitedData.map(item => component.render(item));
+  //         break;
+  //       default:
+  //         items = limitedData.map(item => component.render(item));
+  //     }
+  
+  //     return items.join('');
+  //   },
+  
+  //   createCarousel: (component, dataSource, carouselType, sourceType, style, limit) => {
+  //     // Process data based on source type and limit
+  //     let items = [];
+  //     let processedData = dataSource;
+      
+  //     // Handle limit
+  //     if (limit !== '1/-1') {
+  //       if (typeof limit === 'number') {
+  //         processedData = dataSource.slice(0, limit);
+  //       } else if (typeof limit === 'string') {
+  //         const [start, end] = limit.split('/').map(Number);
+  //         processedData = dataSource.slice(start - 1, end);
+  //       }
+  //     }
+  
+  //     // Create carousel container
+  //     const carouselHTML = `
+  //       <div class="carousel-container ${style}" data-type="${carouselType}">
+  //         <div class="carousel-track">
+  //           ${processedData.map((item, index) => `
+  //             <div class="carousel-item" data-index="${index}">
+  //               ${component.render(item)}
+  //             </div>
+  //           `).join('')}
+  //         </div>
+  //         <div class="carousel-navigation">
+  //           <button class="nav-button prev">
+  //             <svg width="6" height="9" viewBox="0 0 6 9" fill="none">
+  //               <path d="M5 0.5L1 4.5L5 8.5" stroke="currentColor" stroke-width="1.5"/>
+  //             </svg>
+  //           </button>
+  //           <div class="carousel-indicators">
+  //             ${processedData.map((_, index) => `
+  //               <div class="indicator-dot ${index === 0 ? 'active' : ''}" data-index="${index}"></div>
+  //             `).join('')}
+  //           </div>
+  //           <button class="nav-button next">
+  //             <svg width="6" height="9" viewBox="0 0 6 9" fill="none">
+  //               <path d="M1 0.5L5 4.5L1 8.5" stroke="currentColor" stroke-width="1.5"/>
+  //             </svg>
+  //           </button>
+  //         </div>
+  //       </div>
+  //     `;
+  
+  //     // Add event listeners after render
+  //     setTimeout(() => {
+  //       const container = document.querySelector(`.carousel-container[data-type="${carouselType}"]`);
+  //       if (!container) return;
+  
+  //       const track = container.querySelector('.carousel-track');
+  //       const items = container.querySelectorAll('.carousel-item');
+  //       const dots = container.querySelectorAll('.indicator-dot');
+  //       const prevBtn = container.querySelector('.nav-button.prev');
+  //       const nextBtn = container.querySelector('.nav-button.next');
+  //       let currentIndex = 0;
+  
+  //       const updateCarousel = (index) => {
+  //         // Update item positions
+  //         track.style.transform = `translateX(-${index * 100}%)`;
+          
+  //         // Update dots
+  //         dots.forEach((dot, i) => {
+  //           dot.classList.toggle('active', i === index);
+  //         });
+  
+  //         // Update current index
+  //         currentIndex = index;
+  //       };
+  
+  //       // Event listeners
+  //       prevBtn.addEventListener('click', () => {
+  //         const newIndex = (currentIndex - 1 + items.length) % items.length;
+  //         updateCarousel(newIndex);
+  //       });
+  
+  //       nextBtn.addEventListener('click', () => {
+  //         const newIndex = (currentIndex + 1) % items.length;
+  //         updateCarousel(newIndex);
+  //       });
+  
+  //       dots.forEach((dot, index) => {
+  //         dot.addEventListener('click', () => {
+  //           updateCarousel(index);
+  //         });
+  //       });
+  //     }, 0);
+  
+  //     return carouselHTML;
+  //   }
+  // };
