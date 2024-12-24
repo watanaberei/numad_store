@@ -1,0 +1,539 @@
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <!-- Favicon --> 
+      <link rel="apple-touch-icon" sizes="180x180" href="./assets/_brand/favicon_package_v0.16/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/_brand/favicon_package_v0.16/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/_brand/favicon_package_v0.16/favicon-16x16.png"> 
+    <!-- <link rel="manifest" href="./assets/_brand/favicon_package_v0.16/site.webmanifest"> -->
+    <link rel="mask-icon" href="./assets/_brand/favicon_package_v0.16/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <!-- Boxicons --> 
+    <link
+      href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+  
+    <!-- Mapbox -->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+
+    <!-- Jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Geocoder plugin -->
+    <!-- <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js'></script> -->
+    <!-- <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css' type='text/css' /> -->
+
+    <!-- Turf.js plugin -->
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/Turf.js/0.0.124/turf.min.js'></script>
+      
+    <!-- StyleSheet -->  
+    <!-- <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="../css/global.css" />
+    <link rel="stylesheet" href="../css/navMap.css" /> 
+    <link rel="stylesheet" href="../css/nav.css" />
+    <link rel="stylesheet" href="../css/navSecondary.css" />
+    <link rel="stylesheet" href="../css/navWork.css" />
+    <link rel="stylesheet" href="../css/navDine.css" />
+    <link rel="stylesheet" href="../css/navUnwind.css" />
+    <link rel="stylesheet" href="../css/navShorts.css" />
+    <link rel="stylesheet" href="../css/navSidebar.css" />
+    <link rel="stylesheet" href="../css/article.css" />
+    <link rel="stylesheet" href="../css/store.css" />
+    <link rel="stylesheet" href="../css/advertisement.css" />
+    <link rel="stylesheet" href="../css/blog.css" />
+    <link rel="stylesheet" href="../css/featuredBlog.css" />
+    <link rel="stylesheet" href="../css/primaryFeaturedBlog.css" />
+    <link rel="stylesheet" href="../css/type.css" />
+    <link rel="stylesheet" href="../css/decorative.css" />
+    <link rel="stylesheet" href="../css/search.css" />
+    <link rel="stylesheet" href="../css/map.css" />
+    <link rel="stylesheet" href="../css/tag.css" />
+    <link rel="stylesheet" href="../css/image.css" />
+    <link rel="stylesheet" href="../css/icon.css" />
+    <link rel="stylesheet" href="../css/loader.css" />
+    <link rel="stylesheet" href="../css/color.css" />    
+    <link rel="stylesheet" href="../css/grid.css" />
+    <link rel="stylesheet" href="../css/test.css" />    
+    <link rel="stylesheet" href="../css/ratio.css" />   
+    <link rel="stylesheet" href="../css/card.css" />    
+    <link rel="stylesheet" href="../css/shadow.css" />   
+    <link rel="stylesheet" href="../css/overlay.css" />   
+    <link rel="stylesheet" href="../css/storePopularTimes.css" /> -->
+    
+    <!-- MAP CUSTOM -->
+    <!-- <link rel="stylesheet" href="../css/geocoder.css" />
+    <link rel="stylesheet" href="../css/mapMarker.css" /> -->
+    <!-- MAP CUSTOM -->
+    
+    <title>Neumadic Life</title>
+  </head>
+  <body>
+    <!-- <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css"> -->
+    <!-- LOADER -->
+    <!-- <div class="preloader d-flex" id="loading">
+      <img src="./images/loader.gif" alt="" />
+    </div> -->
+    
+    
+    <div class="app">
+      <div class="app-container">
+        <!-- Navigation -->
+        
+        <!-- Advertisement -->
+        <!-- <div class="content  content-advertisement"> -->
+          <!-- Ad -->
+          <!-- <div class="ad-container container">
+            <div class="ad d-flex" id="ad-home">
+              <a href="/">
+                <img src="./images/ad_test.png" />
+              </a>
+            </div>
+          </div> -->
+          <!-- Ad -->
+        <!-- </div> -->
+        <!-- Advertisement -->
+        
+        
+        <header class="header" id="header">
+          <nav class="navigation container d-flex">
+            <a class="logo" href="/">theWorkingNomad</a>
+            <!-- <ul class="nav-list d-flex">
+              <li><a href="/home">Home</a></li>
+              <li><a href="/about">About</a></li>
+              <li><a href="/contact">Contact Us</a></li>
+            </ul> -->
+            <ul class="nav-list d-flex">
+              <li><a href="/work">Work</a></li>
+              <li><a href="/about">Dine</a></li>
+              <li><a href="/contact">Unwind</a></li>
+              <li><a href="/shorts">Shorts</a></li>
+              <li><a href="/series">Series</a></li>
+            </ul>
+
+            <div class="hamburger"><i class="bx bx-menu-alt-right"></i></div>
+          </nav>
+        </header>
+        <main class="home grid">
+          <!-- blogs -->
+          <div class="content grid-platinum" id="content">
+            <div class="blog-layout container">
+
+
+              <div class="blog">
+                <div class="blog-img blog-img-loader">
+                  <a href="/"></a>
+                </div>
+                <div class="blog-text">
+                  <div class="blog-header">
+                    <a href="/blogs/${blog.slug}">
+                      <div class="blog-header-container">
+                        <span class="blog-title-text blog-title-text-loader bold03">
+                        
+                        </span> 
+                        <span class="blog-title-text blog-title-text-loader bold03">
+                        
+                        </span> 
+                        <span class="blog-overview-text text02">
+                          
+                        </span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="blog">
+                <div class="blog-img blog-img-loader">
+                  <a href="/"></a>
+                </div>
+                <div class="blog-text">
+                  <div class="blog-header">
+                    <a href="/blogs/${blog.slug}">
+                      <div class="blog-header-container">
+                        <span class="blog-title-text blog-title-text-loader bold03">
+                        
+                        </span> 
+                        <span class="blog-title-text blog-title-text-loader bold03">
+                        
+                        </span> 
+                        <span class="blog-overview-text text02">
+                          
+                        </span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="blog">
+                <div class="blog-img blog-img-loader">
+                  <a href="/"></a>
+                </div>
+                <div class="blog-text">
+                  <div class="blog-header">
+                    <a href="/blogs/${blog.slug}">
+                      <div class="blog-header-container">
+                        <span class="blog-title-text blog-title-text-loader bold03">
+                        
+                        </span> 
+                        <span class="blog-title-text blog-title-text-loader bold03">
+                        
+                        </span> 
+                        <span class="blog-overview-text text02">
+                          
+                        </span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="blog">
+                <div class="blog-img blog-img-loader">
+                  <a href="/"></a>
+                </div>
+                <div class="blog-text">
+                  <div class="blog-header">
+                    <a href="/blogs/${blog.slug}">
+                      <div class="blog-header-container">
+                        <span class="blog-title-text blog-title-text-loader bold03">
+                        
+                        </span> 
+                        <span class="blog-title-text blog-title-text-loader bold03">
+                        
+                        </span> 
+                        <span class="blog-overview-text text02">
+                          
+                        </span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="blog">
+                <div class="blog-img blog-img-loader">
+                  <a href="/"></a>
+                </div>
+                <div class="blog-text">
+                  <div class="blog-header">
+                    <a href="/blogs/${blog.slug}">
+                      <div class="blog-header-container">
+                        <span class="blog-title-text blog-title-text-loader bold03">
+                        
+                        </span> 
+                        <span class="blog-title-text blog-title-text-loader bold03">
+                        
+                        </span> 
+                        <span class="blog-overview-text text02">
+                          
+                        </span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="blog">
+                <div class="blog-img blog-img-loader">
+                  <a href="/"></a>
+                </div>
+                <div class="blog-text">
+                  <div class="blog-header">
+                    <a href="/blogs/${blog.slug}">
+                      <div class="blog-header-container">
+                        <span class="blog-title-text blog-title-text-loader bold03">
+                        
+                        </span> 
+                        <span class="blog-title-text blog-title-text-loader bold03">
+                        
+                        </span> 
+                        <span class="blog-overview-text text02">
+                          
+                        </span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="blog">
+                <div class="blog-img blog-img-loader">
+                  <a href="/"></a>
+                </div>
+                <div class="blog-text">
+                  <div class="blog-header">
+                    <a href="/blogs/${blog.slug}">
+                      <div class="blog-header-container">
+                        <span class="blog-title-text blog-title-text-loader bold03">
+                        
+                        </span> 
+                        <span class="blog-title-text blog-title-text-loader bold03">
+                        
+                        </span> 
+                        <span class="blog-overview-text text02">
+                          
+                        </span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="blog">
+                <div class="blog-img blog-img-loader">
+                  <a href="/"></a>
+                </div>
+                <div class="blog-text">
+                  <div class="blog-header">
+                    <a href="/blogs/${blog.slug}">
+                      <div class="blog-header-container">
+                        <span class="blog-title-text blog-title-text-loader bold03">
+                        
+                        </span> 
+                        <span class="blog-title-text blog-title-text-loader bold03">
+                        
+                        </span> 
+                        <span class="blog-overview-text text02">
+                          
+                        </span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="blog">
+                <div class="blog-img blog-img-loader">
+                  <a href="/"></a>
+                </div>
+                <div class="blog-text">
+                  <div class="blog-header">
+                    <a href="/blogs/${blog.slug}">
+                      <div class="blog-header-container">
+                        <span class="blog-title-text blog-title-text-loader bold03">
+                        
+                        </span> 
+                        <span class="blog-title-text blog-title-text-loader bold03">
+                        
+                        </span> 
+                        <span class="blog-overview-text text02">
+                          
+                        </span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="blog">
+                <div class="blog-img blog-img-loader">
+                  <a href="/"></a>
+                </div>
+                <div class="blog-text">
+                  <div class="blog-header">
+                    <a href="/blogs/${blog.slug}">
+                      <div class="blog-header-container">
+                        <span class="blog-title-text blog-title-text-loader bold03">
+                        
+                        </span> 
+                        <span class="blog-title-text blog-title-text-loader bold03">
+                        
+                        </span> 
+                        <span class="blog-overview-text text02">
+                          
+                        </span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="blog">
+                <div class="blog-img blog-img-loader">
+                  <a href="/"></a>
+                </div>
+                <div class="blog-text">
+                  <div class="blog-header">
+                    <a href="/blogs/${blog.slug}">
+                      <div class="blog-header-container">
+                        <span class="blog-title-text blog-title-text-loader bold03">
+                        
+                        </span> 
+                        <span class="blog-title-text blog-title-text-loader bold03">
+                        
+                        </span> 
+                        <span class="blog-overview-text text02">
+                          
+                        </span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              
+              <div class="blog">
+                <div class="blog-img blog-img-loader">
+                  <a href="/"></a>
+                </div>
+                <div class="blog-text">
+                  <div class="blog-header">
+                    <a href="/blogs/${blog.slug}">
+                      <div class="blog-header-container">
+                        <span class="blog-title-text blog-title-text-loader bold03">
+                        
+                        </span> 
+                        <span class="blog-title-text blog-title-text-loader bold03">
+                        
+                        </span> 
+                        <span class="blog-overview-text text02">
+                          
+                        </span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="blog">
+                <div class="blog-img blog-img-loader">
+                  <a href="/"></a>
+                </div>
+                <div class="blog-text">
+                  <div class="blog-header">
+                    <a href="/blogs/${blog.slug}">
+                      <div class="blog-header-container">
+                        <span class="blog-title-text blog-title-text-loader bold03">
+                        
+                        </span> 
+                        <span class="blog-title-text blog-title-text-loader bold03">
+                        
+                        </span> 
+                        <span class="blog-overview-text text02">
+                          
+                        </span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="blog">
+                <div class="blog-img blog-img-loader">
+                  <a href="/"></a>
+                </div>
+                <div class="blog-text">
+                  <div class="blog-header">
+                    <a href="/blogs/${blog.slug}">
+                      <div class="blog-header-container">
+                        <span class="blog-title-text blog-title-text-loader bold03">
+                        
+                        </span> 
+                        <span class="blog-title-text blog-title-text-loader bold03">
+                        
+                        </span> 
+                        <span class="blog-overview-text text02">
+                          
+                        </span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              
+              <div class="blog">
+                <div class="blog-img blog-img-loader">
+                  <a href="/"></a>
+                </div>
+                <div class="blog-text">
+                  <div class="blog-header">
+                    <a href="/blogs/${blog.slug}">
+                      <div class="blog-header-container">
+                        <span class="blog-title-text blog-title-text-loader bold03">
+                        
+                        </span> 
+                        <span class="blog-title-text blog-title-text-loader bold03">
+                        
+                        </span> 
+                        <span class="blog-overview-text text02">
+                          
+                        </span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+
+
+              
+            </div>
+          </div>
+          
+          
+
+
+
+
+          
+
+          <!-- Advertisement -->
+          <!-- <div class="content-advertisement">
+            <div class="ad-container container">
+              <div class="ad d-flex" id="ad-home">
+                <a href="/">
+                  <img src="./images/ad_test.png" />
+                </a>
+              </div>
+            </div>
+          </div> -->
+          <!-- Advertisement -->
+
+
+
+        </main>
+        <!-- Footer -->
+        <!-- <footer id="footer" class="footer">
+          <div class="layout d-flex">
+            <p>Copyright &copy; 2021</p>
+            <div class="social">
+              <a href="#"><i class="bx bxl-instagram"></i></a>
+              <a href="#"><i class="bx bxl-youtube"></i></a>
+              <a href="#"><i class="bx bxl-facebook"></i></a>
+            </div>
+          </div>
+        </footer> -->
+      </div>
+    </div>
+    <div class="gridOverlay"></div>
+    <!-- Script -->
+    <!-- <script src="../src/components/Search.js"> </script> -->
+    <script src=".././bundle.js"></script>
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
+  </body>
+</html>

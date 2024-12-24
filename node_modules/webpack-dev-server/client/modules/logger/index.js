@@ -134,7 +134,7 @@ var TIMERS_SYMBOL = (typeof Symbol !== "undefined" ? Symbol : function (i) { ret
 var TIMERS_AGGREGATES_SYMBOL = (typeof Symbol !== "undefined" ? Symbol : function (i) { return i; })("webpack logger aggregated times");
 var WebpackLogger = /*#__PURE__*/function () {
   /**
-   * @param {function(LogTypeEnum, any[]=): void} log log function
+   * @param {function(LogTypeEnum, EXPECTED_ANY[]=): void} log log function
    * @param {function(string | function(): string): WebpackLogger} getChildLogger function to create child logger
    */
   function WebpackLogger(log, getChildLogger) {
@@ -144,7 +144,7 @@ var WebpackLogger = /*#__PURE__*/function () {
   }
 
   /**
-   * @param {...any} args args
+   * @param {...EXPECTED_ANY} args args
    */
   return _createClass(WebpackLogger, [{
     key: "error",
@@ -156,7 +156,7 @@ var WebpackLogger = /*#__PURE__*/function () {
     }
 
     /**
-     * @param {...any} args args
+     * @param {...EXPECTED_ANY} args args
      */
   }, {
     key: "warn",
@@ -168,7 +168,7 @@ var WebpackLogger = /*#__PURE__*/function () {
     }
 
     /**
-     * @param {...any} args args
+     * @param {...EXPECTED_ANY} args args
      */
   }, {
     key: "info",
@@ -180,7 +180,7 @@ var WebpackLogger = /*#__PURE__*/function () {
     }
 
     /**
-     * @param {...any} args args
+     * @param {...EXPECTED_ANY} args args
      */
   }, {
     key: "log",
@@ -192,7 +192,7 @@ var WebpackLogger = /*#__PURE__*/function () {
     }
 
     /**
-     * @param {...any} args args
+     * @param {...EXPECTED_ANY} args args
      */
   }, {
     key: "debug",
@@ -204,8 +204,8 @@ var WebpackLogger = /*#__PURE__*/function () {
     }
 
     /**
-     * @param {any} assertion assertion
-     * @param {...any} args args
+     * @param {EXPECTED_ANY} assertion assertion
+     * @param {...EXPECTED_ANY} args args
      */
   }, {
     key: "assert",
@@ -229,7 +229,7 @@ var WebpackLogger = /*#__PURE__*/function () {
     }
 
     /**
-     * @param {...any} args args
+     * @param {...EXPECTED_ANY} args args
      */
   }, {
     key: "status",
@@ -241,7 +241,7 @@ var WebpackLogger = /*#__PURE__*/function () {
     }
 
     /**
-     * @param {...any} args args
+     * @param {...EXPECTED_ANY} args args
      */
   }, {
     key: "group",
@@ -253,7 +253,7 @@ var WebpackLogger = /*#__PURE__*/function () {
     }
 
     /**
-     * @param {...any} args args
+     * @param {...EXPECTED_ANY} args args
      */
   }, {
     key: "groupCollapsed",
@@ -455,24 +455,24 @@ var _require = __webpack_require__(/*! ./Logger */ "./node_modules/webpack/lib/l
 /** @typedef {import("./Logger").LogTypeEnum} LogTypeEnum */
 
 /** @typedef {function(string): boolean} FilterFunction */
-/** @typedef {function(string, LogTypeEnum, any[]=): void} LoggingFunction */
+/** @typedef {function(string, LogTypeEnum, EXPECTED_ANY[]=): void} LoggingFunction */
 
 /**
  * @typedef {object} LoggerConsole
  * @property {function(): void} clear
  * @property {function(): void} trace
- * @property {(...args: any[]) => void} info
- * @property {(...args: any[]) => void} log
- * @property {(...args: any[]) => void} warn
- * @property {(...args: any[]) => void} error
- * @property {(...args: any[]) => void=} debug
- * @property {(...args: any[]) => void=} group
- * @property {(...args: any[]) => void=} groupCollapsed
- * @property {(...args: any[]) => void=} groupEnd
- * @property {(...args: any[]) => void=} status
- * @property {(...args: any[]) => void=} profile
- * @property {(...args: any[]) => void=} profileEnd
- * @property {(...args: any[]) => void=} logTime
+ * @property {(...args: EXPECTED_ANY[]) => void} info
+ * @property {(...args: EXPECTED_ANY[]) => void} log
+ * @property {(...args: EXPECTED_ANY[]) => void} warn
+ * @property {(...args: EXPECTED_ANY[]) => void} error
+ * @property {(...args: EXPECTED_ANY[]) => void=} debug
+ * @property {(...args: EXPECTED_ANY[]) => void=} group
+ * @property {(...args: EXPECTED_ANY[]) => void=} groupCollapsed
+ * @property {(...args: EXPECTED_ANY[]) => void=} groupEnd
+ * @property {(...args: EXPECTED_ANY[]) => void=} status
+ * @property {(...args: EXPECTED_ANY[]) => void=} profile
+ * @property {(...args: EXPECTED_ANY[]) => void=} profileEnd
+ * @property {(...args: EXPECTED_ANY[]) => void=} logTime
  */
 
 /**
@@ -543,7 +543,7 @@ module.exports = function (_ref) {
   /**
    * @param {string} name name of the logger
    * @param {LogTypeEnum} type type of the log entry
-   * @param {any[]=} args arguments of the log entry
+   * @param {EXPECTED_ANY[]=} args arguments of the log entry
    * @returns {void}
    */
   var logger = function logger(name, type, args) {
@@ -788,6 +788,8 @@ module.exports.hooks = {
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
+// This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
+!function() {
 /*!********************************************!*\
   !*** ./client-src/modules/logger/index.js ***!
   \********************************************/
@@ -797,8 +799,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var webpack_lib_logging_runtime_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! webpack/lib/logging/runtime.js */ "./node_modules/webpack/lib/logging/runtime.js");
 
+}();
 var __webpack_export_target__ = exports;
-for(var i in __webpack_exports__) __webpack_export_target__[i] = __webpack_exports__[i];
+for(var __webpack_i__ in __webpack_exports__) __webpack_export_target__[__webpack_i__] = __webpack_exports__[__webpack_i__];
 if(__webpack_exports__.__esModule) Object.defineProperty(__webpack_export_target__, "__esModule", { value: true });
 /******/ })()
 ;

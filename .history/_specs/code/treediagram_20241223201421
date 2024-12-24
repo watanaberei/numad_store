@@ -1,0 +1,201 @@
+.
+├── README.md
+├── _specs
+│   ├── code
+│   │   ├── numadClientComponentPlaces
+│   │   │   ├── 20241210
+│   │   │   │   ├── 01_overview.txt
+│   │   │   │   ├── 02_client.txt
+│   │   │   │   └── 03_server.txt
+│   │   │   ├── 20241211
+│   │   │   │   ├── 01_overview.txt
+│   │   │   │   ├── 02_client.txt
+│   │   │   │   └── 03_server.txt
+│   │   │   ├── 20241212
+│   │   │   │   ├── 01_overview.txt
+│   │   │   │   ├── 02_client.txt
+│   │   │   │   └── 03_server.txt
+│   │   │   ├── 20241213
+│   │   │   │   ├── 01_overview.txt
+│   │   │   │   ├── 02_client.txt
+│   │   │   │   └── 03_server.txt
+│   │   │   └── 20241216
+│   │   │       ├── 01_overview.txt
+│   │   │       ├── 02_client.txt
+│   │   │       └── 03_server.txt
+│   │   └── treediagram
+│   ├── component
+│   │   ├── card
+│   │   │   └── gallery
+│   │   │       └── cardGalleryItem.png
+│   │   └── datavis
+│   │       └── businessHours
+│   │           └── businessHours_specs.png
+│   └── page
+│       └── store
+│           └── section
+│               ├── experience
+│               │   └── store
+│               │       └── storeExperience.png
+│               ├── location
+│               │   └── store
+│               │       └── storeLocation.png
+│               ├── service
+│               │   └── store
+│               │       └── storeService.png
+│               └── summary
+│                   └── store
+│                       └── specs_summaryStore.png
+├── config
+├── package-lock.json
+├── package.json
+├── src
+│   ├── client
+│   │   ├── api.js
+│   │   ├── authServer.js
+│   │   ├── components
+│   │   │   ├── array
+│   │   │   │   └── array.js
+│   │   │   ├── cards
+│   │   │   │   ├── _archive
+│   │   │   │   │   ├── card-store.js
+│   │   │   │   │   └── card.js
+│   │   │   │   └── cards.js
+│   │   │   ├── components.js
+│   │   │   ├── controls
+│   │   │   │   ├── _archive
+│   │   │   │   │   └── UserControls.js
+│   │   │   │   └── controls.js
+│   │   │   ├── datavis
+│   │   │   │   └── datavisTimeline.js
+│   │   │   ├── elements.js
+│   │   │   ├── function
+│   │   │   │   └── function.js
+│   │   │   ├── header
+│   │   │   │   ├── HeaderHome.js
+│   │   │   │   ├── HeaderMicro.js
+│   │   │   │   └── HeaderSecondary.js
+│   │   │   ├── icon
+│   │   │   │   ├── glyph.js
+│   │   │   │   ├── icon.js
+│   │   │   │   └── pictogram.js
+│   │   │   ├── lock
+│   │   │   │   └── secure.js
+│   │   │   ├── map
+│   │   │   │   ├── MapApi.js
+│   │   │   │   ├── MapBlog.js
+│   │   │   │   ├── MapDistance.js
+│   │   │   │   ├── MapFeatures.js
+│   │   │   │   ├── MapMarker.js
+│   │   │   │   ├── MapStyles.js
+│   │   │   │   ├── geo
+│   │   │   │   │   ├── Geolocate.js
+│   │   │   │   │   └── GeolocationRange.js
+│   │   │   │   ├── map.js
+│   │   │   │   └── mapRoute.js
+│   │   │   ├── media
+│   │   │   │   ├── _archive
+│   │   │   │   │   └── media.js
+│   │   │   │   ├── gallery.js
+│   │   │   │   └── media.js
+│   │   │   ├── modal
+│   │   │   │   └── modal.js
+│   │   │   ├── sidebar
+│   │   │   │   └── sidebar.js
+│   │   │   ├── status
+│   │   │   │   └── statusHours.js
+│   │   │   ├── tags
+│   │   │   │   ├── amtag.js
+│   │   │   │   ├── attrtag.js
+│   │   │   │   ├── geotag.js
+│   │   │   │   ├── objtag.js
+│   │   │   │   └── tag.js
+│   │   │   └── text
+│   │   │       └── text.js
+│   │   ├── index.html
+│   │   ├── main.js
+│   │   ├── screens
+│   │   │   ├── AboutScreen.js
+│   │   │   ├── ArticleScreen.js
+│   │   │   ├── AuthScreen.js
+│   │   │   ├── BlogScreen.js
+│   │   │   ├── ContactScreen.js
+│   │   │   ├── DetailsScreen.js
+│   │   │   ├── DineScreen.js
+│   │   │   ├── Error404Page.js
+│   │   │   ├── HomeScreen.js
+│   │   │   ├── LoginScreen.js
+│   │   │   ├── LogoutScreen.js
+│   │   │   ├── MapScreen.js
+│   │   │   ├── NeumadsTrailScreen.js
+│   │   │   ├── ProfileScreen.js
+│   │   │   ├── ReviewScreen.js
+│   │   │   ├── ReviewsScreen.js
+│   │   │   ├── SeriesScreen.js
+│   │   │   ├── SettingScreen.js
+│   │   │   ├── ShortsScreen.js
+│   │   │   ├── SignupScreen.js
+│   │   │   ├── StoreScreen.js
+│   │   │   ├── StoreScreen00.js
+│   │   │   ├── UnwindScreen.js
+│   │   │   ├── UserScreen.js
+│   │   │   └── WorkScreen.js
+│   │   ├── styles
+│   │   │   ├── amenitiesStyle.js
+│   │   │   ├── arrayStyle.js
+│   │   │   ├── buttonStyle.js
+│   │   │   ├── cardStyle.js
+│   │   │   ├── controlStyle.js
+│   │   │   ├── datavisStyle.js
+│   │   │   ├── dividerStyle.js
+│   │   │   ├── footerStyle.js
+│   │   │   ├── globalStyle.js
+│   │   │   ├── glyphStyle.js
+│   │   │   ├── gridStyle.js
+│   │   │   ├── headerStyle.js
+│   │   │   ├── heroStyle.js
+│   │   │   ├── iconStyle.js
+│   │   │   ├── mapStyle.js
+│   │   │   ├── mediaStyle.js
+│   │   │   ├── sectionStyle.js
+│   │   │   ├── sidebarStyle.js
+│   │   │   ├── style.js
+│   │   │   ├── tagStyle.js
+│   │   │   ├── textStyle.js
+│   │   │   ├── tokenStyle.js
+│   │   │   └── typeStyle.js
+│   │   └── utils.js
+│   └── server
+│       ├── CNAME
+│       ├── authServer.js
+│       ├── config
+│       │   ├── config.js
+│       │   └── redisClient.js
+│       ├── controllers
+│       │   ├── controllerYelp.js
+│       │   └── data.js
+│       ├── data
+│       │   ├── api
+│       │   │   ├── client.js
+│       │   │   └── index.js
+│       │   ├── contentful
+│       │   │   ├── contenful.js
+│       │   │   └── contenfulClient.js
+│       │   ├── data.js
+│       │   ├── dataServices.js
+│       │   ├── geoData.js
+│       │   ├── index.js
+│       │   ├── mongodb
+│       │   │   └── mongodb.js
+│       │   └── yelp
+│       │       ├── yelp.js
+│       │       ├── yelpApi.js
+│       │       └── yelpClient.js
+│       ├── index.js
+│       ├── models
+│       │   ├── storeModel.js
+│       │   └── userModel.js
+│       ├── requests.rest
+│       ├── routes
+│       └── server.js
+└── webpack.config.cjs

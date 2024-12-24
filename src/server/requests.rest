@@ -1,0 +1,43 @@
+GET http://localhost:3000/posts
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidG8ucmVpd2F0YW5hYmVAZ21haWwuY29tIiwiaWF0IjoxNzE0MTE3MTAyLCJleHAiOjE3MTQxMTg2MDJ9.n83iwZZoerhFV7y8lR8iEzdw0jKnw3VHWjcRDcbioPs
+
+###
+
+DELETE http://localhost:4000/logout
+Content-Type: application/json
+
+{
+    "token": 
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidG8ucmVpd2F0YW5hYmVAZ21haWwuY29tIiwiaWF0IjoxNzE0MTE3MTAyfQ.mWN_n43e3YJ5jjAyvwIq5LCi0tiDtRFnnDCCIelxDxg"
+}
+
+###
+
+POST http://localhost:4000/token
+Content-Type: application/json
+
+{
+    "token": 
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidG8ucmVpd2F0YW5hYmVAZ21haWwuY29tIiwiaWF0IjoxNzE0MTE3MTAyfQ.mWN_n43e3YJ5jjAyvwIq5LCi0tiDtRFnnDCCIelxDxg"
+}
+
+###
+
+
+POST http://localhost:3000/signup
+Content-Type: application/json
+
+{
+    "email": "i@gmail.com",
+    "password": "password123"
+}
+
+###
+
+POST http://localhost:4000/login
+Content-Type: application/json
+
+{
+    "email": "to.reiwatanabe@gmail.com",
+    "password": "password123"
+}

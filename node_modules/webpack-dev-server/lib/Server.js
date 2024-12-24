@@ -404,6 +404,7 @@ class Server {
       let host;
 
       const networks = Object.values(os.networkInterfaces())
+        // eslint-disable-next-line no-shadow
         .flatMap((networks) => networks ?? [])
         .filter((network) => {
           if (!network || !network.address) {
@@ -793,15 +794,12 @@ class Server {
         webSocketURLStr = searchParams.toString();
       }
 
-      additionalEntries.push(
-        `${require.resolve("../client/index.js")}?${webSocketURLStr}`,
-      );
+      additionalEntries.push(`${this.getClientEntry()}?${webSocketURLStr}`);
     }
 
-    if (this.options.hot === "only") {
-      additionalEntries.push(require.resolve("webpack/hot/only-dev-server"));
-    } else if (this.options.hot) {
-      additionalEntries.push(require.resolve("webpack/hot/dev-server"));
+    const clientHotEntry = this.getClientHotEntry();
+    if (clientHotEntry) {
+      additionalEntries.push(clientHotEntry);
     }
 
     const webpack = compiler.webpack || require("webpack");
@@ -1674,6 +1672,25 @@ class Server {
     }
 
     return implementation;
+  }
+
+  /**
+   * @returns {string}
+   */
+  // eslint-disable-next-line class-methods-use-this
+  getClientEntry() {
+    return require.resolve("../client/index.js");
+  }
+
+  /**
+   * @returns {string | void}
+   */
+  getClientHotEntry() {
+    if (this.options.hot === "only") {
+      return require.resolve("webpack/hot/only-dev-server");
+    } else if (this.options.hot) {
+      return require.resolve("webpack/hot/dev-server");
+    }
   }
 
   /**
