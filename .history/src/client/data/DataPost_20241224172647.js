@@ -1,8 +1,7 @@
 // src/components/DataPost.js
 import { getStoresNeumadsReview, getArticleNeumadsTrail, getArticlePost, getStore } from "../api.js";
-import { parseRequestUrl } from '../utils/utils.js';
 
-export default class DataPost {
+export default class DataBlog {
   constructor() {
     this.activeTags = [];
   }

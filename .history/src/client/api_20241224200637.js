@@ -1,4 +1,5 @@
 // src/services/api.js
+const API_URL = 'http://localhost:4000';
 
 
 // // API for blog
@@ -16,17 +17,12 @@
 // // export default client; // Add this line to export the client object
 
 // Change the import statement for contentful
-// src/client/api.js
-import { createClient } from 'contentful';
+import pkg from 'contentful';
+const { createClient } = pkg;
+
+// Rest of your imports
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import { documentToPlainTextString } from "@contentful/rich-text-plain-text-renderer";
-import { resolveApiPath } from './utils/paths.js';
-import { handleError } from './utils/errors.js';
-
-
-// // Rest of your imports
-// import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
-// import { documentToPlainTextString } from "@contentful/rich-text-plain-text-renderer";
 
 
 
@@ -36,7 +32,6 @@ const client = createClient({
   space: "i1hcb4885ci0",
   accessToken: "Bcy-B6Lvepv3RLYinX-rY9x4KDpxJcv8_IH0PgF6odw",
 });
-const API_URL = 'http://localhost:4000';
 
 // title,
 // headline: { text: headline },

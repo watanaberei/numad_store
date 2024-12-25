@@ -32,7 +32,7 @@ import { format, parseISO } from "date-fns";
 
 import mapboxgl from "mapbox-gl";
 import { initMap } from "../components/map/MapApi.js";
-import DataPost from "../data/DataPost.js";
+import * as dataPost from "../data/DataPost.js";
 // import { storePopularTimes } from "../components/store/StorePopularTimes.js";
 // import { thumbnail } from "../components/media/media.js";
 import * as components from "../components/components.js";
@@ -61,7 +61,7 @@ const renderOptions = {
 
 
 let store = ""; //dynamic store
-let dataPost = new DataPost();
+let dataBlog = new dataPost.DataPost();
 const socket = io('http://localhost:4000');
 
 // const socket = io('http://localhost:4000');
@@ -72,7 +72,7 @@ const StoreScreen = {
       console.log("debug log: Initializing application");
       
       // Get store data using DataPost
-      const storeData = await dataPost.getStoreId();
+      const storeData = await dataBlog.getStoreId();
       
       console.log("debug log: Initializing application");
       // Extract data structures from the fetched store data

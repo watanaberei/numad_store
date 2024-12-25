@@ -5,11 +5,11 @@ import * as Geolocate from "./Geolocate.js";
 import * as GeolocationRange from "./GeolocationRange.js"
 
 
-let dataPost = new DataPost();
+let dataBlog = new DataPost();
 
 export async function geojsonStore() {
   try {
-    const BlogData = await dataPost.getData();
+    const BlogData = await dataBlog.getData();
     console.log("BlogData", BlogData);
 
     // Additional logging for store details, URLs, and product details as per blogData.log

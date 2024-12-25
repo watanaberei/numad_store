@@ -1,4 +1,5 @@
 // src/services/api.js
+const API_URL = 'http://localhost:4000';
 
 
 // // API for blog
@@ -36,7 +37,6 @@ const client = createClient({
   space: "i1hcb4885ci0",
   accessToken: "Bcy-B6Lvepv3RLYinX-rY9x4KDpxJcv8_IH0PgF6odw",
 });
-const API_URL = 'http://localhost:4000';
 
 // title,
 // headline: { text: headline },

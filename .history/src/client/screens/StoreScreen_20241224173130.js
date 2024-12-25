@@ -61,7 +61,7 @@ const renderOptions = {
 
 
 let store = ""; //dynamic store
-let dataPost = new DataPost();
+let dataBlog = new DataPost();
 const socket = io('http://localhost:4000');
 
 // const socket = io('http://localhost:4000');
@@ -72,7 +72,7 @@ const StoreScreen = {
       console.log("debug log: Initializing application");
       
       // Get store data using DataPost
-      const storeData = await dataPost.getStoreId();
+      const storeData = await dataBlog.getStoreId();
       
       console.log("debug log: Initializing application");
       // Extract data structures from the fetched store data
