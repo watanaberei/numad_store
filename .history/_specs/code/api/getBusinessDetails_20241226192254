@@ -1,0 +1,103 @@
+{
+    "id": "0fGRTbEhBNDUP7AfUFqvPQ",
+    "alias": "smoking-tiger-bread-factory-cerritos",
+    "name": "Smoking Tiger Bread Factory",
+    "image_url": "https://s3-media1.fl.yelpcdn.com/bphoto/pMMRXM4rs7lf_Z_LjVgJTw/o.jpg",
+    "is_claimed": true,
+    "is_closed": false,
+    "url": "https://www.yelp.com/biz/smoking-tiger-bread-factory-cerritos?adjust_creative=dRF3e2dWiPXviOvOos0cUg&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=dRF3e2dWiPXviOvOos0cUg",
+    "phone": "+15622023450",
+    "display_phone": "(562) 202-3450",
+    "review_count": 363,
+    "categories": [
+        {
+            "alias": "coffee",
+            "title": "Coffee & Tea"
+        },
+        {
+            "alias": "bakeries",
+            "title": "Bakeries"
+        }
+    ],
+    "rating": 4.2,
+    "location": {
+        "address1": "11900 South St",
+        "address2": "Ste 134",
+        "address3": "",
+        "city": "Cerritos",
+        "zip_code": "90703",
+        "country": "US",
+        "state": "CA",
+        "display_address": [
+            "11900 South St",
+            "Ste 134",
+            "Cerritos, CA 90703"
+        ],
+        "cross_streets": ""
+    },
+    "coordinates": {
+        "latitude": 33.85822646822842,
+        "longitude": -118.07936250142193
+    },
+    "photos": [
+        "https://s3-media1.fl.yelpcdn.com/bphoto/pMMRXM4rs7lf_Z_LjVgJTw/o.jpg",
+        "https://s3-media1.fl.yelpcdn.com/bphoto/CDUKZfDAA7ALmjALd6NTcw/o.jpg",
+        "https://s3-media3.fl.yelpcdn.com/bphoto/5CNOMa4R_I6L8EOv7FYEYg/o.jpg"
+    ],
+    "price": "$$",
+    "hours": [
+        {
+            "open": [
+                {
+                    "is_overnight": false,
+                    "start": "0800",
+                    "end": "2200",
+                    "day": 0
+                },
+                {
+                    "is_overnight": false,
+                    "start": "0800",
+                    "end": "2200",
+                    "day": 1
+                },
+                {
+                    "is_overnight": false,
+                    "start": "0800",
+                    "end": "2200",
+                    "day": 2
+                },
+                {
+                    "is_overnight": false,
+                    "start": "0800",
+                    "end": "2200",
+                    "day": 3
+                },
+                {
+                    "is_overnight": false,
+                    "start": "0800",
+                    "end": "2200",
+                    "day": 4
+                },
+                {
+                    "is_overnight": false,
+                    "start": "0800",
+                    "end": "2200",
+                    "day": 5
+                },
+                {
+                    "is_overnight": false,
+                    "start": "0800",
+                    "end": "2000",
+                    "day": 6
+                }
+            ],
+            "hours_type": "REGULAR",
+            "is_open_now": true
+        }
+    ],
+    "transactions": [],
+    "messaging": {
+        "url": "https://www.yelp.com/raq/0fGRTbEhBNDUP7AfUFqvPQ?adjust_creative=dRF3e2dWiPXviOvOos0cUg&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=dRF3e2dWiPXviOvOos0cUg#popup%3Araq",
+        "use_case_text": "Message the Business"
+    }
+}

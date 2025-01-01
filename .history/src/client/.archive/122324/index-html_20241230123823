@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Numad Store</title>
+    <!-- Include Mapbox GL CSS -->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.js"></script>
+    <script src="/src/client/main.js"></script>
+    <link rel="stylesheet" href="/src/client/styles/style.js"></script>
+    <!-- <script src="style.js"></script> -->
+  </head>
+<body>
+
+  <!-- <div  class="grid05 array" id="card-gallery"></div> -->
+
+
+
+  <div id="store" class="main grid05">
+    
+    <div id="section" class="hero col05">.
+      <div class="col05 array content" id="store-hero">
+        <!-- This will be populated by the JS -->
+      </div>
+    </div>
+    
+    <div id="container" class="content col05 ">
+      
+      <div id="container" class=" primary col04 store">
+
+        <div id="section" class="section col04">
+          <div class="col04 array content" id="store-overview"></div>
+        </div>
+        <div id="section" class="section col04">
+          <div class="col04 array content" id="store-experience"></div>
+        </div>
+        <div id="section" class="section col04">
+          <div class="col04 array content" id="store-service"></div> 
+        </div>
+        <div id="section" class="section col04">
+          <div class="col04 array content" id="store-business"></div>
+        </div>
+        <div id="section" class="section col04">
+          <div class=" col04 array content" id="store-location"></div> 
+        </div>
+        <div id="section" class="section col04">
+          <div class=" col04 array content" id="card-gallery-item"></div> 
+        </div>
+      </div>
+     
+      <div id="store-details" class="secondary col01 store store-details">
+        
+        sidebar here
+      </div>
+ 
+    </div>
+  </div>
+
+<div id="store" class="section store">
+  <div class="grid05 array" id="business-hours"></div>
+</div>
+
+
+
+  <div id="store" class="section store">
+    <span class="text06">COMPONENTS</span>
+  </div>
+    <!-- storeDetail -->
+  <div id="store" class="section store">
+    <div class="grid05 array" id="store-detail"></div>
+    <!-- galleryComponent -->
+    <div class="grid05 array" id="hero-gallery"></div> 
+    <!-- heroComponent -->
+    <div class="grid05 array" id="store-headline"></div>
+    <!-- title -->
+    <div class="grid05 array" id="section-header"></div>
+    <!-- sectionFooter -->
+    <div class="grid05 array" id="section-footer"></div>
+    <!-- cardSmain storeubStore -->
+    <div class="grid10 array" id="card-substore-item"></div>
+    <!-- cardCategory -->
+    <div class="grid05 array" id="card-category-item"></div>
+    <!-- summaryCard -->
+    <div class="grid05 array" id="card-summary-item"></div>
+    <!-- textComponent -->
+    <div class="grid05 array" id="text-block"></div>
+    <!-- cardAttributesComponent -->
+    <div class="grid05 array" id="card-attributes"></div>
+    <!-- mapRadiusComponent -->
+    <div class="grid05 array" id="map-nearby"></div>
+    <!-- titleComponent -->
+    <div class="grid05 array" id="title-container"></div>
+    <!-- cardGalleryComponent -->
+    <!-- <div class="grid05 array" id="card-gallery-item"></div>  -->
+  </div>
+  <script type="module" src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,387 @@
+{
+    "thumbnail": "https://images.ctfassets.net/i1hcb4885ci0/2NjDmK7zLUGwiR9xZhQgsA/06cba6c028f15edd6a34c6a86543d09d/newport-beach-blue-bottle-coffee-via-lido-hero.png",
+    "title": "Blue Bottle Coffee",
+    "gallery": [
+        {
+            "url": "https://images.ctfassets.net/i1hcb4885ci0/6TXZedgrwz5RlE6NeAeX0r/ee7d2b45ecff9502ccae936cd198455d/bluebottle-interior01.jpeg"
+        },
+        {
+            "url": "https://images.ctfassets.net/i1hcb4885ci0/4NG95AUFYV5kdwqvpMa6dS/2a351371e7dc5fc3196086ee2bc982c9/bluebottle-interior03.jpeg"
+        }
+    ],
+    "galleryHTML": "\n                <img src=\"https://images.ctfassets.net/i1hcb4885ci0/6TXZedgrwz5RlE6NeAeX0r/ee7d2b45ecff9502ccae936cd198455d/bluebottle-interior01.jpeg\" class=\"galleryItem ratio1x1\" alt=\"\" />\n      \n                <img src=\"https://images.ctfassets.net/i1hcb4885ci0/4NG95AUFYV5kdwqvpMa6dS/2a351371e7dc5fc3196086ee2bc982c9/bluebottle-interior03.jpeg\" class=\"galleryItem ratio1x1\" alt=\"\" />\n      ",
+    "galleryLimit": 3,
+    "tagLimit": 3,
+    "environment": [
+        "Artisanal",
+        "Lively",
+        "Youthful"
+    ],
+    "parking": [
+        "Parking Lot",
+        "Street Parking"
+    ],
+    "neustar": 2,
+    "neustarHTML": "2 <i class=\"icon-neustar-active12\"></i><i class=\"icon-neustar-active12\"></i><i class=\"icon-neustar-inactive12\"></i>",
+    "categoryType": "Work",
+    "storeCurrentStatusHTML": "<div class=\"chart-container\"></div><div class=\"chart-container\"></div><div class=\"chart-container\"></div><div class=\"chart-container\"></div><div class=\"chart-container\"></div><div class=\"chart-container\"></div><div class=\"chart-container\"></div><div class=\"chart-container\"></div><div class=\"chart-container\"></div><div class=\"chart-container\"></div><div class=\"chart-container\"></div><div class=\"chart-container\"></div><div class=\"chart-container\"></div><div class=\"chart-container\"></div><div class=\"chart-container\"></div><div class=\"chart-container\"></div><div class=\"chart-container\"></div><div class=\"chart-container\"></div><div class=\"chart-container\"></div><div class=\"chart-container\"></div><div class=\"chart-container\"></div><div class=\"chart-container\"></div><div class=\"chart-container\"></div><div class=\"chart-container\"></div><div class=\"chart-container\"></div><div class=\"chart-container\"></div>",
+    "storeCurrentStatus": "Moderately Busy",
+    "bestHTML": "\n    <div class=\"metadata-tag\">\n      <span class=\"metadata-tag-text text01 bold\">Remote work</span>\n    </div>\n    <div class=\"metadata-tag\">\n      <span class=\"metadata-tag-text text01 bold\">Business Meetings</span>\n    </div>\n    <div class=\"metadata-tag\">\n      <span class=\"metadata-tag-text text01 bold\">Quiet Reading</span>\n    </div>",
+    "genre": "Coffee Shop",
+    "best": [
+        "Remote work",
+        "Business Meetings",
+        "Quiet Reading"
+    ],
+    "nearby": [
+        {
+            "nearbyHeadline": "Old Ferry Donut",
+            "nearbyHours": [
+                [
+                    "S",
+                    "M",
+                    "T",
+                    "W",
+                    "T",
+                    "F",
+                    "S"
+                ],
+                [
+                    "10:30AM",
+                    "10:30AM",
+                    "10:30AM",
+                    "10:30AM",
+                    "10:30AM",
+                    "10:30AM",
+                    "10:30AM"
+                ],
+                [
+                    "9PM",
+                    "9PM",
+                    "9PM",
+                    "9PM",
+                    "9PM",
+                    "9PM",
+                    "9PM"
+                ],
+                [
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    ""
+                ]
+            ],
+            "nearbyLogo": "https://images.ctfassets.net/i1hcb4885ci0/2wZiR28Fjwe2cHhuhqjrx5/5911a0f98944ac22fedad60a935a9347/ca_los-angeles-county_cerritos_90730-01_old-ferry-donut_logo.png",
+            "nearbyLocation": {
+                "nearbyLocationGeolocation": {}
+            }
+        },
+        {
+            "nearbyHeadline": "Sprouts Farmers Market",
+            "nearbyHours": [
+                [
+                    "S",
+                    "M",
+                    "T",
+                    "W",
+                    "T",
+                    "F",
+                    "S"
+                ],
+                [
+                    "7AM",
+                    "7AM",
+                    "7AM",
+                    "7AM",
+                    "7AM",
+                    "7AM",
+                    "7AM"
+                ],
+                [
+                    "10PM",
+                    "10PM",
+                    "10PM",
+                    "10PM",
+                    "10PM",
+                    "10PM",
+                    "10PM"
+                ],
+                [
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    ""
+                ]
+            ],
+            "nearbyLogo": "https://images.ctfassets.net/i1hcb4885ci0/5YeGNeFsZyiMhWpq0rjAgZ/2956ddcfb6adeb13df474d7deb1a2578/ca_los-angeles-county_cerritos_90730-01_sprouts-farmers-market_logo.png",
+            "nearbyLocation": {
+                "nearbyLocationGeolocation": {}
+            }
+        },
+        {
+            "nearbyHeadline": "BCD Tofu House",
+            "nearbyHours": [
+                [
+                    "S",
+                    "M",
+                    "T",
+                    "W",
+                    "T",
+                    "F",
+                    "S"
+                ],
+                [
+                    "10AM",
+                    "10AM",
+                    "10AM",
+                    "10AM",
+                    "10AM",
+                    "10AM",
+                    "10AM"
+                ],
+                [
+                    "2AM",
+                    "2AM",
+                    "2AM",
+                    "2AM",
+                    "2AM",
+                    "2AM",
+                    "2AM"
+                ],
+                [
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    ""
+                ]
+            ],
+            "nearbyLogo": "https://images.ctfassets.net/i1hcb4885ci0/1RY2mRB4payXM51xFijLxl/cd27cf162da366ab663805ddcb865791/ca_los-angeles-county_cerritos_90730-01_bcd-tofu-house_logo.png",
+            "nearbyLocation": {
+                "nearbyLocationGeolocation": {}
+            }
+        }
+    ],
+    "ratings": [
+        {
+            "id": "2cefd9ae-f08f-4bef-b6f3-c6c083072fe8",
+            "key": "4.83",
+            "value": "237"
+        }
+    ],
+    "address": "3366 Via Lido Newport Beach, CA 92663",
+    "city": "Newport Beach",
+    "designator": null,
+    "metaTagLabel": [
+        "metaTagLabel01",
+        "metaTagLabel02",
+        "metaTagLabel03",
+        "metaTagLabel04",
+        "metaTagLabel05"
+    ],
+    "metaTagLimit": 3,
+    "storeRange": {},
+    "storeAttributes": [
+        {
+            "id": "e7a41d42-00f7-47bb-9798-6d06f4f5a97a",
+            "key": "Wifi",
+            "value": "Fast Wifi"
+        },
+        {
+            "id": "a317e864-f23e-4b51-8272-93c45c08010a",
+            "key": "Pricing",
+            "value": "Reasonable"
+        },
+        {
+            "id": "965b4e61-7b7e-4ba6-9155-911c022c01f8",
+            "key": "Space",
+            "value": "Spacious with Patio"
+        },
+        {
+            "id": "5d064bff-d516-4982-a96f-3b9977d24338",
+            "key": "Parking",
+            "value": "Ample Parking"
+        },
+        {
+            "id": "87ec0445-9e25-443c-8eb4-4818e610cf2e",
+            "key": "Seating",
+            "value": "Countertops and Tables"
+        },
+        {
+            "id": "8df3b3f8-e1cd-4321-a7f9-0a4af856e58a",
+            "key": "Location",
+            "value": "Next to Sprouts, Food, Deserts"
+        },
+        {
+            "id": "bfc2d788-9c08-4aa5-ab92-21b86b86b6f9",
+            "key": "Environment",
+            "value": "Youthful"
+        },
+        {
+            "id": "80dfcc59-44f4-4289-b143-6dddfa1de44a",
+            "key": "Noise",
+            "value": "Noisy at Times"
+        },
+        {
+            "id": "e2ed6528-a79c-4592-b1d1-091cb7a47609",
+            "key": "Outlets",
+            "value": "9 Outlets"
+        },
+        {
+            "id": "42c04bfd-6e7f-44da-a44c-dd1e82a02bd3",
+            "key": "Clean",
+            "value": "Very Clean"
+        },
+        {
+            "id": "8447c7d2-fed1-4821-a9f8-b89e84c4a6d8",
+            "key": "Bathroom",
+            "value": "A Woman, Unisex Private Bathroom"
+        },
+        {
+            "id": "65ea7617-02e9-47d7-88c8-81750ecafe32",
+            "key": "Private Room",
+            "value": ""
+        },
+        {
+            "id": "b1353fd3-37a3-4b9b-b094-1d8c3e1bfecc",
+            "key": "Outdoor",
+            "value": "Outdoor Patio Area"
+        },
+        {
+            "id": "bfb67c92-fdcd-4340-b043-280bf53010bd",
+            "key": "Floors",
+            "value": "1"
+        },
+        {
+            "id": "12e05b56-b7fc-4817-92c9-6178147d4174",
+            "key": "Special Hours",
+            "value": ""
+        },
+        {
+            "id": "3e5e2b3e-d4cf-4804-be80-01ea4bd9b92f",
+            "key": "Events",
+            "value": ""
+        },
+        {
+            "id": "eac5f4cd-ef14-40ec-9d21-7c382acb3239",
+            "key": "Popup Store",
+            "value": ""
+        },
+        {
+            "id": "0f4fa651-865e-4f19-b9e0-251bb9eea74d",
+            "key": "Local",
+            "value": "Handmade Pastries"
+        },
+        {
+            "id": "7276689b-48f4-42c5-99df-f063a0bfe933",
+            "key": "Work Friendly",
+            "value": "Most are Working or Students"
+        }
+    ],
+    "tagAttributes": [
+        {
+            "id": "e7a41d42-00f7-47bb-9798-6d06f4f5a97a",
+            "key": "Wifi",
+            "value": "Fast Wifi"
+        },
+        {
+            "id": "a317e864-f23e-4b51-8272-93c45c08010a",
+            "key": "Pricing",
+            "value": "Reasonable"
+        },
+        {
+            "id": "965b4e61-7b7e-4ba6-9155-911c022c01f8",
+            "key": "Space",
+            "value": "Spacious with Patio"
+        },
+        {
+            "id": "5d064bff-d516-4982-a96f-3b9977d24338",
+            "key": "Parking",
+            "value": "Ample Parking"
+        },
+        {
+            "id": "87ec0445-9e25-443c-8eb4-4818e610cf2e",
+            "key": "Seating",
+            "value": "Countertops and Tables"
+        },
+        {
+            "id": "8df3b3f8-e1cd-4321-a7f9-0a4af856e58a",
+            "key": "Location",
+            "value": "Next to Sprouts, Food, Deserts"
+        },
+        {
+            "id": "bfc2d788-9c08-4aa5-ab92-21b86b86b6f9",
+            "key": "Environment",
+            "value": "Youthful"
+        },
+        {
+            "id": "80dfcc59-44f4-4289-b143-6dddfa1de44a",
+            "key": "Noise",
+            "value": "Noisy at Times"
+        },
+        {
+            "id": "e2ed6528-a79c-4592-b1d1-091cb7a47609",
+            "key": "Outlets",
+            "value": "9 Outlets"
+        },
+        {
+            "id": "42c04bfd-6e7f-44da-a44c-dd1e82a02bd3",
+            "key": "Clean",
+            "value": "Very Clean"
+        },
+        {
+            "id": "8447c7d2-fed1-4821-a9f8-b89e84c4a6d8",
+            "key": "Bathroom",
+            "value": "A Woman, Unisex Private Bathroom"
+        },
+        {
+            "id": "65ea7617-02e9-47d7-88c8-81750ecafe32",
+            "key": "Private Room",
+            "value": ""
+        },
+        {
+            "id": "b1353fd3-37a3-4b9b-b094-1d8c3e1bfecc",
+            "key": "Outdoor",
+            "value": "Outdoor Patio Area"
+        },
+        {
+            "id": "bfb67c92-fdcd-4340-b043-280bf53010bd",
+            "key": "Floors",
+            "value": "1"
+        },
+        {
+            "id": "12e05b56-b7fc-4817-92c9-6178147d4174",
+            "key": "Special Hours",
+            "value": ""
+        },
+        {
+            "id": "3e5e2b3e-d4cf-4804-be80-01ea4bd9b92f",
+            "key": "Events",
+            "value": ""
+        },
+        {
+            "id": "eac5f4cd-ef14-40ec-9d21-7c382acb3239",
+            "key": "Popup Store",
+            "value": ""
+        },
+        {
+            "id": "0f4fa651-865e-4f19-b9e0-251bb9eea74d",
+            "key": "Local",
+            "value": "Handmade Pastries"
+        },
+        {
+            "id": "7276689b-48f4-42c5-99df-f063a0bfe933",
+            "key": "Work Friendly",
+            "value": "Most are Working or Students"
+        }
+    ],
+    "addressMin": "3366 Via Lido"
+}

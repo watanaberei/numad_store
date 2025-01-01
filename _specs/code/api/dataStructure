@@ -1,0 +1,19 @@
+Please ask if there are any files you need access to in order to complete the task. Here is an overview of how data should flow:
+
+@yelpApi.js uses @yelpClient.js to set up the search query.
+@yelpApi.js holds different functions that are used by @data.js which should also take data from @contentfulApi.js, acting as the file that houses and reformats data to become usable (objects can be seen here — @api ).
+@HomeScreen.js card listing is the entry point to the store details page which comes from @StoreScreen.js .
+@StoreScreen.jsuses @functionMatch.js to take the data from the card and matches it with the correct store using different endpoints that follow the yelp fusion documentation for @https://docs.developer.yelp.com/reference/v3_business_match  and @https://docs.developer.yelp.com/reference/v3_business_search .
+@StoreScreen.js  takes the data from @data.js  and maps them to the correct components from @components.js which use other dom elements like @datavisTimeline.js , @sidebar.js , 
+@map.js @map.js ,@media.js ,@gallery.js ,@address.js ,@controls.js ,@array.js ,@function.js ,@modal.js .
+The data must be reformatted to match @components.js  and @components files which@data.js has already laid out and just needs the manually set data replaced / updated by data from yelp and contenful. 
+As reference, please look at @122324 as the main-js is the file that maps data to the dom elements and returns html from index-html file.still not working. Plesae ask if there are any files you need access to in order to complete the task. Here is an overview of how data should flow:
+
+@yelpApi.js uses @yelpClient.js to set up the search query.
+@yelpApi.js holds different functions that are used by @data.js which should also take data from @contentfulApi.js, acting as the file that houses and reformats data to become usable (objects can be seen here — @api ).
+@HomeScreen.js card listing is the entry point to the store details page which comes from @StoreScreen.js .
+@StoreScreen.jsuses @functionMatch.js to take the data from the card and matches it with the correct store using different endpoints that follow the yelp fusion documentation for @https://docs.developer.yelp.com/reference/v3_business_match  and @https://docs.developer.yelp.com/reference/v3_business_search .
+@StoreScreen.js  takes the data from @data.js  and maps them to the correct components from @components.js which use other dom elements like @datavisTimeline.js , @sidebar.js , 
+@map.js @map.js ,@media.js ,@gallery.js ,@address.js ,@controls.js ,@array.js ,@function.js ,@modal.js .
+The data must be reformatted to match @components.js  and @components files which@data.js has already laid out and just needs the manually set data replaced / updated by data from yelp and contenful. 
+As reference, please look at @122324 as the main-js is the file that maps data to the dom elements and returns html from index-html file.
