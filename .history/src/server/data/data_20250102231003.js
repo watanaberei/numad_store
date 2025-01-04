@@ -1,93 +1,297 @@
-
 // src/server/data/data.js
-import { title } from "../../client/style/headerStyle";
-import { yelpApi } from "./yelp/api.js";
+import * as Yelp from "./yelp/yelp.js";
+import * as contentfulApi from "./contentful/contentfulApi.js";
+import ContentfulData from "./contentful/contentful.js";
+import DataPost from "../../client/data/DataPost.js";
+import { io } from "socket.io-client";
 
-console.log('Loading data.js, yelpApi:', yelpApi);
 
+export class StoreData {
+  constructor() {
+    this.activeTags = [];
+    this.yelp = Yelp;
+    this.contentfulData = new ContentfulData();
+    this.socket = io('http://localhost:4000');
+  }
+  
 
+  async fetchStores() {
+    try {
+      console.log("[StoreData.fetchStores] Starting fetch");
+      
+      const contentfulStores = await this.contentfulData.getStores();
+      console.log("[StoreData.fetchStores] Contentful stores:", contentfulStores?.length);
+      // Combine and format store data
+      const stores = this.store.item.map(store => ({
+        ...store,
+        hero: [{
+          rating: store.rating || '3.33',
+          costEstimate: store.costEstimate || '3-6',
+          storeType: store.category?.categoryType || 'Coffee Shop',
+          distance: store.distance || '1.5mi',
+          city: store.location?.city || 'Cerritos',
+          state: store.location?.state || 'CA',
+          storeName: store.name || 'Store Name',
+          distanceMiles: store.distanceMiles || '1.1',
+          status: store.status || 'Busy until 6pm',
+          galleryImages: store.media?.gallery || heroData.galleryImages
+        }],
+        overview: [{
+          // ... overview data structure
+        }],
+        service: [{
+          categories: serviceCategoryData
+        }],
+        experience: [{
+          // ... experience data structure
+        }],
+        location: {
+          ...store.location,
+          attributes: location.locations[0].attrtagss
+        },
+        business: [{
+          // ... business data structure
+        }]
+      }));
+      console.log("stores", stores);
 
-// Add a mapping for business hours data from Yelp
-export function transformYelpHours(yelpData) {
-  console.log('Processing Yelp hours data:', yelpData?.hours?.[0]?.open);
+      
+      // Get store data from different sources
+      const storeData = await this.yelp.getStoreData(searchRequest);
+      console.log("[StoreData.fetchStores] Store data:", storeData?.length);
+      
 
-  if (!yelpData?.hours?.[0]?.open) {
-    console.warn('No hours data available in Yelp response');
-    return null;
+      console.log("[StoreData.fetchStores] Formatted stores:", stores?.length);
+      return stores;
+
+    } catch (error) {
+      console.error("[StoreData.fetchStores] Error:", error);
+      return [];
+    }
   }
 
-  const hoursData = yelpData.hours[0].open;
-  const isCurrentlyOpen = yelpData.hours[0].is_open_now;
-  
-  // Get current time in military format for comparison
-  const now = new Date();
-  const currentHour = now.getHours().toString().padStart(2, '0');
-  const currentMinute = now.getMinutes().toString().padStart(2, '0');
-  const currentTime = `${currentHour}${currentMinute}`;
-  const currentDay = now.getDay();
+  async getData() {
+    console.log("[StoreData.getData] Starting");
+    const storeData = await this.fetchStores();
+    
+    // Filter by active tags if any
+    const filteredStoreData = storeData.filter(store => {
+      const storeTags = store.tags || [];
+      return this.activeTags.length === 0 ? true : 
+             storeTags.some(tag => this.activeTags.includes(tag));
+    });
 
-  console.log('Current time:', currentTime, 'Current day:', currentDay);
+    const searchRequest = {
+      term: storeData.hero.storeName,
+      location: storeData.hero.city + ', ' + storeData.hero.state,
+    };
+    console.log("searchRequest", searchRequest);
 
-  return {
-    storeName: yelpData.name,
-    isOpen: isCurrentlyOpen,
-    currentTime: currentTime,
-    schedule: hoursData.map(slot => ({
-      day: slot.day,
-      start: slot.start,
-      end: slot.end,
-      isCurrent: slot.day === currentDay,
-      isWithinHours: slot.day === currentDay && 
-                     currentTime >= slot.start && 
-                     currentTime <= slot.end
-    }))
-  };
+
+    console.log("[StoreData.getData] Filtered stores:", filteredStoreData?.length);
+    return filteredStoreData;
+  }
+
+  setActiveTags(tags) {
+    this.activeTags = tags;
+  }
+
+  async getStoreBySlug(slug) {
+    try {
+      console.log("[StoreData.getStoreBySlug] Starting fetch for slug:", slug);
+      
+      // 1. Get all stores from DataPost
+      const dataBlog = new DataPost();
+      const storeData = await dataBlog.getData();
+      console.log("[StoreData.getStoreBySlug] All stores:", storeData?.length);
+
+      // 2. Filter for valid stores and find matching store
+      const validStores = storeData.filter((store) => store.slug);
+      console.log("[StoreData.getStoreBySlug] Valid stores:", validStores?.length);
+      
+      const store = validStores.find((store) => store.slug === slug);
+      console.log("[StoreData.getStoreBySlug] Found matching store:", store);
+
+      if (!store) {
+        console.error("[StoreData.getStoreBySlug] Store not found for slug:", slug);
+        return null;
+      }
+
+      // 3. Get Contentful data for the store
+      const contentfulStore = await this.contentfulData.getStoreBySlug(slug);
+      console.log("[StoreData.getStoreBySlug] Contentful data:", contentfulStore);
+
+      // 4. Get Yelp data using store details
+      const yelpStore = await this.yelp.getStoreData({
+        storeName: store.name,
+        storeCity: store.location?.city,
+        storeState: store.location?.state
+      });
+      console.log("[StoreData.getStoreBySlug] Yelp data:", yelpStore);
+
+      // 5. Combine all data sources
+      const combinedStore = {
+        ...store,
+        contentful: contentfulStore,
+        yelp: yelpStore,
+        // Transform Yelp hours data
+        hours: yelpStore ? this.transformYelpHours(yelpStore) : null
+      };
+
+      return combinedStore;
+
+    } catch (error) {
+      console.error("[StoreData.getStoreBySlug] Error:", error);
+      return null;
+    }
+  }
+
+  // Helper function to transform Yelp hours data
+  transformYelpHours(yelpData) {
+    console.log('[StoreData.transformYelpHours] Processing Yelp hours:', yelpData?.hours?.[0]?.open);
+
+    if (!yelpData?.hours?.[0]?.open) {
+      console.warn('[StoreData.transformYelpHours] No hours data available');
+      return null;
+    }
+
+    const hoursData = yelpData.hours[0].open;
+    const isCurrentlyOpen = yelpData.hours[0].is_open_now;
+    
+    // Get current time in military format
+    const now = new Date();
+    const currentHour = now.getHours().toString().padStart(2, '0');
+    const currentMinute = now.getMinutes().toString().padStart(2, '0');
+    const currentTime = `${currentHour}${currentMinute}`;
+    const currentDay = now.getDay();
+
+    return {
+      storeName: yelpData.name,
+      isOpen: isCurrentlyOpen,
+      currentTime: currentTime,
+      schedule: hoursData.map(slot => ({
+        day: slot.day,
+        start: slot.start,
+        end: slot.end,
+        isCurrent: slot.day === currentDay,
+        isWithinHours: slot.day === currentDay && 
+                      currentTime >= slot.start && 
+                      currentTime <= slot.end
+      }))
+    };
+  }
 }
 
 
+
+
+
+
+
+let contentfulData = new ContentfulData();
+// const socket = io('http://localhost:4000'); 
+
+const yelp = Yelp.Yelp;
+
+console.log("[data.js] Initializing with yelp module:", yelp);
+
+
+// export const storeData = new StoreData();
+
+
+
+
+export const contentful = {
+  render: async () => {
+    const request = parseRequestUrl();
+    const storeData = await dataBlog.getData();
+    console.log("data.js storeData", storeData);
+
+    const validStores = storeData.filter((store) => store.slug);
+    console.log("data.js Valid stores:", validStores);
+    
+    store = validStores.find((store) => store.slug === request.slug);
+    console.log("data.js slug", store.slug);
+    console.log("data.js store", store);
+
+  }
+}
+
 export async function initializeData() {
   try {
+    console.log('Initializing application data');
+    
+    const businessId = '0fGRTbEhBNDUP7AfUFqvPQ'; // Smoking Tiger ID
+    const yelpData = await yelp.getStoreData(businessId);
+    console.log('Yelp data received:', yelpData);
+
+    const searchParams = {
+      term: 'Smoking Tiger Bread Factory',
+      location: 'Cerritos, CA',
+      limit: 1
+    };
+
+    // First search for the business
+    const searchResults = await yelp.searchBusinesses(searchParams);
+    console.log('Search results:', searchResults);
+    
+    //BUSINESS NAME AND LOCATION MUST be DYNAMIC
     const businessName = 'Smoking Tiger Bread Factory';
     const location = 'cerritos, ca';
-    console.log('Initializing data for:', businessName);
-    
-    const yelpData = await yelpApi.getStoreData(businessName, location);
-    console.log('Yelp data loaded:', yelpData);
 
-    if (yelpData) {
-      // Transform the hours data
-      const hoursData = transformYelpHours(yelpData);
+    console.log('Initializing data for:', businessName);
+    const yelp = yelp.yelp;
+    // const yelpData = await yelp.getStoreData('0fGRTbEhBNDUP7AfUFqvPQ'); // Using direct business ID
+    // console.log('Raw Yelp data:', yelpData);
+    if (yelpData?.hours) {
+      const hours = yelp.businessData(yelpData);
+      const hoursData = hours.transformData.hours;
       console.log('Transformed hours data:', hoursData);
 
-      // Update the store data
-      store.item[0].business.hours = hoursData;
+      // Update store hours
+      store.item[0] = {
+        ...store.item[0],
+        name: yelpData.name,
+        hours: yelpData.hours
+      };
     }
+    if (searchResults?.businesses?.[0]?.id) {
+      // Then get business details using the ID
+      const businessId = searchResults.businesses[0].id;
+      const storeData = await yelp.businessData(businessId);
+      console.log('!!!Store details:', storeData);
 
+      if (storeData?.hours) {
+        store.item[0] = {
+          ...store.item[0],
+          hours: storeData.hours,
+          name: storeData.name
+        };
+      }
+    }
     return {
-      storeData: store.item[0], // Now includes formatted hours
-      storeData: storeData || store.item[0], // Fallback to mock data if needed
-      searchResults: searchResults?.businesses || []
+      storeData: store.item[0],
+      searchResults: []
     };
   } catch (error) {
-    console.error('Error initializing data:', error);
+    console.error('Data initialization error:', error);
     return {
-      storeData: store.item[0], // Falls back to default hours
+      storeData: store.item[0],
       searchResults: []
     };
   }
 }
 
+// const test = async () => {
+//   const data = await yelp.getStoreData('Smoking Tiger Bread Factory', 'cerritos, ca');
+//   console.log('Test result:', data);
+// };
 
-const test = async () => {
-  const data = await yelpApi.getStoreData('Smoking Tiger Bread Factory', 'cerritos, ca');
-  console.log('Test result:', data);
-};
-
-test().catch(console.error);
+// test().catch(console.error);
 
 
-// const businessData = await yelpApi.getStoreData(storeYelp.name);
-// const searchResults = await yelpApi.searchBusinesses({
+// const businessData = await yelp.getStoreData(storeYelp.name);
+// const searchResults = await yelp.searchBusinesses({
 //   term: 'coffee',
 //   location: 'Cerritos, CA'
 // });
@@ -2188,7 +2392,7 @@ export const location = {
     {
       city: 'Cerritos',
       // city: store?.item?.[0]?.location?.city,
-      geotags: [
+      attrtags: [
         {
           title: 'Location',
           attributes: [
@@ -2242,7 +2446,7 @@ export const location = {
     },
     {
       city: 'Orange County',
-      geotags: [
+      attrtagss: [
         {
           title: 'Location',
           attributes: [ 
@@ -2331,7 +2535,7 @@ export const location = {
     // },
     {
       city: 'Placentia',
-      geotags: [
+      attrtagss: [
         {
           title: 'Location',
           attributes: [
@@ -2393,15 +2597,49 @@ export const store = {
     {
       name: 'Smoking Tiger Bread Factory', 
       location: {
-        address: '12345 Main St.',
-        city: 'Cerritos',
-        // generate with correct code for:
-        // store?.item?.[0]?.location?.city
-        // Generate here: `  `
-        area: 'Lincoln Station', //town, neighborhood, or district
-        state: 'CA',
-        zip: '90703',
-        attribute: location.locations[0] ? location.locations[0] : null,
+        address: yelp?.location?.address1 || '12345 Main St.',
+        city: yelp?.location?.city || 'Cerritos',
+        area: 'Lincoln Station',
+        state: yelp?.location?.state || 'CA',
+        zip: yelp?.location?.zip_code || '90703',
+        geolocation: {
+          lat: yelp?.coordinates?.latitude,
+          lon: yelp?.coordinates?.longitude
+        },
+        attribute: {
+          city: yelp?.location?.city || 'Cerritos',
+          attrtags: [
+            {
+              title: 'Location',
+              attributes: [
+                { label: 'Safe', score: 4, count: 9 },
+                { label: 'Busy', score: 6, count: 3 },
+                { label: 'Popular', score: 3, count: 9 },
+                { label: 'High End', score: 4, count: 12 },
+                { label: 'Clean', score: 6, count: 2 }
+              ]
+            },
+            {
+              title: 'Surrounding',
+              attributes: location.locations[0]?.attrtags?.[1]?.attributes || []
+            },
+            {
+              title: 'Transportation',
+              attributes: location.locations[0]?.attrtags?.[2]?.attributes || []
+            }
+          ]
+        },
+        stats: {
+          contributions: yelp?.review_count || 0,
+          reviews: yelp?.review_count || 0,
+          comments: 0,
+          likes: 0,
+          dislikes: 0
+        },
+        modified: {
+          date: new Date().toLocaleDateString(),
+          time: new Date().getTime()
+        }
       },
       details: { 
         rating: '3.33',
@@ -2619,16 +2857,9 @@ export const store = {
       business: [
         {
           header: headerData?.business ? headerData?.business : null,
-
-          area: areaData ? areaData : null,
-          attribute: attributesData ? attributesData : null,
-          // experience:
-          // Ensure overviewSummaryData is provided or fallback to null
-
-          // Ensure textBlockData is provided or fallback to null
-          text: textBlockData ? textBlockData : null,
-
-          // Ensure footerData.overview exists, otherwise use default object
+          timeline: yelp,
+          // area: areaData ? areaData : null,
+          // attribute: attributesData ? attributesData : null,
           footer: footerData?.business || {
             contributionsCount: null,
             modifiedDate: null,
@@ -2636,35 +2867,11 @@ export const store = {
             commentsCount: null,
             reviewsCount: null,
             likesCount: null,
-            dislikesCount:  null,
+            dislikesCount: null,
           },
         },
       ],
-      // location: [
-      //   {
-      //     header: headerData?.location ? headerData?.location : null,
 
-      //     area: areaData ? areaData : null,
-      //     // attribute: attributesData ? attributesData : null,
-      //     attribute: location.locations[0] ? location.locations[0] : null,
-      //     // experience:
-      //     // Ensure overviewSummaryData is provided or fallback to null
-
-      //     // Ensure textBlockData is provided or fallback to null
-      //     // text: locationData ? locationData : null,
-
-      //     // Ensure footerData.overview exists, otherwise use default object
-      //     footer: footerData?.location || {
-      //       contributionsCount: null,
-      //       modifiedDate: null,
-      //       modifiedTime: null,
-      //       commentsCount: null,
-      //       reviewsCount: null,
-      //       likesCount: null,
-      //       dislikesCount:  null,
-      //     },
-      //   },
-      // ]
     },
     {
       name: 'Golden State Coffee', 
@@ -2674,7 +2881,7 @@ export const store = {
         area: 'Old Town', //town, neighborhood, or district
         state: 'CA',
         zip: '92369',
-        attribute: location.locations[2].geotags ? location.locations[2].geotags : null,
+        attribute: location.locations[2].attrtags ? location.locations[2].attrtags : null,
       },
       details: { 
         rating: '3.33',
