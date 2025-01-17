@@ -1,0 +1,1859 @@
+[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.
+bootstrap:22 [HMR] Waiting for update signal from WDS...
+yelpApi.js:5 Initializing Yelp API
+Geolocate.js:27 DOES NOT WORK userCoordinates geolocate null
+Geolocate.js:47 coordinateStore geolocate ƒ coordinateStore(store) {
+  if (store && store.location && store.location.geolocation) {
+    console.log("!!!!!store geolocate", store);
+    console.log("!!!!!geometry geolocate", store.location.geolo…
+mongodb.js:8 [MongoDB] Connection error: TypeError: mongoose__WEBPACK_IMPORTED_MODULE_0__.connect is not a function
+    at _callee$ (mongodb.js:5:11)
+    at tryCatch (mongodb.js:2:1)
+    at Generator.<anonymous> (mongodb.js:2:1)
+    at Generator.next (mongodb.js:2:1)
+    at asyncGeneratorStep (mongodb.js:2:1)
+    at _next (mongodb.js:2:1)
+    at mongodb.js:2:1
+    at new Promise (<anonymous>)
+    at mongodb.js:2:1
+    at connectDB (mongodb.js:3:16)
+_callee$ @ mongodb.js:8
+tryCatch @ mongodb.js:2
+(anonymous) @ mongodb.js:2
+(anonymous) @ mongodb.js:2
+asyncGeneratorStep @ mongodb.js:2
+_next @ mongodb.js:2
+(anonymous) @ mongodb.js:2
+(anonymous) @ mongodb.js:2
+connectDB @ mongodb.js:3
+./src/server/data/mongodb/mongodb.js @ mongodb.js:14
+__webpack_require__ @ bootstrap:22
+fn @ hot module replacement:61
+./src/client/screens/StoreScreen.js @ SignupScreen.js:161
+__webpack_require__ @ bootstrap:22
+fn @ hot module replacement:61
+./src/client/index.js @ DataPost.js:110
+__webpack_require__ @ bootstrap:22
+(anonymous) @ startup:6
+(anonymous) @ startup:6Understand this errorAI
+HeaderHome.js:129 after_render function called
+HeaderHome.js:205 Account button not found
+StoreScreen.js:93 %01:[StoreScreen.render] Starting render
+StoreScreen.js:98 %02:[StoreScreen.render] Request params: {resource: 'stores', slug: 'ca_orange-county_fullerton_smoking-tiger-coffee-lab', verb: undefined}
+StoreScreen.js:102 %03:[StoreScreen.render] StoreData initialized: StoreData {activeTags: Array(0), socket: Socket, yelp: ƒ}
+data.js:11 [DEBUG][^01:getStoreBySlug] Starting fetch for slug: ca_orange-county_fullerton_smoking-tiger-coffee-lab
+HeaderHome.js:129 after_render function called
+HeaderHome.js:205 Account button not found
+StoreScreen.js:93 %01:[StoreScreen.render] Starting render
+StoreScreen.js:98 %02:[StoreScreen.render] Request params: {resource: 'stores', slug: 'ca_orange-county_fullerton_smoking-tiger-coffee-lab', verb: undefined}
+StoreScreen.js:102 %03:[StoreScreen.render] StoreData initialized: StoreData {activeTags: Array(0), socket: Socket, yelp: ƒ}activeTags: []socket: Socket {connected: true, recovered: undefined, receiveBuffer: Array(0), sendBuffer: Array(0), _queue: Array(0), …}yelp: ƒ Yelp()[[Prototype]]: ObjectareaData: ƒ areaData(_x15)attributesData: ƒ attributesData(_x14)business: ƒ business(_x19)constructor: ƒ StoreData()details: ƒ details(_x12)detailsData: ƒ detailsData(_x8)experience: ƒ experience(_x18)footerData: ƒ footerData(_x7)galleryData: ƒ galleryData(_x9)getFoodData: ƒ getFoodData(_x2)getStoreBySlug: ƒ getStoreBySlug(_x)headerData: ƒ headerData(_x11)hero: ƒ hero(_x17)location: ƒ location(_x20)locationData: ƒ locationData(_x10)mapRadiusData: ƒ mapRadiusData(_x6)overview: ƒ overview(_x22)overviewSummaryData: ƒ overviewSummaryData(_x5)service: ƒ service(_x21)serviceCategoryData: ƒ serviceCategoryData(_x4)store: ƒ store(_x23)length: 1name: "store"prototype: constructor: ƒ store(_x23)[[Prototype]]: Objectarguments: (...)caller: (...)[[FunctionLocation]]: data.js:1853[[Prototype]]: ƒ ()apply: ƒ apply()arguments: (...)bind: ƒ bind()call: ƒ call()caller: (...)constructor: ƒ Function()length: 0name: ""toString: ƒ toString()Symbol(Symbol.hasInstance): ƒ [Symbol.hasInstance]()get arguments: ƒ ()set arguments: ƒ ()get caller: ƒ ()set caller: ƒ ()[[FunctionLocation]]: [[Prototype]]: Object[[Scopes]]: Scopes[0][[Scopes]]: Scopes[5]0: Closure {_store: ƒ}_store: ƒ ()[[Prototype]]: Object1: Closure {StoreData: ƒ}StoreData: ƒ StoreData()[[Prototype]]: Object2: Closure (./src/server/data/data.js) {_yelp_yelp_js__WEBPACK_IMPORTED_MODULE_0__: Module, _client_data_DataPost_js__WEBPACK_IMPORTED_MODULE_3__: Module, _client_components_map_geo_address_js__WEBPACK_IMPORTED_MODULE_4__: Module, socket_io_client__WEBPACK_IMPORTED_MODULE_5__: Module, _typeof: ƒ, …}3: Closure {__webpack_modules__: {…}, __webpack_module_cache__: {…}, __webpack_require__: ƒ}4: Global {window: Window, self: Window, document: document, name: '', location: Location, …}textBlockData: ƒ textBlockData(_x13)timeline: ƒ timeline(_x16)transformYelpHours: ƒ transformYelpHours(_x3)[[Prototype]]: Object
+data.js:11 [DEBUG][^01:getStoreBySlug] Starting fetch for slug: ca_orange-county_fullerton_smoking-tiger-coffee-lab
+HeaderHome.js:129 after_render function called
+HeaderHome.js:205 Account button not found
+StoreScreen.js:93 %01:[StoreScreen.render] Starting render
+StoreScreen.js:98 %02:[StoreScreen.render] Request params: {resource: 'stores', slug: 'ca_orange-county_fullerton_smoking-tiger-coffee-lab', verb: undefined}
+StoreScreen.js:102 %03:[StoreScreen.render] StoreData initialized: StoreData {activeTags: Array(0), socket: Socket, yelp: ƒ}
+data.js:11 [DEBUG][^01:getStoreBySlug] Starting fetch for slug: ca_orange-county_fullerton_smoking-tiger-coffee-lab
+Geolocate.js:13 WORKS userCoordinates geolocate (2) [-117.8841453, 33.8895741]
+Geolocate.js:31 User coordinates are:  (2) [-117.8841453, 33.8895741]
+mongodb.js:9 Uncaught (in promise) TypeError: process.exit is not a function
+    at _callee$ (mongodb.js:9:13)
+    at tryCatch (mongodb.js:2:1)
+    at Generator.<anonymous> (mongodb.js:2:1)
+    at Generator.next (mongodb.js:2:1)
+    at asyncGeneratorStep (mongodb.js:2:1)
+    at _next (mongodb.js:2:1)
+    at mongodb.js:2:1
+    at new Promise (<anonymous>)
+    at mongodb.js:2:1
+    at connectDB (mongodb.js:3:16)
+_callee$ @ mongodb.js:9
+tryCatch @ mongodb.js:2
+(anonymous) @ mongodb.js:2
+(anonymous) @ mongodb.js:2
+asyncGeneratorStep @ mongodb.js:2
+_next @ mongodb.js:2
+(anonymous) @ mongodb.js:2
+(anonymous) @ mongodb.js:2
+connectDB @ mongodb.js:3
+./src/server/data/mongodb/mongodb.js @ mongodb.js:14
+__webpack_require__ @ bootstrap:22
+fn @ hot module replacement:61
+./src/client/screens/StoreScreen.js @ SignupScreen.js:161
+__webpack_require__ @ bootstrap:22
+fn @ hot module replacement:61
+./src/client/index.js @ DataPost.js:110
+__webpack_require__ @ bootstrap:22
+(anonymous) @ startup:6
+(anonymous) @ startup:6Understand this errorAI
+CatchErrors.js:6 articleNeumadsTrail GraphQL errors: (2) [{…}, {…}]
+console.error @ CatchErrors.js:6
+_callee$ @ api.js:1216
+tryCatch @ api.js:2
+(anonymous) @ api.js:2
+(anonymous) @ api.js:2
+asyncGeneratorStep @ api.js:2
+_next @ api.js:2
+Promise.then
+asyncGeneratorStep @ api.js:2
+_next @ api.js:2
+Promise.then
+asyncGeneratorStep @ api.js:2
+_next @ api.js:2
+(anonymous) @ api.js:2
+(anonymous) @ api.js:2
+getStoresNeumadsReview @ api.js:948
+_callee2$ @ DataPost.js:39
+tryCatch @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+asyncGeneratorStep @ DataPost.js:2
+_next @ DataPost.js:2
+Promise.then
+asyncGeneratorStep @ DataPost.js:2
+_next @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+fetchPosts @ DataPost.js:35
+_callee3$ @ DataPost.js:52
+tryCatch @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+asyncGeneratorStep @ DataPost.js:2
+_next @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+getData @ DataPost.js:51
+_callee23$ @ data.js:1859
+tryCatch @ data.js:2
+(anonymous) @ data.js:2
+(anonymous) @ data.js:2
+asyncGeneratorStep @ data.js:2
+_next @ data.js:2
+(anonymous) @ data.js:2
+(anonymous) @ data.js:2
+store @ data.js:1853
+_callee$ @ StoreScreen.js:105
+tryCatch @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+render @ StoreScreen.js:92
+_callee$ @ index.js:121
+tryCatch @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+router @ index.js:51
+(anonymous) @ index.js:162Understand this errorAI
+CatchErrors.js:6 articleNeumadsTrail GraphQL errors: (2) [{…}, {…}]
+console.error @ CatchErrors.js:6
+_callee$ @ api.js:1216
+tryCatch @ api.js:2
+(anonymous) @ api.js:2
+(anonymous) @ api.js:2
+asyncGeneratorStep @ api.js:2
+_next @ api.js:2
+Promise.then
+asyncGeneratorStep @ api.js:2
+_next @ api.js:2
+Promise.then
+asyncGeneratorStep @ api.js:2
+_next @ api.js:2
+(anonymous) @ api.js:2
+(anonymous) @ api.js:2
+getStoresNeumadsReview @ api.js:948
+_callee2$ @ DataPost.js:39
+tryCatch @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+asyncGeneratorStep @ DataPost.js:2
+_next @ DataPost.js:2
+Promise.then
+asyncGeneratorStep @ DataPost.js:2
+_next @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+fetchPosts @ DataPost.js:35
+_callee3$ @ DataPost.js:52
+tryCatch @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+asyncGeneratorStep @ DataPost.js:2
+_next @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+getData @ DataPost.js:51
+_callee23$ @ data.js:1859
+tryCatch @ data.js:2
+(anonymous) @ data.js:2
+(anonymous) @ data.js:2
+asyncGeneratorStep @ data.js:2
+_next @ data.js:2
+(anonymous) @ data.js:2
+(anonymous) @ data.js:2
+store @ data.js:1853
+_callee$ @ StoreScreen.js:105
+tryCatch @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+render @ StoreScreen.js:92
+_callee$ @ index.js:121
+tryCatch @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+router @ index.js:51
+(anonymous) @ index.js:149Understand this errorAI
+CatchErrors.js:6 articleNeumadsTrail GraphQL errors: (2) [{…}, {…}]
+console.error @ CatchErrors.js:6
+_callee$ @ api.js:1216
+tryCatch @ api.js:2
+(anonymous) @ api.js:2
+(anonymous) @ api.js:2
+asyncGeneratorStep @ api.js:2
+_next @ api.js:2
+Promise.then
+asyncGeneratorStep @ api.js:2
+_next @ api.js:2
+Promise.then
+asyncGeneratorStep @ api.js:2
+_next @ api.js:2
+(anonymous) @ api.js:2
+(anonymous) @ api.js:2
+getStoresNeumadsReview @ api.js:948
+_callee2$ @ DataPost.js:39
+tryCatch @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+asyncGeneratorStep @ DataPost.js:2
+_next @ DataPost.js:2
+Promise.then
+asyncGeneratorStep @ DataPost.js:2
+_next @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+fetchPosts @ DataPost.js:35
+_callee3$ @ DataPost.js:52
+tryCatch @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+asyncGeneratorStep @ DataPost.js:2
+_next @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+getData @ DataPost.js:51
+_callee23$ @ data.js:1859
+tryCatch @ data.js:2
+(anonymous) @ data.js:2
+(anonymous) @ data.js:2
+asyncGeneratorStep @ data.js:2
+_next @ data.js:2
+(anonymous) @ data.js:2
+(anonymous) @ data.js:2
+store @ data.js:1853
+_callee$ @ StoreScreen.js:105
+tryCatch @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+render @ StoreScreen.js:92
+_callee$ @ index.js:121
+tryCatch @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+router @ index.js:51Understand this errorAI
+data.js:11 [DEBUG][^02:getStoreBySlug] All stores: 26
+data.js:11 [DEBUG][^03:getStoreBySlug] Valid stores: 26
+data.js:11 [DEBUG][^04:getStoreBySlug] Found matching store: {sys: {…}, title: 'ca_orange-county_fullerton_smoking-tiger-coffee-lab    ', slug: 'ca_orange-county_fullerton_smoking-tiger-coffee-lab', storeAttributes: Array(19), featured: true, …}
+data.js:1882 ^06:[StoreData.getStoreBySlug] storeParams: {storeName: 'Smoking Tiger Bread Factory', storeAddress: '106 W Wilshire Fullerton, CA 92832', storeCity: null, storeState: 'CA', storeLongitude: -117.924, …}
+yelp.js:6 [Yelp.getStoreData] Starting with store: {storeName: 'Smoking Tiger Bread Factory', storeAddress: '106 W Wilshire Fullerton, CA 92832', storeCity: null, storeState: 'CA', storeLongitude: -117.924, …}
+yelpApi.js:10 Starting business search with params: {term: 'Smoking Tiger Bread Factory', location: 'null, CA'}
+yelpClient.js:110 LocalStorage cache hit for yelp:search:{"term":"Smoking Tiger Bread Factory","location":"null, CA","limit":1,"longitude":-117.924,"latitude":33.8722}
+yelpClient.js:164 Cache hit for search {term: 'Smoking Tiger Bread Factory', location: 'null, CA', limit: 1, longitude: -117.924, latitude: 33.8722}
+yelp.js:19 [Yelp.getStoreData] Search results: {businesses: Array(1), total: 199, region: {…}}
+yelpApi.js:31 [yelpApi.getBusinessDetails] Fetching for ID: 0fGRTbEhBNDUP7AfUFqvPQ
+yelpClient.js:72 Fetching Yelp API {url: 'https://api.yelp.com/v3/businesses/0fGRTbEhBNDUP7AfUFqvPQ', params: {…}}
+data.js:11 [DEBUG][^02:getStoreBySlug] All stores: 26
+data.js:11 [DEBUG][^03:getStoreBySlug] Valid stores: 26
+data.js:11 [DEBUG][^04:getStoreBySlug] Found matching store: {sys: {…}, title: 'ca_orange-county_fullerton_smoking-tiger-coffee-lab    ', slug: 'ca_orange-county_fullerton_smoking-tiger-coffee-lab', storeAttributes: Array(19), featured: true, …}
+data.js:1882 ^06:[StoreData.getStoreBySlug] storeParams: {storeName: 'Smoking Tiger Bread Factory', storeAddress: '106 W Wilshire Fullerton, CA 92832', storeCity: null, storeState: 'CA', storeLongitude: -117.924, …}
+yelp.js:6 [Yelp.getStoreData] Starting with store: {storeName: 'Smoking Tiger Bread Factory', storeAddress: '106 W Wilshire Fullerton, CA 92832', storeCity: null, storeState: 'CA', storeLongitude: -117.924, …}
+yelpApi.js:10 Starting business search with params: {term: 'Smoking Tiger Bread Factory', location: 'null, CA'}
+yelpClient.js:99 Memory cache hit for yelp:search:{"term":"Smoking Tiger Bread Factory","location":"null, CA","limit":1,"longitude":-117.924,"latitude":33.8722}
+yelpClient.js:164 Cache hit for search {term: 'Smoking Tiger Bread Factory', location: 'null, CA', limit: 1, longitude: -117.924, latitude: 33.8722}
+yelp.js:19 [Yelp.getStoreData] Search results: {businesses: Array(1), total: 199, region: {…}}
+yelpApi.js:31 [yelpApi.getBusinessDetails] Fetching for ID: 0fGRTbEhBNDUP7AfUFqvPQ
+yelpClient.js:72 Fetching Yelp API {url: 'https://api.yelp.com/v3/businesses/0fGRTbEhBNDUP7AfUFqvPQ', params: {…}}
+data.js:11 [DEBUG][^02:getStoreBySlug] All stores: 26
+data.js:11 [DEBUG][^03:getStoreBySlug] Valid stores: 26
+data.js:11 [DEBUG][^04:getStoreBySlug] Found matching store: {sys: {…}, title: 'ca_orange-county_fullerton_smoking-tiger-coffee-lab    ', slug: 'ca_orange-county_fullerton_smoking-tiger-coffee-lab', storeAttributes: Array(19), featured: true, …}
+data.js:1882 ^06:[StoreData.getStoreBySlug] storeParams: {storeName: 'Smoking Tiger Bread Factory', storeAddress: '106 W Wilshire Fullerton, CA 92832', storeCity: null, storeState: 'CA', storeLongitude: -117.924, …}
+yelp.js:6 [Yelp.getStoreData] Starting with store: {storeName: 'Smoking Tiger Bread Factory', storeAddress: '106 W Wilshire Fullerton, CA 92832', storeCity: null, storeState: 'CA', storeLongitude: -117.924, …}
+yelpApi.js:10 Starting business search with params: {term: 'Smoking Tiger Bread Factory', location: 'null, CA'}
+yelpClient.js:99 Memory cache hit for yelp:search:{"term":"Smoking Tiger Bread Factory","location":"null, CA","limit":1,"longitude":-117.924,"latitude":33.8722}
+yelpClient.js:164 Cache hit for search {term: 'Smoking Tiger Bread Factory', location: 'null, CA', limit: 1, longitude: -117.924, latitude: 33.8722}
+yelp.js:19 [Yelp.getStoreData] Search results: {businesses: Array(1), total: 199, region: {…}}
+yelpApi.js:31 [yelpApi.getBusinessDetails] Fetching for ID: 0fGRTbEhBNDUP7AfUFqvPQ
+yelpClient.js:72 Fetching Yelp API {url: 'https://api.yelp.com/v3/businesses/0fGRTbEhBNDUP7AfUFqvPQ', params: {…}}
+yelpClient.js:38 Response status: 200
+yelpApi.js:33 [yelpApi.getBusinessDetails] Data received: {id: '0fGRTbEhBNDUP7AfUFqvPQ', alias: 'smoking-tiger-bread-factory-cerritos', name: 'Smoking Tiger Bread Factory', image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/pMMRXM4rs7lf_Z_LjVgJTw/o.jpg', is_claimed: true, …}
+yelp.js:28 [Yelp.getStoreData] Business details: {id: '0fGRTbEhBNDUP7AfUFqvPQ', alias: 'smoking-tiger-bread-factory-cerritos', name: 'Smoking Tiger Bread Factory', image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/pMMRXM4rs7lf_Z_LjVgJTw/o.jpg', is_claimed: true, …}
+data.js:11 [DEBUG][^08:getStoreBySlug] Yelp data: {id: '0fGRTbEhBNDUP7AfUFqvPQ', alias: 'smoking-tiger-bread-factory-cerritos', name: 'Smoking Tiger Bread Factory', image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/pMMRXM4rs7lf_Z_LjVgJTw/o.jpg', is_claimed: true, …}
+data.js:1571 ****hero[StoreData.getStoreBySlug] yelpData: {id: '0fGRTbEhBNDUP7AfUFqvPQ', alias: 'smoking-tiger-bread-factory-cerritos', name: 'Smoking Tiger Bread Factory', image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/pMMRXM4rs7lf_Z_LjVgJTw/o.jpg', is_claimed: true, …}
+data.js:1710 *****headerData Promise {<fulfilled>: {…}}
+data.js:1905 ^09:[StoreData.store] Created store object: {hero: Promise, overview: Promise, experience: Promise, service: Promise, business: Promise, …}
+StoreScreen.js:106 %04:[StoreScreen.render] Store data: {hero: Promise, overview: Promise, experience: Promise, service: Promise, business: Promise, …}
+StoreScreen.js:124 %06: store {hero: Promise, overview: Promise, experience: Promise, service: Promise, business: Promise, …}
+StoreScreen.js:126 %05:Store sections: {hero: Promise, overview: Promise, service: Promise, experience: Promise, location: Promise, …}
+components.js:56 storeHero rendering with data: Promise {<fulfilled>: {…}}
+components.js:835 storeDetail rendering with data: Promise {<fulfilled>: {…}}
+components.js:869 heroGallery rendering with data: Promise {<fulfilled>: {…}}
+components.js:873 No gallery images provided
+render @ components.js:873
+render @ components.js:64
+_callee$ @ StoreScreen.js:142
+tryCatch @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+Promise.then
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+render @ StoreScreen.js:92
+_callee$ @ index.js:121
+tryCatch @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+router @ index.js:51
+(anonymous) @ index.js:162Understand this warningAI
+components.js:894 storeHeadline rendering with data: Promise {<fulfilled>: {…}}
+components.js:264 storeExperience render with areaData: undefined
+components.js:134 storeService render with categoryData: undefined
+components.js:221 storeLocation render with data: {headerData: {…}, attributeData: undefined, footerData: undefined}
+components.js:528 mapNearby render with data: undefined
+sidebar.js:3 storeHero rendering with data: Promise {<fulfilled>: {…}}
+CatchErrors.js:6 Failed to fetch user data
+console.error @ CatchErrors.js:6
+_callee3$ @ StoreScreen.js:214
+tryCatch @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+Promise.then
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+after_render @ StoreScreen.js:194
+_callee$ @ index.js:122
+tryCatch @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+router @ index.js:51
+(anonymous) @ index.js:162Understand this errorAI
+CatchErrors.js:6 chartsContainer element not found
+console.error @ CatchErrors.js:6
+_callee3$ @ StoreScreen.js:254
+tryCatch @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+Promise.then
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+after_render @ StoreScreen.js:194
+_callee$ @ index.js:122
+tryCatch @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+router @ index.js:51
+(anonymous) @ index.js:162Understand this errorAI
+CatchErrors.js:6 myBtn element not found
+console.error @ CatchErrors.js:6
+_callee3$ @ StoreScreen.js:264
+tryCatch @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+Promise.then
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+after_render @ StoreScreen.js:194
+_callee$ @ index.js:122
+tryCatch @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+router @ index.js:51
+(anonymous) @ index.js:162Understand this errorAI
+CatchErrors.js:6 Error recording impression: TypeError: Cannot call a class as a function
+    at browser.umd.js:2:1229
+    at Object.e [as Store] (browser.umd.js:2:1307)
+    at _callee3$ (StoreScreen.js:271:30)
+    at tryCatch (StoreScreen.js:2:1)
+    at Generator.<anonymous> (StoreScreen.js:2:1)
+    at Generator.next (StoreScreen.js:2:1)
+    at asyncGeneratorStep (StoreScreen.js:2:1)
+    at _next (StoreScreen.js:2:1)
+console.error @ CatchErrors.js:6
+_callee3$ @ StoreScreen.js:288
+tryCatch @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+Promise.then
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+Promise.then
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+after_render @ StoreScreen.js:194
+_callee$ @ index.js:122
+tryCatch @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+router @ index.js:51
+(anonymous) @ index.js:162Understand this errorAI
+StoreScreen.js:93 %01:[StoreScreen.render] Starting render
+StoreScreen.js:98 %02:[StoreScreen.render] Request params: {resource: 'stores', slug: 'ca_orange-county_fullerton_smoking-tiger-coffee-lab', verb: undefined}
+StoreScreen.js:102 %03:[StoreScreen.render] StoreData initialized: StoreData {activeTags: Array(0), socket: Socket, yelp: ƒ}
+data.js:11 [DEBUG][^01:getStoreBySlug] Starting fetch for slug: ca_orange-county_fullerton_smoking-tiger-coffee-lab
+CatchErrors.js:6 articleNeumadsTrail GraphQL errors: (2) [{…}, {…}]
+console.error @ CatchErrors.js:6
+_callee$ @ api.js:1216
+tryCatch @ api.js:2
+(anonymous) @ api.js:2
+(anonymous) @ api.js:2
+asyncGeneratorStep @ api.js:2
+_next @ api.js:2
+Promise.then
+asyncGeneratorStep @ api.js:2
+_next @ api.js:2
+Promise.then
+asyncGeneratorStep @ api.js:2
+_next @ api.js:2
+(anonymous) @ api.js:2
+(anonymous) @ api.js:2
+getStoresNeumadsReview @ api.js:948
+_callee2$ @ DataPost.js:39
+tryCatch @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+asyncGeneratorStep @ DataPost.js:2
+_next @ DataPost.js:2
+Promise.then
+asyncGeneratorStep @ DataPost.js:2
+_next @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+fetchPosts @ DataPost.js:35
+_callee3$ @ DataPost.js:52
+tryCatch @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+asyncGeneratorStep @ DataPost.js:2
+_next @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+getData @ DataPost.js:51
+_callee23$ @ data.js:1859
+tryCatch @ data.js:2
+(anonymous) @ data.js:2
+(anonymous) @ data.js:2
+asyncGeneratorStep @ data.js:2
+_next @ data.js:2
+(anonymous) @ data.js:2
+(anonymous) @ data.js:2
+store @ data.js:1853
+_callee$ @ StoreScreen.js:105
+tryCatch @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+render @ StoreScreen.js:92
+_callee$ @ index.js:143
+tryCatch @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+router @ index.js:51
+(anonymous) @ index.js:162Understand this errorAI
+data.js:11 [DEBUG][^02:getStoreBySlug] All stores: 26
+data.js:11 [DEBUG][^03:getStoreBySlug] Valid stores: 26
+data.js:11 [DEBUG][^04:getStoreBySlug] Found matching store: {sys: {…}, title: 'ca_orange-county_fullerton_smoking-tiger-coffee-lab    ', slug: 'ca_orange-county_fullerton_smoking-tiger-coffee-lab', storeAttributes: Array(19), featured: true, …}
+data.js:1882 ^06:[StoreData.getStoreBySlug] storeParams: {storeName: 'Smoking Tiger Bread Factory', storeAddress: '106 W Wilshire Fullerton, CA 92832', storeCity: null, storeState: 'CA', storeLongitude: -117.924, …}
+yelp.js:6 [Yelp.getStoreData] Starting with store: {storeName: 'Smoking Tiger Bread Factory', storeAddress: '106 W Wilshire Fullerton, CA 92832', storeCity: null, storeState: 'CA', storeLongitude: -117.924, …}
+yelpApi.js:10 Starting business search with params: {term: 'Smoking Tiger Bread Factory', location: 'null, CA'}
+yelpClient.js:99 Memory cache hit for yelp:search:{"term":"Smoking Tiger Bread Factory","location":"null, CA","limit":1,"longitude":-117.924,"latitude":33.8722}
+yelpClient.js:164 Cache hit for search {term: 'Smoking Tiger Bread Factory', location: 'null, CA', limit: 1, longitude: -117.924, latitude: 33.8722}
+yelp.js:19 [Yelp.getStoreData] Search results: {businesses: Array(1), total: 199, region: {…}}
+yelpApi.js:31 [yelpApi.getBusinessDetails] Fetching for ID: 0fGRTbEhBNDUP7AfUFqvPQ
+yelpClient.js:72 Fetching Yelp API {url: 'https://api.yelp.com/v3/businesses/0fGRTbEhBNDUP7AfUFqvPQ', params: {…}}
+index.js:133 {name: 'Wappalyzer: getDom', entryType: 'measure', startTime: 3859.5, duration: 2}
+index.js:133 {name: 'Wappalyzer: getDom', entryType: 'measure', startTime: 3859.800000011921, duration: 1.5999999940395355}
+yelpClient.js:38 Response status: 200
+yelpApi.js:33 [yelpApi.getBusinessDetails] Data received: {id: '0fGRTbEhBNDUP7AfUFqvPQ', alias: 'smoking-tiger-bread-factory-cerritos', name: 'Smoking Tiger Bread Factory', image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/pMMRXM4rs7lf_Z_LjVgJTw/o.jpg', is_claimed: true, …}
+yelp.js:28 [Yelp.getStoreData] Business details: {id: '0fGRTbEhBNDUP7AfUFqvPQ', alias: 'smoking-tiger-bread-factory-cerritos', name: 'Smoking Tiger Bread Factory', image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/pMMRXM4rs7lf_Z_LjVgJTw/o.jpg', is_claimed: true, …}
+data.js:11 [DEBUG][^08:getStoreBySlug] Yelp data: {id: '0fGRTbEhBNDUP7AfUFqvPQ', alias: 'smoking-tiger-bread-factory-cerritos', name: 'Smoking Tiger Bread Factory', image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/pMMRXM4rs7lf_Z_LjVgJTw/o.jpg', is_claimed: true, …}
+data.js:1571 ****hero[StoreData.getStoreBySlug] yelpData: {id: '0fGRTbEhBNDUP7AfUFqvPQ', alias: 'smoking-tiger-bread-factory-cerritos', name: 'Smoking Tiger Bread Factory', image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/pMMRXM4rs7lf_Z_LjVgJTw/o.jpg', is_claimed: true, …}
+data.js:1710 *****headerData Promise {<fulfilled>: {…}}
+data.js:1905 ^09:[StoreData.store] Created store object: {hero: Promise, overview: Promise, experience: Promise, service: Promise, business: Promise, …}
+StoreScreen.js:106 %04:[StoreScreen.render] Store data: {hero: Promise, overview: Promise, experience: Promise, service: Promise, business: Promise, …}
+StoreScreen.js:124 %06: store {hero: Promise, overview: Promise, experience: Promise, service: Promise, business: Promise, …}
+StoreScreen.js:126 %05:Store sections: {hero: Promise, overview: Promise, service: Promise, experience: Promise, location: Promise, …}
+components.js:56 storeHero rendering with data: Promise {<fulfilled>: {…}}
+components.js:835 storeDetail rendering with data: Promise {<fulfilled>: {…}}
+components.js:869 heroGallery rendering with data: Promise {<fulfilled>: {…}}
+components.js:873 No gallery images provided
+render @ components.js:873
+render @ components.js:64
+_callee$ @ StoreScreen.js:142
+tryCatch @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+Promise.then
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+render @ StoreScreen.js:92
+_callee$ @ index.js:121
+tryCatch @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+router @ index.js:51
+(anonymous) @ index.js:149Understand this warningAI
+components.js:894 storeHeadline rendering with data: Promise {<fulfilled>: {…}}
+components.js:264 storeExperience render with areaData: undefined
+components.js:134 storeService render with categoryData: undefined
+components.js:221 storeLocation render with data: {headerData: {…}, attributeData: undefined, footerData: undefined}
+components.js:528 mapNearby render with data: undefined
+sidebar.js:3 storeHero rendering with data: Promise {<fulfilled>: {…}}
+CatchErrors.js:6 Failed to fetch user data
+console.error @ CatchErrors.js:6
+_callee3$ @ StoreScreen.js:214
+tryCatch @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+Promise.then
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+after_render @ StoreScreen.js:194
+_callee$ @ index.js:122
+tryCatch @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+router @ index.js:51
+(anonymous) @ index.js:149Understand this errorAI
+CatchErrors.js:6 chartsContainer element not found
+console.error @ CatchErrors.js:6
+_callee3$ @ StoreScreen.js:254
+tryCatch @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+Promise.then
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+after_render @ StoreScreen.js:194
+_callee$ @ index.js:122
+tryCatch @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+router @ index.js:51
+(anonymous) @ index.js:149Understand this errorAI
+CatchErrors.js:6 myBtn element not found
+console.error @ CatchErrors.js:6
+_callee3$ @ StoreScreen.js:264
+tryCatch @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+Promise.then
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+after_render @ StoreScreen.js:194
+_callee$ @ index.js:122
+tryCatch @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+router @ index.js:51
+(anonymous) @ index.js:149Understand this errorAI
+CatchErrors.js:6 Error recording impression: TypeError: Cannot call a class as a function
+    at browser.umd.js:2:1229
+    at Object.e [as Store] (browser.umd.js:2:1307)
+    at _callee3$ (StoreScreen.js:271:30)
+    at tryCatch (StoreScreen.js:2:1)
+    at Generator.<anonymous> (StoreScreen.js:2:1)
+    at Generator.next (StoreScreen.js:2:1)
+    at asyncGeneratorStep (StoreScreen.js:2:1)
+    at _next (StoreScreen.js:2:1)
+console.error @ CatchErrors.js:6
+_callee3$ @ StoreScreen.js:288
+tryCatch @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+Promise.then
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+Promise.then
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+after_render @ StoreScreen.js:194
+_callee$ @ index.js:122
+tryCatch @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+router @ index.js:51
+(anonymous) @ index.js:149Understand this errorAI
+StoreScreen.js:93 %01:[StoreScreen.render] Starting render
+StoreScreen.js:98 %02:[StoreScreen.render] Request params: {resource: 'stores', slug: 'ca_orange-county_fullerton_smoking-tiger-coffee-lab', verb: undefined}
+StoreScreen.js:102 %03:[StoreScreen.render] StoreData initialized: StoreData {activeTags: Array(0), socket: Socket, yelp: ƒ}
+data.js:11 [DEBUG][^01:getStoreBySlug] Starting fetch for slug: ca_orange-county_fullerton_smoking-tiger-coffee-lab
+index.js:133 {name: 'operation', entryType: 'measure', startTime: 1262.9000000059605, duration: 2645.4000000059605}
+CatchErrors.js:6 articleNeumadsTrail GraphQL errors: (2) [{…}, {…}]
+console.error @ CatchErrors.js:6
+_callee$ @ api.js:1216
+tryCatch @ api.js:2
+(anonymous) @ api.js:2
+(anonymous) @ api.js:2
+asyncGeneratorStep @ api.js:2
+_next @ api.js:2
+Promise.then
+asyncGeneratorStep @ api.js:2
+_next @ api.js:2
+Promise.then
+asyncGeneratorStep @ api.js:2
+_next @ api.js:2
+(anonymous) @ api.js:2
+(anonymous) @ api.js:2
+getStoresNeumadsReview @ api.js:948
+_callee2$ @ DataPost.js:39
+tryCatch @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+asyncGeneratorStep @ DataPost.js:2
+_next @ DataPost.js:2
+Promise.then
+asyncGeneratorStep @ DataPost.js:2
+_next @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+fetchPosts @ DataPost.js:35
+_callee3$ @ DataPost.js:52
+tryCatch @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+asyncGeneratorStep @ DataPost.js:2
+_next @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+getData @ DataPost.js:51
+_callee23$ @ data.js:1859
+tryCatch @ data.js:2
+(anonymous) @ data.js:2
+(anonymous) @ data.js:2
+asyncGeneratorStep @ data.js:2
+_next @ data.js:2
+(anonymous) @ data.js:2
+(anonymous) @ data.js:2
+store @ data.js:1853
+_callee$ @ StoreScreen.js:105
+tryCatch @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+render @ StoreScreen.js:92
+_callee$ @ index.js:143
+tryCatch @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+router @ index.js:51
+(anonymous) @ index.js:149Understand this errorAI
+index.js:133 {name: 'Wappalyzer: getDom', entryType: 'measure', startTime: 4153.4000000059605, duration: 15.800000011920929}
+index.js:133 {name: 'Wappalyzer: getDom', entryType: 'measure', startTime: 4153.4000000059605, duration: 15.800000011920929}
+data.js:11 [DEBUG][^02:getStoreBySlug] All stores: 26
+data.js:11 [DEBUG][^03:getStoreBySlug] Valid stores: 26
+data.js:11 [DEBUG][^04:getStoreBySlug] Found matching store: {sys: {…}, title: 'ca_orange-county_fullerton_smoking-tiger-coffee-lab    ', slug: 'ca_orange-county_fullerton_smoking-tiger-coffee-lab', storeAttributes: Array(19), featured: true, …}
+data.js:1882 ^06:[StoreData.getStoreBySlug] storeParams: {storeName: 'Smoking Tiger Bread Factory', storeAddress: '106 W Wilshire Fullerton, CA 92832', storeCity: null, storeState: 'CA', storeLongitude: -117.924, …}
+yelp.js:6 [Yelp.getStoreData] Starting with store: {storeName: 'Smoking Tiger Bread Factory', storeAddress: '106 W Wilshire Fullerton, CA 92832', storeCity: null, storeState: 'CA', storeLongitude: -117.924, …}
+yelpApi.js:10 Starting business search with params: {term: 'Smoking Tiger Bread Factory', location: 'null, CA'}
+yelpClient.js:99 Memory cache hit for yelp:search:{"term":"Smoking Tiger Bread Factory","location":"null, CA","limit":1,"longitude":-117.924,"latitude":33.8722}
+yelpClient.js:164 Cache hit for search {term: 'Smoking Tiger Bread Factory', location: 'null, CA', limit: 1, longitude: -117.924, latitude: 33.8722}
+yelp.js:19 [Yelp.getStoreData] Search results: {businesses: Array(1), total: 199, region: {…}}
+yelpApi.js:31 [yelpApi.getBusinessDetails] Fetching for ID: 0fGRTbEhBNDUP7AfUFqvPQ
+yelpClient.js:72 Fetching Yelp API {url: 'https://api.yelp.com/v3/businesses/0fGRTbEhBNDUP7AfUFqvPQ', params: {…}}
+yelpClient.js:38 Response status: 200
+yelpApi.js:33 [yelpApi.getBusinessDetails] Data received: {id: '0fGRTbEhBNDUP7AfUFqvPQ', alias: 'smoking-tiger-bread-factory-cerritos', name: 'Smoking Tiger Bread Factory', image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/pMMRXM4rs7lf_Z_LjVgJTw/o.jpg', is_claimed: true, …}
+yelp.js:28 [Yelp.getStoreData] Business details: {id: '0fGRTbEhBNDUP7AfUFqvPQ', alias: 'smoking-tiger-bread-factory-cerritos', name: 'Smoking Tiger Bread Factory', image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/pMMRXM4rs7lf_Z_LjVgJTw/o.jpg', is_claimed: true, …}
+data.js:11 [DEBUG][^08:getStoreBySlug] Yelp data: {id: '0fGRTbEhBNDUP7AfUFqvPQ', alias: 'smoking-tiger-bread-factory-cerritos', name: 'Smoking Tiger Bread Factory', image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/pMMRXM4rs7lf_Z_LjVgJTw/o.jpg', is_claimed: true, …}
+data.js:1571 ****hero[StoreData.getStoreBySlug] yelpData: {id: '0fGRTbEhBNDUP7AfUFqvPQ', alias: 'smoking-tiger-bread-factory-cerritos', name: 'Smoking Tiger Bread Factory', image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/pMMRXM4rs7lf_Z_LjVgJTw/o.jpg', is_claimed: true, …}
+data.js:1710 *****headerData Promise {<fulfilled>: {…}}
+data.js:1905 ^09:[StoreData.store] Created store object: {hero: Promise, overview: Promise, experience: Promise, service: Promise, business: Promise, …}
+StoreScreen.js:106 %04:[StoreScreen.render] Store data: {hero: Promise, overview: Promise, experience: Promise, service: Promise, business: Promise, …}
+StoreScreen.js:124 %06: store {hero: Promise, overview: Promise, experience: Promise, service: Promise, business: Promise, …}
+StoreScreen.js:126 %05:Store sections: {hero: Promise, overview: Promise, service: Promise, experience: Promise, location: Promise, …}
+components.js:56 storeHero rendering with data: Promise {<fulfilled>: {…}}
+components.js:835 storeDetail rendering with data: Promise {<fulfilled>: {…}}
+components.js:869 heroGallery rendering with data: Promise {<fulfilled>: {…}}
+components.js:873 No gallery images provided
+render @ components.js:873
+render @ components.js:64
+_callee$ @ StoreScreen.js:142
+tryCatch @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+Promise.then
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+render @ StoreScreen.js:92
+_callee$ @ index.js:121
+tryCatch @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+router @ index.js:51Understand this warningAI
+components.js:894 storeHeadline rendering with data: Promise {<fulfilled>: {…}}
+components.js:264 storeExperience render with areaData: undefined
+components.js:134 storeService render with categoryData: undefined
+components.js:221 storeLocation render with data: {headerData: {…}, attributeData: undefined, footerData: undefined}
+components.js:528 mapNearby render with data: undefined
+sidebar.js:3 storeHero rendering with data: Promise {<fulfilled>: {…}}
+CatchErrors.js:6 Failed to fetch user data
+console.error @ CatchErrors.js:6
+_callee3$ @ StoreScreen.js:214
+tryCatch @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+Promise.then
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+after_render @ StoreScreen.js:194
+_callee$ @ index.js:122
+tryCatch @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+router @ index.js:51Understand this errorAI
+CatchErrors.js:6 chartsContainer element not found
+console.error @ CatchErrors.js:6
+_callee3$ @ StoreScreen.js:254
+tryCatch @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+Promise.then
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+after_render @ StoreScreen.js:194
+_callee$ @ index.js:122
+tryCatch @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+router @ index.js:51Understand this errorAI
+CatchErrors.js:6 myBtn element not found
+console.error @ CatchErrors.js:6
+_callee3$ @ StoreScreen.js:264
+tryCatch @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+Promise.then
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+after_render @ StoreScreen.js:194
+_callee$ @ index.js:122
+tryCatch @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+router @ index.js:51Understand this errorAI
+CatchErrors.js:6 Error recording impression: TypeError: Cannot call a class as a function
+    at browser.umd.js:2:1229
+    at Object.e [as Store] (browser.umd.js:2:1307)
+    at _callee3$ (StoreScreen.js:271:30)
+    at tryCatch (StoreScreen.js:2:1)
+    at Generator.<anonymous> (StoreScreen.js:2:1)
+    at Generator.next (StoreScreen.js:2:1)
+    at asyncGeneratorStep (StoreScreen.js:2:1)
+    at _next (StoreScreen.js:2:1)
+console.error @ CatchErrors.js:6
+_callee3$ @ StoreScreen.js:288
+tryCatch @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+Promise.then
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+Promise.then
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+after_render @ StoreScreen.js:194
+_callee$ @ index.js:122
+tryCatch @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+router @ index.js:51Understand this errorAI
+StoreScreen.js:93 %01:[StoreScreen.render] Starting render
+StoreScreen.js:98 %02:[StoreScreen.render] Request params: {resource: 'stores', slug: 'ca_orange-county_fullerton_smoking-tiger-coffee-lab', verb: undefined}
+StoreScreen.js:102 %03:[StoreScreen.render] StoreData initialized: StoreData {activeTags: Array(0), socket: Socket, yelp: ƒ}
+data.js:11 [DEBUG][^01:getStoreBySlug] Starting fetch for slug: ca_orange-county_fullerton_smoking-tiger-coffee-lab
+index.js:133 {name: 'operation', entryType: 'measure', startTime: 1262.9000000059605, duration: 3494.9000000059605}
+index.js:133 {name: 'operation', entryType: 'measure', startTime: 1262.9000000059605, duration: 3494.9000000059605}
+CatchErrors.js:6 articleNeumadsTrail GraphQL errors: (2) [{…}, {…}]
+console.error @ CatchErrors.js:6
+_callee$ @ api.js:1216
+tryCatch @ api.js:2
+(anonymous) @ api.js:2
+(anonymous) @ api.js:2
+asyncGeneratorStep @ api.js:2
+_next @ api.js:2
+Promise.then
+asyncGeneratorStep @ api.js:2
+_next @ api.js:2
+Promise.then
+asyncGeneratorStep @ api.js:2
+_next @ api.js:2
+(anonymous) @ api.js:2
+(anonymous) @ api.js:2
+getStoresNeumadsReview @ api.js:948
+_callee2$ @ DataPost.js:39
+tryCatch @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+asyncGeneratorStep @ DataPost.js:2
+_next @ DataPost.js:2
+Promise.then
+asyncGeneratorStep @ DataPost.js:2
+_next @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+fetchPosts @ DataPost.js:35
+_callee3$ @ DataPost.js:52
+tryCatch @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+asyncGeneratorStep @ DataPost.js:2
+_next @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+(anonymous) @ DataPost.js:2
+getData @ DataPost.js:51
+_callee23$ @ data.js:1859
+tryCatch @ data.js:2
+(anonymous) @ data.js:2
+(anonymous) @ data.js:2
+asyncGeneratorStep @ data.js:2
+_next @ data.js:2
+(anonymous) @ data.js:2
+(anonymous) @ data.js:2
+store @ data.js:1853
+_callee$ @ StoreScreen.js:105
+tryCatch @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+render @ StoreScreen.js:92
+_callee$ @ index.js:143
+tryCatch @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+router @ index.js:51Understand this errorAI
+data.js:11 [DEBUG][^02:getStoreBySlug] All stores: 26
+data.js:11 [DEBUG][^03:getStoreBySlug] Valid stores: 26
+data.js:11 [DEBUG][^04:getStoreBySlug] Found matching store: {sys: {…}, title: 'ca_orange-county_fullerton_smoking-tiger-coffee-lab    ', slug: 'ca_orange-county_fullerton_smoking-tiger-coffee-lab', storeAttributes: Array(19), featured: true, …}
+data.js:1882 ^06:[StoreData.getStoreBySlug] storeParams: {storeName: 'Smoking Tiger Bread Factory', storeAddress: '106 W Wilshire Fullerton, CA 92832', storeCity: null, storeState: 'CA', storeLongitude: -117.924, …}
+yelp.js:6 [Yelp.getStoreData] Starting with store: {storeName: 'Smoking Tiger Bread Factory', storeAddress: '106 W Wilshire Fullerton, CA 92832', storeCity: null, storeState: 'CA', storeLongitude: -117.924, …}
+yelpApi.js:10 Starting business search with params: {term: 'Smoking Tiger Bread Factory', location: 'null, CA'}
+yelpClient.js:99 Memory cache hit for yelp:search:{"term":"Smoking Tiger Bread Factory","location":"null, CA","limit":1,"longitude":-117.924,"latitude":33.8722}
+yelpClient.js:164 Cache hit for search {term: 'Smoking Tiger Bread Factory', location: 'null, CA', limit: 1, longitude: -117.924, latitude: 33.8722}
+yelp.js:19 [Yelp.getStoreData] Search results: {businesses: Array(1), total: 199, region: {…}}
+yelpApi.js:31 [yelpApi.getBusinessDetails] Fetching for ID: 0fGRTbEhBNDUP7AfUFqvPQ
+yelpClient.js:72 Fetching Yelp API {url: 'https://api.yelp.com/v3/businesses/0fGRTbEhBNDUP7AfUFqvPQ', params: {…}}
+yelpClient.js:38 Response status: 200
+yelpApi.js:33 [yelpApi.getBusinessDetails] Data received: {id: '0fGRTbEhBNDUP7AfUFqvPQ', alias: 'smoking-tiger-bread-factory-cerritos', name: 'Smoking Tiger Bread Factory', image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/pMMRXM4rs7lf_Z_LjVgJTw/o.jpg', is_claimed: true, …}
+yelp.js:28 [Yelp.getStoreData] Business details: {id: '0fGRTbEhBNDUP7AfUFqvPQ', alias: 'smoking-tiger-bread-factory-cerritos', name: 'Smoking Tiger Bread Factory', image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/pMMRXM4rs7lf_Z_LjVgJTw/o.jpg', is_claimed: true, …}
+data.js:11 [DEBUG][^08:getStoreBySlug] Yelp data: {id: '0fGRTbEhBNDUP7AfUFqvPQ', alias: 'smoking-tiger-bread-factory-cerritos', name: 'Smoking Tiger Bread Factory', image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/pMMRXM4rs7lf_Z_LjVgJTw/o.jpg', is_claimed: true, …}
+data.js:1571 ****hero[StoreData.getStoreBySlug] yelpData: {id: '0fGRTbEhBNDUP7AfUFqvPQ', alias: 'smoking-tiger-bread-factory-cerritos', name: 'Smoking Tiger Bread Factory', image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/pMMRXM4rs7lf_Z_LjVgJTw/o.jpg', is_claimed: true, …}
+data.js:1710 *****headerData Promise {<fulfilled>: {…}}
+data.js:1905 ^09:[StoreData.store] Created store object: {hero: Promise, overview: Promise, experience: Promise, service: Promise, business: Promise, …}
+StoreScreen.js:106 %04:[StoreScreen.render] Store data: {hero: Promise, overview: Promise, experience: Promise, service: Promise, business: Promise, …}
+StoreScreen.js:124 %06: store {hero: Promise, overview: Promise, experience: Promise, service: Promise, business: Promise, …}
+StoreScreen.js:126 %05:Store sections: {hero: Promise, overview: Promise, service: Promise, experience: Promise, location: Promise, …}
+components.js:56 storeHero rendering with data: Promise {<fulfilled>: {…}}
+components.js:835 storeDetail rendering with data: Promise {<fulfilled>: {…}}
+components.js:869 heroGallery rendering with data: Promise {<fulfilled>: {…}}
+components.js:873 No gallery images provided
+render @ components.js:873
+render @ components.js:64
+_callee$ @ StoreScreen.js:142
+tryCatch @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+Promise.then
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+render @ StoreScreen.js:92
+_callee$ @ index.js:143
+tryCatch @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+router @ index.js:51
+(anonymous) @ index.js:162Understand this warningAI
+components.js:894 storeHeadline rendering with data: Promise {<fulfilled>: {…}}
+components.js:264 storeExperience render with areaData: undefined
+components.js:134 storeService render with categoryData: undefined
+components.js:221 storeLocation render with data: {headerData: {…}, attributeData: undefined, footerData: undefined}
+components.js:528 mapNearby render with data: undefined
+sidebar.js:3 storeHero rendering with data: Promise {<fulfilled>: {…}}
+CatchErrors.js:6 Failed to fetch user data
+console.error @ CatchErrors.js:6
+_callee3$ @ StoreScreen.js:214
+tryCatch @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+Promise.then
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+after_render @ StoreScreen.js:194
+_callee$ @ index.js:144
+tryCatch @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+router @ index.js:51
+(anonymous) @ index.js:162Understand this errorAI
+CatchErrors.js:6 chartsContainer element not found
+console.error @ CatchErrors.js:6
+_callee3$ @ StoreScreen.js:254
+tryCatch @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+Promise.then
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+after_render @ StoreScreen.js:194
+_callee$ @ index.js:144
+tryCatch @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+router @ index.js:51
+(anonymous) @ index.js:162Understand this errorAI
+CatchErrors.js:6 myBtn element not found
+console.error @ CatchErrors.js:6
+_callee3$ @ StoreScreen.js:264
+tryCatch @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+Promise.then
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+after_render @ StoreScreen.js:194
+_callee$ @ index.js:144
+tryCatch @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+router @ index.js:51
+(anonymous) @ index.js:162Understand this errorAI
+CatchErrors.js:6 Error recording impression: TypeError: Cannot call a class as a function
+    at browser.umd.js:2:1229
+    at Object.e [as Store] (browser.umd.js:2:1307)
+    at _callee3$ (StoreScreen.js:271:30)
+    at tryCatch (StoreScreen.js:2:1)
+    at Generator.<anonymous> (StoreScreen.js:2:1)
+    at Generator.next (StoreScreen.js:2:1)
+    at asyncGeneratorStep (StoreScreen.js:2:1)
+    at _next (StoreScreen.js:2:1)
+console.error @ CatchErrors.js:6
+_callee3$ @ StoreScreen.js:288
+tryCatch @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+Promise.then
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+Promise.then
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+after_render @ StoreScreen.js:194
+_callee$ @ index.js:144
+tryCatch @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+router @ index.js:51
+(anonymous) @ index.js:162Understand this errorAI
+yelpClient.js:38 Response status: 200
+yelpApi.js:33 [yelpApi.getBusinessDetails] Data received: {id: '0fGRTbEhBNDUP7AfUFqvPQ', alias: 'smoking-tiger-bread-factory-cerritos', name: 'Smoking Tiger Bread Factory', image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/pMMRXM4rs7lf_Z_LjVgJTw/o.jpg', is_claimed: true, …}
+yelp.js:28 [Yelp.getStoreData] Business details: {id: '0fGRTbEhBNDUP7AfUFqvPQ', alias: 'smoking-tiger-bread-factory-cerritos', name: 'Smoking Tiger Bread Factory', image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/pMMRXM4rs7lf_Z_LjVgJTw/o.jpg', is_claimed: true, …}
+data.js:11 [DEBUG][^08:getStoreBySlug] Yelp data: {id: '0fGRTbEhBNDUP7AfUFqvPQ', alias: 'smoking-tiger-bread-factory-cerritos', name: 'Smoking Tiger Bread Factory', image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/pMMRXM4rs7lf_Z_LjVgJTw/o.jpg', is_claimed: true, …}
+data.js:1571 ****hero[StoreData.getStoreBySlug] yelpData: {id: '0fGRTbEhBNDUP7AfUFqvPQ', alias: 'smoking-tiger-bread-factory-cerritos', name: 'Smoking Tiger Bread Factory', image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/pMMRXM4rs7lf_Z_LjVgJTw/o.jpg', is_claimed: true, …}
+data.js:1710 *****headerData Promise {<fulfilled>: {…}}
+data.js:1905 ^09:[StoreData.store] Created store object: {hero: Promise, overview: Promise, experience: Promise, service: Promise, business: Promise, …}
+StoreScreen.js:106 %04:[StoreScreen.render] Store data: {hero: Promise, overview: Promise, experience: Promise, service: Promise, business: Promise, …}
+StoreScreen.js:124 %06: store {hero: Promise, overview: Promise, experience: Promise, service: Promise, business: Promise, …}
+StoreScreen.js:126 %05:Store sections: {hero: Promise, overview: Promise, service: Promise, experience: Promise, location: Promise, …}
+components.js:56 storeHero rendering with data: Promise {<fulfilled>: {…}}
+components.js:835 storeDetail rendering with data: Promise {<fulfilled>: {…}}
+components.js:869 heroGallery rendering with data: Promise {<fulfilled>: {…}}
+components.js:873 No gallery images provided
+render @ components.js:873
+render @ components.js:64
+_callee$ @ StoreScreen.js:142
+tryCatch @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+Promise.then
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+render @ StoreScreen.js:92
+_callee$ @ index.js:143
+tryCatch @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+router @ index.js:51
+(anonymous) @ index.js:149Understand this warningAI
+components.js:894 storeHeadline rendering with data: Promise {<fulfilled>: {…}}
+components.js:264 storeExperience render with areaData: undefined
+components.js:134 storeService render with categoryData: undefined
+components.js:221 storeLocation render with data: {headerData: {…}, attributeData: undefined, footerData: undefined}
+components.js:528 mapNearby render with data: undefined
+sidebar.js:3 storeHero rendering with data: Promise {<fulfilled>: {…}}
+CatchErrors.js:6 Failed to fetch user data
+console.error @ CatchErrors.js:6
+_callee3$ @ StoreScreen.js:214
+tryCatch @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+Promise.then
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+after_render @ StoreScreen.js:194
+_callee$ @ index.js:144
+tryCatch @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+router @ index.js:51
+(anonymous) @ index.js:149Understand this errorAI
+CatchErrors.js:6 chartsContainer element not found
+console.error @ CatchErrors.js:6
+_callee3$ @ StoreScreen.js:254
+tryCatch @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+Promise.then
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+after_render @ StoreScreen.js:194
+_callee$ @ index.js:144
+tryCatch @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+router @ index.js:51
+(anonymous) @ index.js:149Understand this errorAI
+CatchErrors.js:6 myBtn element not found
+console.error @ CatchErrors.js:6
+_callee3$ @ StoreScreen.js:264
+tryCatch @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+Promise.then
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+after_render @ StoreScreen.js:194
+_callee$ @ index.js:144
+tryCatch @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+router @ index.js:51
+(anonymous) @ index.js:149Understand this errorAI
+CatchErrors.js:6 Error recording impression: TypeError: Cannot call a class as a function
+    at browser.umd.js:2:1229
+    at Object.e [as Store] (browser.umd.js:2:1307)
+    at _callee3$ (StoreScreen.js:271:30)
+    at tryCatch (StoreScreen.js:2:1)
+    at Generator.<anonymous> (StoreScreen.js:2:1)
+    at Generator.next (StoreScreen.js:2:1)
+    at asyncGeneratorStep (StoreScreen.js:2:1)
+    at _next (StoreScreen.js:2:1)
+console.error @ CatchErrors.js:6
+_callee3$ @ StoreScreen.js:288
+tryCatch @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+Promise.then
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+Promise.then
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+after_render @ StoreScreen.js:194
+_callee$ @ index.js:144
+tryCatch @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+router @ index.js:51
+(anonymous) @ index.js:149Understand this errorAI
+yelpClient.js:38 Response status: 200
+yelpApi.js:33 [yelpApi.getBusinessDetails] Data received: {id: '0fGRTbEhBNDUP7AfUFqvPQ', alias: 'smoking-tiger-bread-factory-cerritos', name: 'Smoking Tiger Bread Factory', image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/pMMRXM4rs7lf_Z_LjVgJTw/o.jpg', is_claimed: true, …}
+yelp.js:28 [Yelp.getStoreData] Business details: {id: '0fGRTbEhBNDUP7AfUFqvPQ', alias: 'smoking-tiger-bread-factory-cerritos', name: 'Smoking Tiger Bread Factory', image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/pMMRXM4rs7lf_Z_LjVgJTw/o.jpg', is_claimed: true, …}
+data.js:11 [DEBUG][^08:getStoreBySlug] Yelp data: {id: '0fGRTbEhBNDUP7AfUFqvPQ', alias: 'smoking-tiger-bread-factory-cerritos', name: 'Smoking Tiger Bread Factory', image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/pMMRXM4rs7lf_Z_LjVgJTw/o.jpg', is_claimed: true, …}
+data.js:1571 ****hero[StoreData.getStoreBySlug] yelpData: {id: '0fGRTbEhBNDUP7AfUFqvPQ', alias: 'smoking-tiger-bread-factory-cerritos', name: 'Smoking Tiger Bread Factory', image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/pMMRXM4rs7lf_Z_LjVgJTw/o.jpg', is_claimed: true, …}
+data.js:1710 *****headerData Promise {<fulfilled>: {…}}
+data.js:1905 ^09:[StoreData.store] Created store object: {hero: Promise, overview: Promise, experience: Promise, service: Promise, business: Promise, …}
+StoreScreen.js:106 %04:[StoreScreen.render] Store data: {hero: Promise, overview: Promise, experience: Promise, service: Promise, business: Promise, …}
+StoreScreen.js:124 %06: store {hero: Promise, overview: Promise, experience: Promise, service: Promise, business: Promise, …}
+StoreScreen.js:126 %05:Store sections: {hero: Promise, overview: Promise, service: Promise, experience: Promise, location: Promise, …}
+components.js:56 storeHero rendering with data: Promise {<fulfilled>: {…}}
+components.js:835 storeDetail rendering with data: Promise {<fulfilled>: {…}}
+components.js:869 heroGallery rendering with data: Promise {<fulfilled>: {…}}
+components.js:873 No gallery images provided
+render @ components.js:873
+render @ components.js:64
+_callee$ @ StoreScreen.js:142
+tryCatch @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+Promise.then
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+render @ StoreScreen.js:92
+_callee$ @ index.js:143
+tryCatch @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+router @ index.js:51Understand this warningAI
+components.js:894 storeHeadline rendering with data: Promise {<fulfilled>: {…}}
+components.js:264 storeExperience render with areaData: undefined
+components.js:134 storeService render with categoryData: undefined
+components.js:221 storeLocation render with data: {headerData: {…}, attributeData: undefined, footerData: undefined}
+components.js:528 mapNearby render with data: undefined
+sidebar.js:3 storeHero rendering with data: Promise {<fulfilled>: {…}}
+CatchErrors.js:6 Failed to fetch user data
+console.error @ CatchErrors.js:6
+_callee3$ @ StoreScreen.js:214
+tryCatch @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+Promise.then
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+after_render @ StoreScreen.js:194
+_callee$ @ index.js:144
+tryCatch @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+router @ index.js:51Understand this errorAI
+CatchErrors.js:6 chartsContainer element not found
+console.error @ CatchErrors.js:6
+_callee3$ @ StoreScreen.js:254
+tryCatch @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+Promise.then
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+after_render @ StoreScreen.js:194
+_callee$ @ index.js:144
+tryCatch @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+router @ index.js:51Understand this errorAI
+CatchErrors.js:6 myBtn element not found
+console.error @ CatchErrors.js:6
+_callee3$ @ StoreScreen.js:264
+tryCatch @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+Promise.then
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+after_render @ StoreScreen.js:194
+_callee$ @ index.js:144
+tryCatch @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+router @ index.js:51Understand this errorAI
+CatchErrors.js:6 Error recording impression: TypeError: Cannot call a class as a function
+    at browser.umd.js:2:1229
+    at Object.e [as Store] (browser.umd.js:2:1307)
+    at _callee3$ (StoreScreen.js:271:30)
+    at tryCatch (StoreScreen.js:2:1)
+    at Generator.<anonymous> (StoreScreen.js:2:1)
+    at Generator.next (StoreScreen.js:2:1)
+    at asyncGeneratorStep (StoreScreen.js:2:1)
+    at _next (StoreScreen.js:2:1)
+console.error @ CatchErrors.js:6
+_callee3$ @ StoreScreen.js:288
+tryCatch @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+Promise.then
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+Promise.then
+asyncGeneratorStep @ StoreScreen.js:2
+_next @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+(anonymous) @ StoreScreen.js:2
+after_render @ StoreScreen.js:194
+_callee$ @ index.js:144
+tryCatch @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+Promise.then
+asyncGeneratorStep @ index.js:2
+_next @ index.js:2
+(anonymous) @ index.js:2
+(anonymous) @ index.js:2
+router @ index.js:51Understand this errorAI

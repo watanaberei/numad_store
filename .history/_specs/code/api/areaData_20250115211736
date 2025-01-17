@@ -1,0 +1,246 @@
+[
+    {
+        "area": "Outside",
+        "links": {
+            "gallery": "/gallery/${category}"
+        },
+        "images": [
+            {
+                "id": "",
+                "impressions": {
+                    "users": "",
+                    "likes": "",
+                    "dislikes": ""
+                },
+                "links": {
+                    "image": ""
+                },
+                "source": {
+                    "name": "",
+                    "logo": "",
+                    "links": {
+                        "source": ""
+                    }
+                },
+                "thumbnail": {
+                    "media": {
+                        "thumbnail": ""
+                    },
+                    "post": {
+                        "description": "",
+                        "poster": {
+                            "username": "",
+                            "link": {
+                                "profile": ""
+                            }
+                        }
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "area": "Entrance",
+        "links": {
+            "gallery": "/gallery/${category}"
+        },
+        "images": [
+            {
+                "id": "",
+                "impressions": {
+                    "users": "",
+                    "likes": "",
+                    "dislikes": ""
+                },
+                "links": {
+                    "image": ""
+                },
+                "source": {
+                    "name": "",
+                    "logo": "",
+                    "links": {
+                        "source": ""
+                    }
+                },
+                "thumbnail": {
+                    "media": {
+                        "thumbnail": ""
+                    },
+                    "post": {
+                        "description": "",
+                        "poster": {
+                            "username": "",
+                            "link": {
+                                "profile": ""
+                            }
+                        }
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "area": "Main Room",
+        "links": {
+            "gallery": "/gallery/${category}"
+        },
+        "images": [
+            {
+                "id": "",
+                "impressions": {
+                    "users": "",
+                    "likes": "",
+                    "dislikes": ""
+                },
+                "links": {
+                    "image": ""
+                },
+                "source": {
+                    "name": "",
+                    "logo": "",
+                    "links": {
+                        "source": ""
+                    }
+                },
+                "thumbnail": {
+                    "media": {
+                        "thumbnail": ""
+                    },
+                    "post": {
+                        "description": "",
+                        "poster": {
+                            "username": "",
+                            "link": {
+                                "profile": ""
+                            }
+                        }
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "area": "Corner Room",
+        "links": {
+            "gallery": "/gallery/${category}"
+        },
+        "images": [
+            {
+                "id": "",
+                "impressions": {
+                    "users": "",
+                    "likes": "",
+                    "dislikes": ""
+                },
+                "links": {
+                    "image": ""
+                },
+                "source": {
+                    "name": "",
+                    "logo": "",
+                    "links": {
+                        "source": ""
+                    }
+                },
+                "thumbnail": {
+                    "media": {
+                        "thumbnail": ""
+                    },
+                    "post": {
+                        "description": "",
+                        "poster": {
+                            "username": "",
+                            "link": {
+                                "profile": ""
+                            }
+                        }
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "area": "Restroom",
+        "links": {
+            "gallery": "/gallery/${category}"
+        },
+        "images": [
+            {
+                "id": "",
+                "impressions": {
+                    "users": "",
+                    "likes": "",
+                    "dislikes": ""
+                },
+                "links": {
+                    "image": ""
+                },
+                "source": {
+                    "name": "",
+                    "logo": "",
+                    "links": {
+                        "source": ""
+                    }
+                },
+                "thumbnail": {
+                    "media": {
+                        "thumbnail": ""
+                    },
+                    "post": {
+                        "description": "",
+                        "poster": {
+                            "username": "",
+                            "link": {
+                                "profile": ""
+                            }
+                        }
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "area": "Outdoor",
+        "links": {
+            "gallery": [
+                "https://s3-media1.fl.yelpcdn.com/bphoto/pMMRXM4rs7lf_Z_LjVgJTw/o.jpg",
+                "https://s3-media1.fl.yelpcdn.com/bphoto/CDUKZfDAA7ALmjALd6NTcw/o.jpg",
+                "https://s3-media3.fl.yelpcdn.com/bphoto/5CNOMa4R_I6L8EOv7FYEYg/o.jpg"
+            ]
+        },
+        "images": [
+            {
+                "id": "",
+                "impressions": {
+                    "users": "",
+                    "likes": "",
+                    "dislikes": ""
+                },
+                "links": {
+                    "image": ""
+                },
+                "source": {
+                    "name": "",
+                    "logo": "",
+                    "links": {
+                        "source": ""
+                    }
+                },
+                "thumbnail": {
+                    "media": {
+                        "thumbnail": ""
+                    },
+                    "post": {
+                        "description": "",
+                        "poster": {
+                            "username": "",
+                            "link": {
+                                "profile": ""
+                            }
+                        }
+                    }
+                }
+            }
+        ]
+    }
+]

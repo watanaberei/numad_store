@@ -1,0 +1,152 @@
+{
+    "mediaArea": [],
+    "mediaTopThree": [],
+    "galleryImages": [
+        {
+            "url": "https://images.ctfassets.net/i1hcb4885ci0/6TXZedgrwz5RlE6NeAeX0r/ee7d2b45ecff9502ccae936cd198455d/bluebottle-interior01.jpeg"
+        },
+        {
+            "url": "https://images.ctfassets.net/i1hcb4885ci0/4NG95AUFYV5kdwqvpMa6dS/2a351371e7dc5fc3196086ee2bc982c9/bluebottle-interior03.jpeg"
+        }
+    ],
+    "mediaPlatinum": {},
+    "mediaGallery": [
+        {
+            "url": "https://images.ctfassets.net/i1hcb4885ci0/6TXZedgrwz5RlE6NeAeX0r/ee7d2b45ecff9502ccae936cd198455d/bluebottle-interior01.jpeg"
+        },
+        {
+            "url": "https://images.ctfassets.net/i1hcb4885ci0/4NG95AUFYV5kdwqvpMa6dS/2a351371e7dc5fc3196086ee2bc982c9/bluebottle-interior03.jpeg"
+        }
+    ],
+    "neustar": 2,
+    "buttonFloating": "labelButton",
+    "storeName": "Weworks",
+    "city": "Park Tower",
+    "attributesArrays": "\n        <div class=\"item\">\n            <div class=\"text\">\n              \n              <span class=\"ink03 bold text03\">Remote work</span>\n              <i class=\"glyph glyph-check-15\"></i>\n            </div>\n        </div>\n        <div class=\"item\">\n            <div class=\"text\">\n              \n              <span class=\"ink03 bold text03\">Business Meetings</span>\n              <i class=\"glyph glyph-check-15\"></i>\n            </div>\n        </div>\n        <div class=\"item\">\n            <div class=\"text\">\n              \n              <span class=\"ink03 bold text03\">Quiet Reading</span>\n              <i class=\"glyph glyph-check-15\"></i>\n            </div>\n        </div>",
+    "storeRange": "~2hr Drive",
+    "distanceMiles": "13.65",
+    "storeTypes": "Coworking",
+    "storeType": "Work",
+    "storeCategory": "Store",
+    "attributesBest": [
+        "Remote work",
+        "Business Meetings",
+        "Quiet Reading"
+    ],
+    "attributesFacility": [
+        {
+            "id": "6c845cd6-e199-4590-868c-c2d4c905a6ba",
+            "key": "Parking",
+            "value": "Free open parking lot"
+        },
+        {
+            "id": "b3ea29bf-17fa-4075-9fcb-8694bbafdb67",
+            "key": "Cleanliness",
+            "value": "Very clean facility"
+        },
+        {
+            "id": "03f50b16-8b7c-4725-9eaa-6f28e41ae2ce",
+            "key": "Wifi",
+            "value": "Fast wifi speeds, no timer"
+        },
+        {
+            "id": "500fbd30-b175-46ed-aa03-361a60b0f347",
+            "key": "Outlet",
+            "value": "Plenty of outlets per table"
+        },
+        {
+            "id": "06d9e875-e3e1-4014-9968-b427cb32a160",
+            "key": "Hours",
+            "value": "Open late everyday — 10PM"
+        },
+        {
+            "id": "83e7bc34-087e-4398-8e8a-e20106bcb250",
+            "key": "Temperature",
+            "value": " Controlled temperature"
+        }
+    ],
+    "attributesExperience": [
+        "Remote Work",
+        "Open Late",
+        "Coffee & Pastry"
+    ],
+    "attributesOverview": [
+        {
+            "id": "7a5a66f0-da6f-4d81-b7d9-6755228df974",
+            "key": "Best for",
+            "value": "Remote work, business meetings, quiet reading."
+        },
+        {
+            "id": "f1b87668-ba4a-4248-9465-71c48065923d",
+            "key": "Environment",
+            "value": "Artisanal, Lively, Youthful"
+        },
+        {
+            "id": "9e2dbdce-f160-4b7d-b7fa-41c4f806c9d7",
+            "key": "Noise Level",
+            "value": "Low, ambient music, hushed conversations"
+        },
+        {
+            "id": "a67e37f2-ec5a-4945-810f-8cdb98f5c54f",
+            "key": "Parking",
+            "value": " Ample parking in lot and street parking available"
+        }
+    ],
+    "attributeService": [
+        {
+            "id": "65f41970-7f82-4916-98cc-327b8d9772a1",
+            "key": "Coffee",
+            "value": "Choco Mugwort Latte, Baby Latte, Kho Latte, and more"
+        },
+        {
+            "id": "4ea97e9b-6db5-490c-9b16-b87e11b6ce0b",
+            "key": "Hot Beverage",
+            "value": "Kho Latte, Americano, Korean Honey Oat, Hot Chocolate, and more"
+        },
+        {
+            "id": "81c07e07-a7da-4e5a-859e-e47665bb8322",
+            "key": "Tea",
+            "value": "Matcha Lattes, Iced Matcha, London Fog, and more"
+        },
+        {
+            "id": "817b8338-45c1-4c03-b8be-5b4cf3a748eb",
+            "key": "Beverage",
+            "value": "Pineapple Express, Sparkling Lemonade, Strawberry Lemonade, and more"
+        },
+        {
+            "id": "1eca4ccc-a53e-4500-aeec-2bfc3cf4a8c4",
+            "key": "Limited Time",
+            "value": "Seasonal drinks available"
+        },
+        {
+            "id": "953ee080-0e64-4425-bf07-dda76c730e20",
+            "key": "Pastry",
+            "value": "Savory Pastries, Sweet Pastries, Specialties, and more "
+        },
+        {
+            "id": "60ff08ef-6236-4cf5-b8fc-13f45f1efc73",
+            "key": "Lunch",
+            "value": "Available everyday until 12pm"
+        },
+        {
+            "id": "f1a45ba7-f663-40b3-a5fb-a5bbc3d7b125",
+            "key": "Breakfast",
+            "value": "Available everyday until 7am"
+        }
+    ],
+    "storeArea": [],
+    "snippetOverview": "Weworks",
+    "snippetFacility": "Weworks",
+    "snippetExperience": "Weworks",
+    "snippetService": "Weworks",
+    "suggestThumbnailURL01": "store.suggestThumbnailURL01",
+    "suggestTitle01": "store.suggestNeustarHTML01",
+    "suggestStoreDistanceHTML01": "store.suggestStoreDistanceHTML01",
+    "suggestGenre01": "store.suggestGenre01",
+    "suggestRegion01": "store.suggestRegion01",
+    "suggestCurrentStatus01": " store.suggestCurrentStatus01",
+    "suggestCurrentHoursHTML01": "store.suggestCurrentHoursHTML01",
+    "suggestEnvironment01": "store.suggestEnvironment01",
+    "suggestNoiseLevel01": "store.suggestNoiseLevel01",
+    "suggestParking01": " store.suggestParking01[0]"
+}
