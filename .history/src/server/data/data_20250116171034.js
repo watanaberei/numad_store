@@ -2595,6 +2595,7 @@ export class StoreData {
         {
           header: this.headerData()?.service ? this.headerData()?.service : null,
           
+          
           category: this.categoryData() ? this.categoryData() : null,
 
           // Ensure textBlockData is provided or fallback to null

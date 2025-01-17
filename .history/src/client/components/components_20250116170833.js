@@ -146,7 +146,7 @@ export const storeOverview = {
 export const storeService = {
   render: (data) => {
     console.log('storeService render with data:', data);
-    const serviceData = data;
+    const serviceData = data[0];
     const header = serviceData?.header;
     const category = serviceData?.category;
     const text = serviceData?.text;
@@ -253,10 +253,7 @@ export const storeBusiness = {
 
 // Update the storeLocation component to pass coordinates
 export const storeLocation = {
-  render: (data) => {
-    const header = data?.header;
-    const attributeData = data?.attribute;
-    const footer = data?.footer;
+  render: (header, attributeData, footer) => {
     console.log('storeLocation render with data:', { header, attributeData, footer });
     return `
       <div class="col04 array" id="header">
@@ -301,7 +298,7 @@ function logStoreLocationData() {
 export const storeExperience = {
  render: (data) => {     
    console.log('storeExperience render with area:', data);
-   const experienceData = data;
+   const experienceData = data[0];
     const header = experienceData.header;
     const area = experienceData.area;
     const attribute = experienceData.attribute;

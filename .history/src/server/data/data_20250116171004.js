@@ -2591,9 +2591,10 @@ export class StoreData {
 
   service() { 
     try {
-      const service =
+      const service = [
         {
           header: this.headerData()?.service ? this.headerData()?.service : null,
+          
           
           category: this.categoryData() ? this.categoryData() : null,
 
@@ -2611,7 +2612,7 @@ export class StoreData {
             dislikesCount: null
           }
         }
-   
+      ];
     return service;
     } catch (error) {
       console.error("getStoreBySlug", "Error:", error);

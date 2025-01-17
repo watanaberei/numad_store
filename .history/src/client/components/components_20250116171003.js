@@ -146,7 +146,7 @@ export const storeOverview = {
 export const storeService = {
   render: (data) => {
     console.log('storeService render with data:', data);
-    const serviceData = data;
+    const serviceData = data[0];
     const header = serviceData?.header;
     const category = serviceData?.category;
     const text = serviceData?.text;

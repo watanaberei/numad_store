@@ -2491,7 +2491,7 @@ export class StoreData {
       const areaData = this.areaData(YelpData);
       console.log("experience areaData", areaData);
      
-      const experience =
+      const experience = [
         {
           header: this.headerData()?.experience ? this.headerData()?.experience : null,
           
@@ -2513,7 +2513,7 @@ export class StoreData {
             dislikesCount: null
           }
         }
-
+      ];
       
       console.log(")00:experience", experience);
       return experience;
@@ -2591,9 +2591,10 @@ export class StoreData {
 
   service() { 
     try {
-      const service =
+      const service = [
         {
           header: this.headerData()?.service ? this.headerData()?.service : null,
+          
           
           category: this.categoryData() ? this.categoryData() : null,
 
@@ -2611,7 +2612,7 @@ export class StoreData {
             dislikesCount: null
           }
         }
-   
+      ];
     return service;
     } catch (error) {
       console.error("getStoreBySlug", "Error:", error);
