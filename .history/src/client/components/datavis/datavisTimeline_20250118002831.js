@@ -18,22 +18,14 @@ export const businessHours = {
       }];
     }
 
-    console.log("schedule", schedule);
-
     const now = new Date();
-    console.log("now", now);
     const currentHour = now.getHours();
-    console.log("currentHour", currentHour);
     const currentDay = now.getDay();
-    console.log("currentDay", currentDay);
 
     // Process schedule data with safe access
-    const hoursData = Array.from({ length: 24 }, (_, i) => {
-      console.log("hoursData start", i);
+    const hoursData = Array.from({ length: 24 }, (schedule, i) => {
       const hour = (currentHour + i) % 24;
-      console.log("hoursData hour", hour);
       const meridian = hour >= 12 ? 'PM' : 'AM';
-      console.log("hoursData meridian", meridian);
       const displayHour = hour % 12 || 12;
       const isOpen = Array.isArray(schedule[0]?.open) && schedule[0].open.some(slot => 
         slot && 

@@ -50,7 +50,6 @@ export class Yelp {
       
       // Search for business
       const yelpData = await yelpApi.searchBusinesses({
-        term: storeName,
         location: storeLocation,
         longitude: storeLongitude,
         latitude: storeLatitude,

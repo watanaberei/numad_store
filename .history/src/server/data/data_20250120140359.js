@@ -1186,7 +1186,6 @@ export class StoreData {
               }
             ]
           };
-          console.log("023: mapRadiusDataOLD", mapRadiusDataOLD);
       return mapRadiusDataOLD;
     } catch (error) {
       console.error("000: getStoreBySlug", "Error:", error);

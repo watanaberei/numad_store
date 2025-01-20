@@ -187,11 +187,11 @@ const StoreScreen = {
               </div>
               <div id="section" class="section col04">
                 <div class="col04 array content" id="store-location">
-                  ${components.storeLocation.render(location)}
-                  ${components.storeLocation.render({
+                ${components.storeLocation.render(location)}
+                  <!--$ {components.storeLocation.render({
                     ...location,
                     mapRadius: mapRadiusData
-                  })}
+                  })}-->
                 </div>
               </div>
             </div>

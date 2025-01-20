@@ -14,10 +14,24 @@ import { getStatsScore } from './function/function.js';
 import { initMap } from './map/map.js';
 import * as cards from './cards/cards.js';
 import * as text from './text/text.js';
+import * as sidebar from './sidebar/sidebar.js';
 // Add to your imports at the top of components.js
 import * as places from './datavis/datavisTimeline.js';
 // import * as style from './styles/styles.js'; // Ensure this path is correct';
 
+
+export const detailsHours = {
+  render: (data) => {
+    console.log("[components.detailsHours] Rendering hours:", hours);
+    if (!hours) {
+      console.warn("[components.detailsHours] No hours data provided");
+      return '';
+    }
+    const sidebar = sidebar.storeDetails.render(data);
+    // Add your hours rendering logic here
+    return `<div class="hours">...</div>`;
+  }
+};
 
 // export const storeBusiness = {
 //  render: (data) => {
@@ -88,23 +102,37 @@ export const storeHero = {
 };
 
 export const storeOverview = {
- render: (headerData, textData, overviewSummaryData, footerData) => {
+ render: (data) => {
+  const overviewData = data;
+  const overview = {
+    header: data[0]?.header || {},
+    summary: data[0]?.summary || {},
+    text: data[0]?.text || {},
+    footer: data[0]?.footer || {}
+  };
+  const {
+    header = {},
+    summary = {},
+    text = {},
+    footer = {}
+  } = overview;
+  console.log('(00: overviewData', overview);
    return `
        <div class="col04 array" id="header">
-         ${headerData ? sectionHeader.render(headerData) : ''}
+         ${sectionHeader.render(header)}
        </div>
       
        <div class="col04 container body">
-         ${overviewSummaryData ? storeSummary.render(overviewSummaryData) : ''}
+         ${storeSummary.render(summary)}
          ${dividerComponent.render()}
          <div class="col04 " id="text">
-           ${textData ? textBlock.render(textData) : ''}
+           ${textBlock.render(text)}
          </div>
        </div>
       
     
        <div class="col04" id="footer">
-         ${footerData ? sectionFooter.render(footerData) : ''}
+         ${sectionFooter.render(footer)}
        </div>
 
 
@@ -116,36 +144,103 @@ export const storeOverview = {
 };
 
 export const storeService = {
- render: (serviceHeaderData, serviceTextData, serviceCategoryData, serviceFooterData) => {     
-   console.log('storeService render with serviceCategoryData:', serviceCategoryData);
-  
-   return `
-     <div class="col04 array" id="header">
-       ${serviceHeaderData ? sectionHeader.render(serviceHeaderData) : ''}
-     </div>
-   
-     <div class="col04 container body">
-       <div class="col04 array content">
-         ${(() => {
-           console.log('Category data:', serviceCategoryData);
-           return storeCategory.render(serviceCategoryData);
-         })()}
-       </div>
-       ${dividerComponent.render()}
-       <div class="col04" id="text">
-         ${serviceTextData ? textBlock.render(serviceTextData) : ''}
-       </div>
-     </div>
-    
-     <div class="col04" id="footer">
-       ${serviceFooterData ? sectionFooter.render(serviceFooterData) : ''}
-     </div>
-   `;
- },
- afterRender: () => {
-   text.textBlock.afterRender();
-   array.create.initializeCarousel('category');
- }
+  render: (data) => {
+    console.log('storeService render with data:', data);
+    const serviceData = data;
+    const header = serviceData?.header;
+    const category = serviceData?.category;
+    const text = serviceData?.text;
+    const footer = serviceData?.footer;
+
+    return `
+      <div class="col04 array" id="header">
+        ${header ? sectionHeader.render(header) : ''}
+      </div>
+      
+      <div class="col04 container body">
+        <div class="col04 array content">
+          ${category ? array.create.createCarousel(
+            cardCategoryItem,
+            category,
+            'category',
+            'popularity',
+            'regular',
+            6
+          ) : ''}
+        </div>
+        ${dividerComponent.render()}
+        <div class="col04" id="text">
+          ${text ? textBlock.render(text) : ''}
+        </div>
+      </div>
+      
+      <div class="col04" id="footer">
+        ${footer ? sectionFooter.render(footer) : ''}
+      </div>
+    `;
+  },
+  afterRender: () => {
+    text.textBlock.afterRender();
+    array.create.initializeCarousel('category');
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export const storeBusinessTimeline = {
+  render: (data) => {
+
+    if (data?.hours) {
+      console.log("Rendering business hours with data:", data.hours[0]);
+      const businessHoursContainer = document.getElementById("business-hours");
+      if (!businessHoursContainer) {
+        console.error("Element with ID 'business-hours' not found.");
+        return;
+      }
+
+      businessHoursContainer.innerHTML = places.businessHours.render(data.hours);
+      // places.businessHourDetails.render(data);
+    }
+    console.log("Rendering business hours:", data);
+    return `
+      <div class="business-hours col04" id="business-hours">
+      Business hours
+      </div>
+    `;
+  },
+  afterRender: () => {
+    const container = document.getElementById("business-hours");
+    console.log("debug log: Initializing application data");
+    if (container) {
+            console.log("Initializing timeline in business-hours");
+            array.create.initializeTimeline("business-hours");
+          } else {
+            console.warn("Timeline container not found for business-hours");
+          }
+    const businessHoursContainer = document.getElementById("business-hours");
+    if (businessHoursContainer && data?.hours) {
+      console.log("Rendering business hours with data:", data.hours[0]);
+      businessHoursContainer.innerHTML =
+        places.storeBusinessHours.render(data.hours);
+        places.storeBusinessHours.afterRender(data);
+    }
+
+
+  }
 };
 
 // export const storeBusiness = {
@@ -172,14 +267,85 @@ export const storeService = {
 //   }
 // };
 
-// Update the storeLocation component to pass coordinates
-export const storeLocation = {  
+export const storeBusiness = {
   render: (data) => {
+    console.log("Rendering business hours:", data);
+    const businessData = data;
+    const header = businessData?.header;
+    const timeline = businessData?.timeline;
+    const footer = businessData?.footer;
+
+    return `
+      <div class="col04 array" id="header">
+        ${header ? sectionHeader.render(header) : ''}
+      </div>
+      <div class="grid04-overflow array" id="business-hours">
+        ${timeline ? storeBusinessTimeline.render(timeline) : ''}
+      </div>
+      <div class="col04" id="footer">
+        ${footer ? sectionFooter.render(footer) : ''}
+      </div>
+    `;
+  },
+  afterRender: () => {
+    const container = document.getElementById("business-hours");
+    if (container) {
+      console.log('Initializing business hours timeline');
+      array.create.initializeTimeline('business-hours');
+    }
+  }
+};
+
+// Update the storeLocation component to pass coordinates
+// export const storeLocation = {
+//   render: (data) => {
+//     const header = data?.header;
+//     const neighborhood = data?.neighborhoodData;
+//     const attribute = data?.attribute;
+//     const footer = data?.footer;
+//     console.log('storeLocation render with data:', { header, attribute, footer });
+//     return `
+//       <div class="col04 array" id="header">
+//         ${header ? sectionHeader.render(header) : ''}
+//       </div>
+      
+//       <div class="col04 container body">
+//         <div class="col04">
+//           ${mapNearby.render(neighborhood)}
+//         </div>
+//         ${dividerComponent.render()}
+//         <div class="col04" id="attributes">
+//           ${attribute ? locationAttributes.render(attribute) : ''}
+//         </div>
+//       </div>
+      
+//       <div class="col04" id="footer">
+//         ${footer ? sectionFooter.render(footer) : ''}
+//       </div>
+//     `;
+//   },
+//   afterRender: (data) => {
+//     console.log('debug log: storeLocation10 - Running afterRender');
+//     const coordinates = {
+//       lat: data.location.latitude || data?.geolocation?.lat,
+//       lon: data.location.longitude || data?.geolocation?.lon
+//     };
+//     mapNearby.afterRender(coordinates);
+//     locationAttributes.afterRender();
+//   }
+// };
+// Update the storeLocation component to pass coordinates
+export const storeLocation = {
+  render: (data) => {
+    console.log("-00:storeLocation render with data:", data);
     const header = data?.header;
-    const neighborhood = data?.neighborhoodData;
+    console.log("-01:header:", header);
+    const neighborhood = data?.neighborhood;
+    console.log("-02:neighborhood:", neighborhood);
     const attribute = data?.attribute;
+    console.log("-03:attribute:", attribute);
     const footer = data?.footer;
-    console.log('storeLocation render with data:', { header, attribute, footer });
+    console.log('-04:storeLocation render with data:', { header, attribute, neighborhood, footer });
     return `
       <div class="col04 array" id="header">
         ${header ? sectionHeader.render(header) : ''}
@@ -187,27 +353,30 @@ export const storeLocation = {
       
       <div class="col04 container body">
         <div class="col04">
-          ${mapNearby.render(neighborhood)}
+          ${mapNearby.render(attribute)}
         </div>
         ${dividerComponent.render()}
         <div class="col04" id="attributes">
-          ${attribute ? locationAttributes.render(attribute) : ''}
+          ${neighborhood ? locationAttributes.render(neighborhood) : ''}
         </div>
       </div>
       
       <div class="col04" id="footer">
-        ${footer ? sectionFooter.render(footer) : ''}
+        ${footer ? sectionFooter.render(footer  ) : ''}
       </div>
     `;
   },
   afterRender: (data) => {
-    console.log('debug log: storeLocation10 - Running afterRender');
+    console.log("-06:storeLocation afterRender");
     const coordinates = {
-      lat: data.location.latitude || data?.geolocation?.lat,
-      lon: data.location.longitude || data?.geolocation?.lon
+      lat: data?.location?.latitude || data?.geolocation?.lat,
+      lon: data?.location?.longitude || data?.geolocation?.lon
     };
+    console.log("-07:storeLocation coordinates:", coordinates);
     mapNearby.afterRender(coordinates);
+    console.log("-08:storeLocation afterRender locationAttributes");
     locationAttributes.afterRender();
+    console.log("-09:storeLocation afterRender footer");
   }
 };
 
@@ -221,30 +390,44 @@ function logStoreLocationData() {
 }
 
 export const storeExperience = {
- render: (headerData, textData, areaData, attributesData, footerData) => {     
-   console.log('storeExperience render with areaData:', areaData);
-  
+ render: (data) => {     
+   console.log('storeExperience render with area:', data);
+   const experienceData = data;
+    const header = experienceData.header;
+    const area = experienceData.area;
+    const attribute = experienceData.attribute;
+    const text = experienceData.text;
+    const footer = experienceData.footer;
+    console.log(
+      "storeExperience",
+      header,
+      area,
+      attribute,
+      text,
+      footer  
+    );
+   
    return `
      <div class="col04 array" id="header">
-       ${headerData ? sectionHeader.render(headerData) : ''}
+       ${header ? sectionHeader.render(header) : ''}
      </div>
     
      <div class="col04 container body">
        <div class="col04 array content">
-         ${areaData ? storeArea.render(areaData) : ''}
+         ${area ? storeArea.render(area) : ''}
        </div>
        ${dividerComponent.render()}
        <div class="col04" id="attributes">
-       ${attributesData ? storeAttributes.render(attributesData) : ''}
+       ${attribute ? storeAttributes.render(attribute) : ''}
        </div>
        <div class="col04" id="text">
-       <!--$ {attributesData ? storeAttributes.render(attributesData) : ''}-->
-         ${textData ? textBlock.render(textData) : ''}
+       <!--$ {attribute ? storeAttributes.render(attribute) : ''}-->
+         ${text ? textBlock.render(text) : ''}
        </div>
      </div>
     
      <div class="col04" id="footer">
-       ${footerData ? sectionFooter.render(footerData) : ''}
+       ${footer ? sectionFooter.render(footer) : ''}
      </div>
    `;
  },
@@ -270,9 +453,9 @@ export const storeArea = {
   
    return array.create.createCarousel(
      {
-       render: (areaData) => {
-         console.log('Rendering area item:', areaData);
-         return cards.cardGalleryItem.render(areaData);
+       render: (area) => {
+         console.log('Rendering area item:', area);
+         return cards.cardGalleryItem.render(area);
        }
      },
      areas,
@@ -332,6 +515,7 @@ export const cardGalleryItem = {
 
 export const storeAttributes = {
  render: store => {
+  console.log("storeAttributes render start");
    return `
      ${store.bestfor ? cards.cardStoreAttributes.render(store.bestfor, "Best For", "BestFor") : ""}
      ${store.working ? cards.cardStoreAttributes.render(store.working, "Working", "Working") : ""}
@@ -794,17 +978,19 @@ export const locationTitle ={
 export const storeDetail = {
  render: (data) => {
    console.log('storeDetail rendering with data:', data);
-  
+    const storeType = Array.isArray(data.storeType) ? data.storeType.map(type => type.title).join(', ') : '';
+    const costEstimate = data.costEstimate || '';
+    console.log('&&& log: storeDetail11 - costEstimate:', costEstimate);
    return `
      <div class="hero-detail array col04">
        <div class="hero-primary tag-array">
          ${geotag.geotagRating.render({ rating: data.rating })}
-         ${geotag.geotagCostEstimate.render({ priceRange: data.costEstimate })}            
+         ${geotag.geotagCostEstimate.render({ costEstimate: data.costEstimate })}            
        </div>
-       <div class="hero-secondary tag-array">
-         <span class="objtag info-type text02">${data.storeType}</span>
+       <div class="hero-secondary tag-array sentance">
+         <span class="objtag info-type text02 sentance">${storeType}</span>
          <span class="objtag info-distance text02">${data.distance} away in</span>
-         <span class="objtag info-city text02">${data.city}, ${data.state}</span>
+         <span class="objtag info-city text02 sentance">${data.city}, ${data.state}</span>
        </div>
      </div>
      <div class="hero-controls array col01">
@@ -814,7 +1000,7 @@ export const storeDetail = {
        </button>
        <button class="user-action save">
          ${glyph.glyphControlSave}
-         <span class="text02">Save</span>
+         <span class="t ext02">Save</span>
        </button>
        <button class="user-action checkin">
          ${glyph.glyphControlCheckin}
@@ -830,7 +1016,7 @@ export const heroGallery = {
    console.log('heroGallery rendering with data:', data);
   
    // Ensure we have gallery images before rendering
-   if (!data.galleryImages || !data.galleryImages.length) {
+   if (!data.gallery || !data.gallery.length) {
      console.warn('No gallery images provided');
      return '';
    }
@@ -838,7 +1024,7 @@ export const heroGallery = {
 
    return `
      <div class="hero-gallery00 grid05-overflow">
-       ${data.galleryImages.slice(0, 4).map((image, index) => `
+       ${data.gallery.slice(0, 4).map((image, index) => `
          <div
            class="gallery-image ${index < 2 ? 'col03' : 'col02'}"
            style="background-image: url(${image});"
@@ -871,6 +1057,7 @@ export const storeHeadline = {
 
 export const sectionHeader = {
  render: (data) => {
+   console.log("sectionHeader start", data);
    return text.textHeader.render(data || {});
  }
 };

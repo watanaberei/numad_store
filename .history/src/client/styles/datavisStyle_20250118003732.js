@@ -1,4 +1,4 @@
-export const datavisStyle = `
+export const timelineStyle = `
 .timeline {
   // aspect-ratio: var(--aspect-ratio-1x1);
 }

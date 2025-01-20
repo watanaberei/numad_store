@@ -9,9 +9,7 @@ mapboxgl.accessToken =
 
   export async function initMap(mapData) {
     try {
-      console.log("~00:initMap", mapData);
     const store = mapData?.data;
-    console.log("~01:store", store);
     const nearbySearchParams = {
       storeAddress: store.location?.address,
       storeCity: store.location?.city,
@@ -19,14 +17,12 @@ mapboxgl.accessToken =
       storeLongitude: store.coordinates?.longitude,
       storeLatitude: store.coordinates?.latitude
     };
-    console.log("~02:nearbySearchParams", nearbySearchParams);
 
     const nearbyStoreData = await yelp.Yelp.getNearbyStoreData(nearbySearchParams);
-    console.log("~03:nearbyStoreData", nearbyStoreData);
+    console.log("nearbyStoreData", nearbyStoreData);
     // Use mapData passed from StoreScreen instead of direct import
     if (mapData?.stores) {
       stores.features = mapData.stores;
-      console.log("~04:mapData has .stores", stores);
     }
     const map = new mapboxgl.Map({
       container: "map",
@@ -35,7 +31,6 @@ mapboxgl.accessToken =
       zoom: 13,
       scrollZoom: false
     });
-    console
 // // Initialize the map
 // export function initMap() {
 //   const map = new mapboxgl.Map({

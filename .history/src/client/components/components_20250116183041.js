@@ -11,13 +11,12 @@ import * as amtag from "./tags/amtag.js";
 import * as attrtag from "./tags/attrtag.js";
 import * as array from "./array/array.js";
 import { getStatsScore } from "./function/function.js";
-// import { businessHours } from "./map/map.js";
+import { initMap } from "./map/map.js";
 import * as cards from "./cards/cards.js";
 import * as text from "./text/text.js";
 import * as sidebar from "./sidebar/sidebar.js";
 // Add to your imports at the top of components.js
-import * as map from "./map/map.js";
-import * as datavis from "./datavis/datavisTimeline.js";
+import * as places from "./datavis/datavisTimeline.js";
 // import * as style from './styles/styles.js'; // Ensure this path is correct';
 
 export const detailsHours = {
@@ -41,8 +40,8 @@ export const detailsHours = {
 //        <div class="business-hours-title">
 //          <h3 class="text03">Business Hours</h3>
 //        </div>
-//        ${datavis.businessHours.render(data)}
-//        ${datavis.businessHourDetails.render(data)}
+//        ${places.businessHours.render(data)}
+//        ${places.businessHourDetails.render(data)}
 //      </div>
 //    `;
 //  },
@@ -190,17 +189,17 @@ export const storeService = {
 export const storeBusinessTimeline = {
   render: (data) => {
     if (data?.hours) {
-      console.log("Rendering business hours with data:", data.hours);
+      console.log("Rendering business hours with data:", data.hours[0]);
       const businessHoursContainer = document.getElementById("business-hours");
       if (!businessHoursContainer) {
         console.error("Element with ID 'business-hours' not found.");
         return;
       }
 
-      businessHoursContainer.innerHTML = datavis.businessHours.render(
+      businessHoursContainer.innerHTML = places.businessHours.render(
         data.hours
       );
-      // datavis.businessHourDetails.render(data);
+      // places.businessHourDetails.render(data);
     }
     console.log("Rendering business hours:", data);
     return `
@@ -221,10 +220,10 @@ export const storeBusinessTimeline = {
     const businessHoursContainer = document.getElementById("business-hours");
     if (businessHoursContainer && data?.hours) {
       console.log("Rendering business hours with data:", data.hours);
-      businessHoursContainer.innerHTML = datavis.businessHours.render(
+      businessHoursContainer.innerHTML = places.businessHours.render(
         data.hours
       );
-      datavis.businessHours.afterRender(container);
+      places.businessHours.afterRender(data);
     } else {
       console.warn("Timeline container not found for business-hours");
     }
@@ -239,8 +238,8 @@ export const storeBusinessTimeline = {
 //         <div class="business-hours-title">
 //           <h3 class="text03">Business Hours</h3>
 //         </div>
-//         ${datavis.businessHours.render(data.hours)}
-//         ${datavis.businessHourDetails.render(data)}
+//         ${places.businessHours.render(data.hours)}
+//         ${places.businessHourDetails.render(data)}
 //       </div>
 //     `;
 //   },
@@ -268,17 +267,7 @@ export const storeBusiness = {
         ${header ? sectionHeader.render(header) : ""}
       </div>
       <div class="grid04-overflow array" id="business-hours">
-      
-      <div class="business-hours col04">
-        <div class="business-hours-title">
-          <h3 class="text03">Business Hours</h3>
-        </div>
-        ${datavis.businessHours.render(timeline.hours)}
-        ${datavis.businessHourDetails.render(timeline)}
-      </div>
-
-
-        $ {timeline ? storeBusinessTimeline.render(timeline) : ""}
+        ${timeline ? storeBusinessTimeline.render(timeline) : ""}
       </div>
       <div class="col04" id="footer">
         ${footer ? sectionFooter.render(footer) : ""}
@@ -336,10 +325,10 @@ export const storeBusiness = {
 export const storeLocation = {
   render: (data) => {
     console.log("-00:storeLocation render with data:", data);
+    const header = data?.header;
+    console.log("-01:header:", header);
     const neighborhood = data?.neighborhood;
     console.log("-02:neighborhood:", neighborhood);
-    const header = neighborhood.city + ', ' + neighborhood.state  ;
-    console.log("-01:header:", header);
     const attribute = data?.attribute;
     console.log("-03:attribute:", attribute);
     const footer = data?.footer;
@@ -356,11 +345,11 @@ export const storeLocation = {
       
       <div class="col04 container body">
         <div class="col04">
-          ${neighborhood ? mapNearby.render(neighborhood) : ""}
+          ${mapNearby.render(neighborhood)}
         </div>
         ${dividerComponent.render()}
         <div class="col04" id="attributes">
-          ${attribute ? locationAttributes.render(attribute) : ""}
+          ${neighborhood ? locationAttributes.render(attribute) : ""}
         </div>
       </div>
       
@@ -370,16 +359,16 @@ export const storeLocation = {
     `;
   },
   afterRender: (data) => {
-    console.log("-09:storeLocation afterRender");
+    console.log("-06:storeLocation afterRender");
     const coordinates = {
-      lat: data.geolocation.latitude || data?.geolocation?.lat,
-      lon: data.geolocation.longitude || data?.geolocation?.lon
+      lat: data.location.latitude || data?.geolocation?.lat,
+      lon: data.location.longitude || data?.geolocation?.lon
     };
-    console.log("-10:storeLocation coordinates:", coordinates);
+    console.log("-07:storeLocation coordinates:", coordinates);
     mapNearby.afterRender(coordinates);
-    console.log("-11:storeLocation afterRender locationAttributes");
+    console.log("-08:storeLocation afterRender locationAttributes");
     locationAttributes.afterRender();
-    console.log("-12:storeLocation afterRender footer");
+    console.log("-09:storeLocation afterRender footer");
   }
 };
 
@@ -672,7 +661,7 @@ export const summaryComponent = {
 
 export const storeCategory = {
   render: (data) => {
-    console.log("-06: Rendering storeCategory:", data);
+    console.log("Rendering storeCategory:", data);
 
     // Format data for carousel
     const categories = Object.entries(data).map(([key, value]) => ({
@@ -681,12 +670,12 @@ export const storeCategory = {
       url: value.url
     }));
 
-    console.log("-07: Formatted categories:", categories);
+    console.log("Formatted categories:", categories);
 
     return array.create.createCarousel(
       {
         render: (categoryData) => {
-          console.log("-08:Rendering category:", categoryData);
+          console.log("Rendering category:", categoryData);
           return cardCategoryItem.render(categoryData);
         }
       },
@@ -702,7 +691,7 @@ export const storeCategory = {
 // Update cardCategoryItem to match cardSummaryItem pattern
 export const cardCategoryItem = {
   render: (data) => {
-    console.log("-09:cardCategoryItem rendering with data:", data);
+    console.log("cardCategoryItem rendering with data:", data);
     return cards.cardCategoryItem.render(data);
   }
 };
@@ -724,16 +713,15 @@ export const itemTag = {
 
 export const mapNearby = {
   render: (data) => {
-    console.log('-10:mapNearby render with data:', data);
+    console.log("mapNearby render with data:", data);
     return `
       <div class="location col04">
-        <div id="map-container" class="map-container col04">
-          <div class="map col04">
+        <div class="map-container col04">
+          <div id="map" class="map col04">
             <div class="overlay col04">
               <div class="search col01">
                 <div class="text02">
-                  ${data?.address || ''}
-                  <div id="map"></div>
+                  ${data?.address || ""}
                 </div>
                 ${icon.iconActionCopy}
               </div>
@@ -746,108 +734,21 @@ export const mapNearby = {
       </div>
     `;
   },
-  afterRender: (data) => {
-    console.log('-11: debug log: mapNearby01 - Running afterRender');
-    const mapElement = document.getElementById('map');
-    const lat = data.geolocation.lat;
-    console.log("lat", lat);
-    const lon = data.geolocation.lon;
-    console.log("lon", lon);
-    const Coordinates = [lon, lat];
-    console.log("Coordinates",Coordinates);
-    const coordinates = Coordinates;
-    console.log("coordinates", coordinates);
+  afterRender: () => {
+    console.log("debug log: mapNearby01 - Running afterRender");
+    const mapElement = document.getElementById("map");
     if (mapElement) {
-      console.log('-12: debug log: mapNearby02 - Found map element');
-      const mapData = {
-        container: 'map',
-        center: coordinates, // Default to LA if no coordinates
-        zoom: 13,
-        store: data
-      }
-      console.log("-13:mapData", mapData);
-      // businessHours(mapData);
-      // afterRender: () => {
-        //     console.log('debug log: mapNearby01 - Running afterRender');
-        //     const mapElement = document.getElementById('map');
-        //     if (mapElement) {
-        //       console.log('debug log: mapNearby02 - Found map element');
-        //       initMap({
-        //         container: 'map',
-        //         center: [-118.2437, 34.0522], // Default to LA if no coordinates
-        //         zoom: 13
-        //       });
-        //     } else {
-        //       console.warn('Map element not found');
-        //     }
-        //   }
-        // };
-    mapElement.addEventListener("load", async () => {
-      try {
-        const mapData = await map.initMap({
-            container: "map",
-            center: coordinates,
-            zoom: 13,
-            store: data
-        });
-        console.log("-14: Map initialized successfully", mapData);
-      } catch (error) {
-        console.error("-15: Error initializing map:", error);
-      }
-    });
+      console.log("debug log: mapNearby02 - Found map element");
+      initMap({
+        container: "map",
+        center: [-118.2437, 34.0522], // Default to LA if no coordinates
+        zoom: 13
+      });
     } else {
-      console.warn('-16:Map element not found');
+      console.warn("Map element not found");
     }
   }
 };
-
-// export const mapNearby = {
-//   render: (data) => {
-//     console.log("mapNearby render with data:", data);
-//     return `
-//       <div class="location col04">
-//         <div class="map-container col04">
-//           <div id="map" class="map col04">
-//             <div class="overlay col04">
-//               <div class="search col01">
-//                 <div class="text02">
-//                   ${data?.address || ""}
-//                 </div>
-//                 ${icon.iconActionCopy}
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//         <div class="sidebar col04">
-//           <div id="listings" class="listings grid08-overflow span04 row01"></div>
-//         </div>
-//       </div>
-//     `;
-//   },
-//   afterRender: (data) => {
-//     console.log('debug log: storeLocation10 - Running afterRender');
-//     const coordinates = {
-//       lat: data.geolocation.latitude || data?.geolocation?.lat,
-//       lon: data.geolocation.longitude || data?.geolocation?.lon
-//     };
-//     mapNearby.afterRender(coordinates);
-//     locationAttributes.afterRender();
-//   }
-//   afterRender: () => {
-//     console.log("debug log: mapNearby01 - Running afterRender");
-//     const mapElement = document.getElementById("map");
-//     if (mapElement) {
-//       console.log("debug log: mapNearby02 - Found map element");
-//       initMap({
-//         container: "map",
-//         center: [-118.2437, 34.0522], // Default to LA if no coordinates
-//         zoom: 13
-//       });
-//     } else {
-//       console.warn("Map element not found");
-//     }
-//   }
-// };
 
 // export const mapNearby = {
 //   render: (data) => {
@@ -892,8 +793,8 @@ export const mapNearby = {
 document.addEventListener("DOMContentLoaded", () => {
   const mapContainer = document.getElementById("map-container");
   if (mapContainer) {
-    mapContainer.innerHTML = mapNearby.render();
-    mapNearby.afterRender();
+    mapContainer.innerHTML = mapRadiusComponent.render();
+    mapRadiusComponent.afterRender();
   }
 });
 
@@ -961,13 +862,13 @@ export const locationAttributes = {
   render: (data) => {
     console.log("debug log: storeLocation09 - Location data received:", data);
 
-    if (!data || !Array.isArray(data)) {
+    if (!data.attrtags || !Array.isArray(data.attrtags)) {
       console.warn("No attrtags data found");
       return "";
     }
 
-    const visibleSections = data.slice(0, 3);
-    const hiddenSectionsCount = Math.max(0, data.length - 3);
+    const visibleSections = data.attrtags.slice(0, 3);
+    const hiddenSectionsCount = Math.max(0, data.attrtags.length - 3);
 
     return `
      <div class="location-attributes-container  col04">

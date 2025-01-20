@@ -892,8 +892,8 @@ export const mapNearby = {
 document.addEventListener("DOMContentLoaded", () => {
   const mapContainer = document.getElementById("map-container");
   if (mapContainer) {
-    mapContainer.innerHTML = mapNearby.render();
-    mapNearby.afterRender();
+    mapContainer.innerHTML = mapRadiusComponent.render();
+    mapRadiusComponent.afterRender();
   }
 });
 

@@ -49,13 +49,7 @@ export class Yelp {
       const storeLocation = storeCity + ', ' + storeState;
       
       // Search for business
-      const yelpData = await yelpApi.searchBusinesses({
-        term: storeName,
-        location: storeLocation,
-        longitude: storeLongitude,
-        latitude: storeLatitude,
-        limit: 16
-      });
+      const yelpData = await yelpApi.searchBusinesses(storeName, storeLocation, storeLongitude, storeLatitude);
       console.log("[Yelp.getStoreData] Search results:", yelpData);
 
       if (!yelpData?.businesses?.[0]?.id) {

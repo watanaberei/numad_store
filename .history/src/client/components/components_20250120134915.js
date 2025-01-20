@@ -728,12 +728,11 @@ export const mapNearby = {
     return `
       <div class="location col04">
         <div id="map-container" class="map-container col04">
-          <div class="map col04">
+          <div id="map" class="map col04">
             <div class="overlay col04">
               <div class="search col01">
                 <div class="text02">
                   ${data?.address || ''}
-                  <div id="map"></div>
                 </div>
                 ${icon.iconActionCopy}
               </div>
@@ -892,8 +891,8 @@ export const mapNearby = {
 document.addEventListener("DOMContentLoaded", () => {
   const mapContainer = document.getElementById("map-container");
   if (mapContainer) {
-    mapContainer.innerHTML = mapNearby.render();
-    mapNearby.afterRender();
+    mapContainer.innerHTML = mapRadiusComponent.render();
+    mapRadiusComponent.afterRender();
   }
 });
 

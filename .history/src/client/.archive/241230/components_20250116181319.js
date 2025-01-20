@@ -148,32 +148,32 @@ export const storeService = {
  }
 };
 
-// export const storeBusiness = {
-//   render: (data) => {
-//     console.log("Rendering business hours:", data);
-//     return `
-//       <div class="business-hours col04">
-//         <div class="business-hours-title">
-//           <h3 class="text03">Business Hours</h3>
-//         </div>
-//         ${places.businessHours.render(data.hours)}
-//         ${places.businessHourDetails.render(data)}
-//       </div>
-//     `;
-//   },
-//   afterRender: () => {
-//     const container = document.getElementById("business-hours");
-//     if (container) {
-//       console.log("Initializing timeline in business-hours");
-//       array.create.initializeTimeline("business-hours");
-//     } else {
-//       console.warn("Timeline container not found for business-hours");
-//     }
-//   }
-// };
+export const storeBusiness = {
+  render: (data) => {
+    console.log("Rendering business hours:", data);
+    return `
+      <div class="business-hours col04">
+        <div class="business-hours-title">
+          <h3 class="text03">Business Hours</h3>
+        </div>
+        ${places.businessHours.render(data.hours)}
+        ${places.businessHourDetails.render(data)}
+      </div>
+    `;
+  },
+  afterRender: () => {
+    const container = document.getElementById("business-hours");
+    if (container) {
+      console.log("Initializing timeline in business-hours");
+      array.create.initializeTimeline("business-hours");
+    } else {
+      console.warn("Timeline container not found for business-hours");
+    }
+  }
+};
 
 // Update the storeLocation component to pass coordinates
-export const storeLocation = {  
+export const storeLocation = {
   render: (data) => {
     const header = data?.header;
     const neighborhood = data?.neighborhoodData;

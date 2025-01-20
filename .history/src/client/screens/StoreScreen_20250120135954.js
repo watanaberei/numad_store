@@ -190,7 +190,7 @@ const StoreScreen = {
                   ${components.storeLocation.render(location)}
                   ${components.storeLocation.render({
                     ...location,
-                    mapRadius: mapRadiusData
+                    initMap: mapRadiusData
                   })}
                 </div>
               </div>

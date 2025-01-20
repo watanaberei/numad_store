@@ -11,12 +11,11 @@ import * as amtag from "./tags/amtag.js";
 import * as attrtag from "./tags/attrtag.js";
 import * as array from "./array/array.js";
 import { getStatsScore } from "./function/function.js";
-// import { businessHours } from "./map/map.js";
+import { businessHours } from "./map/map.js";
 import * as cards from "./cards/cards.js";
 import * as text from "./text/text.js";
 import * as sidebar from "./sidebar/sidebar.js";
 // Add to your imports at the top of components.js
-import * as map from "./map/map.js";
 import * as datavis from "./datavis/datavisTimeline.js";
 // import * as style from './styles/styles.js'; // Ensure this path is correct';
 
@@ -728,12 +727,11 @@ export const mapNearby = {
     return `
       <div class="location col04">
         <div id="map-container" class="map-container col04">
-          <div class="map col04">
+          <div id="map" class="map col04">
             <div class="overlay col04">
               <div class="search col01">
                 <div class="text02">
                   ${data?.address || ''}
-                  <div id="map"></div>
                 </div>
                 ${icon.iconActionCopy}
               </div>
@@ -766,25 +764,25 @@ export const mapNearby = {
         store: data
       }
       console.log("-13:mapData", mapData);
-      // businessHours(mapData);
-      // afterRender: () => {
-        //     console.log('debug log: mapNearby01 - Running afterRender');
-        //     const mapElement = document.getElementById('map');
-        //     if (mapElement) {
-        //       console.log('debug log: mapNearby02 - Found map element');
-        //       initMap({
-        //         container: 'map',
-        //         center: [-118.2437, 34.0522], // Default to LA if no coordinates
-        //         zoom: 13
-        //       });
-        //     } else {
-        //       console.warn('Map element not found');
-        //     }
-        //   }
-        // };
+      businessHours(mapData);
+      afterRender: () => {
+            console.log('debug log: mapNearby01 - Running afterRender');
+            const mapElement = document.getElementById('map');
+            if (mapElement) {
+              console.log('debug log: mapNearby02 - Found map element');
+              initMap({
+                container: 'map',
+                center: [-118.2437, 34.0522], // Default to LA if no coordinates
+                zoom: 13
+              });
+            } else {
+              console.warn('Map element not found');
+            }
+          }
+        };
     mapElement.addEventListener("load", async () => {
       try {
-        const mapData = await map.initMap({
+        const mapData = await businessHours({
             container: "map",
             center: coordinates,
             zoom: 13,
@@ -892,8 +890,8 @@ export const mapNearby = {
 document.addEventListener("DOMContentLoaded", () => {
   const mapContainer = document.getElementById("map-container");
   if (mapContainer) {
-    mapContainer.innerHTML = mapNearby.render();
-    mapNearby.afterRender();
+    mapContainer.innerHTML = mapRadiusComponent.render();
+    mapRadiusComponent.afterRender();
   }
 });
 

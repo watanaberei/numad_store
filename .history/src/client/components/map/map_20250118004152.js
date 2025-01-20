@@ -35,7 +35,6 @@ mapboxgl.accessToken =
       zoom: 13,
       scrollZoom: false
     });
-    console
 // // Initialize the map
 // export function initMap() {
 //   const map = new mapboxgl.Map({

@@ -31,9 +31,7 @@ export const businessHours = {
     const hoursData = Array.from({ length: 24 }, (_, i) => {
       console.log("hoursData start", i);
       const hour = (currentHour + i) % 24;
-      console.log("hoursData hour", hour);
       const meridian = hour >= 12 ? 'PM' : 'AM';
-      console.log("hoursData meridian", meridian);
       const displayHour = hour % 12 || 12;
       const isOpen = Array.isArray(schedule[0]?.open) && schedule[0].open.some(slot => 
         slot && 

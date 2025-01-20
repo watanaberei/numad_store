@@ -11,13 +11,12 @@ import * as amtag from "./tags/amtag.js";
 import * as attrtag from "./tags/attrtag.js";
 import * as array from "./array/array.js";
 import { getStatsScore } from "./function/function.js";
-// import { businessHours } from "./map/map.js";
+import { businessHours } from "./map/map.js";
 import * as cards from "./cards/cards.js";
 import * as text from "./text/text.js";
 import * as sidebar from "./sidebar/sidebar.js";
 // Add to your imports at the top of components.js
-import * as map from "./map/map.js";
-import * as datavis from "./datavis/datavisTimeline.js";
+import * as places from "./datavis/datavisTimeline.js";
 // import * as style from './styles/styles.js'; // Ensure this path is correct';
 
 export const detailsHours = {
@@ -41,8 +40,8 @@ export const detailsHours = {
 //        <div class="business-hours-title">
 //          <h3 class="text03">Business Hours</h3>
 //        </div>
-//        ${datavis.businessHours.render(data)}
-//        ${datavis.businessHourDetails.render(data)}
+//        ${places.businessHours.render(data)}
+//        ${places.businessHourDetails.render(data)}
 //      </div>
 //    `;
 //  },
@@ -197,10 +196,10 @@ export const storeBusinessTimeline = {
         return;
       }
 
-      businessHoursContainer.innerHTML = datavis.businessHours.render(
+      businessHoursContainer.innerHTML = places.businessHours.render(
         data.hours
       );
-      // datavis.businessHourDetails.render(data);
+      // places.businessHourDetails.render(data);
     }
     console.log("Rendering business hours:", data);
     return `
@@ -221,10 +220,10 @@ export const storeBusinessTimeline = {
     const businessHoursContainer = document.getElementById("business-hours");
     if (businessHoursContainer && data?.hours) {
       console.log("Rendering business hours with data:", data.hours);
-      businessHoursContainer.innerHTML = datavis.businessHours.render(
+      businessHoursContainer.innerHTML = places.businessHours.render(
         data.hours
       );
-      datavis.businessHours.afterRender(container);
+      places.businessHours.afterRender(container);
     } else {
       console.warn("Timeline container not found for business-hours");
     }
@@ -239,8 +238,8 @@ export const storeBusinessTimeline = {
 //         <div class="business-hours-title">
 //           <h3 class="text03">Business Hours</h3>
 //         </div>
-//         ${datavis.businessHours.render(data.hours)}
-//         ${datavis.businessHourDetails.render(data)}
+//         ${places.businessHours.render(data.hours)}
+//         ${places.businessHourDetails.render(data)}
 //       </div>
 //     `;
 //   },
@@ -273,8 +272,8 @@ export const storeBusiness = {
         <div class="business-hours-title">
           <h3 class="text03">Business Hours</h3>
         </div>
-        ${datavis.businessHours.render(timeline.hours)}
-        ${datavis.businessHourDetails.render(timeline)}
+        ${places.businessHours.render(timeline.hours)}
+        ${places.businessHourDetails.render(timeline)}
       </div>
 
 
@@ -728,12 +727,11 @@ export const mapNearby = {
     return `
       <div class="location col04">
         <div id="map-container" class="map-container col04">
-          <div class="map col04">
+          <div id="map" class="map col04">
             <div class="overlay col04">
               <div class="search col01">
                 <div class="text02">
                   ${data?.address || ''}
-                  <div id="map"></div>
                 </div>
                 ${icon.iconActionCopy}
               </div>
@@ -766,25 +764,10 @@ export const mapNearby = {
         store: data
       }
       console.log("-13:mapData", mapData);
-      // businessHours(mapData);
-      // afterRender: () => {
-        //     console.log('debug log: mapNearby01 - Running afterRender');
-        //     const mapElement = document.getElementById('map');
-        //     if (mapElement) {
-        //       console.log('debug log: mapNearby02 - Found map element');
-        //       initMap({
-        //         container: 'map',
-        //         center: [-118.2437, 34.0522], // Default to LA if no coordinates
-        //         zoom: 13
-        //       });
-        //     } else {
-        //       console.warn('Map element not found');
-        //     }
-        //   }
-        // };
+      businessHours(mapData);
     mapElement.addEventListener("load", async () => {
       try {
-        const mapData = await map.initMap({
+        const mapData = await businessHours({
             container: "map",
             center: coordinates,
             zoom: 13,
@@ -892,8 +875,8 @@ export const mapNearby = {
 document.addEventListener("DOMContentLoaded", () => {
   const mapContainer = document.getElementById("map-container");
   if (mapContainer) {
-    mapContainer.innerHTML = mapNearby.render();
-    mapNearby.afterRender();
+    mapContainer.innerHTML = mapRadiusComponent.render();
+    mapRadiusComponent.afterRender();
   }
 });
 
