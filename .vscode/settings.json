@@ -1,3 +1,4 @@
 {
-    "npm-scripts.showStartNotification": false
+    "npm-scripts.showStartNotification": false,
+    "deepseek.apiKey": "sk-9ba6509ccb104a35ba18b2dac0081bae"
 }
