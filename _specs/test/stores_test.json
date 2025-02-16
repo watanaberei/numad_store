@@ -1,0 +1,31 @@
+{
+  "timestamp": "2025-02-16T14:05:32.495Z",
+  "count": 1,
+  "samples": [
+    {
+      "title": "ca_orange-county_fullerton_dripp",
+      "slug": "ca_orange-county_fullerton_dripp",
+      "sys": {
+        "id": "4UZPT2Mep08UD0qtlij3In"
+      },
+      "location": {
+        "type": "Store",
+        "geolocation": {
+          "lat": 33.87442,
+          "lon": -117.923
+        },
+        "address": "500 N Harbor Blvd Ste B Fox Fullerton Theater Fullerton, CA 92832",
+        "region": "Downtown Fullerton",
+        "locatedIn": null
+      },
+      "media": {
+        "hero": "https://images.ctfassets.net/i1hcb4885ci0/414PyCkpIcYo03GrOdtIfO/faa05ad8a5d7cb1deda762c7a2842c4f/ca-cerritos-cerritosSouthwest-smokingTigerBreadFactory-media-hero.png",
+        "thumbnail": "https://images.ctfassets.net/i1hcb4885ci0/10wMLFwpYNkNdytoJSVxJL/4e9df5d166b56b20c2edfe8da073b903/ca-cerritos-cerritosSouthwest-smokingTigerBreadFactory-media-thumbnail.png"
+      },
+      "category": {
+        "categoryType": "Work",
+        "genre": "Coffee Shop"
+      }
+    }
+  ]
+}
