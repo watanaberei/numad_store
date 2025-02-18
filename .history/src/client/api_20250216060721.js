@@ -1,5 +1,4 @@
 // src/services/api.js
-// const API_URL = 'http://localhost:4000';
 
 
 // // API for blog
@@ -17,33 +16,26 @@
 // // export default client; // Add this line to export the client object
 
 // Change the import statement for contentful
-// import pkg from 'contentful';
-// const { createClient } = pkg;
+// src/client/api.js
 import { createClient } from 'contentful';
-
-const client = createClient({
-  space: 'i1hcb4885ci0',
-  accessToken: 'Bcy-B6Lvepv3RLYinX-rY9x4KDpxJcv8_IH0PgF6odw'
-});
-
-// Rest of your imports
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import { documentToPlainTextString } from "@contentful/rich-text-plain-text-renderer";
+import { resolveApiPath } from './utils/paths.js';
+import { handleError } from './utils/errors.js';
+
+
+// // Rest of your imports
+// import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+// import { documentToPlainTextString } from "@contentful/rich-text-plain-text-renderer";
 
 
 
 
 
-// const client = createClient({
-//   space: "i1hcb4885ci0",
-//   accessToken: "Bcy-B6Lvepv3RLYinX-rY9x4KDpxJcv8_IH0PgF6odw",
-// });
-
-
-
-
-const CONTENTFUL_SPACE_ID = 'i1hcb4885ci0';
-const CONTENTFUL_ACCESS_TOKEN = 'Bcy-B6Lvepv3RLYinX-rY9x4KDpxJcv8_IH0PgF6odw';
+const client = createClient({
+  space: "i1hcb4885ci0",
+  accessToken: "Bcy-B6Lvepv3RLYinX-rY9x4KDpxJcv8_IH0PgF6odw",
+});
 const API_URL = 'http://localhost:4000';
 
 // title,
@@ -57,173 +49,414 @@ const API_URL = 'http://localhost:4000';
 // },
 // snippet: { text: snippet },
 // tag,
-
-
-// Contentful data fetching
-export const getStore = async (limit = 100, skip = 0) => {
+export async function getStore(limit = 1, collectionLimit = 6, skip = 0) {
   try {
     const query = `
-    {
-      appFastFoodHomePage031523Collection(limit: ${limit}, skip: ${skip}) {
+    query {
+      storesCollection(limit: ${limit}, skip: ${skip}) {
         items {
           sys {
             id
-            createdAt
           }
           title
+          headline {
+            ... on Headline {
+              text
+              subtext
+              eyebrow
+            }
+          }
           slug
-          featured
-          section
-          overview
-          introduction
-          details
-          authorName
-          categoryType
-          genre
-          tag
-          metatag
-          featuredImage {
-            url
+          attributes {
+            experiences
+            services
+            facility
+            location
+          }
+          storeAttributes
+          category {
+            categoryType
+            genre
           }
           location {
-            lat
-            lon
-            city
-            area
-            attribute {
-              title
-              description
-              icon
+            ... on ContentTypeLocation {
+              type
+              geolocation {
+                lat
+                lon
+              }
+              address
+              region
+              locatedIn
+              
             }
           }
-          hero {
-            title
-            description
-            media {
-              url
+          featured
+          media {
+            ... on Media {
+              logo {
+                url
+              }
+              hero {
+                url
+              }
+              thumbnail {
+                url
+              }
+              galleryCollection {
+                items {
+                  url
+                }
+              }
+              serviceCollection {
+                items {
+                  url
+                  description
+                }
+              }
+              areaCollection {
+                items {
+                  url
+                  description
+                }
+              }
+              areaCollection {
+                items {
+                  url
+                  description
+                }
+              }
             }
           }
-          service {
-            header
-            text
-            category {
+          snippet {
+            ... on Snippet {
               title
-              description
-              icon
-            }
-            footer {
-              contributionsCount
-              modifiedDate
-              modifiedTime
+              text {
+                json
+              }
+              overview
+              foundations
+              experience
+              facility  
+              service
+              location
+              hours
             }
           }
-          experience {
-            header
-            text
-            area {
-              title
-              description
-              icon
-            }
-            attribute {
-              title
-              description
-              icon
-            }
-            footer {
-              contributionsCount
-              modifiedDate
-              modifiedTime
+          storeNickname
+          hours
+          storeWebsite
+          storeChain
+          storeChainStoresCollection {
+            ... on StoresStoreChainStoresCollection {
+              items {
+                handles
+              }
             }
           }
-          business {
-            hours {
-              day
-              open
-              close
+          nearbyStoresCollection {
+            ... on StoresNearbyStoresCollection {
+              items {
+                headline
+                hours
+                logo {
+                  logo {
+                    url
+                  }
+                }
+                hours
+                locationCollection(limit: 3, skip: 0) {
+                  ... on SubstoresLocationCollection {
+                    items {
+                      type
+                      geolocation {
+                        lat
+                        lon
+                      }
+                      address
+                      region
+                    }
+                  }
+                }
+              }
             }
-            attribute {
+          } 
+          neustar
+          googleRatings
+          yelpRatings
+          storeRatings
+          recommendation
+          overviewTitle
+          content {
+            ... on Content {
               title
-              description
-              icon
+              overview {
+                json
+              }
+            }
+          }
+          summary {
+            ... on Summary {
+              text
+              facility
+              overview
+              details
+              bestFor
+              noiseLevel
+              environment
+              parking
+              neustar
+              experience
+              foundation
+              service
+            }
+          }
+          popularTimes
+          storeServices
+          handles
+          contact
+          tagsCollection {
+            items {
+              tags
+              metatag
+              serviceTags
+              attributeTags
+              accessibilityTags
+              offeringTags
+              storeTags
+              environmentTags
+              reviewTags
+              locationTags
             }
           }
         }
       }
-    }`;
+    }
+    
+      `;
+      
 
     const response = await fetch(
-      `https://graphql.contentful.com/content/v1/spaces/${CONTENTFUL_SPACE_ID}`,
+      "https://graphql.contentful.com/content/v1/spaces/i1hcb4885ci0?access_token=Bcy-B6Lvepv3RLYinX-rY9x4KDpxJcv8_IH0PgF6odw&locale=*",
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${CONTENTFUL_ACCESS_TOKEN}`,
         },
         body: JSON.stringify({ query }),
       }
     );
 
     const json = await response.json();
-    
+
     if (json.errors) {
-      console.error("GraphQL errors:", json.errors);
-      return null;
+      console.error("stores GraphQL errors:", json.errors);
     }
 
-    // Transform the data into the format expected by components
-    const storeData = json.data.appFastFoodHomePage031523Collection.items.map(item => ({
-      id: item.sys.id,
-      createdAt: item.sys.createdAt,
-      title: item.title,
-      slug: item.slug,
-      featured: item.featured,
-      section: item.section,
-      overview: {
-        text: item.overview,
-        introduction: item.introduction,
-      },
-      location: {
-        coordinates: {
-          lat: item.location?.lat,
-          lon: item.location?.lon
-        },
-        city: item.location?.city,
-        area: item.location?.area,
-        attribute: item.location?.attribute
-      },
-      hero: {
-        title: item.hero?.title,
-        description: item.hero?.description,
-        media: item.hero?.media
-      },
-      service: {
-        header: item.service?.header,
-        text: item.service?.text,
-        category: item.service?.category,
-        footer: item.service?.footer
-      },
-      experience: {
-        header: item.experience?.header,
-        text: item.experience?.text,
-        area: item.experience?.area,
-        attribute: item.experience?.attribute,
-        footer: item.experience?.footer
-      },
-      business: {
-        hours: item.business?.hours,
-        attribute: item.business?.attribute
-      }
-    }));
+    if (!json.data) {
+      return []; // Return an empty array if no data is found
+    }
 
-    return storeData;
-  } catch (error) {
-    console.error("Error fetching store data:", error);
+    const stores = json.data.storesCollection.items;
+    // console.log("stores", stores);
+
+    const data = stores.map((stores) => {
+      return {
+        ...stores,
+        // title: stores?.title,
+        // headline: stores?.headline,
+        publishedAt: stores?.sys?.publishedAt,
+        headline: {
+          text: stores?.headline?.text,
+          subtext: stores?.headline?.subtext,
+          eyebrow: stores?.headline?.eyebrow,
+        },
+        storeNickname: stores?.storeNickName,
+        slug: stores?.slug,
+        attributes: stores?.attributes,
+        featured: stores?.featured,
+        category: {
+          categoryType: stores?.category?.categoryType,
+          genre: stores?.category?.genre,
+        },
+        series: {
+          seriesName: stores?.series?.seriesName,
+        },
+        // sys: {
+        //   id: stores?.sys?.id,
+        // },
+        location: {
+          type: stores?.location?.type,
+          geolocation: {
+            lat: stores?.location?.geolocation?.lat,
+            lon: stores?.location?.geolocation?.lon,
+          },
+          address: stores?.location?.address,
+          region: stores?.location?.region,
+          locatedIn: stores?.location?.locatedIn,
+        },
+        hours: stores?.hours,
+        storeWebsite: stores?.storeWebsite,
+        neustar: stores?.neustar,
+        googleRatings: stores?.googleRatings,
+        yelpRatings: stores?.yelpRatings,
+        ratings: stores?.storeRatings,
+        recommendation: stores?.recommendation,
+        overviewTitle: stores?.overviewTitle,
+        content: {
+          overview: documentToHtmlString(stores?.content?.overview?.json),
+        },
+        // summary: {
+        //   text: stores?.summary,
+        // },
+        popularTimes: stores?.popularTimes,
+        storeServices: stores?.storeServices,
+        handles: stores?.handles,
+        contact: stores?.contact,
+        // storeReviewSource: stores?.storeReviewSource,
+        // area: stores?.area,
+        storeAttribute: stores?.storeAttributes,
+        snippet: {
+          title: stores?.snippet?.title,
+          text: documentToHtmlString(stores?.snippet?.text?.json),
+          overview: stores?.snippet?.overview,
+          foundations: stores?.snippet?.foundations,
+          facility: stores?.snippet?.facility,
+          experience: stores?.snippet?.experience,
+          service: stores?.snippet?.service,
+          location: stores?.snippet?.location,
+          hours: stores?.snippet?.hours,
+        },
+        media: {
+          logo: stores?.media?.logo?.url,
+          hero: stores?.media?.hero?.url,
+          thumbnail: stores?.media?.thumbnail?.url,
+          gallery: stores?.media?.galleryCollection?.items.map((item) => ({
+            url: item?.url,
+            description: item?.description,
+          })),
+          service: stores?.media?.serviceCollection?.items.map(
+            (item) => ({
+              url: item?.url,
+              description: item?.description,
+            })
+          ),
+          area: stores?.media?.areaCollection?.items.map((item) => ({
+            url: item?.url,
+            description: item?.description,
+          })),
+          arrangement: stores?.media?.arrangementCollection?.items.map((item) => ({
+            url: item?.url,
+            description: item?.description,
+          })),         
+        },
+
+        nearbyStore: stores?.nearbyStoresCollection?.items.map((item) => ({
+              nearbyHeadline: item?.headline,
+              nearbyHours: item?.hours,
+              nearbyLogo: item?.logo?.logo?.url,
+              nearbyLocation: {
+                nearbyLocationType: item?.location?.type,
+                nearbyLocationAddress: item?.location?.address,
+                nearbyLocationGeolocation: {
+                  nearbyLocationGeolocationLat: item?.location?.geolocation?.lat,
+                  nearbyLocationGeolocationLon: item?.location?.geolocation?.lon,
+                },
+              nearbyLocationRegion: item?.location?.region,
+            },
+          }),
+        ),
+
+        
+        summary: {
+          text: stores?.summary?.text,
+          facility: stores?.summary?.facility,
+          details: stores?.summary?.details,
+          overview: stores?.summary?.overview,
+          best: stores?.summary?.bestFor,
+          experience: stores?.summary?.experience,
+          service: stores?.summary?.service,
+          foundation: stores?.summary?.foundation,
+          noise: stores?.summary?.noiseLevel,
+          parking: stores?.summary?.parking,
+          environment: stores?.summary?.environment,
+        },
+        overviewTitle: stores?.overviewTitle,
+        overview: {
+          type: stores?.content?.type,
+          text: documentToHtmlString(stores?.content?.overview?.json),
+        },
+        // overviewContent: {
+        //   title: stores?.snippet?.title,
+        //   text: documentToHtmlString(stores?.snippet?.text?.json),
+        // },
+        // reference: {
+        //   relatedReferences:
+        //     stores?.reference?.relatedReferencesCollection?.items.map(
+        //       (item) => ({
+        //         title: item.title,
+        //         headline: item.headline,
+        //         section: item.section,
+        //         // media: {
+        //         //   thumbnail: item.media.thumbnail.url,
+        //         // },
+        //         overview: item.overview,
+        //         slug: item.slug,
+        //         tag: item.tag,
+        //         relatedCategory: item.category,
+        //       })
+        //     ),
+        //   suggestedReferences:
+        //     stores?.reference?.suggestedReferencesCollection?.items.map(
+        //       (item) => ({
+        //         title: item.title,
+        //         section: item.section,
+        //         // media: {
+        //         //   thumbnail: item.media.thumbnail.url,
+        //         // },
+        //         overview: item.overview,
+        //         slug: item.slug,
+        //         tag: item.tag,
+        //       })
+        //     ),
+        //   similarReferences:
+        //     stores?.reference?.similarReferencesCollection?.items.map(
+        //       (item) => ({
+        //         title: item.title,
+        //         section: item.section,
+        //         // media: {
+        //         //   thumbnail: item.media.thumbnail.url,
+        //         // },
+        //         overview: item.overview,
+        //         slug: item.slug,
+        //         tag: item.tag,
+        //       })
+        //     ),
+        // },
+        tag: stores?.tagsCollection?.items.map((item) => ({
+          tags: item?.tags,
+          tagMetatag: item?.metatag,
+          serviceTags: item?.serviceTags,
+          attributeTags: item?.attributeTags,
+          accessibilityTags: item?.accessibilityTags,
+          offeringTags: item?.offeringTags,
+          storeTags: item?.storeTags,
+          environmentTags: item?.environmentTags,
+          reviewTags: item?.reviewTags,
+          locationTags: item?.locationTags,
+        })),
+      };
+    });
+    documentToPlainTextString(getStore);
+    // console.log("Data for getStore data:", data);
+    // console.log("Data for getStore:", getStore);
+    return data;
+  } catch (err) {
+    console.error(err);
+    // You can decide what to return in case of error, perhaps null or an empty array
     return null;
   }
-};
-
-
+}
 
 export async function getArticleNeumadsTrail(limit = 6, skip = 0) {
   try {
@@ -1149,428 +1382,6 @@ export const getStoresNeumadsReview = async (limit = 9, skip = 0) => {
   }
 };
 
-// export const getStoresNeumadsReview = async (limit = 9, skip = 0) => {
-//   try {
-//     const query = `
-//     query {
-//       storesNeumadsReviewCollection(limit: ${limit}, skip: ${skip}) {
-//         items {
-//           sys {
-//             id
-//           }
-//           title
-//           location {
-//             ... on ContentTypeLocation {
-//               type
-//               geolocation {
-//                 lat
-//                 lng
-//               }
-//               address
-//               region
-//             }
-//           }
-//           featured
-//           store{
-//             ... on Stores {
-//               storeName
-//               storeNickname
-//               hours
-//               storeWebsite
-//               storeChain
-//               storeChainStoresCollection{
-//                 items{
-//                   storeName
-//                   storeNickname
-//                   hours
-//                   storeWebsite
-//                 }
-//               }
-//               neustar
-//               storeRating
-//               storeRatingsCount
-//               storeReviewOverview
-//               handles
-//               contact
-//               storeReviewSource
-//               storeBio {
-//                 title
-//                 introduction {
-//                   json
-//                 }
-//                 body {
-//                   json
-//                 }
-//                 conclusion {
-//                   json
-//                 }
-//                 postscript {
-//                   json
-//                 }
-//               }
-//               storeTagsCollection {
-//                 items {
-//                   tags
-//                   metatag
-//                 }
-//               }
-//             }
-//           }
-//           headline {
-//             text
-//             eyebrow
-//           }
-//           slug
-//           featured
-//           category {
-//             category
-//           }
-//           series {
-//             seriesName
-//           }
-//           author {
-//             ... on Author {  # Use the correct type for author entries
-//               social
-//               authorPseudonym
-//               slug
-//               media {
-//                 ... on Media {
-//                 	thumbnail {
-//                   	url
-//                 	}
-//                   hero {
-//                   	url
-//                   }
-//                 }
-//               }
-//               authorBio {
-//                 ... on  ContentDefault{
-//               	 	title
-//                   introduction {
-//                     json
-//                   }
-//                   body {
-//                     json
-//                   }
-//                   conclusion {
-//                     json
-//                   }
-//                   postscript {
-//                     json
-//                   }
-//                 }
-//             	}
-//               authorSnippet {
-//                 ... on SnippetDefault {
-//                   title
-// 									subtext
-//                 }
-//               }
-//             }
-//           }
-//           media {
-//             ... on Media {
-//               title
-//               hero {
-//                 url
-//               }
-//               thumbnail {
-//                 url
-//               }
-//               galleryCollection {
-//                 items {
-//                   url
-//                 }
-//               }
-//             }
-//           }
-//           snippet {
-//             ... on Snippet {
-//               title
-//               text {
-//                 json
-//               }
-//             }
-//           }
-//           summary {
-//             ... on Summary {
-//               text
-//             }
-//           }
-//           content {
-//             ... on Content {
-//               introduction {
-//                 json
-//               }
-//               type
-//               stores{
-//                 json
-//               }
-//               body {
-//                 json
-//               }
-//               bodyCurrated
-//               bodyTable
-//               conclusion {
-//                 json
-//               }
-//             }
-//           }
-//           attributes {
-//             amenities
-//             offers
-//           }
-//           postscript {
-//             ... on Postscript {
-//               text {
-//                 json
-//               }
-//             }
-//           }
-//           reference {
-//             ... on ReferenceDefault {
-//               relatedReferencesCollection(limit: 6) {
-//                 items {
-//                   ... on AppFastFoodHomePage031523 {
-//                     title
-//                     slug
-//                   }
-//                 }
-//               }
-//               suggestedReferencesCollection(limit: 6) {
-//                 items {
-//                   ... on AppFastFoodHomePage031523 {
-//                     title
-//                     slug
-//                   }
-//                 }
-//               }
-//               similarReferencesCollection(limit: 6) {
-//                 items {
-//                   ... on AppFastFoodHomePage031523 {
-//                     title
-//                     slug
-//                   }
-//                 }
-//               }
-//             }
-//           }
-//           tagsCollection {
-//             items {
-//               tags
-//               metatag
-//             }
-//           }
-//         }
-//       }
-//     }
-
-//       `;
-//     const response = await fetch(
-//       "https://graphql.contentful.com/content/v1/spaces/i1hcb4885ci0?access_token=Bcy-B6Lvepv3RLYinX-rY9x4KDpxJcv8_IH0PgF6odw&locale=*",
-//       {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({ query }),
-//       }
-//     );
-
-//     const json = await response.json();
-
-//     if (json.errors) {
-//       console.error("articleNeumadsTrail GraphQL errors:", json.errors);
-//     }
-
-//     if (!json.data) {
-//       return []; // Return an empty array if no data is found
-//     }
-
-//     const stores = json.data.storesNeumadsReviewCollection.items;
-// // console.log("store", stores);
-
-//     const data = stores.map((stores) => {
-//       return {
-//         ...stores,
-//         title: stores?.title,
-//         location: {
-//           type: stores?.location?.type,
-//           geolocation: {
-//             lat: stores?.location?.geolocation?.lat,
-//             lng: stores?.location?.geolocation?.long,
-//           },
-//           address: stores?.location?.address,
-//           region: stores?.location?.region,
-//         },
-//         slug: stores?.slug,
-//         featured: stores?.featured,
-//         store: {
-//           storeName: stores?.store?.storeName,
-//           storeNickname: stores?.store?.storeNickname,
-//           hours: stores?.store?.hours,
-//           storeWebsite: stores?.store?.storeWebsite,
-//           storeChain: stores?.store?.storeChain,
-//           storeChainStoresCollection:
-//             stores?.store?.storeChainStoresCollection?.items.map((item) => ({
-//               storeName: item?.storeName,
-//               storeNickname: item?.storeNickname,
-//               hours: item?.hours,
-//               storeWebsite: item?.storeWebsite,
-//               storeGeolocation: {
-//                 lat: item?.storeGeolocation?.lat,
-//                 lng: item?.storeGeolocation?.lng,
-//               },
-//               storeAddress: item?.storeAddress,
-//               storeChain: item?.storeChain,
-//               storeChainStoresCollection:
-//                 item?.storeChainStoresCollection?.items.map((item) => ({
-//                   storeName: item?.storeName,
-//                   storeNickname: item?.storeNickname,
-//                   hours: item?.hours,
-//                   storeWebsite: item?.storeWebsite,
-//                 })),
-//               neustar: item?.neustar,
-//               storeRating: item?.storeRating,
-//               storeRatingsCount: item?.storeRatingsCount,
-//               storeReviewOverview: item?.storeReviewOverview,
-//               handles: item?.handles,
-//               contact: item?.contact,
-//               storeReviewSource: item?.storeReviewSource,
-//               storeBio: {
-//                 title: item?.storeBio?.title,
-//                 introduction: item?.storeBio?.introduction?.json,
-//                 body: item?.storeBio?.body?.json,
-//                 conclusion: item?.storeBio?.conclusion?.json,
-//                 postscript: item?.storeBio?.postscript?.json,
-//               },
-//               storeTagsCollection: item?.storeTagsCollection?.items.map(
-//                 (item) => ({
-//                   tags: item?.tags,
-//                   metatag: item?.metatag,
-//                 })
-//               ),
-//             })),
-//         },
-//         headline: {
-//           text: stores?.headline?.text,
-//           slug: stores?.headline?.slug,
-//         },
-//         categories: {
-//           category: stores?.category?.category,
-//         },
-//         series: {
-//           seriesName: stores?.series?.seriesName,
-//         },
-//         author: {
-//           name: stores?.author?.authorPseudonym,
-//           media: {
-//             thumbnail : stores?.author?.media?.thumbnail?.url,
-//             hero : stores?.author?.media?.hero?.url,
-//           },
-//           slug: stores?.author?.slug,
-//           social: stores?.author?.social,
-//           authorBio: {
-//             title: stores?.author?.authorBio?.title,
-//             introduction: stores?.author?.authorBio?.introduction,
-//             body: stores?.stores?.authorBio?.body,
-//             conclusion: stores?.author?.authorBio?.conclusion,
-//             postscript: stores?.author?.authorBio?.postscript,
-//           },
-//           authorSnippet: {
-//             title: stores?.author?.authorSnippet?.title,
-//             text: stores?.author?.authorSnippet?.subtext,
-//           },
-//         },
-//         media: {
-//           hero: stores?.media?.hero?.url,
-//           thumbnail: stores?.media?.thumbnail?.url,
-//           gallery: stores?.media?.galleryCollection?.items.map((item) => ({
-//             url: item?.url,
-//           })),
-//         },
-//         snippet: {
-//           title: stores?.snippet?.title,
-//           text: documentToHtmlString(stores?.snippet?.text?.json),
-//         },
-//         summary: {
-//           text: stores?.summary?.text,
-//         },
-//         content: {
-//           introduction: documentToHtmlString(stores?.content?.introduction?.json),
-//           stores: documentToHtmlString(stores?.content?.stores?.json),
-//           body: documentToHtmlString(stores?.content?.body?.json),
-//           bodyCurrated: documentToHtmlString(stores?.content?.bodyCurrated?.json),
-//           bodyTable: documentToHtmlString(stores?.content?.bodyTable?.json),
-//           conclusion: documentToHtmlString(stores?.content?.conclusion?.json),
-//         },
-//         attributes: {
-//           amentities: stores?.attributes?.amentities,
-//           offers: stores?.attributes?.offers,
-//         },
-//         postscript: {
-//           text: documentToHtmlString(stores?.postscript?.text?.json),
-//         },
-//         reference: {
-//           relatedReferences:
-//             stores?.reference?.relatedReferencesCollection?.items.map(
-//               (item) => ({
-//                 title: item.title,
-//                 headline: item.headline,
-//                 section: item.section,
-//                 // media: {
-//                 //   thumbnail: item.media.thumbnail.url,
-//                 // },
-//                 overview: item.overview,
-//                 slug: item.slug,
-//                 tag: item.tag,
-//                 relatedCategory: item.category,
-//               })
-//             ),
-//           suggestedReferences:
-//             stores?.reference?.suggestedReferencesCollection?.items.map(
-//               (item) => ({
-//                 title: item.title,
-//                 section: item.section,
-//                 // media: {
-//                 //   thumbnail: item.media.thumbnail.url,
-//                 // },
-//                 overview: item.overview,
-//                 slug: item.slug,
-//                 tag: item.tag,
-//               })
-//             ),
-//           similarReferences:
-//             stores?.reference?.similarReferencesCollection?.items.map(
-//               (item) => ({
-//                 title: item.title,
-//                 section: item.section,
-//                 // media: {
-//                 //   thumbnail: item.media.thumbnail.url,
-//                 // },
-//                 overview: item.overview,
-//                 slug: item.slug,
-//                 tag: item.tag,
-//               })
-//             ),
-//         },
-//         tag: stores?.tagsCollection?.items.map((item) => ({
-//           tags: item?.tags,
-//           metatag: item?.metatag,
-//         })),
-//       };
-//     });
-//     documentToPlainTextString(getStoresNeumadsReview);
-//     // console.log('Data for getStoresNeumadsReview data:', data);
-//     // console.log('Data for getStoresNeumadsReview:', getStoresNeumadsReview);
-//     return data;
-//   } catch (err) {
-//     console.error(err);
-//     // You can decide what to return in case of error, perhaps null or an empty array
-//     return null;
-//   }
-// };
-
 export const getArticlePost = async (limit = 9, skip = 0) => {
   try {
     const query = `
@@ -2008,981 +1819,6 @@ export const getArticlePost = async (limit = 9, skip = 0) => {
     return null;
   }
 };
-
-// getAllBlogs
-// export const getAllBlogs = async (limit = 9, skip = 0) => {
-//   try {
-
-//     const articleData = await getArticleNeumadsTrail(limit, skip);
-//     const storeData = await getStoresNeumadsReview(limit, skip);
-//     const blogs = [...articleData, ...storeData];
-
-//     // const stores = json.data.storesNeumadsReviewCollection.items;
-//     // // console.log("store", stores);
-//     console.log("blogs  !!", blogs);
-//     const item = blogs.data.items;
-
-//     console.log("item", item);
-
-//     // const data = [...articleData, ...storeData].map((item) => ({
-//     const data = blogs.map((item) => {
-//         return {
-//       title: item.title,
-//       slug: item.slug,
-//       featured: item.featured,
-//       headline: item.headline.text,
-//       type: item.location.type,
-//       lat: item.location.geolocation.lat,
-//       lng: item.location.geolocation.lng,
-//       address: item.location.address,
-//       region: item.location.region,
-//       snippet: documentToPlainTextString(item.snippet.text),
-//       summary: documentToPlainTextString(item.summary.text),
-//       thumbnail: item.media.thumbnail.url,
-//       gallery: item.media.gallery.map((galleryItem) => galleryItem.url),
-//       hero: item.media.hero.url,
-//       introduction: documentToHtmlString(item.content.introduction),
-//       body: documentToHtmlString(item.content.body),
-//       conclusion: documentToHtmlString(item.content.conclusion),
-//       relatedReferences: item.references.relatedReferences.map(
-//         (ref) => ref.title
-//       ),
-//       suggestedReferences: item.references.suggestedReferences.map(
-//         (ref) => ref.title
-//       ),
-//       similarReferences: item.references.similarReferences.map(
-//         (ref) => ref.title
-//       ),
-//       postscript: documentToHtmlString(item.postscript.text),
-//       tags: item.tags.map((tagItem) => tagItem.tags),
-//       metatag: item.tags.map((tagItem) => tagItem.metatag),
-//       };
-//     });
-//     console.log("all blogs",blogsdata);
-//     // documentToPlainTextString(getAllBlogs);
-//     // console.log('Data for getStoresNeumadsReview data:', data);
-//     // console.log('Data for getStoresNeumadsReview:', getStoresNeumadsReview);
-//     return data;
-//   } catch (err) {
-//     console.error(err);
-//     // You can decide what to return in case of error, perhaps null or an empty array
-//     return null;
-//   }
-// };
-
-// src/api.js
-const API = {
-  fetchLocationDetails: async (input, token) => {
-    try {
-      const response = await fetch(
-        `https://api.foursquare.com/v2/venues/search?near=${input}&v=20210501&limit=5&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&sessionToken=${token}`,
-        { method: "GET" }
-      );
-
-      const json = await response.json();
-
-      if (json.errors) {
-        console.error("API errors:", json.errors);
-      }
-
-      if (!json.response) {
-        return []; // Return an empty array if no data is found
-      }
-
-      const venues = json.response.venues;
-
-      const data = venues.map((venue) => {
-        // Implement your data transformation logic here
-      });
-
-      // console.log('Data:', data);
-      return data;
-    } catch (err) {
-      console.error(err);
-      return null;
-    }
-  },
-};
-
-export default API;
-
-
-// export const getBlogs = async (limit = 9, skip = 0) => {
-//   try {
-//     // Pagination
-//     const response = await client.getEntries({
-//       content_type: "appFastFoodHomePage031523",
-//       limit,
-//       skip,
-//     });
-//     // console.log("blog response" + response);
-//     let blogs = response.items;
-//     console.log("blogs" + blogs);
-//     blogs = blogs.map((item) => {
-//       const { id, createdAt } = item.sys;
-//       const { title, featured, slug } = item.fields;
-//       const type = item.fields.location.fields.type;
-//       const lat = item.fields.location.fields.geolocation.lat;
-//       const lng = item.fields.location.fields.geolocation.lng;
-//       const address = item.fields.location.fields.address;
-//       const thumbnail = item.fields.media.fields.thumbnail.fields.file.url;
-//       const snippet = item.fields.snippet.fields.text.json;
-//       const headline = item.fields.headline.fields.text;
-//       const category = item.fields.category.fields.category;
-
-//       return {
-//         id,
-//         title,
-//         featured,
-//         type,
-//         headline,
-//         category,
-//         seriesName,
-//         snippet,
-//         thumbnail,
-//         lat,
-//         lng,
-//         address,
-//         snippet,
-
-//       };
-//     });
-//     console.log('Data for getAllBlogs:', getBlogs);
-//     documentToPlainTextString(getBlogs);
-//     return blogs;
-//   } catch (err) {
-//     console.log(err);
-//   }
-
-// };
-
-// export const getAllBlogs = async (limit = 9, skip = 0) => {
-//   try {
-//     const query = `
-//     query {
-//       appFastFoodHomePage031523Collection(where: {featured: false}, limit: 3, skip: 0) {
-//         items {
-//           title
-//           location {
-//             ... on ContentTypeLocation {
-//               type
-//               geolocation {
-//                 lat
-//                 lng
-//               }
-//               address
-//               region
-//             }
-//           }
-//           featured
-//           headline {
-//             text
-//             eyebrow
-//           }
-//           slug
-//           featured
-//           category {
-//             category
-//           }
-//           series {
-//             seriesName
-//           }
-//           author {
-//             authorName
-//             authorPseudonym
-//             authorPicture {
-//               url
-//             }
-//             slug
-//           }
-//           media {
-//             ... on Media {
-//               title
-//               hero {
-//                 url
-//               }
-//               thumbnail {
-//                 url
-//               }
-//               galleryCollection {
-//                 items {
-//                   url
-//                 }
-//               }
-//             }
-//           }
-//           snippet {
-//             ... on Snippet {
-//               title
-//               text {
-//                 json
-//               }
-//             }
-//           }
-//           summary {
-//             ... on Summary {
-//               text
-//             }
-//           }
-//           content {
-//             ... on Content {
-//               introduction {
-//                 json
-//               }
-//               body {
-//                 json
-//               }
-//               conclusion {
-//                 json
-//               }
-//             }
-//           }
-//           postscript {
-//             ... on Postscript {
-//               text {
-//                 json
-//               }
-//             }
-//           }
-//           reference {
-//             ... on ReferenceDefault {
-//               relatedReferencesCollection(limit: 3) {
-//                 items {
-//                   ... on AppFastFoodHomePage031523 {
-//                     title
-//                     category {
-//                       category
-//                     }
-//                     series {
-//                       seriesName
-//                     }
-//                     media {
-//                       ... on Media {
-//                         thumbnail {
-//                           url
-//                         }
-//                       }
-//                     }
-//                     slug
-//                     snippet {
-//                       ... on Snippet {
-//                         title
-//                         text {
-//                           json
-//                         }
-//                       }
-//                     }
-//                     tagsCollection {
-//                       items {
-//                         tags
-//                         metatag
-//                       }
-//                     }
-//                   }
-//                 }
-//               }
-//               suggestedReferencesCollection(limit: 3) {
-//                 items {
-//                   ... on AppFastFoodHomePage031523 {
-//                     title
-//                     category {
-//                       category
-//                     }
-//                     series {
-//                       seriesName
-//                     }
-//                     media {
-//                       ... on Media {
-//                         thumbnail {
-//                           url
-//                         }
-//                       }
-//                     }
-//                     slug
-//                     snippet {
-//                       ... on Snippet {
-//                         title
-//                         text {
-//                           json
-//                         }
-//                       }
-//                     }
-//                     tagsCollection {
-//                       items {
-//                         tags
-//                         metatag
-//                       }
-//                     }
-//                   }
-//                 }
-//               }
-//               similarReferencesCollection(limit: 3) {
-//                 items {
-//                   ... on AppFastFoodHomePage031523 {
-//                     title
-//                     category {
-//                       category
-//                     }
-//                     series {
-//                       seriesName
-//                     }
-//                     media {
-//                       ... on Media {
-//                         thumbnail {
-//                           url
-//                         }
-//                       }
-//                     }
-//                     slug
-//                     snippet {
-//                       ... on Snippet {
-//                         title
-//                         text {
-//                           json
-//                         }
-//                       }
-//                     }
-//                     tagsCollection {
-//                       items {
-//                         tags
-//                         metatag
-//                       }
-//                     }
-//                   }
-//                 }
-//               }
-//             }
-//           }
-//         }
-//       }
-//     }
-//     `;
-//     const response = await fetch(
-//       "https://graphql.contentful.com/content/v1/spaces/i1hcb4885ci0?access_token=Bcy-B6Lvepv3RLYinX-rY9x4KDpxJcv8_IH0PgF6odw&locale=*",
-//       {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({ query }),
-//       }
-//     );
-
-//     const json = await response.json();
-//     // console.log('getNonFeaturedBlog JSON:', json); // Debugging information
-
-//     if (json.errors) {
-//       console.error("getNonFeaturedBlog GraphQL errors:", json.errors);
-//     }
-//     if (!json.data || !json.data.appFastFoodHomePage031523Collection) {
-//       return []; // Return an empty array if no data is found
-//     }
-
-//     // const blogs = json.data.appFastFoodHomePage031523Collection.items;
-//     // const articles = json.data.articleNeumadsTrailCollection.items;
-
-//     // const blogs = json.data.appFastFoodHomePage031523Collection.items;
-//     // const articles = json.data.articleNeumadsTrailCollection.items;
-//     // // console.log("store", stores)
-
-//     // const data = blogs.map((blogs, articles) => {
-//     //   return {
-//   const data = blogs.map((blogs) => {
-//     return {
-//       ...blogs,
-//       title: blogs?.title,
-//       location: {
-//         type: blogs?.location?.type,
-//         geolocation: {
-//           lat: blogs?.location?.geolocation?.lat,
-//           lng: blogs?.location?.geolocation?.lng,
-//         },
-//         address: blogs?.location?.address,
-//         region: blogs?.location?.region,
-//       },
-//       slug: blogs?.slug,
-//       featured: blogs?.featured,
-//       headline: {
-//         text: blogs?.headline?.text,
-//         slug: blogs?.headline?.slug,
-//       },
-//       category: {
-//         category: blogs?.category?.category,
-//       },
-//       series: {
-//         seriesName: blogs?.series?.seriesName,
-//       },
-//       author: {
-//         name: blogs?.author?.authorPseudonym,
-//         picture: blogs?.author?.authorPicture?.url,
-//         slug: blogs?.author?.slug,
-//       },
-//       media: {
-//         hero: blogs?.media?.hero?.url,
-//         thumbnail: blogs?.media?.thumbnail?.url,
-//         gallery: blogs?.media?.galleryCollection?.items.map(item => ({
-//           url: item?.url,
-//         })),
-//       },
-//       snippet: {
-//         title: blogs?.snippet?.title,
-//         text: documentToHtmlString(blogs?.snippet?.text?.json),
-//       },
-//       summary: {
-//         text: blogs?.summary?.text,
-//       },
-//       content: {
-//         introduction: documentToHtmlString(blogs?.content?.introduction?.json),
-//         body: documentToHtmlString(blogs?.content?.body?.json),
-//         conclusion: documentToHtmlString(blogs?.content?.conclusion?.json),
-//       },
-//       attributes: {
-//         amentities: blogs?.attributes?.amentities,
-//         offers: blogs?.attributes?.offers,
-//       },
-//       postscript: {
-//         text: documentToHtmlString(blogs?.postscript?.text?.json),
-//       },
-//       references: {
-//         relatedReferences: blogs?.reference?.relatedReferencesCollection?.items.map(item => ({
-//           title: item.title,headline: item.headline,
-//           section: item.section,
-//           // media: {
-//           //   thumbnail: item.media.thumbnail.url,
-//           // },
-//           overview: item.overview,
-//           slug: item.slug,
-//           tag: item.tag,
-//           category: item.category,
-//         })),
-//         suggestedReferences: blogs?.reference?.suggestedReferencesCollection?.items.map(item => ({
-//           title: item.title,
-//           section: item.section,
-//           // media: {
-//           //   thumbnail: item.media.thumbnail.url,
-//           // },
-//           overview: item.overview,
-//           slug: item.slug,
-//           tag: item.tag,
-//         })),
-//         similarReferences: blogs?.reference?.similarReferencesCollection?.items.map(item => ({
-//           title: item.title,
-//           section: item.section,
-//           // media: {
-//           //   thumbnail: item.media.thumbnail.url,
-//           // },
-//           overview: item.overview,
-//           slug: item.slug,
-//           tag: item.tag,
-//         })),
-//       },
-//       tag: blogs?.tagsCollection?.items.map(item => ({
-//         tags: item?.tags,
-//         metatag: item?.metatag,
-//       })),
-//     };
-//   });
-//   documentToPlainTextString(getAllBlogs);
-//   console.log('Data for getStoresNeumadsReview data:', data);
-//   console.log('Data for getStoresNeumadsReview:', getStoresNeumadsReview);
-//   return data;
-// } catch (err) {
-//   console.error(err);
-//   // You can decide what to return in case of error, perhaps null or an empty array
-//   return null;
-// }
-// };
-
-// export const getAllPosts = async (limit = 9, skip = 0) => {
-//   try {
-//     const query = `
-//     query {
-//       appFastFoodHomePage031523Collection(where: {featured: false}, limit: 3, skip: 0) {
-//         items {
-//           title
-//           location {
-//             ... on ContentTypeLocation {
-//               type
-//               geolocation {
-//                 lat
-//                 lng
-//               }
-//               address
-//               region
-//             }
-//           }
-//           featured
-//           headline {
-//             text
-//             eyebrow
-//           }
-//           slug
-//           featured
-//           category {
-//             category
-//           }
-//           series {
-//             seriesName
-//           }
-//           author {
-//             authorName
-//             authorPseudonym
-//             authorPicture {
-//               url
-//             }
-//             slug
-//           }
-//           media {
-//             ... on Media {
-//               title
-//               hero {
-//                 url
-//               }
-//               thumbnail {
-//                 url
-//               }
-//               galleryCollection {
-//                 items {
-//                   url
-//                 }
-//               }
-//             }
-//           }
-//           snippet {
-//             ... on Snippet {
-//               title
-//               text {
-//                 json
-//               }
-//             }
-//           }
-//           summary {
-//             ... on Summary {
-//               text
-//             }
-//           }
-//           content {
-//             ... on Content {
-//               introduction {
-//                 json
-//               }
-//               body {
-//                 json
-//               }
-//               conclusion {
-//                 json
-//               }
-//             }
-//           }
-//           postscript {
-//             ... on Postscript {
-//               text {
-//                 json
-//               }
-//             }
-//           }
-//           reference {
-//             ... on ReferenceDefault {
-//               relatedReferencesCollection(limit: 3) {
-//                 items {
-//                   ... on AppFastFoodHomePage031523 {
-//                     title
-//                     category {
-//                       category
-//                     }
-//                     series {
-//                       seriesName
-//                     }
-//                     media {
-//                       ... on Media {
-//                         thumbnail {
-//                           url
-//                         }
-//                       }
-//                     }
-//                     slug
-//                     snippet {
-//                       ... on Snippet {
-//                         title
-//                         text {
-//                           json
-//                         }
-//                       }
-//                     }
-//                     tagsCollection {
-//                       items {
-//                         tags
-//                         metatag
-//                       }
-//                     }
-//                   }
-//                 }
-//               }
-//               suggestedReferencesCollection(limit: 3) {
-//                 items {
-//                   ... on AppFastFoodHomePage031523 {
-//                     title
-//                     category {
-//                       category
-//                     }
-//                     series {
-//                       seriesName
-//                     }
-//                     media {
-//                       ... on Media {
-//                         thumbnail {
-//                           url
-//                         }
-//                       }
-//                     }
-//                     slug
-//                     snippet {
-//                       ... on Snippet {
-//                         title
-//                         text {
-//                           json
-//                         }
-//                       }
-//                     }
-//                     tagsCollection {
-//                       items {
-//                         tags
-//                         metatag
-//                       }
-//                     }
-//                   }
-//                 }
-//               }
-//               similarReferencesCollection(limit: 3) {
-//                 items {
-//                   ... on AppFastFoodHomePage031523 {
-//                     title
-//                     category {
-//                       category
-//                     }
-//                     series {
-//                       seriesName
-//                     }
-//                     media {
-//                       ... on Media {
-//                         thumbnail {
-//                           url
-//                         }
-//                       }
-//                     }
-//                     slug
-//                     snippet {
-//                       ... on Snippet {
-//                         title
-//                         text {
-//                           json
-//                         }
-//                       }
-//                     }
-//                     tagsCollection {
-//                       items {
-//                         tags
-//                         metatag
-//                       }
-//                     }
-//                   }
-//                 }
-//               }
-//             }
-//           }
-//         }
-//       }
-//     }
-//     `;
-//     const response = await fetch(
-//       "https://graphql.contentful.com/content/v1/spaces/i1hcb4885ci0?access_token=Bcy-B6Lvepv3RLYinX-rY9x4KDpxJcv8_IH0PgF6odw&locale=*",
-//       {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({ query }),
-//       }
-//     );
-
-//     const json = await response.json();
-//     // console.log('getNonFeaturedBlog JSON:', json); // Debugging information
-
-//     if (json.errors) {
-//       console.error("getNonFeaturedBlog GraphQL errors:", json.errors);
-//     }
-//     if (!json.data || !json.data.appFastFoodHomePage031523Collection) {
-//       return []; // Return an empty array if no data is found
-//     }
-
-//     // const blogs = json.data.appFastFoodHomePage031523Collection.items;
-//     // const articles = json.data.articleNeumadsTrailCollection.items;
-
-//     const blogs = json.data.appFastFoodHomePage031523Collection.items;
-//     const articles = json.data.articleNeumadsTrailCollection.items;
-//     // console.log("store", stores)
-
-//     // const data = blogs.map((blogs, articles) => {
-//     //   return {
-//     const data = {
-//       title: blogs.map((item) => item.title).concat(articles.map((item) => item.title)),
-//       headline: blogs.map((item) => item.headline.text).concat(articles.map((item) => item.headline.text)),
-//       slug: blogs.map((item) => item.slug).concat(articles.map((item) => item.slug)),
-//       featured: blogs.map((item) => item.featured).concat(articles.map((item) => item.featured)),
-//       type: blogs.map((item) => item.location.type).concat(articles.map((item) => item.location.type)),
-//       lat: blogs.map((item) => item.location.geolocation.lat).concat(articles.map((item) => item.location.geolocation.lat)),
-//       lng: blogs.map((item) => item.location.geolocation.lng).concat(articles.map((item) => item.location.geolocation.lng)),
-//       address: blogs.map((item) => item.location.address).concat(articles.map((item) => item.location.address)),
-//       region: blogs.map((item) => item.location.region).concat(articles.map((item) => item.location.region)),
-//       snippet: blogs.map((item) => item.location.region).concat(articles.map((item) => item.location.region)),
-//       summary: blogs.map((item) => item.location.region).concat(articles.map((item) => item.location.region)),
-//     };
-//     // documentToPlainTextString(appFastFoodHomePage031523Collection, articleNeumadsTrailCollection);
-//     // documentToPlainTextString(appFastFoodHomePage031523Collection);
-//     // documentToPlainTextString(articleNeumadsTrailCollection);
-
-//     // console.log('Data for getStoresNeumadsReview data:', data);
-//     console.log('Data for getAllBlogs:', data);
-//     return data;
-//   } catch (err) {
-//     console.error(err);
-//     // You can decide what to return in case of error, perhaps null or an empty array
-//     return null;
-//   }
-// };
-
-//     console.log('Data for getAllBlogs:', getAllBlogs);
-//     documentToPlainTextString(getAllBlogs);
-//     // console.log('Data for getStoresNeumadsReview data:', data);
-//     // console.log('Data for getStoresNeumadsReview:', getStoresNeumadsReview);
-//     return data;
-//   } catch (err) {
-//     console.error(err);
-//     // You can decide what to return in case of error, perhaps null or an empty array
-//     return null;
-//   }
-// };
-
-// const response = await fetch(
-//   "https://graphql.contentful.com/content/v1/spaces/i1hcb4885ci0?access_token=Bcy-B6Lvepv3RLYinX-rY9x4KDpxJcv8_IH0PgF6odw&locale=*",
-//   {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify({ query }),
-//   }
-// );
-// const json = await response.json();
-// console.log('getAllBlogs JSON:', json); // Debugging information
-
-// if (json.errors) {
-//   console.error("getAllBlogs GraphQL errors:", json.errors);
-// }
-
-// if (!json.data) {
-//   return []; // Return an empty array if no data is found
-// }
-// const blogs = json.data.appFastFoodHomePage031523Collection.items;
-// // console.log("store", blogs)
-//   const data = blogs.map((blogs) => {
-//   return {
-//     ...blogs,
-//     title: blogs?.title,
-//     location: {
-//       type: blogs?.location?.type,
-//       geolocation: {
-//         lat: blogs?.location?.geolocation?.lat,
-//         lng: blogs?.location?.geolocation?.lng,
-//       },
-//       address: blogs?.location?.address,
-//       region: blogs?.location?.region,
-//     },
-//     slug: blogs?.slug,
-//     featured: blogs?.featured,
-//     store: {
-//       storeName: blogs?.store?.storeName,
-//       storeNickname: blogs?.store?.storeNickname,
-//       hours: blogs?.store?.hours,
-//       storeWebsite: blogs?.store?.storeWebsite,
-//       storeGeolocation: {
-//         lat: blogs?.store?.storeGeolocation?.lat,
-//         lng: blogs?.store?.storeGeolocation?.lng,
-//       },
-//       storeAddress: {
-//         lat: blogs?.store?.storeAddress?.lat,
-//         lng: blogs?.store?.storeAddress?.lng,
-//       },
-//       storeChain: blogs?.store?.storeChain,
-//       storeChainStoresCollection: blogs?.store?.storeChainStoresCollection?.items.map(item => ({
-//         storeName: item?.storeName,
-//         storeNickname: item?.storeNickname,
-//         hours: item?.hours,
-//         storeWebsite: item?.storeWebsite,
-//         storeGeolocation: {
-//           lat: item?.storeGeolocation?.lat,
-//           lng: item?.storeGeolocation?.lng,
-//         },
-//         storeAddress: item?.storeAddress,
-//         storeChain: item?.storeChain,
-//         storeChainStoresCollection: item?.storeChainStoresCollection?.items.map(item => ({
-//           storeName: item?.storeName,
-//           storeNickname: item?.storeNickname,
-//           hours: item?.hours,
-//           storeWebsite: item?.storeWebsite,
-//         })),
-//         neustar: item?.neustar,
-//         storeRating: item?.storeRating,
-//         storeRatingsCount: item?.storeRatingsCount,
-//         storeReviewOverview: item?.storeReviewOverview,
-//         handles: item?.handles,
-//         contact: item?.contact,
-//         storeReviewSource: item?.storeReviewSource,
-//         storeBio: {
-//           title: item?.storeBio?.title,
-//           introduction: item?.storeBio?.introduction?.json,
-//           body: item?.storeBio?.body?.json,
-//           conclusion: item?.storeBio?.conclusion?.json,
-//           postscript: item?.storeBio?.postscript?.json,
-//         },
-//         storeTagsCollection: item?.storeTagsCollection?.items.map(item => ({
-//           tags: item?.tags,
-//           metatag: item?.metatag,
-//         })),
-//       })),
-//     },
-//     headline: {
-//       text: blogs?.headline?.text,
-//       slug: blogs?.headline?.slug,
-//     },
-//     category: {
-//       category: blogs?.category?.category,
-//     },
-//     series: {
-//       seriesName: blogs?.series?.seriesName,
-//     },
-//     author: {
-//       name: blogs?.author?.authorPseudonym,
-//       picture: blogs?.author?.authorPicture?.url,
-//       slug: blogs?.author?.slug,
-//     },
-//     media: {
-//       hero: blogs?.media?.hero?.url,
-//       thumbnail: blogs?.media?.thumbnail?.url,
-//       gallery: blogs?.media?.galleryCollection?.items.map(item => ({
-//         url: item?.url,
-//       })),
-//     },
-//     snippet: {
-//       title: blogs?.snippet?.title,
-//       text: documentToHtmlString(blogs?.snippet?.text?.json),
-//     },
-//     summary: {
-//       text: blogs?.summary?.text,
-//     },
-//     content: {
-//       introduction: documentToHtmlString(blogs?.content?.introduction?.json),
-//       body: documentToHtmlString(blogs?.content?.body?.json),
-//       conclusion: documentToHtmlString(blogs?.content?.conclusion?.json),
-//     },
-//     attributes: {
-//       amentities: blogs?.attributes?.amentities,
-//       offers: blogs?.attributes?.offers,
-//     },
-//     postscript: {
-//       text: documentToHtmlString(blogs?.postscript?.text?.json),
-//     },
-//     references: {
-//       relatedReferences: blogs?.reference?.relatedReferencesCollection?.items.map(item => ({
-//         title: item.title,headline: item.headline,
-//         section: item.section,
-//         // media: {
-//         //   thumbnail: item.media.thumbnail.url,
-//         // },
-//         overview: item.overview,
-//         slug: item.slug,
-//         tag: item.tag,
-//         category: item.category,
-//       })),
-//       suggestedReferences: blogs?.reference?.suggestedReferencesCollection?.items.map(item => ({
-//         title: item.title,
-//         section: item.section,
-//         // media: {
-//         //   thumbnail: item.media.thumbnail.url,
-//         // },
-//         overview: item.overview,
-//         slug: item.slug,
-//         tag: item.tag,
-//       })),
-//       similarReferences: blogs?.reference?.similarReferencesCollection?.items.map(item => ({
-//         title: item.title,
-//         section: item.section,
-//         // media: {
-//         //   thumbnail: item.media.thumbnail.url,
-//         // },
-//         overview: item.overview,
-//         slug: item.slug,
-//         tag: item.tag,
-//       })),
-//     },
-//     tag: blogs?.tagsCollection?.items.map(item => ({
-//       tags: item?.tags,
-//       metatag: item?.metatag,
-//     })),
-//   };
-// });
-// documentToPlainTextString(getAllBlogs);
-// console.log('Data for getStoresNeumadsReview data:', data);
-// console.log('Data for getStoresNeumadsReview:', getStoresNeumadsReview);
-//   return data;
-// } catch (err) {
-//   console.error(err);
-//   // You can decide what to return in case of error, perhaps null or an empty array
-//   return null;
-// }
-// };
-
-//     const response = await fetch(
-//       "https://graphql.contentful.com/content/v1/spaces/i1hcb4885ci0?access_token=Bcy-B6Lvepv3RLYinX-rY9x4KDpxJcv8_IH0PgF6odw&locale=*",
-//       {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({ query }),
-//       }
-//     );
-
-//     const json = await response.json();
-//     // console.log('getNonFeaturedBlog JSON:', json); // Debugging information
-
-//     if (json.errors) {
-//       console.error("getNonFeaturedBlog GraphQL errors:", json.errors);
-//     }
-//     if (!json.data || !json.data.appFastFoodHomePage031523Collection) {
-//       return []; // Return an empty array if no data is found
-//     }
-
-//     const appFastFoodItems = json.data.appFastFoodHomePage031523Collection.items;
-//     const articleNeumadsItems = json.data.articleNeumadsTrailCollection.items;
-
-//     // const data = {
-//     //   title: appFastFoodItems.map((item) => item.title).concat(articleNeumadsItems.map((item) => item.title)),
-//     //   headline: appFastFoodItems.map((item) => item.headline.text).concat(articleNeumadsItems.map((item) => item.headline.text)),
-//     //   category: appFastFoodItems.map((item) => item.category).concat(articleNeumadsItems.map((item) => item.category)),
-//     //   featured: appFastFoodItems.map((item) => item.featured).concat(articleNeumadsItems.map((item) => item.featured)),
-//     //   subtext: appFastFoodItems.map((item) => item.overview).concat(articleNeumadsItems.map((item) => item.subtext)),
-//     //   thumbnail: appFastFoodItems.map((item) => item.thumbnail.url).concat(articleNeumadsItems.map((item) => item.thumbnail.url)),
-//     //   slug: appFastFoodItems.map((item) => item.slug).concat(articleNeumadsItems.map((item) => item.slug)),
-//     //   section: appFastFoodItems.map((item) => item.section).concat(articleNeumadsItems.map((item) => item.section)),
-//     // };
-
-//     console.log('Nonfeatured data:', data);
-//     return data;
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
 
 export const getFeaturedBlog = async (limit = 6, skip = 1) => {
   try {
@@ -4027,5 +2863,29 @@ export const sendImpression = async (storeId, action) => {
     throw error;
   }
 };
+
+export const interactWithStore = async (storeId, action) => {
+  const token = localStorage.getItem('accessToken');
+  if (!token) {
+    throw new Error('Must be logged in');
+  }
+
+  const response = await fetch(`/api/stores/${storeId}/interact`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify({ action })
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message);
+  }
+
+  return response.json();
+};
+
 
 // export default API;
