@@ -1,4 +1,7 @@
 {
     "npm-scripts.showStartNotification": false,
-    "deepseek.apiKey": "sk-9ba6509ccb104a35ba18b2dac0081bae"
+    "deepseek.apiKey": "sk-9ba6509ccb104a35ba18b2dac0081bae",
+    "chatgpt-helper.model": "gpt-4",
+    "notebook.experimental.generate": false,
+    "workbench.preferredHighContrastColorTheme": "Cursor Dark"
 }

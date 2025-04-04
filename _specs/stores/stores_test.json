@@ -1,0 +1,53 @@
+{
+  "sys": {
+    "id": "test-1742597975912"
+  },
+  "storeChainStoresCollection": {
+    "items": []
+  },
+  "attributes": {
+    "experiences": []
+  },
+  "location": {
+    "geolocation": {
+      "lat": 0,
+      "lon": 0
+    },
+    "type": "Store",
+    "address": "",
+    "region": "",
+    "locatedIn": null
+  },
+  "media": {
+    "gallery": [],
+    "service": [],
+    "area": []
+  },
+  "interactions": {
+    "likes": 0,
+    "dislikes": 0,
+    "checkins": 0,
+    "likedBy": [],
+    "dislikedBy": [],
+    "checkedInBy": []
+  },
+  "_id": "67dcb1f8680b364646d3ef6f",
+  "title": "Test Store",
+  "slug": "test-store",
+  "isValidated": false,
+  "storeAttributes": [],
+  "hours": [],
+  "storeWebsite": [],
+  "googleRatings": [],
+  "yelpRatings": [],
+  "storeRatings": [],
+  "recommendation": [],
+  "popularTimes": [],
+  "storeServices": [],
+  "handles": [],
+  "contact": [],
+  "validations": [],
+  "createdAt": "2025-03-21T00:25:28.010Z",
+  "updatedAt": "2025-03-21T22:59:35.914Z",
+  "__v": 0
+}

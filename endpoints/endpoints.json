@@ -1,0 +1,22 @@
+[
+  {
+    "method": "POST",
+    "path": "/stores/sync/:slug",
+    "description": "Sync store data by slug"
+  },
+  {
+    "method": "GET",
+    "path": "/stores/:slug",
+    "description": "Get store by slug"
+  },
+  {
+    "method": "GET",
+    "path": "/stores",
+    "description": "Get all stores"
+  },
+  {
+    "method": "POST",
+    "path": "/stores/:storeId/interact",
+    "description": "Interact with store (like, dislike, etc.)"
+  }
+]

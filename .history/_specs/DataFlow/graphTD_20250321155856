@@ -1,0 +1,9 @@
+graph TD
+    A[DataPost.js] --> B[api.js]
+    B --> C[Contentful API]
+    C --> D[data.js]
+    D --> E[yelp.js]
+    E --> F[yelpApi.js]
+    F --> G[yelpClient.js]
+    G --> H[Yelp API]
+    D --> I[StoreScreen.js]
