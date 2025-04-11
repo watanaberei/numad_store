@@ -78,7 +78,9 @@
     "sweetalert2": "^11.0.20",
     "tls-browserify": "^0.2.2",
     "util": "^0.12.5",
-    "vm-browserify": "^1.1.2"
+    "vm-browserify": "^1.1.2",
+    "yelp": "^1.0.2",
+    "yelp-fusion": "^3.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.23.5",
