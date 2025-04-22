@@ -12,7 +12,7 @@ import * as attrtag from "./tags/attrtag.js";
 import * as array from "./array/array.js";
 import { getStatsScore } from "./function/function.js";
 // import { businessHours } from "./map/map.js";
-import * as cards from "./cards/card.js";
+import * as cards from "./cards/cards.js";
 import * as text from "./text/text.js";
 import * as sidebar from "./sidebar/sidebar.js";
 // Add to your imports at the top of components.js

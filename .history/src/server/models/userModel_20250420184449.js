@@ -36,11 +36,10 @@ const UserSchema = new Schema(
       default: []
     },
     // Simple check-in tracking
-    checkedInStore: {
-      type: String,
-      default: null,
-      unique: true
-    },
+    // checkedInStore: {
+    //   type: String,
+    //   default: null
+    // },
     // Keep the more detailed checkedInStores array for historical data
     checkedInStores: [
       {

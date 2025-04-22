@@ -1,0 +1,101 @@
+{
+    "checkedInStore": "ca_los-angeles_long-beach_the-library",
+    "checkedInStores": [
+        {
+            "storeId": "ca_orange-county_costa-mesa_huskins-coffee",
+            "impression": null,
+            "checkedInAt": "2025-04-15T04:49:17.809Z",
+            "_id": "67fde54d55b2a900c5468438"
+        },
+        {
+            "storeId": "ca_orange-county_costa-mesa_huskins-coffee",
+            "impression": null,
+            "checkedInAt": "2025-04-15T04:49:25.386Z",
+            "_id": "67fde55555b2a900c546843f"
+        },
+        {
+            "storeId": "ca_orange-county_costa-mesa_huskins-coffee",
+            "impression": null,
+            "checkedInAt": "2025-04-15T05:05:17.096Z",
+            "_id": "67fde90da46d607cf21ed675"
+        },
+        {
+            "storeId": "ca_orange-county_costa-mesa_huskins-coffee",
+            "impression": null,
+            "checkedInAt": "2025-04-15T05:05:22.202Z",
+            "_id": "67fde912a46d607cf21ed680"
+        },
+        {
+            "storeId": "ca_orange-county_costa-mesa_huskins-coffee",
+            "impression": null,
+            "checkedInAt": "2025-04-15T05:06:24.029Z",
+            "_id": "67fde950a46d607cf21ed7dc"
+        },
+        {
+            "storeId": "ca_orange-county_fullerton_dripp",
+            "impression": null,
+            "checkedInAt": "2025-04-15T08:45:36.993Z",
+            "_id": "67fe1cb08858dec0ec3b63af"
+        },
+        {
+            "storeId": "ca_orange-county_fullerton_dripp",
+            "impression": null,
+            "checkedInAt": "2025-04-15T08:52:13.519Z",
+            "_id": "67fe1e3d159dc320af8d385d"
+        },
+        {
+            "storeId": "ca_orange-county_fullerton_dripp",
+            "impression": null,
+            "checkedInAt": "2025-04-15T09:20:07.356Z",
+            "_id": "67fe24c703c27cfc1010ffb3"
+        },
+        {
+            "storeId": "ca_orange-county_fullerton_dripp",
+            "impression": null,
+            "checkedInAt": "2025-04-15T09:20:10.511Z",
+            "_id": "67fe24ca03c27cfc1010ffdb"
+        },
+        {
+            "storeId": "ca_orange-county_fullerton_dripp",
+            "impression": null,
+            "checkedInAt": "2025-04-15T09:25:34.647Z",
+            "_id": "67fe260e36531d8fb041fbdd"
+        },
+        {
+            "storeId": "ca_orange-county_fullerton_dripp",
+            "impression": null,
+            "checkedInAt": "2025-04-15T09:34:31.082Z",
+            "_id": "67fe2827546f5a76b6cd4ae4"
+        },
+        {
+            "storeId": "ca_orange-county_fullerton_dripp",
+            "impression": null,
+            "checkedInAt": "2025-04-15T09:41:07.730Z",
+            "_id": "67fe29b3215afc14fdc829b2"
+        },
+        {
+            "storeId": "ca_orange-county_fullerton_dripp",
+            "impression": null,
+            "checkedInAt": "2025-04-15T11:33:42.487Z",
+            "_id": "67fe44161dc7d2d4c97e682e"
+        },
+        {
+            "storeId": "ca_orange-county_costa-mesa_moongoat-coffee",
+            "impression": null,
+            "checkedInAt": "2025-04-18T04:13:13.079Z",
+            "_id": "6801d1593a172b8ba031fae5"
+        },
+        {
+            "storeId": "ca_orange-county_costa-mesa_moongoat-coffee",
+            "impression": null,
+            "checkedInAt": "2025-04-18T04:13:25.630Z",
+            "_id": "6801d1653a172b8ba031fb61"
+        },
+        {
+            "storeId": "ca_los-angeles_long-beach_the-library",
+            "impression": null,
+            "checkedInAt": "2025-04-19T03:50:54.442Z",
+            "_id": "68031d9e976332fe086c170e"
+        }
+    ]
+}

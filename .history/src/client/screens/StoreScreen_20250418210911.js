@@ -1544,15 +1544,7 @@ window.storeActions = {
     // const impressionButton = document.getElementById(`userImpressions${type}`);
     const otherType = type === "like" ? "dislike" : "like";
     const otherButton = document.getElementById(`userImpressions${otherType}`);
-    const isActive = impressionButton.classList.contains("active");
-    // const impressionButton = document.querySelector(
-    //   `.impression-button.${type}`
-    // );
-    // const otherType = type === "like" ? "dislike" : "like";
-    // const otherButton = document.querySelector(
-    //   `.impression-button.${otherType}`
-    // );
-    
+
     if (!impressionButton) {
       console.error(`Impression button #userImpressions${type} not found`);
       return;
@@ -1600,14 +1592,14 @@ window.storeActions = {
     }
 
     // Get the current state
-    // const isActive = impressionButton.classList.contains("active");
-    // const impressionButton = document.querySelector(
-    //   `.impression-button.${type}`
-    // );
-    // const otherType = type === "like" ? "dislike" : "like";
-    // const otherButton = document.querySelector(
-    //   `.impression-button.${otherType}`
-    // );
+    const isActive = impressionButton.classList.contains("active");
+    const impressionButton = document.querySelector(
+      `.impression-button.${type}`
+    );
+    const otherType = type === "like" ? "dislike" : "like";
+    const otherButton = document.querySelector(
+      `.impression-button.${otherType}`
+    );
 
   //   // Optimistic UI update
   //   if (impressionButton.classList.contains("active")) {

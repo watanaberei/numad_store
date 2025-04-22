@@ -52,8 +52,7 @@ app.post('/signup', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({ email, password: hashedPassword });
     await newUser.save();
-    // const accessToken = jwt.sign({ email: newUser.email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
-    const accessToken = jwt.sign({ email: newUser.email }, process.env.ACCESS_TOKEN_SECRET);
+    const accessToken = jwt.sign({ email: newUser.email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
     const refreshToken = jwt.sign({ email: newUser.email }, process.env.REFRESH_TOKEN_SECRET);
     refreshTokens.push(refreshToken);
     res.status(201).json({ accessToken, refreshToken });
@@ -246,24 +245,22 @@ app.get('/user', authenticateToken, async (req, res) => {
 });
 
 app.get('/api/user', authenticateToken, async (req, res) => {
-    try {
+  try {
     const user = await UserModel.findOne({ email: req.user.email });
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
     res.json({
-      // userData: {
-        // totalLikes: user.likedStore.length,
-        // totalDislikes: user.dislikedStore.length,
-        checkedInStore: user.checkedInStore,
-        checkedInStores: user.checkedInStores,
-        // savedStores: user.savedStores,
-        // visitHistory: user.visitHistory,
-        // likedStores: user.likedStores,
-        // dislikedStores: user.dislikedStores,
-        // impressionsLiked: user.impressionsLiked,
-        // impressionsDisliked: user.impressionsDisliked
-      // }
+      totalLikes: user.likedStore.length,
+      totalDislikes: user.dislikedStore.length,
+      checkedInStore: user.checkedInStore,
+      checkedInStores: user.checkedInStores,
+      savedStores: user.savedStores,
+      visitHistory: user.visitHistory,
+      likedStores: user.likedStores,
+      dislikedStores: user.dislikedStores,
+      impressionsLiked: user.impressionsLiked,
+      impressionsDisliked: user.impressionsDisliked
     });
   } catch (error) {
     console.error('Error fetching user data:', error);
@@ -277,17 +274,19 @@ app.get('/api/user/checkedIn', authenticateToken, async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
-    res.json({
-      checkedInStore: user.checkedInStore
-    });
+    res.json(user.checkedInStore);
   } catch (error) {
     console.error('Error fetching checked-in stores:', error);
     res.status(500).json({ message: 'Server error' });
   }
 });
 
+
 // Store check-in endpoint
-app.post('/api/user/store', authenticateToken, async (req, res) => {
+// Add this endpoint to authServer.js
+
+// Store check-in endpoint
+app.post('/api/store/checkin', authenticateToken, async (req, res) => {
   const { storeId, action } = req.body;
   const userEmail = req.user.email;
   
@@ -300,13 +299,11 @@ app.post('/api/user/store', authenticateToken, async (req, res) => {
       return res.status(404).json({ success: false, message: 'User not found' });
     }
     
-    // Fetch up to 6 most recent checked-in stores
-    const recentCheckedInStores = user.checkedInStores.slice(-6).reverse();
-    const storeIds = recentCheckedInStores.map(store => store.storeId);
-    console.log('[authServer.js.api/user/store] Store:', storeIds);
-
-    // Find stores matching the recent check-ins
-    const stores = await StoreModel.find({ slug: { $in: storeIds } }).limit(6);
+    // Try to find the store first
+    let store = await StoreModel.findOne({ slug: storeId });
+    
+    // If store doesn't exist, don't try to create it (skip that part)
+    // Just update the user's checked-in status
     
     // Handle check-in logic
     if (action === 'checkin') {
@@ -325,15 +322,12 @@ app.post('/api/user/store', authenticateToken, async (req, res) => {
         timestamp: new Date()
       });
       
-      // Find the current store in the fetched stores
-      const currentStore = stores.find(store => store.slug === storeId);
-      
       // Only update store if it exists
-      if (currentStore) {
+      if (store) {
         // Update the store's checkin count if interactions field exists
-        if (currentStore.interactions) {
-          currentStore.interactions.checkins = (currentStore.interactions.checkins || 0) + 1;
-          await currentStore.save();
+        if (store.interactions) {
+          store.interactions.checkins = (store.interactions.checkins || 0) + 1;
+          await store.save();
         }
       }
       
@@ -347,26 +341,10 @@ app.post('/api/user/store', authenticateToken, async (req, res) => {
       });
       
       console.log(`[authServer] User ${userEmail} checked in to store ${storeId}`);
-
-      // Fetch store data for the checked-in store
-      const storeData = await StoreModel.findOne({ slug: storeId });
-      const storeInfo = storeData ? {
-        storeName: storeData.hero.storeName,
-        city: storeData.hero.city,
-        state: storeData.hero.state,
-        distance: storeData.hero.distance,
-        status: storeData.hero.status,
-        gallery: storeData.hero.gallery,
-        storeType: storeData.hero.storeType,
-        rating: storeData.hero.rating,
-        review_count: storeData.hero.review_count
-      } : null;
-
       return res.status(200).json({ 
         success: true, 
         message: 'Checked in successfully',
-        storeId: storeId,
-        storeInfo: storeInfo
+        storeId: storeId
       });
       
     } else if (action === 'checkout') {
@@ -397,60 +375,6 @@ app.post('/api/user/store', authenticateToken, async (req, res) => {
     return res.status(500).json({ 
       success: false, 
       message: 'Server error processing check-in request',
-      error: error.message
-    });
-  }
-});
-
-// GET endpoint to fetch store data
-app.get('/api/user/store', authenticateToken, async (req, res) => {
-  const userEmail = req.user.email;
-  
-  try {
-    // Find the user by email
-    const user = await UserModel.findOne({ email: userEmail });
-    if (!user) {
-      return res.status(404).json({ success: false, message: 'User not found' });
-    }
-    
-    // Get current check-in and recent history
-    const currentStore = user.checkedInStore;
-    const recentCheckedInStores = user.checkedInStores.slice(-6).reverse();
-    const storeIds = [...new Set([currentStore, ...recentCheckedInStores.map(store => store.storeId)])].filter(Boolean);
-    
-    console.log('[authServer.js GET /api/user/store] Fetching stores:', storeIds);
-
-    // Find stores matching the IDs
-    const stores = await StoreModel.find({ slug: { $in: storeIds } });
-    
-    // Map store data to include only necessary fields
-    const storeData = stores.map(store => ({
-      storeId: store.slug,
-      storeInfo: {
-        storeName: store.hero.storeName,
-        city: store.hero.city,
-        state: store.hero.state,
-        distance: store.hero.distance,
-        status: store.hero.status,
-        gallery: store.hero.gallery,
-        storeType: store.hero.storeType,
-        rating: store.hero.rating,
-        review_count: store.hero.review_count
-      }
-    }));
-
-    return res.status(200).json({
-      success: true,
-      currentStore: currentStore,
-      stores: storeData,
-      checkedInStores: recentCheckedInStores
-    });
-    
-  } catch (error) {
-    console.error(`[authServer] Error fetching store data:`, error);
-    return res.status(500).json({ 
-      success: false, 
-      message: 'Server error fetching store data',
       error: error.message
     });
   }

@@ -1565,7 +1565,7 @@ window.storeActions = {
       // Verify check-in status with the server
       try {
         const response = await fetch(
-          "http://localhost:4000/api/store/checkin/status",
+          "http://localhost:4000/api/user",
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("accessToken")}`

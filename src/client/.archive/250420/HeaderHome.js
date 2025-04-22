@@ -28,7 +28,6 @@ geocoder.on('result', function(e) {
 const HeaderHome = {
   render: async () => {
     try {
-      const accessToken = process.env.ACCESS_TOKEN_SECRET;
       const isAuthenticated = localStorage.getItem('accessToken') !== null;
       const userEmail = localStorage.getItem('userEmail') || '';
 

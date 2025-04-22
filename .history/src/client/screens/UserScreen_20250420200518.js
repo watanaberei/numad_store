@@ -153,91 +153,95 @@ const UserScreen = {
       }
       
       try {
-        // Fetch both user data and store data
-        const [userResponse, storeResponse] = await Promise.all([
-          fetch(`${API_URL}/api/user`, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${accessToken}`
-            }
-          }),
-          fetch(`${API_URL}/api/user/store`, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${accessToken}`
-            }
-          })
-        ]);
-
-        if (!userResponse.ok) {
-          throw new Error(`Failed to fetch user data: ${userResponse.status}`);
-        }
-        if (!storeResponse.ok) {
-          throw new Error(`Failed to fetch store data: ${storeResponse.status}`);
-        }
-
-        const [userData, storeData] = await Promise.all([
-          userResponse.json(),
-          storeResponse.json()
-        ]);
-
-        console.log('User data:', userData);
-        console.log('Store data:', storeData);
-
-        // Display currently checked-in store
-        if (userData.checkedInStore) {
-          const currentStoreData = storeData.stores.find(store => store.storeId === userData.checkedInStore);
-          if (currentStoreData) {
+        // Directly access the /user endpoint to get all user data at once
+        const response = await fetch(`${API_URL}/api/user`, {
+          headers: {
+            'Authorization': `Bearer ${accessToken}`
+          }
+        });
+        
+        if (response.ok) {
+          const userData = await response.json();
+          console.log('User data from API:', userData);
+          
+          // Check if we have a current check-in
+          const currentlyCheckedIn = userData.checkedInStore;
+          
+          // Display currently checked-in store
+          if (currentlyCheckedIn) {
             checkedInStoresContent.innerHTML = `
               <div class="store-card">
-                <h3>Currently checked into: ${currentStoreData.storeInfo.storeName}</h3>
-                <p>Location: ${currentStoreData.storeInfo.city}, ${currentStoreData.storeInfo.state}</p>
-                <p>Distance: ${currentStoreData.storeInfo.distance}</p>
-                <p>Status: ${currentStoreData.storeInfo.status}</p>
-                <p>Type: ${currentStoreData.storeInfo.storeType}</p>
-                <p>Rating: ${currentStoreData.storeInfo.rating} (${currentStoreData.storeInfo.review_count} reviews)</p>
-                ${currentStoreData.storeInfo.gallery ? `<div class="store-gallery">Gallery available</div>` : ''}
+                <h3>Currently checked into: ${currentlyCheckedIn}</h3>
               </div>
             `;
           } else {
-            checkedInStoresContent.innerHTML = '<p>Store information not available</p>';
+            checkedInStoresContent.innerHTML = '<p>Not currently checked in to any store</p>';
+          }
+          
+          // If we have access to checkedInStores history from user data, display it
+          if (userData.checkedInStores && userData.checkedInStores.length > 0) {
+            // Create a store history section
+            const historySection = document.createElement('div');
+            historySection.className = 'store-history';
+            historySection.innerHTML = '<h4>Check-in History</h4>';
+            
+            // Sort by check-in date (most recent first)
+            const sortedHistory = [...userData.checkedInStores].sort((a, b) => {
+              return new Date(b.checkedInAt) - new Date(a.checkedInAt);
+            });
+            
+            // Take last 5 entries
+            const recentHistory = sortedHistory.slice(0, 5);
+            
+            // Generate HTML for each check-in
+            const historyHTML = recentHistory.map(entry => `
+              <div class="history-item">
+                <h5>${entry.storeId}</h5>
+                <p>Checked in: ${new Date(entry.checkedInAt).toLocaleString()}</p>
+              </div>
+            `).join('');
+            
+            historySection.innerHTML += historyHTML;
+            checkedInStoresContent.appendChild(historySection);
           }
         } else {
-          checkedInStoresContent.innerHTML = '<p>Not currently checked in to any store</p>';
+          // If we can't get user data directly, try falling back to check-in status
+          console.error('Failed to fetch user data, status:', response.status);
+          
+          try {
+            const statusResponse = await fetch(`${API_URL}/api/user`, {
+              headers: {
+                'Authorization': `Bearer ${accessToken}`
+              }
+            });
+            
+            if (statusResponse.ok) {
+              const statusData = await statusResponse.json();
+              console.log('Check-in status from API:', statusData);
+              
+              if (statusData.success && statusData.checkedInStore) {
+                checkedInStoresContent.innerHTML = `
+                  <div class="store-card">
+                    <h3>Currently checked into: ${statusData.checkedInStore}</h3>
+                  </div>
+                `;
+              } else {
+                checkedInStoresContent.innerHTML = '<p>Not currently checked in to any store</p>';
+              }
+            } else {
+              console.error('Failed to fetch check-in status, status:', statusResponse.status);
+              checkedInStoresContent.innerHTML = '<p>Failed to load check-in status. Please try again later.</p>';
+            }
+          } catch (statusError) {
+            console.error('Error fetching check-in status:', statusError);
+            checkedInStoresContent.innerHTML = '<p>Error loading check-in information</p>';
+          }
         }
-
-        // Display check-in history
-        if (storeData.checkedInStores && storeData.checkedInStores.length > 0) {
-          const historySection = document.createElement('div');
-          historySection.className = 'store-history';
-          historySection.innerHTML = '<h4>Recent Check-ins</h4>';
-
-          const historyHTML = storeData.checkedInStores.map(checkIn => {
-            const storeInfo = storeData.stores.find(store => store.storeId === checkIn.storeId);
-            return `
-              <div class="history-item">
-                <h5>${storeInfo ? storeInfo.storeInfo.storeName : checkIn.storeId}</h5>
-                ${storeInfo ? `
-                  <p>Location: ${storeInfo.storeInfo.city}, ${storeInfo.storeInfo.state}</p>
-                  <p>Type: ${storeInfo.storeInfo.storeType}</p>
-                  <p>Rating: ${storeInfo.storeInfo.rating}</p>
-                ` : ''}
-                <p>Checked in: ${new Date(checkIn.checkedInAt).toLocaleString()}</p>
-              </div>
-            `;
-          }).join('');
-
-          historySection.innerHTML += historyHTML;
-          checkedInStoresContent.appendChild(historySection);
-        }
-
       } catch (error) {
-        console.error('Error fetching data:', error);
-        checkedInStoresContent.innerHTML = `<p>Error loading data: ${error.message}</p>`;
+        console.error('Error fetching user data:', error);
+        checkedInStoresContent.innerHTML = '<p>Error loading user data. Please try again later.</p>';
       }
-
+      
       // Set up event listener for the update user form
       const updateUserForm = document.getElementById('update-User-form');
       if (updateUserForm) {

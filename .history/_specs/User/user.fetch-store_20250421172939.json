@@ -1,0 +1,119 @@
+{
+    "success": true,
+    "currentStore": "ca_los-angeles_long-beach_the-library",
+    "stores": [
+        {
+            "storeId": "ca_los-angeles_long-beach_the-library",
+            "storeInfo": {
+                "storeName": "The Library",
+                "city": "Long Beach",
+                "state": "CA",
+                "distance": "3.3mi",
+                "status": "Open",
+                "gallery": [
+                    "https://s3-media3.fl.yelpcdn.com/bphoto/BCqOL2b83Op1MiQfIlAiag/o.jpg"
+                ],
+                "storeType": [
+                    {
+                        "alias": "coffee",
+                        "title": "Coffee & Tea"
+                    }
+                ],
+                "rating": 3.8,
+                "review_count": 846
+            }
+        },
+        {
+            "storeId": "ca_orange-county_costa-mesa_moongoat-coffee",
+            "storeInfo": {
+                "storeName": "MoonGoat Coffee Roasters",
+                "city": "Costa Mesa",
+                "state": "CA",
+                "distance": "3.3mi",
+                "status": "Open",
+                "gallery": [
+                    "https://s3-media4.fl.yelpcdn.com/bphoto/A0vCKzKOydtbTghgs_rdqw/o.jpg"
+                ],
+                "storeType": [
+                    {
+                        "alias": "coffeeroasteries",
+                        "title": "Coffee Roasteries"
+                    },
+                    {
+                        "alias": "coffee",
+                        "title": "Coffee & Tea"
+                    },
+                    {
+                        "alias": "cafes",
+                        "title": "Cafes"
+                    }
+                ],
+                "rating": 4.3,
+                "review_count": 778
+            }
+        },
+        {
+            "storeId": "ca_orange-county_fullerton_dripp",
+            "storeInfo": {
+                "storeName": "Smoking Tiger Bread Factory",
+                "city": "Cerritos",
+                "state": "CA",
+                "distance": "3.3mi",
+                "status": "Open",
+                "gallery": [
+                    "https://s3-media1.fl.yelpcdn.com/bphoto/pMMRXM4rs7lf_Z_LjVgJTw/o.jpg"
+                ],
+                "storeType": [
+                    {
+                        "alias": "coffee",
+                        "title": "Coffee & Tea"
+                    },
+                    {
+                        "alias": "bakeries",
+                        "title": "Bakeries"
+                    }
+                ],
+                "rating": 4.1,
+                "review_count": 399
+            }
+        }
+    ],
+    "checkedInStores": [
+        {
+            "storeId": "ca_los-angeles_long-beach_the-library",
+            "impression": null,
+            "checkedInAt": "2025-04-19T03:50:54.442Z",
+            "_id": "68031d9e976332fe086c170e"
+        },
+        {
+            "storeId": "ca_orange-county_costa-mesa_moongoat-coffee",
+            "impression": null,
+            "checkedInAt": "2025-04-18T04:13:25.630Z",
+            "_id": "6801d1653a172b8ba031fb61"
+        },
+        {
+            "storeId": "ca_orange-county_costa-mesa_moongoat-coffee",
+            "impression": null,
+            "checkedInAt": "2025-04-18T04:13:13.079Z",
+            "_id": "6801d1593a172b8ba031fae5"
+        },
+        {
+            "storeId": "ca_orange-county_fullerton_dripp",
+            "impression": null,
+            "checkedInAt": "2025-04-15T11:33:42.487Z",
+            "_id": "67fe44161dc7d2d4c97e682e"
+        },
+        {
+            "storeId": "ca_orange-county_fullerton_dripp",
+            "impression": null,
+            "checkedInAt": "2025-04-15T09:41:07.730Z",
+            "_id": "67fe29b3215afc14fdc829b2"
+        },
+        {
+            "storeId": "ca_orange-county_fullerton_dripp",
+            "impression": null,
+            "checkedInAt": "2025-04-15T09:34:31.082Z",
+            "_id": "67fe2827546f5a76b6cd4ae4"
+        }
+    ]
+}
