@@ -6,7 +6,7 @@ import * as geotag from  '../tags/geotag.js';
 import * as objtag from '../tags/objtag.js';
 import * as amtag from '../tags/amtag.js';
 import * as attrtag from '../tags/attrtag.js';
-import { getStatsScore } from '../function.js';
+import { getStatsScore } from '../function/function.js';
 
 
 export const mediaImg = {
@@ -36,9 +36,10 @@ export const mediaVideo = {
 export const mediaThumbnail = {
   render: (data) => {
     // element to render a single thumbnail
-    const source = data.source;
+    // const source = data.source;
+    const source = data;
     return `
-      <div class="media-img-S media container">
+      <div class="media-thumbnail media container">
         <img src="${source}" class="image">
       </div>
     `;
@@ -66,3 +67,9 @@ export const mediaGallery = {
     `;
   }
 };
+
+
+
+
+
+

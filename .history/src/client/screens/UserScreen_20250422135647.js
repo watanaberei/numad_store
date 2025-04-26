@@ -16,8 +16,7 @@ import polyline from '@mapbox/polyline';
 import HeaderHome from "../components/header/HeaderHome.js"; 
 import { createAuth0Client } from '@auth0/auth0-spa-js';
 import * as element from "../components/elements.js";
-import createStoreCard from "../components/cards/cardStore.js";
-import * as form from "../components/form/Form.js";
+import createStoreCard from "../components/cards/_archive/card-store.js";
 import dotenv from 'dotenv';
 
 // dotenv.config();
@@ -38,101 +37,59 @@ const UserScreen = {
     const header = element.header;
     const title = element.title;
     const titleCounter = element.titleCounter;
-
-    const formField = form.formField;
     
     // The rest of the render function doesn't need to fetch data
     // We'll do all API calls in the after_render function to avoid blocking the initial render
 
     return `
       <!------ User SCREEN ------> 
-      <div class="main col05">
-
-
-
-
-        <!----------- USER DETAILS ----------->
-      
-        <div class="col02 profile-container">
-          <div id="profile-details">
-          </div>
-          <span class="text02 medium">
-          User details
-          </span>
-          <div id="user-User" class="details">
-            <fieldset class="step-hide">
-              <div class="title">
-                <span class="header06">
-                  Finish signing up
-                </span>
-              </div>
-              <div class="form-container">
-                  <form id="update-User-form">
-                  <input type="text" id="firstName" placeholder="First Name" required />
-                  <input type="text" id="lastName" placeholder="Last Name" required />
-                  <input type="date" id="birthdate" placeholder="Birthdate" required />
-                  <button type="submit">Update User</button>
-                  </form>
-              </div>
-            </fieldset>
-          </div>
-          <a href="/signup" class="text02 medium">Make a new account</a>
-        </div>
-
-        <!----------- USER DETAILS ----------->
-
-
-
-
-
-        <!----------- User CONTENT ----------->
-
-        <div class="col03 auth-container activity-detail">
-            <div class="col03 activity-container">
+      <div class="main grid05">
+        <!------ User CONTENT ------> 
+        <div class="col03 auth-container signup-detail">
+            <div class="signup-container">
               <!------ HERO ------> 
-              <section class="col03 activity">
+              <section class="signup-hero">
               
-                  <!---- HEADLINE  
-                  <div class="activity-headline">
-                  ---->
+                  <!---- HEADLINE ----> 
+                  <div class="signup-headline">
 
                       <!------ User HEADER ------>
-                      <div class="col03 activity-header">
+                      <div class="signup-header">
 
                           <!------ HEADLINE ------>
-                          <div class="activity-headline">
+                          <div class="signup-headline">
 
                             <!----------- CHECKED IN STORES ----------->
-                            <div class="col03 container">
-                              <div id="checkedInStores" class="grid03 postStores list"> 
+                            <div class="container">
+                              <div id="checkedInStores" class="postStores list"> 
                                 ${title.render('Checked-in')}
-                                <div id="checkedInStoresContent" class="col03">
-                                  <span class="text02 medium">Loading check-in history...</span>
+                                <div id="checkedInStoresContent">
+                                  <p>Loading check-in history...</p>
                                 </div>
                               </div>
                             </div>
 
                             <!----------- VISIT HISTORY ----------->
-                            <div class="col03 container">
-                              <div id="recentlyVisited" class="grid03postStores list"> 
+                            <div class="container">
+                              <div id="recentlyVisited" class="postStores list"> 
                                 ${title.render('Recently Visited')}
-                                <div id="recentlyVisitedContent" class="col03">
-                                  <span class="text02 medium">Loading visit history...</span>
+                                <div id="recentlyVisitedContent">
+                                  <p>Loading visit history...</p>
                                 </div>
                               </div>
                             </div>
 
                             <!----------- SAVED STORES ----------->
-                            <div class="col03 container">
-                              <div id="savedStores" class="grid03 postStores list"> 
+                            <div class="container">
+                              <div id="savedStores" class="postStores list"> 
                                 ${title.render('Saved')}
-                                <div id="savedStoresContent" class="col03">
-                                  <span class="text02 medium">Loading saved stores...</span>
+                                <div id="savedStoresContent">
+                                  <p>Loading saved stores...</p>
                                 </div>
                               </div>
                             </div>
 
-                            <!--
+                            <!----------- USER DETAILS ----------->
                             <div class="form-container">
                               <span class="text02 medium">
                               User details
@@ -156,28 +113,22 @@ const UserScreen = {
                               </div>
                               <a href="/signup" class="text02 medium">Make a new account</a>
                             </div>
-                            -->
-                            
                           </div>
                           <!------ HEADLINE ------>
 
                       </div>
                       <!------ User HEADER ------>
 
-                  <!----
                   </div>
-                  HEADLINE ---->
+                  <!---- HEADLINE ---->
 
               </section>
               <!------ HERO ------>
 
             </div>
         </div>
-        
-        <!----------- User CONTENT ----------->
+        <!------ User CONTENT ------> 
 
-
-        
       </div>
       <!------ User SCREEN ------> 
       `;
@@ -191,68 +142,6 @@ const UserScreen = {
         window.location.href = '/';
         return;
       }
-      
-
-
-
-
-      // USER DETAILS
-      const profileDetails = document.getElementById('profile-details');
-
-      try {
-        const response = await fetch(`${API_URL}/profile`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${accessToken}`
-          }
-        });
-
-        const data = await response.json();
-        if (response.ok) {
-          // Update profile details display
-          if (profileDetails) {
-            profileDetails.innerHTML = `
-              <p>Email: ${data.email}</p>
-              <p>First Name: ${data.firstName || 'Not set'}</p> 
-              <p>Last Name: ${data.lastName || 'Not set'}</p>
-              <p>Birthdate: ${data.birthdate || 'Not set'}</p>
-            `;
-          }
-        } else {
-          console.error('Failed to fetch user profile:', data);
-          alert('Failed to fetch user profile: ' + (data.message || 'Unknown error'));
-        }
-      } catch (error) {
-        console.error('Error fetching user profile:', error);
-        alert('Error fetching user profile: ' + error.message);
-      }
-
-      // Commented out code for authServer.js:
-      /*
-      // In authServer.js
-      app.get('/profile', authenticateToken, async (req, res) => {
-        try {
-          const profile = await UserModel.findOne({ email: req.user.email });
-          if (!profile) {
-            return res.status(404).json({ message: 'User not found' });
-          }
-          res.json({
-            email: profile.email,
-            firstName: profile.firstName,
-            lastName: profile.lastName,
-            birthdate: profile.birthdate
-          });
-        } catch (error) {
-          res.status(500).json({ message: 'Error fetching user data' });
-        }
-      });
-      */
-
-
-
-
-      //////////////// ACTIVITY DETAILS
       
       const checkedInStoresContent = document.getElementById('checkedInStoresContent');
       const recentlyVisitedContent = document.getElementById('recentlyVisitedContent');
@@ -300,21 +189,18 @@ const UserScreen = {
         // Display currently checked-in store
         if (userData.checkedInStore) {
           const currentStoreData = storeData.stores.find(store => store.storeId === userData.checkedInStore);
-          console.log('[UserScreen.currentStoreData] Current store data:', currentStoreData);
           if (currentStoreData) {
-            const storeCardHTML = await createStoreCard.render(currentStoreData);
             checkedInStoresContent.innerHTML = `
-              <div class="grid03 current-checkin">
-                <span class="text06">Currently Checked In</span>
-                ${storeCardHTML}
+              <div class="store-card">
+                <h3>Currently checked into: ${currentStoreData.storeInfo.storeName}</h3>
+                <p>Location: ${currentStoreData.storeInfo.city}, ${currentStoreData.storeInfo.state}</p>
+                <p>Distance: ${currentStoreData.storeInfo.distance}</p>
+                <p>Status: ${currentStoreData.storeInfo.status}</p>
+                <p>Type: ${currentStoreData.storeInfo.storeType}</p>
+                <p>Rating: ${currentStoreData.storeInfo.rating} (${currentStoreData.storeInfo.review_count} reviews)</p>
+                ${currentStoreData.storeInfo.gallery ? `<div class="store-gallery">Gallery available</div>` : ''}
               </div>
             `;
-            // checkedInStoresContent.innerHTML = `
-            //   <div class="current-checkin">
-            //     <h3>Currently Checked In</h3>
-            //     ${storeCardHTML}
-            //   </div>
-            // `;
           } else {
             checkedInStoresContent.innerHTML = '<p>Store information not available</p>';
           }
@@ -325,44 +211,27 @@ const UserScreen = {
         // Display check-in history
         if (storeData.checkedInStores && storeData.checkedInStores.length > 0) {
           const historySection = document.createElement('div');
-          historySection.className = 'grid03 store-history';
-          historySection.innerHTML = '<span class="text06">Recent Check-ins</span>';
+          historySection.className = 'store-history';
+          historySection.innerHTML = '<h4>Recent Check-ins</h4>';
 
-          // const historyHTML = storeData.checkedInStores.map(checkIn => {
-          //   const storeInfo = storeData.stores.find(store => store.storeId === checkIn.storeId);
-          //   return `
-          //     <div class="history-item">
-          //       <h5>${storeInfo ? storeInfo.storeInfo.storeName : checkIn.storeId}</h5>
-          //       ${storeInfo ? `
-          //         <p>Location: ${storeInfo.storeInfo.city}, ${storeInfo.storeInfo.state}</p>
-          //         <p>Type: ${storeInfo.storeInfo.storeType}</p>
-          //         <p>Rating: ${storeInfo.storeInfo.rating}</p>
-          //       ` : ''}
-          //       <p>Checked in: ${new Date(checkIn.checkedInAt).toLocaleString()}</p>
-          //     </div>
-          //   `;
-          // }).join('');
-          // Create cards for each store in history
-          const historyCards = await Promise.all(
-            storeData.checkedInStores.map(async (checkIn) => {
-              const storeInfo = storeData.stores.find(store => store.storeId === checkIn.storeId);
-              if (storeInfo) {
-                return await createStoreCard.render(storeInfo);
-              }
-              return null;
-            })
-          );
+          const historyHTML = storeData.checkedInStores.map(checkIn => {
+            const storeInfo = storeData.stores.find(store => store.storeId === checkIn.storeId);
+            return `
+              <div class="history-item">
+                <h5>${storeInfo ? storeInfo.storeInfo.storeName : checkIn.storeId}</h5>
+                ${storeInfo ? `
+                  <p>Location: ${storeInfo.storeInfo.city}, ${storeInfo.storeInfo.state}</p>
+                  <p>Type: ${storeInfo.storeInfo.storeType}</p>
+                  <p>Rating: ${storeInfo.storeInfo.rating}</p>
+                ` : ''}
+                <p>Checked in: ${new Date(checkIn.checkedInAt).toLocaleString()}</p>
+              </div>
+            `;
+          }).join('');
 
-          // historySection.innerHTML += historyHTML;
-
-          // Filter out null values and join the cards
-          const historyHTML = historyCards.filter(Boolean).join('');
-          historySection.innerHTML += `<div class="col03 grid03 history-grid">${historyHTML}</div>`;
+          historySection.innerHTML += historyHTML;
           checkedInStoresContent.appendChild(historySection);
         }
-
-        // Initialize card effects after rendering
-        await createStoreCard.after_render();
 
       } catch (error) {
         console.error('Error fetching data:', error);

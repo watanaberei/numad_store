@@ -8,13 +8,20 @@ export const formField = {
     return `
       <div class="form-field">
         <div class="field">
-          <input
-            class="input"
-            value="fullerton, ca"
-            size="13"
-            id="detail-hours"
-            data-class="text02"
+          <input class="input" id="input-${type}" data-class="text02"
+            autocomplete='on'
+            name=${label}
+            type=${type}
+            placeholder=${placeholder}
+            ${required ? 'required' : ''}
           />
+          
+          <!--
+          <span class="input" id="detail-hours" data-class="text02">
+            fullerton, ca
+          </span>
+          -->
+
           <div class="controls">
             <div class="button">
               <div class="label">
@@ -28,40 +35,8 @@ export const formField = {
           <span class="text" data-class="text02">Location</span>
         </div>
       </div>
-      `;
-    },
-  //   return `
-  //     <div class="form-field">
-  //       <div class="field">
-  //         <input class="input" id="input-${type}" data-class="text02"
-  //           autocomplete='on'
-  //           name=${label}
-  //           type=${type}
-  //           placeholder=${placeholder}
-  //           ${required ? 'required' : ''}
-  //         />
-          
-  //         <!--
-  //         <span class="input" id="detail-hours" data-class="text02">
-  //           fullerton, ca
-  //         </span>
-  //         -->
-
-  //         <div class="controls">
-  //           <div class="button">
-  //             <div class="label">
-  //               <div class="areas">Edit</div>
-  //             </div>
-  //             <img class="icon" src="icon0.svg" />
-  //           </div>
-  //         </div>
-  //       </div>
-  //       <div class="label2">
-  //         <span class="text" data-class="text02">Location</span>
-  //       </div>
-  //     </div>
-  //   `;
-  // },
+    `;
+  },
   after_render: async () => {
     const handleSubmit = async (e) => {
       e.preventDefault();

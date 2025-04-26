@@ -1,11 +1,4 @@
-export const mediaStyle = `
-.media-gallery-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-  }
+export const media = `
 
   .media-container {
     position: relative;
@@ -102,7 +95,47 @@ export const mediaStyle = `
     border-radius: var(--s02);
   }
   `;
+
+
+  
+  export const mediaThumbnail = `
+  .media-thumbnail {
+    aspect-ratio: var(--aspect-ratio-2x2);
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+  }
+    
+  .media-thumbnail img {
+    display: grid;
+    background-size: cover;
+    background-position: center;
+    // aspect-ratio: var(--aspect-ratio-5x2);
+    gap: var(--s02);
+  }
+  `;
+
+
+
+  export const mediaGallery = `
+  .media-gallery-container {
+    border-radius: var(--r04);
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+  }
+    
+  .media-gallery {
+    display: grid;
+    aspect-ratio: var(--aspect-ratio-5x2);
+    gap: var(--s02);
+  }
+  `;
   // Apply hero styles to the document
-const media = document.createElement('style');
-media.textContent = mediaStyle;
-document.head.appendChild(media);
+const mediaStyle = document.createElement('style');
+mediaStyle.textContent = media + mediaGallery + mediaThumbnail;
+document.head.appendChild(mediaStyle);

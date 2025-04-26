@@ -47,7 +47,7 @@ const createStoreCard = {
     const storeRating = geotag.geotagRating.render(storeRatingData);
     const storeTypeComponent = geotag.geotagType.render(storeTypeData);
     // const mediaThumbnail = media.mediaThumbnail.render(gallery, 6);
-    const mediaThumbnail = media.mediaThumbnail.render(gallery[0]); // Limit to 6 images
+    const mediaThumbnail = media.mediaThumbnail.render(gallery); // Limit to 6 images
     console.log(gallery[0]);
 
     // Generate attributes pills (max 3)
@@ -64,43 +64,41 @@ const createStoreCard = {
     const attrTag = tag.attrTag.render(attrTagData);
 
     return `
-      <a href="/stores/${storeId}" class="store card col01" data-store-id="${storeId}">
-        <div class="col01 grid02 card-store" data-store-id="${storeId}">
-          <div class="col01 background media">
-            ${mediaThumbnail}
-            <div class="tag-container">
-              <div class="tag">
+      <div class="col01 card-store" data-store-id="${storeId}">
+        <div class="background media">
+          ${mediaThumbnail}
+          <div class="tag-container">
+            <div class="tag">
+              ${attrTag}
+            </div>
+          </div>
+        </div>
+        
+        <div class="gridCard col01 row01 overlay">
+          <div class="col01 row01 grid02 top primary">
+            <div class="col01 row01 pill left">
+              ${storeRating}
+            </div>
+            <div class="col01 row01 pill right">
+              ${storeTypeComponent}
+            </div>
+          </div>
+          
+          <div class="col01 row01 middle tertiary">
+            <div class="subtitle">
+              <div class="attributes">
                 ${attrTag}
               </div>
             </div>
           </div>
-          
-          <div class="col01 row01 overlay">
-            <div class="col01 row01 grid02 top primary">
-              <div class="col01 row01 pill left">
-                ${storeRating}
-              </div>
-              <div class="col01 row01 pill right">
-                ${storeTypeComponent}
-              </div>
-            </div>
-            
-            <div class="col01 row01 middle tertiary">
-              <div class="subtitle">
-                <div class="attributes">
-                  ${attrTag}
-                </div>
-              </div>
-            </div>
 
-            <div class="col01 row01 bottom secondary">
-              <div class="pill">
-                ${storeTitle}
-              </div>
+          <div class="col01 row01 bottom secondary">
+            <div class="pill">
+              ${storeTitle}
             </div>
           </div>
         </div>
-      </a>
+      </div>
     `;
   },
 

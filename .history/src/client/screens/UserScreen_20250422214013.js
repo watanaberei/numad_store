@@ -17,7 +17,6 @@ import HeaderHome from "../components/header/HeaderHome.js";
 import { createAuth0Client } from '@auth0/auth0-spa-js';
 import * as element from "../components/elements.js";
 import createStoreCard from "../components/cards/cardStore.js";
-import * as form from "../components/form/Form.js";
 import dotenv from 'dotenv';
 
 // dotenv.config();
@@ -38,8 +37,6 @@ const UserScreen = {
     const header = element.header;
     const title = element.title;
     const titleCounter = element.titleCounter;
-
-    const formField = form.formField;
     
     // The rest of the render function doesn't need to fetch data
     // We'll do all API calls in the after_render function to avoid blocking the initial render
@@ -47,46 +44,7 @@ const UserScreen = {
     return `
       <!------ User SCREEN ------> 
       <div class="main col05">
-
-
-
-
-        <!----------- USER DETAILS ----------->
-      
-        <div class="col02 profile-container">
-          <div id="profile-details">
-          </div>
-          <span class="text02 medium">
-          User details
-          </span>
-          <div id="user-User" class="details">
-            <fieldset class="step-hide">
-              <div class="title">
-                <span class="header06">
-                  Finish signing up
-                </span>
-              </div>
-              <div class="form-container">
-                  <form id="update-User-form">
-                  <input type="text" id="firstName" placeholder="First Name" required />
-                  <input type="text" id="lastName" placeholder="Last Name" required />
-                  <input type="date" id="birthdate" placeholder="Birthdate" required />
-                  <button type="submit">Update User</button>
-                  </form>
-              </div>
-            </fieldset>
-          </div>
-          <a href="/signup" class="text02 medium">Make a new account</a>
-        </div>
-
-        <!----------- USER DETAILS ----------->
-
-
-
-
-
-        <!----------- User CONTENT ----------->
-
+        <!------ User CONTENT ------> 
         <div class="col03 auth-container activity-detail">
             <div class="col03 activity-container">
               <!------ HERO ------> 
@@ -132,7 +90,7 @@ const UserScreen = {
                               </div>
                             </div>
 
-                            <!--
+                            <!----------- USER DETAILS ----------->
                             <div class="form-container">
                               <span class="text02 medium">
                               User details
@@ -156,8 +114,6 @@ const UserScreen = {
                               </div>
                               <a href="/signup" class="text02 medium">Make a new account</a>
                             </div>
-                            -->
-                            
                           </div>
                           <!------ HEADLINE ------>
 
@@ -173,11 +129,8 @@ const UserScreen = {
 
             </div>
         </div>
-        
-        <!----------- User CONTENT ----------->
+        <!------ User CONTENT ------> 
 
-
-        
       </div>
       <!------ User SCREEN ------> 
       `;
@@ -191,68 +144,6 @@ const UserScreen = {
         window.location.href = '/';
         return;
       }
-      
-
-
-
-
-      // USER DETAILS
-      const profileDetails = document.getElementById('profile-details');
-
-      try {
-        const response = await fetch(`${API_URL}/profile`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${accessToken}`
-          }
-        });
-
-        const data = await response.json();
-        if (response.ok) {
-          // Update profile details display
-          if (profileDetails) {
-            profileDetails.innerHTML = `
-              <p>Email: ${data.email}</p>
-              <p>First Name: ${data.firstName || 'Not set'}</p> 
-              <p>Last Name: ${data.lastName || 'Not set'}</p>
-              <p>Birthdate: ${data.birthdate || 'Not set'}</p>
-            `;
-          }
-        } else {
-          console.error('Failed to fetch user profile:', data);
-          alert('Failed to fetch user profile: ' + (data.message || 'Unknown error'));
-        }
-      } catch (error) {
-        console.error('Error fetching user profile:', error);
-        alert('Error fetching user profile: ' + error.message);
-      }
-
-      // Commented out code for authServer.js:
-      /*
-      // In authServer.js
-      app.get('/profile', authenticateToken, async (req, res) => {
-        try {
-          const profile = await UserModel.findOne({ email: req.user.email });
-          if (!profile) {
-            return res.status(404).json({ message: 'User not found' });
-          }
-          res.json({
-            email: profile.email,
-            firstName: profile.firstName,
-            lastName: profile.lastName,
-            birthdate: profile.birthdate
-          });
-        } catch (error) {
-          res.status(500).json({ message: 'Error fetching user data' });
-        }
-      });
-      */
-
-
-
-
-      //////////////// ACTIVITY DETAILS
       
       const checkedInStoresContent = document.getElementById('checkedInStoresContent');
       const recentlyVisitedContent = document.getElementById('recentlyVisitedContent');
@@ -357,7 +248,7 @@ const UserScreen = {
 
           // Filter out null values and join the cards
           const historyHTML = historyCards.filter(Boolean).join('');
-          historySection.innerHTML += `<div class="col03 grid03 history-grid">${historyHTML}</div>`;
+          historySection.innerHTML += `<div class="history-grid">${historyHTML}</div>`;
           checkedInStoresContent.appendChild(historySection);
         }
 

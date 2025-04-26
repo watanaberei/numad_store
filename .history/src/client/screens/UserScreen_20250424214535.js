@@ -17,7 +17,6 @@ import HeaderHome from "../components/header/HeaderHome.js";
 import { createAuth0Client } from '@auth0/auth0-spa-js';
 import * as element from "../components/elements.js";
 import createStoreCard from "../components/cards/cardStore.js";
-import * as form from "../components/form/Form.js";
 import dotenv from 'dotenv';
 
 // dotenv.config();
@@ -38,8 +37,6 @@ const UserScreen = {
     const header = element.header;
     const title = element.title;
     const titleCounter = element.titleCounter;
-
-    const formField = form.formField;
     
     // The rest of the render function doesn't need to fetch data
     // We'll do all API calls in the after_render function to avoid blocking the initial render
@@ -47,15 +44,14 @@ const UserScreen = {
     return `
       <!------ User SCREEN ------> 
       <div class="main col05">
+      <!----------- USER DETAILS ----------->
+      <div id="profile-details">
+      </div>
 
 
 
-
-        <!----------- USER DETAILS ----------->
       
-        <div class="col02 profile-container">
-          <div id="profile-details">
-          </div>
+        <div class="col02 jnform-container">
           <span class="text02 medium">
           User details
           </span>
@@ -78,15 +74,7 @@ const UserScreen = {
           </div>
           <a href="/signup" class="text02 medium">Make a new account</a>
         </div>
-
-        <!----------- USER DETAILS ----------->
-
-
-
-
-
-        <!----------- User CONTENT ----------->
-
+        <!------ User CONTENT ------> 
         <div class="col03 auth-container activity-detail">
             <div class="col03 activity-container">
               <!------ HERO ------> 
@@ -173,11 +161,8 @@ const UserScreen = {
 
             </div>
         </div>
-        
-        <!----------- User CONTENT ----------->
+        <!------ User CONTENT ------> 
 
-
-        
       </div>
       <!------ User SCREEN ------> 
       `;
@@ -197,57 +182,29 @@ const UserScreen = {
 
 
       // USER DETAILS
-      const profileDetails = document.getElementById('profile-details');
+      const userDetails = document.getElementById('profile-details');
 
       try {
-        const response = await fetch(`${API_URL}/profile`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${accessToken}`
-          }
-        });
+        // Fetch both user data and store data
+        const [profileResponse, ] = await Promise.all([
+          fetch(`${API_URL}/profile`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${accessToken}`
+            }
+          }),
+        ]);
 
-        const data = await response.json();
-        if (response.ok) {
-          // Update profile details display
-          if (profileDetails) {
-            profileDetails.innerHTML = `
-              <p>Email: ${data.email}</p>
-              <p>First Name: ${data.firstName || 'Not set'}</p> 
-              <p>Last Name: ${data.lastName || 'Not set'}</p>
-              <p>Birthdate: ${data.birthdate || 'Not set'}</p>
-            `;
-          }
-        } else {
-          console.error('Failed to fetch user profile:', data);
-          alert('Failed to fetch user profile: ' + (data.message || 'Unknown error'));
+        if (!profileResponse.ok) {
+          throw new Error(`Failed to fetch user data: ${profileResponse.status}`);
         }
-      } catch (error) {
-        console.error('Error fetching user profile:', error);
-        alert('Error fetching user profile: ' + error.message);
-      }
+        const [profileData] = await Promise.all([
+          profileResponse.json(),
+        ]);
 
-      // Commented out code for authServer.js:
-      /*
-      // In authServer.js
-      app.get('/profile', authenticateToken, async (req, res) => {
-        try {
-          const profile = await UserModel.findOne({ email: req.user.email });
-          if (!profile) {
-            return res.status(404).json({ message: 'User not found' });
-          }
-          res.json({
-            email: profile.email,
-            firstName: profile.firstName,
-            lastName: profile.lastName,
-            birthdate: profile.birthdate
-          });
-        } catch (error) {
-          res.status(500).json({ message: 'Error fetching user data' });
-        }
-      });
-      */
+        console.log('User data:', profileData);
+
 
 
 

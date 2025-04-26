@@ -227,11 +227,11 @@ app.post('/refresh-token', async (req, res) => {
   });
 });
 
-// PROFILE ONLY [GET]
+// PROFILE ONLY [POST]
 app.get('/profile', authenticateToken, async (req, res) => {
   try {
     const profile = await UserModel.findOne({ email: req.user.email });
-    if (!profile) {
+    if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
     res.json({

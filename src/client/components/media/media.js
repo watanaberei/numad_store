@@ -36,9 +36,10 @@ export const mediaVideo = {
 export const mediaThumbnail = {
   render: (data) => {
     // element to render a single thumbnail
-    const source = data.source;
+    // const source = data.source;
+    const source = data;
     return `
-      <div class="media-img-S media container">
+      <div class="media-thumbnail media container">
         <img src="${source}" class="image">
       </div>
     `;

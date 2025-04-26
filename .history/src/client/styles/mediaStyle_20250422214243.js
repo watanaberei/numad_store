@@ -112,7 +112,7 @@ export const media = `
     display: grid;
     background-size: cover;
     background-position: center;
-    // aspect-ratio: var(--aspect-ratio-5x2);
+    aspect-ratio: var(--aspect-ratio-5x2);
     gap: var(--s02);
   }
   `;
@@ -137,5 +137,5 @@ export const media = `
   `;
   // Apply hero styles to the document
 const mediaStyle = document.createElement('style');
-mediaStyle.textContent = media + mediaGallery + mediaThumbnail;
+mediaStyle.textContent = media + mediaGallery;
 document.head.appendChild(mediaStyle);

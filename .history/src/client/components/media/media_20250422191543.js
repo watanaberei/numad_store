@@ -1,13 +1,12 @@
-import * as glyph from '../components/icon/glyph.js';
-import * as style from '../styles/style.js';
-import * as icon from '../components/icon/icon.js';
-import * as Pictogram from '../components/icon/pictogram.js';
+import * as glyph from '../icon/glyph.js';
+import * as icon from '../icon/icon.js';
+import * as Pictogram from '../icon/pictogram.js';
 import * as Tag from '../tags/tag.js';
 import * as geotag from  '../tags/geotag.js';
 import * as objtag from '../tags/objtag.js';
 import * as amtag from '../tags/amtag.js';
 import * as attrtag from '../tags/attrtag.js';
-import { getStatsScore } from '../components/function.js';
+import { getStatsScore } from '../function/function.js';
 
 
 export const mediaImg = {
@@ -37,7 +36,8 @@ export const mediaVideo = {
 export const mediaThumbnail = {
   render: (data) => {
     // element to render a single thumbnail
-    const source = data.source;
+    // const source = data.source;
+    const source = data;
     return `
       <div class="media-img-S media container">
         <img src="${source}" class="image">
@@ -67,3 +67,9 @@ export const mediaGallery = {
     `;
   }
 };
+
+
+
+
+
+

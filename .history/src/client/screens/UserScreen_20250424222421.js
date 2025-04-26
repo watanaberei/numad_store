@@ -47,11 +47,7 @@ const UserScreen = {
     return `
       <!------ User SCREEN ------> 
       <div class="main col05">
-
-
-
-
-        <!----------- USER DETAILS ----------->
+      <!----------- USER DETAILS ----------->
       
         <div class="col02 profile-container">
           <div id="profile-details">
@@ -78,15 +74,7 @@ const UserScreen = {
           </div>
           <a href="/signup" class="text02 medium">Make a new account</a>
         </div>
-
-        <!----------- USER DETAILS ----------->
-
-
-
-
-
-        <!----------- User CONTENT ----------->
-
+        <!------ User CONTENT ------> 
         <div class="col03 auth-container activity-detail">
             <div class="col03 activity-container">
               <!------ HERO ------> 
@@ -173,11 +161,8 @@ const UserScreen = {
 
             </div>
         </div>
-        
-        <!----------- User CONTENT ----------->
+        <!------ User CONTENT ------> 
 
-
-        
       </div>
       <!------ User SCREEN ------> 
       `;

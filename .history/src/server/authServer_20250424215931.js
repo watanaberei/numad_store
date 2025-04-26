@@ -227,29 +227,6 @@ app.post('/refresh-token', async (req, res) => {
   });
 });
 
-// PROFILE ONLY [GET]
-app.get('/profile', authenticateToken, async (req, res) => {
-  try {
-    const profile = await UserModel.findOne({ email: req.user.email });
-    if (!profile) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-    res.json({
-      email: profile.email,
-      firstName: profile.firstName,
-      lastName: profile.lastName,
-      birthdate: profile.birthdate
-    });
-  } catch (error) {
-    res.status(500).json({ message: 'Error fetching user data' });
-  }
-});
-
-
-
-
-
-
 // USER ONLY [GET]
 app.get('/user', authenticateToken, async (req, res) => {
   try {
@@ -262,6 +239,26 @@ app.get('/user', authenticateToken, async (req, res) => {
       firstName: user.firstName,
       lastName: user.lastName,
       birthdate: user.birthdate
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching user data' });
+  }
+});
+
+
+
+// PROFILE ONLY [POST]
+app.post('/profile', authenticateToken, async (req, res) => {
+  try {
+    const profile = await UserModel.findOne({ email: req.user.email });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.json({
+      email: profile.email,
+      firstName: profile.firstName,
+      lastName: profile.lastName,
+      birthdate: profile.birthdate
     });
   } catch (error) {
     res.status(500).json({ message: 'Error fetching user data' });

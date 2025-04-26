@@ -112,7 +112,7 @@ export const media = `
     display: grid;
     background-size: cover;
     background-position: center;
-    // aspect-ratio: var(--aspect-ratio-5x2);
+    aspect-ratio: var(--aspect-ratio-5x2);
     gap: var(--s02);
   }
   `;
