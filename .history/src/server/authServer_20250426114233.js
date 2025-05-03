@@ -53,8 +53,7 @@ app.post('/signup', async (req, res) => {
     const newUser = new User({ email, password: hashedPassword });
     await newUser.save();
     // const accessToken = jwt.sign({ email: newUser.email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
-    // const accessToken = jwt.sign({ email: newUser.email }, process.env.ACCESS_TOKEN_SECRET);
-    const accessToken = jwt.sign({ email: newUser.email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '90m' });
+    const accessToken = jwt.sign({ email: newUser.email }, process.env.ACCESS_TOKEN_SECRET);
     const refreshToken = jwt.sign({ email: newUser.email }, process.env.REFRESH_TOKEN_SECRET);
     refreshTokens.push(refreshToken);
     res.status(201).json({ accessToken, refreshToken });

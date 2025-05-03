@@ -10,9 +10,15 @@ export const fieldText = {
     return `
       <div class="form-field">
         <div class="field">
+          ${data.value}
+          ${data.label || ''}
+          ${data.placeholder || ''}
+          ${data.type || ''}
+          ${data.required || ''}
+          ${data.value || ''}
           <input 
             class='input text02'
-            value="${value || ''}"
+            value="${value}"
             id="input-${label}"
             data-class="text02"
             size="13"

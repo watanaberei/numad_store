@@ -1,27 +1,25 @@
 import emailjs from "emailjs-com";
 import swal from "sweetalert2";
-import { UserModel } from '../../../server/models/userModel.js';
-import { storeOperations } from '../../../server/data/mongodb/mongodb.js';
 
-export const fieldText = {
+
+export const formField = {
   render: (data) => {
-    const { label, placeholder, type, required, value } = data;
-    console.log('[form.js fieldText] label:', data);
+    const { label, placeholder, type, required } = data;
     return `
       <div class="form-field">
         <div class="field">
           <input 
-            class='input text02'
-            value="${value || ''}"
-            id="input-${label}"
+            class="input text02" 
+            value="fullerton, ca"
+            id="detail-hours input-${type}" 
             data-class="text02"
             size="13"
             autocomplete='on'
-            name="${label}"
-            type="${type}"
-            placeholder="${placeholder}"
+            name=${label}
+            type=${type}
+            placeholder=${placeholder}
             ${required ? 'required' : ''}
-          >
+          />
 
           <!--
           <input
@@ -34,8 +32,7 @@ export const fieldText = {
           -->
           
           <div class="controls">
-            <!-- <div class="button edit-button" data-field="$ {label.toLowerCase().replace(' ', '-')}"> -->
-            <div class="button edit-button" data-field="${label}">
+            <div class="button">
               <div class="label">
                 <div class="areas">Edit</div>
               </div>
@@ -44,99 +41,11 @@ export const fieldText = {
           </div>
         </div>
         <div class="label2">
-          <span class="text" data-class="text02">${label}</span>
+          <span class="text" data-class="text02">Location</span>
         </div>
       </div>
-    `;
-  },
-  after_render: async () => {
-    const editButtons = document.querySelectorAll('.edit-button');
-    editButtons.forEach(button => {
-      button.addEventListener('click', async (e) => {
-        const field = e.target.closest('.edit-button').dataset.field;
-        const input = document.getElementById(`input-${field}`);
-        input.disabled = !input.disabled;
-        if (!input.disabled) {
-          input.focus();
-        }
-      });
-    });
-
-    const form = document.getElementById('user-profile-form');
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const formData = new FormData(form);
-      const userData = Object.fromEntries(formData.entries());
-      
-      try {
-        const response = await fetch('/api/user/profile', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-          },
-          body: JSON.stringify(userData)
-        });
-
-        if (response.ok) {
-          const result = await response.json();
-          console.log('User updated successfully:', result);
-          // Update UI or show success message
-        } else {
-          console.error('Failed to update user');
-          // Show error message
-        }
-      } catch (error) {
-        console.error('Error updating user:', error);
-        // Show error message
-      }
-    });
-  }
-};
-
-export const fieldDate = {
-  render: (data) => {
-    const { label, placeholder, type, required, value } = data;
-    return `
-      <input id="date" type="text" data-format="**-**-****" data-mask="MM-DD-YYYY"></input>
-    `;
-  }
-};
-
-// src/server/authServer.js
-/*
-app.post('/api/user/update', authenticateToken, async (req, res) => {
-  try {
-    const { username, aboutMe, location, website, fullName, email, phoneNumber } = req.body;
-    
-    // Validate username
-    if (username && !/^[a-zA-Z0-9_]+$/.test(username)) {
-      return res.status(400).json({ message: 'Invalid username format' });
-    }
-
-    // Validate aboutMe
-    if (aboutMe && aboutMe.length > 600) {
-      return res.status(400).json({ message: 'About me section exceeds 600 characters' });
-    }
-
-    const updatedUser = await UserModel.findOneAndUpdate(
-      { email: req.user.email },
-      { 
-        username, 
-        description, 
-        location, 
-        website, 
-        fullName, 
-        email, 
-        phoneNumber 
-      },
-      { new: true, runValidators: true }
-    );
-
-    if (!updatedUser) {
       `;
     },
-
   //   return `
   //     <div class="form-field">
   //       <div class="field">
@@ -206,7 +115,6 @@ app.post('/api/user/update', authenticateToken, async (req, res) => {
       .addEventListener("submit", handleSubmit);
   },
 };
-*/
 
 
 
@@ -253,11 +161,6 @@ const Form = {
         name: e.target.name.value,
         email: e.target.email.value,
         message: e.target.message.value,
-        description: e.target.description.value,
-        location: e.target.location.value,
-        website: e.target.website.value,
-        fullName: e.target.fullName.value,
-        phoneNumber: e.target.phoneNumber.value,
       };
 
       try {

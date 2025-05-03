@@ -53,8 +53,7 @@ app.post('/signup', async (req, res) => {
     const newUser = new User({ email, password: hashedPassword });
     await newUser.save();
     // const accessToken = jwt.sign({ email: newUser.email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
-    // const accessToken = jwt.sign({ email: newUser.email }, process.env.ACCESS_TOKEN_SECRET);
-    const accessToken = jwt.sign({ email: newUser.email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '90m' });
+    const accessToken = jwt.sign({ email: newUser.email }, process.env.ACCESS_TOKEN_SECRET);
     const refreshToken = jwt.sign({ email: newUser.email }, process.env.REFRESH_TOKEN_SECRET);
     refreshTokens.push(refreshToken);
     res.status(201).json({ accessToken, refreshToken });
@@ -102,11 +101,6 @@ app.post('/settings', authenticateToken, async (req, res) => {
     user.firstName = firstName;
     user.lastName = lastName;
     user.birthdate = birthdate;
-    user.description = description;
-    user.location = location;
-    user.website = website;
-    user.fullName = fullName;
-    user.phoneNumber = phoneNumber;
     await user.save();
 
     res.json({ message: 'Settings updated successfully' });
@@ -244,12 +238,7 @@ app.get('/profile', authenticateToken, async (req, res) => {
       email: profile.email,
       firstName: profile.firstName,
       lastName: profile.lastName,
-      birthdate: profile.birthdate,
-      description: profile.description,
-      location: profile.location,
-      website: profile.website,
-      fullName: profile.fullName,
-      phoneNumber: profile.phoneNumber
+      birthdate: profile.birthdate
     });
   } catch (error) {
     res.status(500).json({ message: 'Error fetching user data' });
@@ -272,12 +261,7 @@ app.get('/user', authenticateToken, async (req, res) => {
       email: user.email,
       firstName: user.firstName,
       lastName: user.lastName,
-      birthdate: user.birthdate,
-      description: user.description,
-      location: user.location,
-      website: user.website,
-      fullName: user.fullName,
-      phoneNumber: user.phoneNumber
+      birthdate: user.birthdate
     });
   } catch (error) {
     res.status(500).json({ message: 'Error fetching user data' });
@@ -325,27 +309,25 @@ app.get('/api/user/checkedIn', authenticateToken, async (req, res) => {
   }
 });
 
-
-
-app.post('/api/user/profile', authenticateToken, async (req, res) => {
+app.post('/api/user/update', authenticateToken, async (req, res) => {
   try {
-    const { username, description, location, website, fullName, email, phoneNumber } = req.body;
+    const { username, aboutMe, location, website, fullName, email, phoneNumber } = req.body;
     
     // Validate username
     if (username && !/^[a-zA-Z0-9_]+$/.test(username)) {
       return res.status(400).json({ message: 'Invalid username format' });
     }
 
-    // Validate description
-    if (description && description.length > 600) {
-      return res.status(400).json({ message: 'Description exceeds 600 characters' });
+    // Validate aboutMe
+    if (aboutMe && aboutMe.length > 600) {
+      return res.status(400).json({ message: 'About me section exceeds 600 characters' });
     }
 
     const updatedUser = await UserModel.findOneAndUpdate(
       { email: req.user.email },
       { 
         username, 
-        description, 
+        aboutMe, 
         location, 
         website, 
         fullName, 
@@ -356,52 +338,15 @@ app.post('/api/user/profile', authenticateToken, async (req, res) => {
     );
 
     if (!updatedUser) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(400).json({ message: 'Failed to update user' });
     }
 
-    res.json({ message: 'User profile updated successfully', user: updatedUser });
+    res.json({ message: 'User updated successfully' });
   } catch (error) {
-    console.error('Error updating user profile:', error);
+    console.error('Error updating user:', error);
     res.status(500).json({ message: 'Server error' });
   }
 });
-
-// GET endpoint to fetch user profile data
-app.get('/api/user/profile', authenticateToken, async (req, res) => {
-  try {
-    const user = await UserModel.findOne({ email: req.user.email });
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-
-    const userData = {
-      username: user.username,
-      description: user.description,
-      location: user.location,
-      website: user.website,
-      fullName: user.fullName,
-      email: user.email,
-      phoneNumber: user.phoneNumber
-    }
-    console.log('[authServer.js GET /api/user/profile] Fetching user data:', userData);
-
-    return res.status(200).json({
-      success: true,
-      userData: userData,
-    });
-    
-    
-  } catch (error) {
-    console.error(`[authServer] Error fetching user data:`, error);
-    return res.status(500).json({ 
-      success: false, 
-      message: 'Server error fetching user data',
-      error: error.message
-    });
-  }
-});
-  
-
 
 // Store check-in endpoint
 app.post('/api/user/store', authenticateToken, async (req, res) => {

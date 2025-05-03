@@ -53,8 +53,7 @@ app.post('/signup', async (req, res) => {
     const newUser = new User({ email, password: hashedPassword });
     await newUser.save();
     // const accessToken = jwt.sign({ email: newUser.email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
-    // const accessToken = jwt.sign({ email: newUser.email }, process.env.ACCESS_TOKEN_SECRET);
-    const accessToken = jwt.sign({ email: newUser.email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '90m' });
+    const accessToken = jwt.sign({ email: newUser.email }, process.env.ACCESS_TOKEN_SECRET);
     const refreshToken = jwt.sign({ email: newUser.email }, process.env.REFRESH_TOKEN_SECRET);
     refreshTokens.push(refreshToken);
     res.status(201).json({ accessToken, refreshToken });
@@ -102,11 +101,6 @@ app.post('/settings', authenticateToken, async (req, res) => {
     user.firstName = firstName;
     user.lastName = lastName;
     user.birthdate = birthdate;
-    user.description = description;
-    user.location = location;
-    user.website = website;
-    user.fullName = fullName;
-    user.phoneNumber = phoneNumber;
     await user.save();
 
     res.json({ message: 'Settings updated successfully' });
@@ -244,12 +238,7 @@ app.get('/profile', authenticateToken, async (req, res) => {
       email: profile.email,
       firstName: profile.firstName,
       lastName: profile.lastName,
-      birthdate: profile.birthdate,
-      description: profile.description,
-      location: profile.location,
-      website: profile.website,
-      fullName: profile.fullName,
-      phoneNumber: profile.phoneNumber
+      birthdate: profile.birthdate
     });
   } catch (error) {
     res.status(500).json({ message: 'Error fetching user data' });
@@ -272,12 +261,7 @@ app.get('/user', authenticateToken, async (req, res) => {
       email: user.email,
       firstName: user.firstName,
       lastName: user.lastName,
-      birthdate: user.birthdate,
-      description: user.description,
-      location: user.location,
-      website: user.website,
-      fullName: user.fullName,
-      phoneNumber: user.phoneNumber
+      birthdate: user.birthdate
     });
   } catch (error) {
     res.status(500).json({ message: 'Error fetching user data' });

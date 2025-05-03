@@ -10,16 +10,17 @@ export const fieldText = {
     return `
       <div class="form-field">
         <div class="field">
+
           <input 
             class='input text02'
-            value="${value || ''}"
-            id="input-${label}"
+            value=${value || ''}
+            id='input-${label}'
             data-class="text02"
             size="13"
             autocomplete='on'
-            name="${label}"
-            type="${type}"
-            placeholder="${placeholder}"
+            name=${label}
+            type=${type}
+            placeholder=${placeholder}
             ${required ? 'required' : ''}
           >
 

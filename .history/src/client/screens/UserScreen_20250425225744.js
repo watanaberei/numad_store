@@ -17,7 +17,7 @@ import HeaderHome from "../components/header/HeaderHome.js";
 import { createAuth0Client } from '@auth0/auth0-spa-js';
 import * as element from "../components/elements.js";
 import createStoreCard from "../components/cards/cardStore.js";
-import { fieldText } from "../components/form/Form.js";
+import * as form from "../components/form/Form.js";
 import dotenv from 'dotenv';
 
 // dotenv.config();
@@ -39,16 +39,7 @@ const UserScreen = {
     const title = element.title;
     const titleCounter = element.titleCounter;
 
-    const fields = [
-      { label: 'First Name', placeholder: 'First Name', type: 'text', required: true, value: '' },
-      { label: 'Last Name', placeholder: 'Last Name', type: 'text', required: true, value: '' },
-      { label: 'Birthdate', placeholder: 'Birthdate', type: 'date', required: true, value: '' },
-      { label: 'Description', placeholder: 'Description', type: 'text', required: true, value: '' },
-      { label: 'Location', placeholder: 'Location', type: 'text', required: true, value: '' },
-      { label: 'Website', placeholder: 'Website', type: 'text', required: true, value: '' },
-      { label: 'Full Name', placeholder: 'Full Name', type: 'text', required: true, value: '' },
-      { label: 'Phone Number', placeholder: 'Phone Number', type: 'text', required: true, value: '' }
-    ];
+    const formField = form.formField;
     
     // The rest of the render function doesn't need to fetch data
     // We'll do all API calls in the after_render function to avoid blocking the initial render
@@ -63,7 +54,7 @@ const UserScreen = {
         <!----------- USER DETAILS ----------->
       
         <div class="col02 profile-container">
-          ${fields.map(field => fieldText.render(field)).join('')}
+          ${formField.render({ label: 'First Name', placeholder: 'First Name', type: 'text', required: true })}
           <div id="profile-details">
           </div>
           <span class="text02 medium">
@@ -81,11 +72,6 @@ const UserScreen = {
                   <input type="text" id="firstName" placeholder="First Name" required />
                   <input type="text" id="lastName" placeholder="Last Name" required />
                   <input type="date" id="birthdate" placeholder="Birthdate" required />
-                  <input type="text" id="description" placeholder="Description" required />
-                  <input type="text" id="location" placeholder="Location" required />
-                  <input type="text" id="website" placeholder="Website" required />
-                  <input type="text" id="fullName" placeholder="Full Name" required />
-                  <input type="text" id="phoneNumber" placeholder="Phone Number" required />
                   <button type="submit">Update User</button>
                   </form>
               </div>
@@ -232,11 +218,6 @@ const UserScreen = {
               <p>First Name: ${data.firstName || 'Not set'}</p> 
               <p>Last Name: ${data.lastName || 'Not set'}</p>
               <p>Birthdate: ${data.birthdate || 'Not set'}</p>
-              <p>Description: ${data.description || 'Not set'}</p>
-              <p>Location: ${data.location || 'Not set'}</p>
-              <p>Website: ${data.website || 'Not set'}</p>
-              <p>Full Name: ${data.fullName || 'Not set'}</p>
-              <p>Phone Number: ${data.phoneNumber || 'Not set'}</p>
             `;
           }
         } else {
@@ -395,14 +376,9 @@ const UserScreen = {
         updateUserForm.addEventListener('submit', async (e) => {
           e.preventDefault();
 
-          const firstName = document.getElementById('input-firstName').value;
-          const lastName = document.getElementById('input-lastName').value;
-          const birthdate = document.getElementById('input-birthdate').value;
-          const description = document.getElementById('input-description').value;
-          const location = document.getElementById('input-location').value;
-          const website = document.getElementById('input-website').value;
-          const fullName = document.getElementById('input-fullName').value;
-          const phoneNumber = document.getElementById('input-phoneNumber').value;
+          const firstName = document.getElementById('firstName').value;
+          const lastName = document.getElementById('lastName').value;
+          const birthdate = document.getElementById('birthdate').value;
 
           try {
             const response = await fetch(`${API_URL}/settings`, {
@@ -411,7 +387,7 @@ const UserScreen = {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${accessToken}`
               },
-              body: JSON.stringify({ firstName, lastName, birthdate, description, location, website, fullName, phoneNumber })
+              body: JSON.stringify({ firstName, lastName, birthdate })
             });
 
             const data = await response.json();

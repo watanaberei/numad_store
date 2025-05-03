@@ -10,6 +10,12 @@ export const fieldText = {
     return `
       <div class="form-field">
         <div class="field">
+          ${data.value || ''}
+          ${label || ''}
+          ${placeholder || ''}
+          ${type || ''}
+          ${required || ''}
+          ${value || ''}
           <input 
             class='input text02'
             value="${value || ''}"

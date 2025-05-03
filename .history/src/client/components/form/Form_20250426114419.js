@@ -3,25 +3,24 @@ import swal from "sweetalert2";
 import { UserModel } from '../../../server/models/userModel.js';
 import { storeOperations } from '../../../server/data/mongodb/mongodb.js';
 
-export const fieldText = {
+export const formField = {
   render: (data) => {
     const { label, placeholder, type, required, value } = data;
-    console.log('[form.js fieldText] label:', data);
     return `
       <div class="form-field">
         <div class="field">
           <input 
-            class='input text02'
+            class="input text02" 
             value="${value || ''}"
-            id="input-${label}"
+            id="input-${label.toLowerCase().replace(' ', '-')}" 
             data-class="text02"
             size="13"
             autocomplete='on'
-            name="${label}"
+            name="${label.toLowerCase().replace(' ', '-')}"
             type="${type}"
             placeholder="${placeholder}"
             ${required ? 'required' : ''}
-          >
+          />
 
           <!--
           <input
@@ -34,8 +33,7 @@ export const fieldText = {
           -->
           
           <div class="controls">
-            <!-- <div class="button edit-button" data-field="$ {label.toLowerCase().replace(' ', '-')}"> -->
-            <div class="button edit-button" data-field="${label}">
+            <div class="button edit-button" data-field="${label.toLowerCase().replace(' ', '-')}">
               <div class="label">
                 <div class="areas">Edit</div>
               </div>
@@ -91,15 +89,6 @@ export const fieldText = {
         // Show error message
       }
     });
-  }
-};
-
-export const fieldDate = {
-  render: (data) => {
-    const { label, placeholder, type, required, value } = data;
-    return `
-      <input id="date" type="text" data-format="**-**-****" data-mask="MM-DD-YYYY"></input>
-    `;
   }
 };
 

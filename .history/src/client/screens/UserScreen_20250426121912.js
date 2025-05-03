@@ -17,7 +17,7 @@ import HeaderHome from "../components/header/HeaderHome.js";
 import { createAuth0Client } from '@auth0/auth0-spa-js';
 import * as element from "../components/elements.js";
 import createStoreCard from "../components/cards/cardStore.js";
-import { fieldText } from "../components/form/Form.js";
+import * as form from "../components/form/Form.js";
 import dotenv from 'dotenv';
 
 // dotenv.config();
@@ -39,16 +39,64 @@ const UserScreen = {
     const title = element.title;
     const titleCounter = element.titleCounter;
 
-    const fields = [
-      { label: 'First Name', placeholder: 'First Name', type: 'text', required: true, value: '' },
-      { label: 'Last Name', placeholder: 'Last Name', type: 'text', required: true, value: '' },
-      { label: 'Birthdate', placeholder: 'Birthdate', type: 'date', required: true, value: '' },
-      { label: 'Description', placeholder: 'Description', type: 'text', required: true, value: '' },
-      { label: 'Location', placeholder: 'Location', type: 'text', required: true, value: '' },
-      { label: 'Website', placeholder: 'Website', type: 'text', required: true, value: '' },
-      { label: 'Full Name', placeholder: 'Full Name', type: 'text', required: true, value: '' },
-      { label: 'Phone Number', placeholder: 'Phone Number', type: 'text', required: true, value: '' }
-    ];
+    const firstName = {
+      label: 'First Name',
+      placeholder: 'First Name',
+      type: 'text',
+      required: true
+    }
+
+    const lastName = {
+      label: 'Last Name',
+      placeholder: 'Last Name',
+      type: 'text',
+      required: true
+    }
+
+    const birthdate = {
+      label: 'Birthdate',
+      placeholder: 'Birthdate',
+      type: 'date',
+      required: true
+    }
+
+    const description = {
+      label: 'Description',
+      placeholder: 'Description',
+      type: 'text',
+      required: true
+    }
+
+    const location = {
+      label: 'Location',
+      placeholder: 'Location',
+      type: 'text',
+      required: true
+    }
+
+    const website = {
+      label: 'Website',
+      placeholder: 'Website',
+      type: 'text',
+      required: true
+    }
+
+    const fullName = {
+      label: 'Full Name',
+      placeholder: 'Full Name',
+      type: 'text',
+      required: true
+    }
+
+    const phoneNumber = {
+      label: 'Phone Number',
+      placeholder: 'Phone Number',
+      type: 'text',
+      required: true
+    }
+      
+
+    const formField = form.formField;
     
     // The rest of the render function doesn't need to fetch data
     // We'll do all API calls in the after_render function to avoid blocking the initial render
@@ -63,7 +111,14 @@ const UserScreen = {
         <!----------- USER DETAILS ----------->
       
         <div class="col02 profile-container">
-          ${fields.map(field => fieldText.render(field)).join('')}
+          ${formField.render({ firstName })}
+          ${formField.render({ lastName })}
+          ${formField.render({ birthdate })}
+          ${formField.render({ description })}
+          ${formField.render({ location })}
+          ${formField.render({ website })}
+          ${formField.render({ fullName })}
+          ${formField.render({ phoneNumber })}
           <div id="profile-details">
           </div>
           <span class="text02 medium">
