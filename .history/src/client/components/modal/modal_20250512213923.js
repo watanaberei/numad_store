@@ -1,0 +1,887 @@
+// src/client/components/modal.js
+// src/client/components/modal.js
+import { format, parseISO } from "date-fns";
+import * as element from "../elements.js";
+import * as glyph from "../icon/glyph.js";
+// import axios from 'axios'; // Add this line
+
+export const modals = {
+  init: function() {
+    console.log("modals.init");
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log("DOMContentLoaded - Modals are being initialized");
+
+      const bindModal = (targetModel) => {
+        let modal = document.getElementById(targetModel);
+        console.log(`Attempting to bind model: ${targetModel}`);
+
+        if (modal) {
+          console.log(`Modal found: ${targetModel}`);
+          document.getElementById(`${targetModel}-close`).onclick = function() {
+            modal.style.display = "none";
+            console.log(`Closing modal: ${targetModel}`);
+          };
+          modal.style.display = "block";
+          window.onclick = function(event) {
+            if (event.target === modal) {
+              modal.style.display = "none";
+              console.log(`Clicked outside to close modal: ${targetModel}`);
+            }
+          };
+        } else {
+          console.log(`Modal not found: ${targetModel}`);
+        }
+      };
+
+      const myBtn = document.getElementById("myBtn");
+      const myBtn1 = document.getElementById("myBtn1");
+      const authBtn = document.getElementById("auth-btn");
+
+      if (myBtn) {
+        console.log("Button myBtn found, attaching click event");
+        myBtn.onclick = function() {
+          console.log("myBtn clicked");
+          bindModal("myModal");
+        };
+      } else {
+        console.log("Button myBtn not found");
+      }
+
+      if (myBtn1) {
+        console.log("Button myBtn1 found, attaching click event");
+        myBtn1.onclick = function() {
+          console.log("myBtn1 clicked");
+          bindModal("myModal1");
+        };
+      } else {
+        console.log("Button myBtn1 not found");
+      }
+      
+      if (authBtn) {
+        console.log("Button authBtn found, attaching click event");
+        authBtn.onclick = function() {
+          console.log("authBtn clicked");
+          bindModal("myModalAuth");
+        };
+      } else {
+        console.log("Button myBtn1 not found");
+      }
+      
+    });
+  }
+};
+
+
+
+
+
+
+
+  ///////////////////////////////////////////////////////
+  //////////////////////// MODAL ////////////////////////
+  ///////////////////////////////////////////////////////
+  export const modalGallery = (modalGalleryData) => {
+    const gallery = modalGalleryData.gallery || [];
+    const area = modalGalleryData.area || [];
+
+    function modalGalleryHTML(gallery) {
+      console.log('gallery', gallery);
+      // Generate the HTML
+      let mediaGalleryHTML = "";
+      gallery.forEach((array) => {
+        mediaGalleryHTML += `
+        <div class="media-img-m">
+            <div class="media-img">
+                <img src="${array.url}" class="gallery-item-img media-img-1-x-1-x-m" alt="" />
+            </div>
+            <!--
+            <div class="text2">
+                <span class="caption">
+                    <span class="icon">
+                        <i class="icon-container2"></i>
+                    </span>
+                    <span class="text03 bold">
+                        ${array.description}
+                    </span>
+                </span>
+            </div>
+            -->
+        </div>
+              `;
+      });
+      return mediaGalleryHTML; // Add this line
+    }
+
+    function modalAreaHTML(area) {
+      console.log('area', area);
+      // Generate the HTML
+      let mediaAreaHTML = "";
+      area.forEach((array) => {
+        mediaAreaHTML += `
+              <div class="media-img-m">
+                  <div class="media-img">
+                      <img src="${array.url}" class="gallery-item-img media-img-1-x-1-x-m" alt="" />
+                  </div>
+                  <div class="text2">
+                      <span class="caption">
+                          <span class="icon">
+                              <i class="icon-container2"></i>
+                          </span>
+                          <span class="text03 bold">
+                              ${array.description}
+                          </span>
+                      </span>
+                  </div>
+              </div>
+              `;
+      });
+      return mediaAreaHTML; // Add this line
+    }
+
+    const mediaGallery = modalGalleryHTML(gallery);
+    const mediaArea = modalAreaHTML(area);
+    const glyphClose = glyph.glyphClose;
+
+    
+    
+    const modalHTML = `
+      <button id="myBtn">Open Modal</button>
+      <div id="myModal" class="modal">
+        <div class="modal-content">
+          <span class="modal-close">${glyphClose}</span>
+          
+          <span class="header03">Gallery</p>
+          <div class="gallery mediaGallery">
+            ${mediaGallery}
+          </div>
+          
+          <span class="header03">Area</p>
+          <div class="gallery mediaArea">
+            ${mediaArea}
+          </div>
+        </div>
+      </div>
+      
+    `;
+  
+    document.addEventListener('click', (event) => {
+      if (event.target.matches('.modal-close') || event.target.matches('.modal')) {
+        document.getElementById('myModal').style.display = 'none';
+      } else if (event.target.matches('#myBtn')) {
+        document.getElementById('myModal').style.display = 'block';
+      }
+    });
+  
+    return modalHTML;
+  };
+  ///////////////////////////////////////////////////////
+  //////////////////////// MODAL ////////////////////////
+  ///////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////
+//////////////////// MODALAUTH ////////////////////
+//////////////////////////////////////////////////////
+export const modalAuth = () => {
+  const glyphClose = glyph.glyphClose;
+
+  const modalAuthHTML = () => `
+    
+
+        <div class="header">
+          <div class="s">
+            <div class="_30">30</div>
+          </div>
+          <div class="header2">
+            <div class="bread-crumb">
+              <div class="bread-crumb-item">
+                <div class="title">Title</div>
+              </div>
+              <div class="divider">
+                <div class="div">/</div>
+              </div>
+              <div class="bread-crumb-item">
+                <div class="spaces">Spaces</div>
+              </div>
+              <div class="divider2">
+                <div class="div">/</div>
+              </div>
+              <div class="bread-crumb-item">
+                <div class="outside-patio">Outside Patio</div>
+              </div>
+            </div>
+            <button id="auth-btn" class="close modal-close">
+              ${glyphClose}
+            </button>
+          </div>
+          <div class="s">
+            <div class="_30">30</div>
+          </div>
+        </div>
+
+
+
+        <div class="modal-content">
+          <fieldset class="step-hide">
+            <div class="title">
+              <span class="header06">
+                Log in or create an account
+              </span>
+            </div>
+            <div class="form-container">
+              <span class="text02 medium">
+                Enter your email
+              </span>
+              <form id="auth-form">
+              
+                <input type="email" id="email" name="email" placeholder="Email" required>
+                <button type="check" id="check" name="check">Next</button>
+                <!--<button type="next" id="next" name="next">Next</button>-->
+              </form>
+            </div>
+          </fieldset>
+        </div>
+
+
+
+        <div class="footer">
+          <div class="tag">
+            <div class="frame-1321322379">
+              <div class="cerritos">Smoking Tiger Bread Factory</div>
+            </div>
+          </div>
+          <div class="div2">/</div>
+          <div class="tag">
+            <div class="frame-1321322379">
+              <div class="cerritos">Gallery</div>
+            </div>
+          </div>
+          <div class="div2">/</div>
+          <div class="tag">
+            <div class="place">Category</div>
+            <div class="frame-1321322379">
+              <div class="cerritos">Spaces</div>
+            </div>
+          </div>
+        </div>
+   
+
+
+
+<!--
+  <div class="auth-header">
+    <div class="auth-headline">
+        <fieldset class="step-hide">
+          <div class="title">
+            <span class="header06">
+              Log in or create an account
+            </span>
+          </div>
+          <div class="form-container">
+            <span class="text02 medium">
+              Enter your email
+            </span>
+             <form id="auth-form">
+             
+              <input type="email" id="email" name="email" placeholder="Email" required>
+              <button type="check" id="check" name="check">Next</button>
+            </form>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+    -->
+  `;
+
+  const modalAuthDom = modalAuthHTML();
+
+  const modalAuth = `
+  <button id="auth-btn">Account</button>
+  <!--
+  <div id="myModalAuth" class="modal">
+    <div class="modal-content">
+      <span class="modal-close">&times;</span>
+-->
+      <div id="myModalAuth" class="grid05 modal">
+        ${modalAuthDom}
+      </div>
+  <!--  
+    </div>
+  </div>
+  -->
+   `;
+   const after_render = async () => {
+    const authForm = document.getElementById('auth-form');
+    if (authForm) {
+      console.log('auth-form element found');
+      // Prevent default form submission for the email check
+      authForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+      });
+      // Listen for the check button click
+      const checkBtn = document.getElementById('check');
+      if (checkBtn) {
+        checkBtn.addEventListener('click', async (event) => {
+          event.preventDefault();
+          const emailInput = document.getElementById('email');
+          if (emailInput) {
+            const email = emailInput.value;
+            console.log('[modal] Checking email:', email);
+            try {
+              const response = await fetch('http://localhost:4000/auth', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email })
+              });
+              if (!response.ok) throw new Error('Check user failed');
+              const data = await response.json();
+              if (data.errors) {
+                console.error(data.errors);
+              } else {
+                if (data.user) {
+                  // User exists, show login form
+                  console.log('[modal] Email found, rendering login form for:', email);
+                  authForm.innerHTML = `
+                    <form id="login-form">
+                      <input type="password" id="password" placeholder="Password" required />
+                      <button type="submit" id="login-submit">Login</button>
+                    </form>
+                  `;
+                  // Attach login form submit event
+                  const loginForm = document.getElementById('login-form');
+                  console.log('loginForm', loginForm);
+                  if (loginForm) {
+                    console.log('loginForm found');
+                    loginForm.addEventListener('submit', async (event) => {
+                      event.preventDefault();
+                      const passwordInput = document.getElementById('password');
+                      if (passwordInput) {
+                        const password = passwordInput.value;
+                        console.log('[modal] Login form submitted. Email:', email, 'Password:', password);
+                        try {
+                          console.log('[modal] Posting to /login...');
+                          const response = await fetch('http://localhost:4000/login', {
+                            method: 'POST',
+                            headers: {
+                              'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ email, password })
+                          });
+                          if (!response.ok) {
+                            console.error('[modal] Login failed. Status:', response.status);
+                            throw new Error('Login failed');
+                          }
+                          const data = await response.json();
+                          console.log('[modal] Login response:', data);
+                          if (data.accessToken && data.refreshToken) {
+                            localStorage.setItem('accessToken', data.accessToken);
+                            localStorage.setItem('refreshToken', data.refreshToken);
+                            localStorage.setItem('userEmail', data.email);
+                            // Close modal
+                            const authModal = document.getElementById('myModalAuth');
+                            if (authModal) {
+                              authModal.classList.remove('show');
+                              authModal.classList.add('hide');
+                              console.log('[modal] Modal closed after login');
+                            }
+                            window.dispatchEvent(new CustomEvent('user-logged-in', { detail: { email: data.email } }));
+                          }
+                        } catch (error) {
+                          console.error('[modal] Login error:', error);
+                        }
+                      }
+                    });
+                  }
+                } else {
+                  // User does not exist, show signup form
+                  console.log('[modal] Email not found, rendering signup form for:', email);
+                  authForm.innerHTML = `
+                    <form id="signup-form">
+                      <input type="text" id="username" placeholder="Username" required />
+                      <input type="password" id="password" placeholder="Password" required />
+                      <button type="submit" id="signup-submit">Sign Up</button>
+                    </form>
+                  `;
+                  // Attach signup form submit event
+                  const signupForm = document.getElementById('signup-form');
+                  if (signupForm) {
+                    signupForm.addEventListener('submit', async (event) => {
+                      event.preventDefault();
+                      const username = document.getElementById('username').value;
+                      const password = document.getElementById('password').value;
+                      console.log('[modal] Signup form submitted. Email:', email, 'Username:', username, 'Password:', password);
+                      try {
+                        const response = await fetch('http://localhost:4000/signup', {
+                          method: 'POST',
+                          headers: {
+                            'Content-Type': 'application/json'
+                          },
+                          body: JSON.stringify({ email, username, password })
+                        });
+                        if (!response.ok) throw new Error('Signup failed');
+                        const data = await response.json();
+                        console.log('[modal] Signup response:', data);
+                        if (data.accessToken && data.refreshToken) {
+                          localStorage.setItem('accessToken', data.accessToken);
+                          localStorage.setItem('refreshToken', data.refreshToken);
+                          localStorage.setItem('userEmail', data.email);
+                          // Close modal
+                          const authModal = document.getElementById('myModalAuth');
+                          if (authModal) {
+                            authModal.classList.remove('show');
+                            authModal.classList.add('hide');
+                            console.log('[modal] Modal closed after signup');
+                          }
+                          window.dispatchEvent(new CustomEvent('user-logged-in', { detail: { email: data.email } }));
+                        }
+                      } catch (error) {
+                        console.error('[modal] Signup error:', error);
+                      }
+                    });
+                  }
+                }
+              }
+            } catch (error) {
+              console.error('[modal] Email check error:', error);
+            }
+          }
+        });
+      }
+    } else {
+      console.log('auth-form element not found');
+    }
+  
+    // Modal close button logic
+    document.addEventListener('click', (event) => {
+      const authModal = document.getElementById('myModalAuth');
+      if (event.target.classList.contains('modal-close') || event.target.classList.contains('modal')) {
+        if (authModal) {
+          authModal.classList.remove('show');
+          authModal.classList.add('hide');
+          console.log('[modal] Modal closed by close button or background click');
+        }
+      } else if (event.target.matches('#auth-btn')) {
+        if (authModal) {
+          authModal.classList.remove('hide');
+          authModal.classList.add('show');
+          console.log('[modal] Modal opened by auth-btn');
+        }
+      }
+    });
+  };
+  //  const after_render = async () => {
+  //   const accountForm = document.getElementById('account-form');
+  //   if (accountForm) {
+  //     console.log('account-form element found');
+  //     accountForm.addEventListener('submit', async (event) => {
+  //       event.preventDefault(); // This will prevent the form from submitting normally
+  
+  //       const email = document.getElementById('email').value;
+  
+  //       try {
+  //         const response = await fetch('http://localhost:4500/account', {
+  //           method: 'POST',
+  //           headers: {
+  //             'Content-Type': 'application/json'
+  //           },
+  //           body: JSON.stringify({ email })
+  //         });
+  
+  //         if (!response.ok) throw new Error('Check user failed');
+  
+  //         const data = await response.json();
+  
+  //         if (data.errors) {
+  //           // Handle errors here
+  //           console.error(data.errors);
+  //         } else {
+  //           // User exists, proceed to login
+  //           if (data.user) {
+  //             accountForm.innerHTML = `
+  //               <button id="edit-email-btn">Edit Email</button>
+  //               <form id="login-form">
+  //                 <input type="password" id="password" placeholder="Password" required />
+  //                 <button type="submit">Login</button>
+  //               </form>
+  //             `;
+  //           } 
+  //           // User does not exist, proceed to signup
+  //           else {
+  //             accountForm.innerHTML = `
+  //               <button id="edit-email-btn">Edit Email</button>
+  //               <form id="signup-form">
+  //                 <input type="text" id="username" placeholder="Username" required />
+  //                 <input type="password" id="password" placeholder="Password" required />
+  //                 <button type="submit">Sign Up</button>
+  //               </form>
+  //             `;
+  //           }
+  //         }
+  //       } catch (error) {
+  //         console.error(error);
+  //       }
+  //     });
+  //   } else {
+  //     console.log('account-form element not found');
+  //   }
+  
+  //   document.addEventListener('click', (event) => {
+  //     if (event.target.matches('.modal-close') || event.target.matches('.modal')) {
+  //       document.getElementById('myModalAccount').style.display = 'none';
+  //     } else if (event.target.matches('#account-btn')) {
+  //       document.getElementById('myModalAccount').style.display = 'block';
+  //     }
+  //   });
+  // };
+  return {
+    modalAuth: modalAuth,
+    after_render: after_render
+  };
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+//   const after_render = async () => {
+//     const accountForm = document.getElementById('account-form');
+//     if (accountForm) {
+//       console.log('account-form element found');
+//       accountForm.addEventListener('next', async (event) => {
+//         event.preventDefault(); // This will prevent the form from submitting normally
+
+//         const email = document.getElementById('email').value;
+
+//         try {
+//           const response = await fetch('http://localhost:4500/account', {
+//             method: 'POST',
+//             headers: {
+//               'Content-Type': 'application/json'
+//             },
+//             body: JSON.stringify({ email })
+//           });
+
+//           if (!response.ok) throw new Error('Check user failed');
+
+//           const data = await response.json();
+
+//           if (data.userExists) {
+//             accountForm.innerHTML = `
+//               <button id="edit-email-btn">Edit Email</button>
+//               <form id="login-form">
+//                 <input type="password" id="password" placeholder="Password" required />
+//                 <button type="submit">Login</button>
+//               </form>
+//             `;
+//           } else {
+//             accountForm.innerHTML = `
+//               <button id="edit-email-btn">Edit Email</button>
+//               <form id="signup-form">
+//                 <input type="password" id="password" placeholder="Password" required />
+//                 <button type="submit">Sign Up</button>
+//               </form>
+//             `;
+//           }
+//         } catch (error) {
+//           console.error(error);
+//         }
+//       });
+//     } else {
+//       console.log('account-form element not found');
+//     }
+
+//     document.addEventListener('click', (event) => {
+//       if (event.target.matches('.modal-close') || event.target.matches('.modal')) {
+//         document.getElementById('myModalAccount').style.display = 'none';
+//       } else if (event.target.matches('#account-btn')) {
+//         document.getElementById('myModalAccount').style.display = 'block';
+//       }
+//     });
+//   });
+
+//   return {
+//     modalAccount: modalAccount,
+//     after_render: after_render
+//   };
+// };
+
+
+
+
+
+
+
+
+//   const after_render = async () => {
+//     const accountForm = document.getElementById('account-form');
+//     const emailInput = document.getElementById('email');
+//     const nextButton = document.getElementById('next');
+//     if (accountForm) {
+//       console.log('account-form element found');
+
+//       nextButton.addEventListener('click', async (event) => {
+//         event.preventDefault();
+      
+//         const email = emailInput.value;
+//         try {
+//           const userExists = await User.findOne({username: req.body.username});
+//           const emailExists = await User.findOne({email: req.body.email});
+//           if (usernameExists && emailExists) return res.status(400).send("Username and email already taken");
+//           if (emailExists) return res.status(400).send("Email already taken");
+  
+//           const response = await fetch('http://localhost:6000/account', {
+//             method: 'POST',
+//             headers: {
+//               'Content-Type': 'application/json'
+//             },
+//             body: JSON.stringify({ email })
+//           });
+
+//           if (!response.ok) throw new Error('Check user failed');
+
+//           const data = await response.json();
+
+//           if (data.userExists) {
+//             accountForm.innerHTML = `
+//               <button id="edit-email-btn">Edit Email</button>
+//               <form id="login-form">
+//                 <input type="password" id="password" placeholder="Password" required />
+//                 <button type="submit">Login</button>
+//               </form>
+//             `;
+//           } else {
+//             accountForm.innerHTML = `
+//               <button id="edit-email-btn">Edit Email</button>
+//               <form id="signup-form">
+//                 <input type="password" id="password" placeholder="Password" required />
+//                 <button type="submit">Sign Up</button>
+//               </form>
+//             `;
+//           }
+//         } catch (error) {
+//           console.error(error);
+//         }
+//       });
+//     } else {
+//       console.log('account-form element not found');
+//     }
+
+//     document.addEventListener('click', (event) => {
+//       if (event.target.matches('.modal-close') || event.target.matches('.modal')) {
+//         document.getElementById('myModalAccount').style.display = 'none';
+//       } else if (event.target.matches('#account-btn')) {
+//         document.getElementById('myModalAccount').style.display = 'block';
+//       }
+//     });
+//   });
+
+//   return {
+//     modalAccount: modalAccount,
+//     after_render: after_render
+//   };
+// };
+
+
+
+
+
+
+
+
+
+
+
+
+  // const after_render = async () => {
+  //   const accountForm = document.getElementById('account-form');
+  //   const emailInput = document.getElementById('email');
+  //   const nextButton = document.getElementById('next');
+  //   if (accountForm) {
+  //     console.log('account-form element found');
+
+  //     nextButton.addEventListener('click', async (event) => {
+  //       event.preventDefault();
+      
+  //       const email = emailInput.value;
+  //       try {
+  //         const response = await fetch('http://localhost:6000/check-email', {
+  //           method: 'GET', // Change this to a GET request
+  //           headers: {
+  //             'Content-Type': 'application/json'
+  //           },
+  //           body: JSON.stringify({ email })
+  //         });
+      
+  //         if (!response.ok) throw new Error('Check email failed');
+      
+  //         const { emailExists } = await response.json();
+      
+  //         if (emailExists) {
+  //           // Implement the logic from loginscreen file here
+  //           accountForm.innerHTML = `
+  //             <p>Email already taken</p>
+  //             <button id="edit-email-btn">Edit Email</button>
+  //             <form id="login-form">
+  //               <input type="password" id="password" placeholder="Password" required />
+  //               <button type="submit">Login</button>
+  //             </form>
+  //           `;
+  //         } else {
+  //           // Implement the logic from signupscreen file here
+  //           accountForm.innerHTML = `
+  //             <button id="edit-email-btn">Edit Email</button>
+  //             <form id="signup-form">
+  //               <input type="password" id="password" placeholder="Password" required />
+  //               <button type="submit">Sign Up</button>
+  //             </form>
+  //           `;
+  //         }
+  //       } catch (error) {
+  //         console.error(error);
+  //       }
+  //     });
+      
+      
+
+
+
+
+
+
+
+
+
+// export const modalAccount = () => {
+//   const modalAccountHTML = () => `
+//     <div class="account-header">
+//       <div class="account-headline">
+//         <fieldset class="step-hide">
+//           <div class="title">
+//             <span class="header06">
+//               Log in or create an account
+//             </span>
+//           </div>
+//           <div class="form-container">
+//             <span class="text02 medium">
+//               Enter your email
+//             </span>
+//              <form id="account-form">
+             
+//               <input type="email" id="email" name="email" placeholder="Email" required>
+//               <button type="next" id="next" name="next">Next</button>
+//             </form>
+//           </div>
+//         </fieldset>
+//       </div>
+//     </div>
+//   `;
+
+//   const modalAccountDom = modalAccountHTML();
+
+//   const modalAccount = `
+//   <button id="account-btn">Account</button>
+//   <div id="myModalAccount" class="modal">
+//     <div class="modal-content">
+//       <span class="modal-close">&times;</span>
+//       <div class="gallery mediaGallery">
+//         ${modalAccountDom}
+//       </div>
+//     </div>
+//   </div>
+// `;
+
+//   const after_render = async () => {
+//     const accountForm = document.getElementById('account-form');
+//     if (accountForm) {
+//       console.log('account-form element found');
+//       accountForm.addEventListener('submit', async (event) => {
+//         event.preventDefault(); // Add this line
+
+//         const email = document.getElementById('email').value;
+
+//         try {
+//           const response = await fetch('http://localhost:6000/account', {
+//             method: 'POST',
+//             headers: {
+//               'Content-Type': 'application/json'
+//             },
+//             body: JSON.stringify({ email })
+//           });
+
+//           if (!response.ok) throw new Error('Check user failed');
+
+//           const data = await response.json();
+
+//           if (data.userExists) {
+//             accountForm.innerHTML = `
+//               <button id="edit-email-btn">Edit Email</button>
+//               <form id="login-form">
+//                 <input type="password" id="password" placeholder="Password" required />
+//                 <button type="submit">Login</button>
+//               </form>
+//             `;
+//           } else {
+//             accountForm.innerHTML = `
+//               <button id="edit-email-btn">Edit Email</button>
+//               <form id="signup-form">
+//                 <input type="password" id="password" placeholder="Password" required />
+//                 <button type="submit">Sign Up</button>
+//               </form>
+//             `;
+//           }
+//         } catch (error) {
+//           console.error(error);
+//         }
+//       });
+//     } else {
+//       console.log('account-form element not found');
+//     }
+
+//     document.addEventListener('click', (event) => {
+//       if (event.target.matches('.modal-close') || event.target.matches('.modal')) {
+//         document.getElementById('myModalAccount').style.display = 'none';
+//       } else if (event.target.matches('#account-btn')) {
+//         document.getElementById('myModalAccount').style.display = 'block';
+//       }
+//     });
+//   };
+
+//   return {
+//     modalAccount: modalAccount,
+//     after_render: after_render
+//   };
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+window.addEventListener('user-logged-in', (e) => {
+  // You can re-render the header or just update the relevant DOM
+  // For example, reload the page or call your header render logic
+  location.reload(); // simplest way, or call your header update function
+});
