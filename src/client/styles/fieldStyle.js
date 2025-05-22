@@ -2,11 +2,6 @@ export const inputStyle = `
  input {
       all: unset;
     }
-  .input-field {
-    padding: 30px;
-    width: -webkit-fill-available;
-    border-radius: 30px;
-  }
 `;
 
 
@@ -26,7 +21,7 @@ export const fieldStyle = `
 .field {
   background: #fafafa;
   border-radius: 30px;
-  // padding: 30px;
+  padding: 30px;
   display: flex;
   flex-direction: row;
   align-items: center;

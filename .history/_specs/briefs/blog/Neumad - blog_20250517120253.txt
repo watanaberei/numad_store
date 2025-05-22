@@ -1,0 +1,113 @@
+Neumad - blog
+
+the goal is to add a functionality where user’s can post a blog with a hypercustomizable CMS interface which user’s can view and interact with.
+
+Blog Post —
+Cards
+	Geolocation:
+		Nearby Posts:
+			card of post displayed on homepage relevant to user location
+			card-blog.js ‘const cardBlog’ which is a dom element that is mapped into GeojsonBlogListing.js
+	User profile:
+		Posted:
+			posted card of post displayed on profile under ‘blog post’ section’s ‘posted’ subsection
+			card-blog.js ‘const cardBlogUser’  ‘post’ variant which is a dom element that is rendered in UserScreen.js activity
+		Archived:
+			posted card of post displayed on profile under ‘blog post’ section’s ‘posted’ subsection
+			card-blog.js ‘const cardBlogUser’  ‘archive’ variant which is a dom element that is rendered in UserScreen.js activity
+		Draft:
+			posted card of post displayed on profile under ‘blog post’ section’s ‘posted’ subsection
+			card-blog.js ‘const cardBlogUser’  ‘draft’ variant which is a dom element that is rendered in UserScreen.js activity
+	Blog Screen:
+		Edit mode
+			a button only visible from the original poster
+			route user’s to the blog cms screen to give ability to edit
+		Viewing mode
+			the public view showing rendered article
+			
+
+
+Blog CMS —
+Entry:
+	User Profile:
+		under blog post section, “post” button that will route user’s 
+	Header:
+
+Screen:
+	PostScreen.js:
+		reference platforms like medium and intuitive drag and drop interfaces like squarespace
+		user’s cms screen where they can customize and create their blogs
+Settings: 	privacy settings
+		public mode (toggled on or off)
+			make post visible in homescreen.js as a card
+		comments (toggled on or off)
+			allow other user’s to comment
+	auto save as draft
+		saves posts like modern CMS’s
+			stores data into mongodb database using mongodb.js 
+			model of blog (blogModel.js)
+	save as draft
+		saves posts like modern CMS’s
+			stores data into mongodb database using mongodb.js 
+			model of blog (blogModel.js)
+	Publish article
+		publishes it to whatever settings
+	archive article
+		stores post into archive which is accessable in the user profile blog posts section
+Function: 	Templates: 
+		Top 3 List:
+			sections (max 10 stores)
+				Title
+					name title
+						title becomes the headline for blog
+						title becomes the slug (similar to store slug structure)
+				Link
+					existing store
+					existing blog posts
+					existing socials
+						tag other users
+						tag other groups
+						tag other collections
+						tag other stores
+					locations
+				Media
+					Hero media (uploaded or linked to existing)
+						image
+						video
+					Gallery (uploaded or linked to existing)
+						image
+						video
+	
+				texts
+					Title (component.js)
+					Headline (component.js)
+					text block (component.js)
+					url links (elements.js)
+
+		Freestyle:
+			sections
+				Link
+					existing store
+					existing blog posts
+					existing socials
+						tag other users
+						tag other groups
+						tag other collections
+						tag other stores
+					locations
+				Media
+					Hero media (uploaded or linked to existing)
+						image
+						video
+					Gallery (uploaded or linked to existing)
+						image
+						video
+	
+				texts
+					Title (component.js)
+					Headline (component.js)
+					text block (component.js)
+					url links (elements.js)
+
+
+	

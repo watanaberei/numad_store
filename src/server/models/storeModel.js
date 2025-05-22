@@ -11,11 +11,6 @@ const StoreSchema = new mongoose.Schema(
       required: true,
       unique: true
     },
-    storeId: {
-      type: String,
-      required: true,
-      unique: true
-    },
 
     // Add a few optional common fields to help with queries
     title: String,
@@ -198,11 +193,7 @@ const StoreSchema = new mongoose.Schema(
           user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
           timestamp: { type: Date, default: Date.now }
         }
-      ],
-      createdAt: {
-        type: Date,
-        default: Date.now
-      }
+      ]
     },
 
 

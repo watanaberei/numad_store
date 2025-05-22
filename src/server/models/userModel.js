@@ -7,13 +7,12 @@ const UserSchema = new Schema(
     email: {
       type: String,
       required: true,
-      unique: true,
-      lowercase: true,
-      trim: true
+      unique: true
     },
     password: {
       type: String,
-      required: true
+      required: true,
+      minlength: 4
     },
     username: {
       type: String,
@@ -27,14 +26,15 @@ const UserSchema = new Schema(
     },
     firstName: {
       type: String,
-      default: ''
+      required: false
     },
     lastName: {
-      type: String,
-      default: ''
+      type: [String],
+      required: false
     },
     birthdate: {
-      type: Date
+      type: [Date],
+      required: false
     },
     description: {
       type: String,
@@ -80,10 +80,6 @@ const UserSchema = new Schema(
         checkedInAt: {
           type: Date,
           default: Date.now
-        },
-        timestamp: { 
-          type: Date, 
-          default: Date.now 
         }
       }
     ],
@@ -139,19 +135,13 @@ const UserSchema = new Schema(
       type: [
         {
           storeId: String,
-          timestamp: { 
-            type: Date, 
-            default: Date.now 
-          }
+          timestamp: Date
         }
       ],
       default: []
     },
     // Sync metadata
-    lastSynced: { 
-      type: Date, 
-      default: Date.now 
-    },
+    lastSynced: { type: Date, default: Date.now },
     syncSource: String,
 
     // Track when it was last updated
@@ -256,10 +246,6 @@ const UserActivity = new Schema(
 
     // Track when it was last updated
     lastUpdated: {
-      type: Date,
-      default: Date.now
-    },
-    createdAt: {
       type: Date,
       default: Date.now
     }

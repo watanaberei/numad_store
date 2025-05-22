@@ -11,7 +11,7 @@ export const fieldText = {
       <div class="form-field">
         <div class="field">
           <input 
-            class='input input-field text02'
+            class='input text02'
             value="${value || ''}"
             id="input-${label}"
             data-class="text02"
