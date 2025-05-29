@@ -1,0 +1,6 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+Ask for any additional files and or code if needed to accomplish goal. When updating code, make sure to never change the naming of things and follow the naming conventions. make sure to always check for existing functions when updating instead of creating duplicative code. Always include all functions even if it is unrelated to the objective.

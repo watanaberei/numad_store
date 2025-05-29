@@ -1,0 +1,11 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+When working on a file, generate the entire code including its features, functionality, code snippets, commented out code, etc and call out the new and or modified code by adding the following at the beginning and end of the generated code:
+`
+///////////////////////// START ______ /////////////////////////
+...code
+///////////////////////// END ______ /////////////////////////
+`

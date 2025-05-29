@@ -1,0 +1,6 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+NEVER optimize the generated code or the code files i give you so that the overall code structure, approach, naming conventions, etc is retained as that is critical to this project. Give me full updates of code snippets (a function, class, const, statement, etc) and or files even if there are only small changes. I'd rather have a short conversation with full answers than a long conversation with optimized answers that make its implementation hard to track

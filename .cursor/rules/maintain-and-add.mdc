@@ -1,0 +1,6 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+NEVER change any of the names for all classes, object, const, etc names or code structure and if any of it is changed, make sure to tell me. The goal is to build on top of the files. if there are new ones, make sure to make a note of it as a commented out line in the code. add console logs too so i can send you the console response and you have the right data to debug. This should all be coded in vanilla js, nodejs, css, html, and mongodb. Please double check the previous files and rewrite the code files so it retains the previously declared naming conventions / coding structure.

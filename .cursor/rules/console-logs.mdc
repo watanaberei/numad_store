@@ -1,0 +1,6 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Make sure to add consoles every step of the way so when i run the code, it logs what is happening with specifications on file name and code line number

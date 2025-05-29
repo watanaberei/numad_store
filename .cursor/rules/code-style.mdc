@@ -1,0 +1,6 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Please do not change the overall code structure, class names, etc and adapt to the current structure (even when creating new code).

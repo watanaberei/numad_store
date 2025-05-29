@@ -1,0 +1,6 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Please do not use any libraries unless it is absolutely necessary and code with Vanilla.js, Nodejs, html, and css. All code must be a modular object with one singular function with easy implementation + high reusabilitty 
