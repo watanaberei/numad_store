@@ -1,0 +1,11 @@
+///////////////////////// START BLOG SCHEMA /////////////////////////
+// Blog.js - Blog collection schema
+const BlogSchema = {
+  blogId: String,
+  title: String,
+  excerpt: String,
+  content: String,
+  author: String,
+  publishedAt: Date
+};
+///////////////////////// END BLOG SCHEMA /////////////////////////

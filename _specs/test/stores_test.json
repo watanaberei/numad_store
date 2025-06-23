@@ -1,66 +1,347 @@
 {
-  "timestamp": "2025-03-27T02:15:43.006Z",
-  "count": 4,
+  "timestamp": "2025-05-30T02:49:36.043Z",
+  "count": 7,
   "samples": [
     {
-      "title": "Test Store",
-      "slug": "test-store",
-      "sys": {
-        "id": "test-1742597975912"
-      },
+      "slug": "ca_orange-county_costa-mesa_moongoat-coffee",
       "location": {
-        "type": "Store",
-        "geolocation": {
-          "lat": 0,
-          "lon": 0
+        "header": "undefined, undefined",
+        "neighborhood": {
+          "address": "1985 Placentia Ave",
+          "city": "Costa Mesa",
+          "area": "Lincoln Station",
+          "state": "CA",
+          "zip": "92627",
+          "geolocation": {
+            "lat": 33.6464898,
+            "lon": -117.9323602
+          },
+          "attribute": {
+            "city": "Cerritos",
+            "attrtags": [
+              {
+                "title": "Location",
+                "attributes": [
+                  {
+                    "label": "Safe",
+                    "score": 4,
+                    "count": 9
+                  },
+                  {
+                    "label": "Busy",
+                    "score": 6,
+                    "count": 3
+                  },
+                  {
+                    "label": "Popular",
+                    "score": 3,
+                    "count": 9
+                  },
+                  {
+                    "label": "High End",
+                    "score": 4,
+                    "count": 12
+                  },
+                  {
+                    "label": "Clean",
+                    "score": 6,
+                    "count": 2
+                  }
+                ]
+              },
+              {
+                "title": "Surrounding",
+                "attributes": [
+                  {
+                    "label": "Shopping",
+                    "score": 6,
+                    "count": 2
+                  },
+                  {
+                    "label": "Eatery",
+                    "score": 2,
+                    "count": 12
+                  },
+                  {
+                    "label": "Hotspot",
+                    "score": 1,
+                    "count": 9
+                  },
+                  {
+                    "label": "Nightlife",
+                    "count": 15
+                  }
+                ]
+              },
+              {
+                "title": "Transportation",
+                "attributes": [
+                  {
+                    "label": "Bus",
+                    "score": 4,
+                    "count": 3
+                  },
+                  {
+                    "label": "Parking Lots",
+                    "score": 9,
+                    "count": 9
+                  },
+                  {
+                    "label": "Paid Parking",
+                    "score": 4,
+                    "count": 2
+                  },
+                  {
+                    "label": "Parking lot",
+                    "count": 15
+                  }
+                ]
+              },
+              {
+                "title": "Environment",
+                "attributes": [
+                  {
+                    "label": "Inspirational",
+                    "score": 6,
+                    "count": 9
+                  },
+                  {
+                    "label": "Busy",
+                    "score": 1,
+                    "count": 2
+                  },
+                  {
+                    "label": "Lively",
+                    "score": 2,
+                    "count": 3
+                  },
+                  {
+                    "label": "Loud",
+                    "score": 3,
+                    "count": 1
+                  },
+                  {
+                    "label": "Clean",
+                    "score": 1,
+                    "count": 2
+                  }
+                ]
+              },
+              {
+                "title": "Demographic",
+                "attributes": [
+                  {
+                    "label": "Young",
+                    "score": 4,
+                    "count": 9
+                  },
+                  {
+                    "label": "Busy",
+                    "score": 1,
+                    "count": 12
+                  },
+                  {
+                    "label": "Popular",
+                    "score": 4,
+                    "count": 6
+                  },
+                  {
+                    "label": "College Students",
+                    "score": 9,
+                    "count": 2
+                  },
+                  {
+                    "label": "College Students",
+                    "score": 9,
+                    "count": 2
+                  },
+                  {
+                    "label": "Couples",
+                    "score": 6,
+                    "count": 2
+                  }
+                ]
+              }
+            ]
+          },
+          "stats": {
+            "contributions": 788,
+            "reviews": 788,
+            "comments": 0,
+            "likes": 0,
+            "dislikes": 0
+          },
+          "modified": {
+            "date": "5/17/2025",
+            "time": 1747504557196
+          }
         },
-        "address": "",
-        "region": "",
-        "locatedIn": null
+        "attribute": [
+          {
+            "title": "Location",
+            "attributes": [
+              {
+                "label": "Safe",
+                "score": 4,
+                "count": 9
+              },
+              {
+                "label": "Busy",
+                "score": 6,
+                "count": 3
+              },
+              {
+                "label": "Popular",
+                "score": 3,
+                "count": 9
+              },
+              {
+                "label": "High End",
+                "score": 4,
+                "count": 12
+              },
+              {
+                "label": "Clean",
+                "score": 6,
+                "count": 2
+              }
+            ]
+          },
+          {
+            "title": "Surrounding",
+            "attributes": [
+              {
+                "label": "Shopping",
+                "score": 6,
+                "count": 2
+              },
+              {
+                "label": "Eatery",
+                "score": 2,
+                "count": 12
+              },
+              {
+                "label": "Hotspot",
+                "score": 1,
+                "count": 9
+              },
+              {
+                "label": "Nightlife",
+                "count": 15
+              }
+            ]
+          },
+          {
+            "title": "Transportation",
+            "attributes": [
+              {
+                "label": "Bus",
+                "score": 4,
+                "count": 3
+              },
+              {
+                "label": "Parking Lots",
+                "score": 9,
+                "count": 9
+              },
+              {
+                "label": "Paid Parking",
+                "score": 4,
+                "count": 2
+              },
+              {
+                "label": "Parking lot",
+                "count": 15
+              }
+            ]
+          },
+          {
+            "title": "Environment",
+            "attributes": [
+              {
+                "label": "Inspirational",
+                "score": 6,
+                "count": 9
+              },
+              {
+                "label": "Busy",
+                "score": 1,
+                "count": 2
+              },
+              {
+                "label": "Lively",
+                "score": 2,
+                "count": 3
+              },
+              {
+                "label": "Loud",
+                "score": 3,
+                "count": 1
+              },
+              {
+                "label": "Clean",
+                "score": 1,
+                "count": 2
+              }
+            ]
+          },
+          {
+            "title": "Demographic",
+            "attributes": [
+              {
+                "label": "Young",
+                "score": 4,
+                "count": 9
+              },
+              {
+                "label": "Busy",
+                "score": 1,
+                "count": 12
+              },
+              {
+                "label": "Popular",
+                "score": 4,
+                "count": 6
+              },
+              {
+                "label": "College Students",
+                "score": 9,
+                "count": 2
+              },
+              {
+                "label": "College Students",
+                "score": 9,
+                "count": 2
+              },
+              {
+                "label": "Couples",
+                "score": 6,
+                "count": 2
+              }
+            ]
+          }
+        ],
+        "footer": {
+          "contributionsCount": null,
+          "modifiedDate": null,
+          "modifiedTime": null,
+          "commentsCount": null,
+          "reviewsCount": null,
+          "likesCount": null,
+          "dislikesCount": null
+        }
       },
-      "media": {
-        "gallery": [],
-        "service": [],
-        "area": []
-      },
-      "attributes": {
-        "experiences": []
-      },
-      "isValidated": false
+      "media": {}
     },
     {
-      "slug": null,
-      "sys": {},
-      "location": {
-        "type": "Store",
-        "geolocation": {
-          "lat": 0,
-          "lon": 0
-        },
-        "address": "",
-        "region": "",
-        "locatedIn": null
-      },
-      "media": {},
-      "attributes": {},
-      "isValidated": false
+      "slug": "ca_orange-county_costa-mesa_huskins-coffee",
+      "location": {},
+      "media": {}
     },
     {
-      "slug": "ca_orange-county_newport_blueBottle-coffee",
-      "sys": {},
-      "location": {
-        "type": "Store",
-        "geolocation": {
-          "lat": 0,
-          "lon": 0
-        },
-        "address": "",
-        "region": "",
-        "locatedIn": null
-      },
-      "media": {},
-      "attributes": {},
-      "isValidated": false
+      "slug": "ca_costa-mesa_weworks-park-tower",
+      "location": {},
+      "media": {}
     }
   ]
 }

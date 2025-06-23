@@ -1,0 +1,436 @@
+tree -I '.history|.figma|.vscode|public|node_modules|.archive|assets'
+
+reiwatanabe@Reis-MBP neumad_store % tree -I '.history|.figma|.vscode|public|node_modules|.archive|assets'
+.
+├── README.md
+├── _specs
+│   ├── DataFlow
+│   │   └── graphTD
+│   ├── User
+│   │   ├── neumad.Blog.json
+│   │   ├── neumad.Store.json
+│   │   ├── neumad.Store_min.json
+│   │   ├── neumad.User.json
+│   │   ├── user.fetch-store.json
+│   │   └── user.fetch-user.json
+│   ├── briefs
+│   │   └── blog
+│   │       └── Neumad-blog.txt
+│   ├── code
+│   │   ├── api
+│   │   │   ├── StoreData.store
+│   │   │   ├── areaData
+│   │   │   ├── console
+│   │   │   ├── contentful.getData.json
+│   │   │   ├── contentful.store.json
+│   │   │   ├── dataStructure
+│   │   │   ├── local
+│   │   │   └── yelp
+│   │   ├── numadClientComponentPlaces
+│   │   │   ├── 20241210
+│   │   │   │   ├── 01_overview.txt
+│   │   │   │   ├── 02_client.txt
+│   │   │   │   └── 03_server.txt
+│   │   │   ├── 20241211
+│   │   │   │   ├── 01_overview.txt
+│   │   │   │   ├── 02_client.txt
+│   │   │   │   └── 03_server.txt
+│   │   │   ├── 20241212
+│   │   │   │   ├── 01_overview.txt
+│   │   │   │   ├── 02_client.txt
+│   │   │   │   └── 03_server.txt
+│   │   │   ├── 20241213
+│   │   │   │   ├── 01_overview.txt
+│   │   │   │   ├── 02_client.txt
+│   │   │   │   └── 03_server.txt
+│   │   │   └── 20241216
+│   │   │       ├── 01_overview.txt
+│   │   │       ├── 02_client.txt
+│   │   │       └── 03_server.txt
+│   │   └── treediagram
+│   ├── component
+│   │   ├── card
+│   │   │   └── gallery
+│   │   │       └── cardGalleryItem.png
+│   │   └── datavis
+│   │       └── businessHours
+│   │           └── businessHours_specs.png
+│   ├── data
+│   │   └── data.StoreData.ca_orange-county_costa-mesa_huskins-coffee.json
+│   ├── documentation
+│   │   └── User
+│   │       └── Profile
+│   │           └── Neumad_User_Profile.txt
+│   ├── network
+│   │   ├── networkrequest_neumad-store copy
+│   │   └── networkrequest_neumad-store.har
+│   ├── page
+│   │   └── store
+│   │       └── section
+│   │           ├── experience
+│   │           │   └── store
+│   │           │       └── storeExperience.png
+│   │           ├── location
+│   │           │   └── store
+│   │           │       └── storeLocation.png
+│   │           ├── service
+│   │           │   └── store
+│   │           │       └── storeService.png
+│   │           └── summary
+│   │               └── store
+│   │                   └── specs_summaryStore.png
+│   ├── stores
+│   │   ├── store_ca_costa-mesa_weworks-park-tower.json
+│   │   ├── store_ca_los-angeles-county_cerritos_smoking-tiger-bread-factory.json
+│   │   └── store_ca_orange-county_fullerton_smoking-tiger-coffee-lab.json
+│   └── test
+│       └── stores_test.json
+├── cache
+│   ├── _v3_businesses_-y6C3aQV8tfv5wZO-RWONg_.json
+│   ├── _v3_businesses_0fGRTbEhBNDUP7AfUFqvPQ_.json
+│   ├── _v3_businesses_0fydYOMuaOOjlWizHjbuIA_.json
+│   ├── _v3_businesses_4S5FylVFS8k7pGrdXfVzqw_.json
+│   ├── _v3_businesses_J3wtFkCi_2tTFvGrHCCYCg_.json
+│   ├── _v3_businesses_UpLD15b8WZZaZWjSoBZZ3g_.json
+│   ├── _v3_businesses_search_term_Blue+Bottle+Coffee_location_null%2C+CA_limit_1_longitude_-117.927_latitude_33.61774.json
+│   ├── _v3_businesses_search_term_Moongoat+Coffee_location_null%2C+CA_limit_1_longitude_-117.932_latitude_33.6465.json
+│   ├── _v3_businesses_search_term_Smoking+Tiger+Bread+Factory_location_Cerritos%2C+CA_limit_1_longitude_-118.08_latitude_33.8582.json
+│   ├── _v3_businesses_search_term_Smoking+Tiger+Bread+Factory_location_Santa+Ana%2C+CA_limit_1_longitude_-117.84_latitude_33.74585.json
+│   ├── _v3_businesses_search_term_Smoking+Tiger+Bread+Factory_location_null%2C+CA_limit_1_longitude_-117.923_latitude_33.87442.json
+│   ├── _v3_businesses_search_term_Smoking+Tiger+Bread+Factory_location_null%2C+CA_limit_1_longitude_-117.924_latitude_33.8722.json
+│   ├── _v3_businesses_search_term_Smoking+Tiger+Bread+Factory_location_null%2C+CA_limit_1_longitude_-118.192_latitude_33.77673.json
+│   ├── _v3_businesses_search_term_The+Library+Coffee+House_location_null%2C+CA_limit_1_longitude_-118.152_latitude_33.76428.json
+│   ├── _v3_businesses_search_term_Weworks_location_Costa+Mesa%2C+Co_limit_1_longitude_-117.884_latitude_33.692.json
+│   ├── yelp:business:-y6C3aQV8tfv5wZO-RWONg.json
+│   ├── yelp:business:0fGRTbEhBNDUP7AfUFqvPQ.json
+│   ├── yelp:business:0fydYOMuaOOjlWizHjbuIA.json
+│   ├── yelp:business:4S5FylVFS8k7pGrdXfVzqw.json
+│   ├── yelp:business:J3wtFkCi_2tTFvGrHCCYCg.json
+│   ├── yelp:business:UpLD15b8WZZaZWjSoBZZ3g.json
+│   ├── yelp:search:{"term":"Blue Bottle Coffee","location":"null, CA","limit":1,"longitude":-117.927,"latitude":33.61774}.json
+│   ├── yelp:search:{"term":"Moongoat Coffee","location":"null, CA","limit":1,"longitude":-117.932,"latitude":33.6465}.json
+│   ├── yelp:search:{"term":"Smoking Tiger Bread Factory","location":"Cerritos, CA","limit":1,"longitude":-118.08,"latitude":33.8582}.json
+│   ├── yelp:search:{"term":"Smoking Tiger Bread Factory","location":"Santa Ana, CA","limit":1,"longitude":-117.84,"latitude":33.74585}.json
+│   ├── yelp:search:{"term":"Smoking Tiger Bread Factory","location":"null, CA","limit":1,"longitude":-117.923,"latitude":33.87442}.json
+│   ├── yelp:search:{"term":"Smoking Tiger Bread Factory","location":"null, CA","limit":1,"longitude":-117.924,"latitude":33.8722}.json
+│   ├── yelp:search:{"term":"Smoking Tiger Bread Factory","location":"null, CA","limit":1,"longitude":-118.192,"latitude":33.77673}.json
+│   ├── yelp:search:{"term":"The Library Coffee House","location":"null, CA","limit":1,"longitude":-118.152,"latitude":33.76428}.json
+│   └── yelp:search:{"term":"Weworks","location":"Costa Mesa, Co","limit":1,"longitude":-117.884,"latitude":33.692}.json
+├── config
+├── debug_stores.json
+├── endpoints
+│   └── endpoints.json
+├── package-lock.json
+├── package.json
+├── pipelines
+├── src
+│   ├── client
+│   │   ├── 404.html
+│   │   ├── API
+│   │   │   ├── api.js
+│   │   │   ├── blogApi.js
+│   │   │   └── userApi.js
+│   │   ├── components
+│   │   │   ├── _archive
+│   │   │   │   ├── Components.js
+│   │   │   │   ├── StorePopularTimes.js
+│   │   │   │   ├── accordion.js
+│   │   │   │   ├── address.js
+│   │   │   │   ├── carousel.js
+│   │   │   │   ├── experience.js
+│   │   │   │   ├── eyebrow.js
+│   │   │   │   ├── facility.js
+│   │   │   │   ├── handle.js
+│   │   │   │   ├── hero.js
+│   │   │   │   ├── panel.js
+│   │   │   │   ├── section.js
+│   │   │   │   ├── service.js
+│   │   │   │   └── suggestion.js
+│   │   │   ├── accordion
+│   │   │   │   └── accordion.js
+│   │   │   ├── array
+│   │   │   │   └── array.js
+│   │   │   ├── blog
+│   │   │   │   ├── AllBlog.js
+│   │   │   │   ├── AllStore.js
+│   │   │   │   ├── ArticleNeumadsTrail.js
+│   │   │   │   ├── UnwindBlog.js
+│   │   │   │   ├── UnwindFeaturedBlog.js
+│   │   │   │   ├── WorkBlog.js
+│   │   │   │   └── WorkFeaturedBlog.js
+│   │   │   ├── cards
+│   │   │   │   ├── _archive
+│   │   │   │   │   ├── ShortsBlog.js
+│   │   │   │   │   ├── ShortsFeaturedBlog.js
+│   │   │   │   │   ├── card-article.js
+│   │   │   │   │   ├── card-blog.js
+│   │   │   │   │   ├── card-default.js
+│   │   │   │   │   ├── card-map.js
+│   │   │   │   │   ├── card-review.js
+│   │   │   │   │   ├── card-store.js
+│   │   │   │   │   ├── card.js
+│   │   │   │   │   └── map.js
+│   │   │   │   ├── card.js
+│   │   │   │   ├── cardBlog.js
+│   │   │   │   └── cardStore.js
+│   │   │   ├── components.js
+│   │   │   ├── controls
+│   │   │   │   ├── _archive
+│   │   │   │   │   └── UserControls.js
+│   │   │   │   └── controls.js
+│   │   │   ├── datavis
+│   │   │   │   └── datavisTimeline.js
+│   │   │   ├── elements.js
+│   │   │   ├── form
+│   │   │   │   └── Form.js
+│   │   │   ├── function
+│   │   │   │   ├── function.js
+│   │   │   │   ├── functionBlog.js
+│   │   │   │   └── functionMatch.js
+│   │   │   ├── header
+│   │   │   │   ├── Header.js
+│   │   │   │   ├── HeaderHome.js
+│   │   │   │   ├── HeaderMicro.js
+│   │   │   │   └── HeaderSecondary.js
+│   │   │   ├── icon
+│   │   │   │   ├── glyph.js
+│   │   │   │   ├── icon.js
+│   │   │   │   └── pictogram.js
+│   │   │   ├── lock
+│   │   │   │   └── secure.js
+│   │   │   ├── map
+│   │   │   │   ├── MapApi.js
+│   │   │   │   ├── MapBlog.js
+│   │   │   │   ├── MapDistance.js
+│   │   │   │   ├── MapFeatures.js
+│   │   │   │   ├── MapMarker.js
+│   │   │   │   ├── geo
+│   │   │   │   │   ├── GeoPopup.js
+│   │   │   │   │   ├── GeocoderInput.js
+│   │   │   │   │   ├── GeojsonArticleListing.js
+│   │   │   │   │   ├── GeojsonBlogListing.js
+│   │   │   │   │   ├── GeojsonListing.js
+│   │   │   │   │   ├── GeojsonReviewListing.js
+│   │   │   │   │   ├── GeojsonStoreListing.js
+│   │   │   │   │   ├── GeojsonStores.js
+│   │   │   │   │   ├── Geolocate.js
+│   │   │   │   │   ├── GeolocationRange.js
+│   │   │   │   │   ├── GeopostReviews.js
+│   │   │   │   │   ├── address.js
+│   │   │   │   │   ├── card-store.js
+│   │   │   │   │   └── card.js
+│   │   │   │   ├── map.js
+│   │   │   │   └── mapRoute.js
+│   │   │   ├── media
+│   │   │   │   ├── _archive
+│   │   │   │   │   └── media.js
+│   │   │   │   ├── gallery.js
+│   │   │   │   └── media.js
+│   │   │   ├── modal
+│   │   │   │   ├── modal.js
+│   │   │   │   ├── modalAuth.js
+│   │   │   │   ├── modalGallery.js
+│   │   │   │   └── modalLocation.js
+│   │   │   ├── sidebar
+│   │   │   │   └── sidebar.js
+│   │   │   ├── status
+│   │   │   │   └── statusHours.js
+│   │   │   ├── tags
+│   │   │   │   ├── _archive
+│   │   │   │   │   ├── DataTags.js
+│   │   │   │   │   └── tag.js
+│   │   │   │   ├── amtag.js
+│   │   │   │   ├── attrtag.js
+│   │   │   │   ├── geotag.js
+│   │   │   │   ├── objtag.js
+│   │   │   │   └── tag.js
+│   │   │   └── text
+│   │   │       └── text.js
+│   │   ├── contact.html
+│   │   ├── data
+│   │   │   ├── DataFilter.js
+│   │   │   ├── DataPost.js
+│   │   │   ├── DataTags.js
+│   │   │   └── dataServices.js
+│   │   ├── details.html
+│   │   ├── function
+│   │   │   ├── blogFunction.js
+│   │   │   ├── storeFunction.js
+│   │   │   └── userFunction.js
+│   │   ├── index.html
+│   │   ├── index.js
+│   │   ├── screens
+│   │   │   ├── ArticleScreen.js
+│   │   │   ├── Auth
+│   │   │   │   ├── AuthScreen.js
+│   │   │   │   ├── LoginScreen.js
+│   │   │   │   ├── LogoutScreen.js
+│   │   │   │   └── SignupScreen.js
+│   │   │   ├── Blog
+│   │   │   │   ├── BlogCmsScreen.js
+│   │   │   │   ├── BlogListScreen.js
+│   │   │   │   ├── BlogScreen.js
+│   │   │   │   └── _Archive
+│   │   │   │       ├── BlogCmsScreen.js
+│   │   │   │       ├── BlogListScreen.js
+│   │   │   │       └── BlogScreen.js
+│   │   │   ├── DetailsScreen.js
+│   │   │   ├── Error
+│   │   │   │   └── Error404Page.js
+│   │   │   ├── Home
+│   │   │   │   ├── DineScreen.js
+│   │   │   │   ├── HomeScreen.js
+│   │   │   │   ├── UnwindScreen.js
+│   │   │   │   └── WorkScreen.js
+│   │   │   ├── NeumadsTrailScreen.js
+│   │   │   ├── ReviewScreen.js
+│   │   │   ├── ReviewsScreen.js
+│   │   │   ├── SeriesScreen.js
+│   │   │   ├── ShortsScreen.js
+│   │   │   ├── Store
+│   │   │   │   ├── StoreListScreen.js
+│   │   │   │   ├── StoreScreen.js
+│   │   │   │   └── _archive
+│   │   │   │       ├── StoreScreen-122924.js
+│   │   │   │       └── StoreScreen_original.js
+│   │   │   ├── User
+│   │   │   │   ├── ProfileScreen.js
+│   │   │   │   ├── SettingScreen.js
+│   │   │   │   └── UserScreen.js
+│   │   │   └── _archive
+│   │   │       ├── Backlog
+│   │   │       ├── Essential
+│   │   │       │   └── Basic
+│   │   │       │       ├── AboutScreen.js
+│   │   │       │       └── ContactScreen.js
+│   │   │       └── MVP
+│   │   │           └── MapScreen.js
+│   │   ├── styles
+│   │   │   ├── MapStyles.js
+│   │   │   ├── accordionStyle.js
+│   │   │   ├── amenitiesStyle.js
+│   │   │   ├── arrayStyle.js
+│   │   │   ├── blogStyle.js
+│   │   │   ├── buttonStyle.js
+│   │   │   ├── cardStyle.js
+│   │   │   ├── cmsStyle.js
+│   │   │   ├── controlStyle.js
+│   │   │   ├── datavisStyle.js
+│   │   │   ├── dividerStyle.js
+│   │   │   ├── fieldStyle.js
+│   │   │   ├── footerStyle.js
+│   │   │   ├── globalStyle.js
+│   │   │   ├── glyphStyle.js
+│   │   │   ├── gridStyle.js
+│   │   │   ├── headerStyle.js
+│   │   │   ├── heroStyle.js
+│   │   │   ├── iconStyle.js
+│   │   │   ├── interactiveStyle.js
+│   │   │   ├── loaderStyle.js
+│   │   │   ├── mapStyle.js
+│   │   │   ├── mediaStyle.js
+│   │   │   ├── modalStyle.js
+│   │   │   ├── navStyle.js
+│   │   │   ├── panelStyle.js
+│   │   │   ├── searchStyle.js
+│   │   │   ├── sectionStyle.js
+│   │   │   ├── sidebarStyle.js
+│   │   │   ├── style.js
+│   │   │   ├── tagStyle.js
+│   │   │   ├── textStyle.js
+│   │   │   ├── tokenStyle.js
+│   │   │   └── typeStyle.js
+│   │   └── utils
+│   │       ├── errors.js
+│   │       ├── paths.js
+│   │       └── utils.js
+│   └── server
+│       ├── CNAME
+│       ├── authServer.js
+│       ├── authmodal
+│       │   ├── authmodalAuthServer.js
+│       │   ├── authmodalHeader.js
+│       │   ├── authmodalModal.js
+│       │   └── authmodalServer.js
+│       ├── config
+│       │   ├── config.js
+│       │   ├── mongoConfig.js
+│       │   └── redisClient.js
+│       ├── controllers
+│       │   ├── controllerAuth.js
+│       │   ├── controllerUser.js
+│       │   ├── controllerYelp.js
+│       │   └── data.js
+│       ├── data
+│       │   ├── api
+│       │   │   ├── client.js
+│       │   │   └── index.js
+│       │   ├── collection
+│       │   │   ├── collectionBlog.js
+│       │   │   └── collectionStore.js
+│       │   ├── contentful
+│       │   │   ├── contenfulClient.js
+│       │   │   ├── contentful.js
+│       │   │   └── contentfulApi.js
+│       │   ├── data.js
+│       │   ├── data_min.js
+│       │   ├── function
+│       │   │   └── functionBlog.js
+│       │   ├── geoData.js
+│       │   ├── index.js
+│       │   ├── mongodb
+│       │   │   ├── _archive
+│       │   │   │   ├── mongodb_250216-js
+│       │   │   │   └── mongodb_OLD-js
+│       │   │   └── mongodb.js
+│       │   ├── obj
+│       │   │   ├── _archive
+│       │   │   │   ├── blog
+│       │   │   │   │   └── blogObj.js
+│       │   │   │   ├── location
+│       │   │   │   │   └── locationObj.js
+│       │   │   │   ├── store
+│       │   │   │   │   ├── storeBusinessObj.js
+│       │   │   │   │   ├── storeDetailsObj.js
+│       │   │   │   │   ├── storeExperienceObj.js
+│       │   │   │   │   ├── storeHeroObj.js
+│       │   │   │   │   ├── storeObj.js
+│       │   │   │   │   ├── storeOverviewObj.js
+│       │   │   │   │   └── storeServiceObj.js
+│       │   │   │   └── user
+│       │   │   │       └── userObj.js
+│       │   │   └── storeObj.js
+│       │   └── yelp
+│       │       ├── _archive
+│       │       │   └── yelp.js
+│       │       ├── yelp.js
+│       │       ├── yelpApi.js
+│       │       └── yelpClient.js
+│       ├── index.js
+│       ├── models
+│       │   ├── blogModel.js
+│       │   ├── chat_2025_02_12_15_15_11.md
+│       │   ├── storeModel.js
+│       │   └── userModel.js
+│       ├── requests.rest
+│       ├── route
+│       │   ├── routeAuths.js
+│       │   ├── routeBlog.js
+│       │   ├── routeDetailss.js
+│       │   ├── routeHome.js
+│       │   ├── routeMain.js
+│       │   ├── routeProtected.js
+│       │   ├── routeStore.js
+│       │   └── routeUser.js
+│       ├── server.js
+│       ├── setupProxy.js
+│       └── utils
+│           ├── errors.server.js
+│           ├── paths.server.js
+│           ├── utils.blog.js
+│           └── utils.server.js
+├── uploads
+│   └── blogs
+└── webpack.config.cjs
+
+110 directories, 321 files

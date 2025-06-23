@@ -1,0 +1,26 @@
+{
+  "userId": "neumad",
+  "name": "Neumad User",
+  "visitedStores": [
+    {
+      "storeId": "ca_orange-county_fullerton_dripp",
+      "visitedAt": "2025-06-20T10:30:00Z",
+      "visits": 3
+    },
+    {
+      "storeId": "ca_costa-mesa_weworks-park-tower",
+      "visitedAt": "2025-06-19T14:20:00Z",
+      "visits": 1
+    }
+  ],
+  "blogPosts": [
+    {
+      "blogId": "blog_001",
+      "readAt": "2025-06-21T09:15:00Z"
+    },
+    {
+      "blogId": "blog_002", 
+      "readAt": "2025-06-20T16:45:00Z"
+    }
+  ]
+}

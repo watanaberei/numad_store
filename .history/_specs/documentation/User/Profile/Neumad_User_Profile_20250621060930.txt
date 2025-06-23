@@ -1,0 +1,174 @@
+Neumad: Profile
+
+Overview: Neumads User Profile Screen
+
+The User Profile Screen is a core component of Neumad. It provides a personalized and public-facing summary of a user’s account, combining static and dynamic data to represent a user’s professional identity, their personal preferences when it comes to the places they have visited , and the content around their work life. It serves three primary functions:
+    1.  representation – displaying key professional identity metadata and data about the places they have worked remotely in.
+    2.  Navigation Hub – entry point into places, blogs, activity, and saved content / collections / groups.
+    3.  Engagement Layer – offering users, stores, and visitors interaction options (e.g., follow, message, review, contribution, block, etc.).
+
+
+
+Anatomy
+
+1. Header Section
+- Profile Picture: avatar.
+- Cover Picture: cover image.
+- Username: Unique, tappable/hoverable string.
+- Verified Badge (optional): Blue check if account is verified.
+- Edit Profile / Follow Button:
+- “Edit Profile” (if current user)
+- Profile menu (top-right, optional for actions)
+    - “Follow” / “Following” / “Requested” (if visiting another user)
+
+2. Stats Row
+- Places (Businesses / locations they have worked remotely, relative to user's location / personal interests and preferences): 
+    - Visited
+    - Want to Visit
+    - Bookmarked Collections
+    - Reviewed
+    - Commented
+    - Favorited
+    - Followed
+    - Recommended
+    - Requested
+- Contributions: Number of posts, comments, reviews, etc.
+- Followers Count: Number of followers.
+- Following Count: Number of accounts followed.
+- Reviews: Number of reviews.
+- Comments: Number of comments.
+- Favorites: Number of favorites.
+- Followers: Number of followers.
+- Following: Number of accounts followed.
+- Endorsements: Number of endorsements.
+- Each item is tappable to reveal respective lists.
+
+3. Bio Section
+- Profile Picture: avatar.
+- Cover Picture: cover image.
+- Display Name: Optional.
+- Headline: Short description of user's professional identity.
+- Name: Optional.
+- Profession: Optional.
+- Industry: Optional.
+- Company: Optional.
+- Company Website: Optional.
+- Company Logo: Optional.
+- Location: Optional.
+- Bio Text: Multiline, supports line breaks and emoji.
+- Links: Optional hyperlink(s) (single or multiple).
+- Category Label (for creator/business accounts): e.g., “Photographer”, “Software Engineer”, “Entrepreneur”, “Artist”, “Writer”, “Musician”, “Designer”, “Developer”, “Marketer”, “Sales”, “HR”, “Finance”, “Legal”, “Consultant”, “Other”.
+- Attribute tags: e.g., “Remote”, “Freelance”, “Full-time”, “Part-time”, “Contract”, “Intern”, “Volunteer”, “Other”.
+- Social Media Links: Optional.
+- Neumadic Stars: Reddit like karma system to validate user's contributions and interactions.
+
+4. Profile Actions
+- Message: Send a message to the user.
+- Email (if business/creator account): Send an email to the user.
+- Story Highlights (shown as circles, similar to stories): Show a list of activities, story highlights (Backlogged).
+
+5. Content Navigation Tabs
+- Tab 1: Activity Feed – all activity on visits, contribution / interactions with places (businesses), blog posts, posts, comments, reviews, etc.
+- Tab 2: Places – All places the user has visited, want to visit, bookmarked collections, reviewed, commented, favorited, followed, recommended, requested (ranked by user's location and preferences).
+- Tab 3: Posts – Blog posts, posts, comments, reviews, etc.
+
+6. Content Feed
+- grouped places, blogs, posts, or acitivity based on active tab (grouped catigorizations listed with each item ranked by user's location and preferences like netflix)
+- Infinite scroll loading
+- Lazy image loading
+
+
+
+
+
+✅ Confirmed User-to-User Social Interactions
+    •   Follow / Unfollow
+    •   Message
+    •   Endorse (e.g. Neumadic validation/approval)
+    •   Comment (on posts, reviews, etc.)
+    •   Like / Dislike user’s content (posts, reviews, etc.)
+    •   View mutual connections (assumed but not confirmed — clarify if needed)
+    •   Block / Report (user moderation)
+    •   Bookmark / Save profile
+    •   Send connection invite (if different from follow, clarify)
+
+✅ Confirmed Store Interactions
+    •   Mark as Visited
+    •   Favorite (heart)
+    •   Bookmark / Save (collection/group)
+    •   Comment on the store page
+    •   Endorse
+    •   Like / Dislike store
+    •   Like / Dislike individual store detail sections (e.g. “Experience”, “Service”)
+    •   Request to Edit store data or Suggest Additions (contribution system)
+
+⸻
+
+🔒 Privacy & Visibility Controls
+
+✅ User Profile Visibility
+	•	Public by default, accessible at:
+            - www.neumad.com/@username
+
+User can:
+    •   Make entire profile private
+    •   Set individual tabs (Places, Posts, Activity) to:
+    •   Public
+    •   Followers only
+    •   Private
+    •   Hide or archive specific posts, places, or reviews
+    •   Control whether their profile appears in search results
+
+
+
+🧠 Ranking & Filtering Logic for Profile Feed (Places / Activity)
+
+🎯 Purpose
+
+Ensure the content displayed in each user’s profile is contextually relevant, highly personal, and quickly accessible for digital nomads seeking ideal remote work spots.
+
+⸻
+
+🧩 Ranking Factors (in weighted order)
+    1.  Distance (Primary Weight)
+    •   Based on user’s current or saved location (city, GPS, zip)
+    •   Filters: Nearby, Walking Distance, Within X mi/km
+    2.  Explicit User Preferences (Secondary Weight)
+    •   Saved via settings or quick filters
+    •   Stored to persist across sessions
+Preference Categories:
+    •   Store Details: Open Late, Outlets: Lots, Private Rooms, Fast Wi-Fi
+    •   Environment: Quiet, Coworking, Youthful, Professional
+    •   Attributes: High-End, Cozy, Friendly, Quality
+    •   Best For: Working, Meetings, Zoom, Networking, Solo
+    •   Services: Matcha, Pastries, Seasonal, Breakfast, etc.
+    •   Demographic: Designers, Artists, Entrepreneurs, etc.
+    •   Type: Coffee Shop, Coworking, Library, Hotel Lounge, etc.
+    •   Amenities: Two Story, Outdoors, Single Table, Cubbies, etc.
+    •   Status Tags: New, Trending, Popular, Hidden Gem
+    3.  Engagement Signals
+    •   Likes, Reviews, Endorsements, Favorites, Shares
+    •   Recency of interaction
+    4.  Social Proximity
+    •   Places visited or endorsed by mutual followers
+
+⸻
+
+🧭 Filtering UI
+    •   Located above or within each tab (Places, Activity, Posts)
+    •   Multi-select filters for:
+    •   Distance
+    •   Any category (attributes, services, best for, etc.)
+    •   Save filters per user session
+    •   Toggle to “Clear All” or “Save as Default”
+
+⸻
+
+✅ Functional Behavior
+    •   Every tab defaults to filtered + ranked results
+    •   Filter selections persist between tabs + visits
+    •   Changing preferences updates profile session context in real-time (client or server-side depending on architecture)
+    •   Each category grouping (e.g. “Cozy Spots Nearby” or “Best for Networking”) is an expandable horizontal scroll module
+    •   Infinite scroll below category blocks
+'
+

@@ -1,0 +1,147 @@
+[{
+  "_id": {
+    "$oid": "684854a6b0e777c0c9172410"
+  },
+  "slug": "test05",
+  "author": {
+    "id": "68368e1cead1661999c940aa",
+    "name": "Neumad",
+    "email": "to.reiwatanabe@gmail.com",
+    "username": "Neumad"
+  },
+  "category": {
+    "category": "dine"
+  },
+  "comments": [
+    {
+      "author": "68368e1cead1661999c940aa",
+      "authorName": "Neumad",
+      "content": "first comment",
+      "timestamp": {
+        "$date": "2025-06-21T06:00:59.402Z"
+      },
+      "_id": {
+        "$oid": "68564a9b7c17644dfd977dde"
+      }
+    },
+    {
+      "author": "68368e1cead1661999c940aa",
+      "authorName": "Neumad",
+      "content": "first comment",
+      "timestamp": {
+        "$date": "2025-06-21T06:00:59.428Z"
+      },
+      "_id": {
+        "$oid": "68564a9b7c17644dfd977de1"
+      }
+    },
+    {
+      "author": "68368e1cead1661999c940aa",
+      "authorName": "Neumad",
+      "content": "first comment",
+      "timestamp": {
+        "$date": "2025-06-21T06:00:59.431Z"
+      },
+      "_id": {
+        "$oid": "68564a9b7c17644dfd977de4"
+      }
+    }
+  ],
+  "content": {
+    "blocks": [
+      {
+        "id": "block-heading-1",
+        "type": "heading",
+        "order": 0,
+        "level": "h2",
+        "text": "The Best Coffee Shops In LA For Getting Work Done"
+      },
+      {
+        "id": "block-text-0",
+        "type": "text",
+        "order": 1,
+        "content": "The seating arrangement of the facility is thoughtfully arranged to embraced the shared space in order to create an environment similar to a school yard during lunch break. The seating arrangement of the facility is thoughtfully arranged to embraced the shared space in order to create an environment similar to a school yard during lunch break.\nfdsfsdfd"
+      },
+      {
+        "id": "block-store-link-4",
+        "type": "store",
+        "order": 2
+      },
+      {
+        "id": "block-image-2",
+        "type": "image",
+        "order": 3,
+        "caption": "",
+        "src": ""
+      },
+      {
+        "id": "block-gallery-8",
+        "type": "gallery",
+        "order": 4
+      }
+    ],
+    "introduction": "",
+    "body": "",
+    "conclusion": "",
+    "stores": "",
+    "postscript": ""
+  },
+  "createdAt": {
+    "$date": "2025-06-10T15:52:06.027Z"
+  },
+  "interactions": {
+    "views": 6,
+    "likes": 1,
+    "comments": 1,
+    "likedBy": [
+      "68368e1cead1661999c940aa"
+    ],
+    "dislikedBy": []
+  },
+  "lastUpdated": {
+    "$date": "2025-06-21T06:02:23.415Z"
+  },
+  "location": {
+    "type": "Blog"
+  },
+  "media": {
+    "hero": "/uploads/blogs/gettyimages-556834585-170667a.jpg",
+    "thumbnail": "/uploads/blogs/gettyimages-556834585-170667a.jpg",
+    "gallery": []
+  },
+  "publishedAt": {
+    "$date": "2025-06-21T06:00:30.469Z"
+  },
+  "savedBy": [],
+  "settings": {
+    "public": true,
+    "comments": true,
+    "autosave": true
+  },
+  "snippet": {
+    "text": "sdfsadfafsa"
+  },
+  "status": "published",
+  "summary": {
+    "text": []
+  },
+  "tag": [
+    {
+      "tags": [
+        "coffee",
+        "Los Angeles",
+        "Work",
+        "2025"
+      ],
+      "_id": {
+        "$oid": "68564a7e7c17644dfd977db3"
+      }
+    }
+  ],
+  "template": "freestyle",
+  "title": "test05",
+  "updatedAt": {
+    "$date": "2025-06-21T06:02:23.415Z"
+  },
+  "variant": "blogs"
+}]

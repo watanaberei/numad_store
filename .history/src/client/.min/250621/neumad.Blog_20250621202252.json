@@ -1,0 +1,52 @@
+[
+  {
+    "slug": "test05",
+    "title": "The Best Coffee Shops In LA For Getting Work Done",
+    "author": { "username": "Neumad" },
+    "publishedAt": { "$date": "2025-06-21T06:00:59.000Z" },
+    "thumbnail": "/uploads/blogs/blog05.png",
+    "snippet": "test05",
+    "category": "dine",
+    "variant": "blogs"
+  },
+  {
+    "slug": "test04",
+    "title": "test04",
+    "author": { "username": "Neumad" },
+    "publishedAt": { "$date": "2025-06-07T05:38:53.238Z" },
+    "thumbnail": "",
+    "snippet": "test04",
+    "category": "dine",
+    "variant": "blogs"
+  },
+  {
+    "slug": "test03",
+    "title": "test03",
+    "author": { "username": "Neumad" },
+    "publishedAt": { "$date": "2025-06-07T04:32:53.529Z" },
+    "thumbnail": "/uploads/blogs/blog03.png",
+    "snippet": "test03",
+    "category": "dine",
+    "variant": "blogs"
+  },
+  {
+    "slug": "test02",
+    "title": "test02",
+    "author": { "username": "Neumad" },
+    "publishedAt": { "$date": "2025-06-06T20:23:07.748Z" },
+    "thumbnail": "/uploads/blogs/blog02.png",
+    "snippet": "test02",
+    "category": "dine",
+    "variant": "blogs"
+  },
+  {
+    "slug": "sdfsdfs",
+    "title": "sdfsdfs",
+    "author": { "username": "Neumad" },
+    "publishedAt": { "$date": "2025-05-28T04:12:43.855Z" },
+    "thumbnail": "/uploads/blogs/blog01.png",
+    "snippet": "dfsdfs",
+    "category": "dine",
+    "variant": "blogs"
+  }
+]

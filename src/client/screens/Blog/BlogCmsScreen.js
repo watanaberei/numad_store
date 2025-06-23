@@ -1,21 +1,23 @@
-// src/client/screens/BlogCMS.js
+// src/client/screens/BlogCmsScreen.js
 import { getStore } from "../../API/api.js";
 import { parseRequestUrl } from "../../utils/utils.js";
 import HeaderHome from "../../components/header/HeaderHome.js";
 
 const PostScreen = {
   render: async () => {
-    const request = parseRequestUrl();
-    const blogSlug = request.slug; // Use slug instead of id to match store pattern
+    // Check if this is an edit or new post
+    const isEditMode = PostScreen.request?.action === 'edit';
+    const username = PostScreen.request?.username || localStorage.getItem('username');
+    const blogSlug = PostScreen.request?.slug;
+    
     let blogData = {};
-     
-    // If we have a blog slug, try to fetch existing blog data - following StoreScreen pattern
-    if (blogSlug) {
+    
+    // If we're in edit mode, fetch existing blog data
+    if (isEditMode && username && blogSlug) {
       try {
-        console.log("[BlogCMS] Getting blog for slug:", blogSlug);
+        console.log("[BlogCMS] Getting blog for edit:", username, blogSlug);
         
-        // First try to fetch from MongoDB (following StoreScreen pattern)
-        const mongoResponse = await fetch(`http://localhost:4500/api/blog/${blogSlug}`);
+        const mongoResponse = await fetch(`http://localhost:4500/api/@${username}/blog/${blogSlug}`);
         
         if (mongoResponse.ok) {
           const mongoData = await mongoResponse.json();
@@ -26,10 +28,6 @@ const PostScreen = {
         } else {
           console.log("[BlogCMS] Blog not found in MongoDB");
         }
-        
-        // If not found in MongoDB, you could fetch from your original data source here
-        // Similar to how StoreScreen fetches from StoreData if not in MongoDB
-        
       } catch (error) {
         console.error('Error fetching blog data:', error);
       }
@@ -54,7 +52,7 @@ const PostScreen = {
             </div>
             
             <div class="toolbar-center">
-              <span class="text03 bold">${blogSlug ? 'Edit Post' : 'New Post'}</span>
+              <span class="text03 bold">${isEditMode ? 'Edit Post' : 'New Post'}</span>
             </div>
             
             <div class="toolbar-right">
@@ -69,7 +67,7 @@ const PostScreen = {
           </div>
           
           <!-- Blog Post Template Selection -->
-          <div class="template-selector col05 ${blogSlug ? 'hidden' : ''}">
+          <div class="template-selector col05 ${isEditMode ? 'hidden' : ''}">
             <h2 class="text04">Choose a Template</h2>
             
             <div class="template-options">
@@ -88,7 +86,7 @@ const PostScreen = {
           </div>
           
           <!-- Main CMS interface -->
-          <div class="cms-container col05 ${blogSlug ? '' : 'hidden'}" data-template="${blogData.template || 'freestyle'}">
+          <div class="cms-container col05 ${isEditMode ? '' : 'hidden'}" data-template="${blogData.template || 'freestyle'}">
             <!-- Blog post metadata -->
             <div class="blog-metadata-section col05">
               <div class="input-group">
@@ -262,10 +260,21 @@ const PostScreen = {
   
  
   after_render: async () => {
+    // Check if this is an edit or new post
+    const isEditMode = PostScreen.request?.action === 'edit';
+    const username = PostScreen.request?.username || localStorage.getItem('username');
+    const blogSlug = PostScreen.request?.slug;
+    
     // Initialize template selection
     const templateOptions = document.querySelectorAll('.template-option');
     const templateSelector = document.querySelector('.template-selector');
     const cmsContainer = document.querySelector('.cms-container');
+    
+    // If editing, show CMS container immediately
+    if (isEditMode) {
+      templateSelector.classList.add('hidden');
+      cmsContainer.classList.remove('hidden');
+    }
     
     templateOptions.forEach(option => {
       option.addEventListener('click', () => {
@@ -315,7 +324,7 @@ const PostScreen = {
     function addContentBlock(type) {
       // Hide empty state if visible
       if (!emptyState.classList.contains('hidden')) {
-        emptyState.classList.add('hidden');
+        emptyState.style.display = 'none';
       }
       
       const blockId = `block-${type}-${blockCounter++}`;
@@ -485,7 +494,7 @@ const PostScreen = {
           
           // Show empty state if no blocks left
           if (contentBlocks.querySelectorAll('.content-block').length === 0) {
-            emptyState.classList.remove('hidden');
+            emptyState.style.display = 'block';
           }
         }
       });
@@ -760,10 +769,6 @@ const PostScreen = {
       }, 30000);
     }
     
-
-
-
-    
     // Helper function to save post - UPDATED TO GET REAL USER INFO
     async function savePost(status, isAutosave = false) {
       try {
@@ -822,10 +827,13 @@ const PostScreen = {
           return;
         }
         
+        // Generate slug from title if new post (not in edit mode)
+        const blogSlug = isEditMode ? PostScreen.request.slug : generateSlug(blogTitle);
+        
         // Create completeBlogData object with real user info
         const completeBlogData = {
           // Generate slug from title if new post
-          slug: generateSlug(blogTitle),
+          slug: blogSlug,
           title: blogTitle,
           variant: 'blogs',
           
@@ -880,7 +888,7 @@ const PostScreen = {
           
           // Timestamps
           publishedAt: status === 'published' ? new Date() : null,
-          createdAt: new Date(),
+          createdAt: isEditMode ? undefined : new Date(), // Don't overwrite creation date on edit
           updatedAt: new Date(),
           lastUpdated: new Date()
         };
@@ -900,8 +908,8 @@ const PostScreen = {
           completeBlogData.media.thumbnail = `/uploads/blogs/${coverImageFile.name}`;
         }
         
-        
         // Process content blocks
+        const contentBlocks = [];
         document.querySelectorAll('.content-block').forEach((block, index) => {
           const blockType = block.id.split('-')[1];
           const blockData = {
@@ -939,8 +947,11 @@ const PostScreen = {
               break;
           }
           
-          completeBlogData.content.blocks.push(blockData);
+          contentBlocks.push(blockData);
         });
+
+        // Then update the completeBlogData object to use the processed blocks
+        completeBlogData.content.blocks = contentBlocks;
         
         console.log('[BlogCMS] Complete blog data to save:', completeBlogData);
     
@@ -953,15 +964,12 @@ const PostScreen = {
           return;
         }
         
-         // Determine endpoint and slug - following StoreScreen pattern
-        const request = parseRequestUrl();
-        const endpoint = request.slug 
-          ? `http://localhost:4500/api/blog/sync/${request.slug}` 
-          : `http://localhost:4500/api/blog/sync/${completeBlogData.slug}`;
+        // Determine endpoint
+        const endpoint = `http://localhost:4500/api/@${currentUser.username}/post/sync/${completeBlogData.slug}`;
         
         console.log(`[BlogCMS] Saving blog data to MongoDB via: ${endpoint}`);
         
-        // Send to server - following StoreScreen pattern exactly
+        // Send to server
         const response = await fetch(endpoint, {
           method: 'POST',
           headers: {
@@ -991,13 +999,14 @@ const PostScreen = {
           
           // Redirect to blog page if published, or update URL if new post
           if (status === 'published') {
-            window.location.href = `/blog/${responseData.blog.slug}`;
-          } else if (!request.slug) {
-            // If this was a new post, update URL to include new blog slug
+            // Redirect to the blog page with username in URL
+            window.location.href = `/@${currentUser.username}/${responseData.blog.slug}`;
+          } else if (!isEditMode) {
+            // If this was a new post, update URL to include new blog slug for editing
             window.history.replaceState(
               null, 
               '', 
-              `/post/${responseData.blog.slug}`
+              `/@${currentUser.username}/${responseData.blog.slug}/edit`
             );
           }
         } else {
@@ -1039,7 +1048,8 @@ function generateSlug(title) {
     .replace(/[^a-z0-9\s-]/g, '')
     .replace(/\s+/g, '-')
     .replace(/-+/g, '-')
-    .trim('-');
+    .trim()
+    .replace(/^-+|-+$/g, '');
 }
 
 // Helper function to generate block HTML for existing blocks

@@ -1,0 +1,7 @@
+[{
+  "username": "Neumad",
+  "visitHistory": [
+    { "storeId": "ca_orange-county_fullerton_dripp", "timestamp": { "$date": "2025-06-10T15:52:55.351Z" } },
+    { "storeId": "ca_costa-mesa_weworks-park-tower", "timestamp": { "$date": "2025-06-21T05:29:36.698Z" } }
+  ]
+}]

@@ -1,0 +1,66 @@
+[{
+  "_id": {
+    "$oid": "68368e1cead1661999c940aa"
+  },
+  "email": "to.reiwatanabe@gmail.com",
+  "password": "$2b$10$U.g1qHT8NfSh0J0iLLh87.0jNmN5g23Vs1z5JjrWh6aRyq1KpRTua",
+  "username": "Neumad",
+  "lastName": [],
+  "birthdate": [],
+  "savedStores": [],
+  "checkedInStores": [],
+  "impressionsLiked": [],
+  "impressionsDisliked": [],
+  "visitHistory": [
+    {
+      "storeId": "ca_orange-county_fullerton_dripp",
+      "timestamp": {
+        "$date": "2025-06-10T15:52:54.528Z"
+      },
+      "_id": {
+        "$oid": "684854d60e501dea650132dc"
+      }
+    },
+    {
+      "storeId": "ca_orange-county_fullerton_dripp",
+      "timestamp": {
+        "$date": "2025-06-10T15:52:54.954Z"
+      },
+      "_id": {
+        "$oid": "684854d60e501dea6501330a"
+      }
+    },
+    {
+      "storeId": "ca_orange-county_fullerton_dripp",
+      "timestamp": {
+        "$date": "2025-06-10T15:52:55.351Z"
+      },
+      "_id": {
+        "$oid": "684854d70e501dea65013383"
+      }
+    },
+    {
+      "storeId": "ca_costa-mesa_weworks-park-tower",
+      "timestamp": {
+        "$date": "2025-06-21T05:29:36.698Z"
+      },
+      "_id": {
+        "$oid": "685643407c17644dfd977d81"
+      }
+    }
+  ],
+  "lastSynced": {
+    "$date": "2025-05-28T04:16:28.407Z"
+  },
+  "lastUpdated": {
+    "$date": "2025-05-28T04:16:28.407Z"
+  },
+  "createdAt": {
+    "$date": "2025-05-28T04:16:28.409Z"
+  },
+  "updatedAt": {
+    "$date": "2025-06-21T05:29:36.698Z"
+  },
+  "__v": 0,
+  "checkedInStore": null
+}]
