@@ -62,5 +62,167 @@
     "$date": "2025-06-21T05:29:36.698Z"
   },
   "__v": 0,
-  "checkedInStore": null
+  "checkedInStore": null,
+  "blogHistory": [],
+  "blogPosts": [
+    {
+      "blogId": {
+        "$oid": "68368cfac8fdc5eabef3478c"
+      },
+      "title": "sdfsdfs",
+      "slug": "sdfsdfs",
+      "category": "dine",
+      "snippet": "dfsdfs",
+      "thumbnail": "/uploads/blogs/Screenshot 2025-05-27 at 9.40.37 AM.png",
+      "status": "published",
+      "publishedAt": {
+        "$date": "2025-05-28T04:12:43.855Z"
+      },
+      "addedAt": {
+        "$date": "2025-07-02T01:27:53.705Z"
+      }
+    },
+    {
+      "blogId": {
+        "$oid": "68434e28ae8bdc0426df5664"
+      },
+      "title": "test02",
+      "slug": "test02",
+      "category": "dine",
+      "snippet": "test02",
+      "thumbnail": "/uploads/blogs/jira.ipgaxis.com_browse_SAMSUNGHED-3 (3).png",
+      "status": "published",
+      "publishedAt": {
+        "$date": "2025-06-06T20:23:07.748Z"
+      },
+      "addedAt": {
+        "$date": "2025-07-02T01:27:53.705Z"
+      }
+    },
+    {
+      "blogId": {
+        "$oid": "6843c0f5ae8bdc0426df5d0d"
+      },
+      "title": "test03",
+      "slug": "test03",
+      "category": "dine",
+      "snippet": "test03",
+      "thumbnail": "/uploads/blogs/Screenshot 2025-06-06 at 8.39.09 AM.png",
+      "status": "published",
+      "publishedAt": {
+        "$date": "2025-06-07T04:32:53.529Z"
+      },
+      "addedAt": {
+        "$date": "2025-07-02T01:27:53.705Z"
+      }
+    },
+    {
+      "blogId": {
+        "$oid": "6843d06dae8bdc0426df5de5"
+      },
+      "title": "test04",
+      "slug": "test04",
+      "category": "dine",
+      "snippet": "test04",
+      "thumbnail": "",
+      "status": "published",
+      "publishedAt": {
+        "$date": "2025-06-07T05:38:53.238Z"
+      },
+      "addedAt": {
+        "$date": "2025-07-02T01:27:53.705Z"
+      }
+    },
+    {
+      "blogId": {
+        "$oid": "684854a6b0e777c0c9172410"
+      },
+      "title": "test05",
+      "slug": "test05",
+      "category": "dine",
+      "snippet": "sdfsadfafsa",
+      "thumbnail": "/uploads/blogs/gettyimages-556834585-170667a.jpg",
+      "status": "published",
+      "publishedAt": {
+        "$date": "2025-06-21T06:00:30.469Z"
+      },
+      "addedAt": {
+        "$date": "2025-07-02T01:27:53.705Z"
+      }
+    }
+  ],
+  "blogsCreated": [
+    {
+      "blogId": {
+        "$oid": "68368cfac8fdc5eabef3478c"
+      },
+      "title": "sdfsdfs",
+      "slug": "sdfsdfs",
+      "status": "published",
+      "publishedAt": {
+        "$date": "2025-05-28T04:12:43.855Z"
+      },
+      "createdAt": {
+        "$date": "2025-05-28T04:11:38.216Z"
+      }
+    },
+    {
+      "blogId": {
+        "$oid": "68434e28ae8bdc0426df5664"
+      },
+      "title": "test02",
+      "slug": "test02",
+      "status": "published",
+      "publishedAt": {
+        "$date": "2025-06-06T20:23:07.748Z"
+      },
+      "createdAt": {
+        "$date": "2025-06-06T20:23:03.287Z"
+      }
+    },
+    {
+      "blogId": {
+        "$oid": "6843c0f5ae8bdc0426df5d0d"
+      },
+      "title": "test03",
+      "slug": "test03",
+      "status": "published",
+      "publishedAt": {
+        "$date": "2025-06-07T04:32:53.529Z"
+      },
+      "createdAt": {
+        "$date": "2025-06-07T04:32:53.771Z"
+      }
+    },
+    {
+      "blogId": {
+        "$oid": "6843d06dae8bdc0426df5de5"
+      },
+      "title": "test04",
+      "slug": "test04",
+      "status": "published",
+      "publishedAt": {
+        "$date": "2025-06-07T05:38:53.238Z"
+      },
+      "createdAt": {
+        "$date": "2025-06-07T05:38:53.277Z"
+      }
+    },
+    {
+      "blogId": {
+        "$oid": "684854a6b0e777c0c9172410"
+      },
+      "title": "test05",
+      "slug": "test05",
+      "status": "published",
+      "publishedAt": {
+        "$date": "2025-06-21T06:00:30.469Z"
+      },
+      "createdAt": {
+        "$date": "2025-06-10T15:52:06.027Z"
+      }
+    }
+  ],
+  "likedBlogs": [],
+  "savedBlogs": []
 }]
