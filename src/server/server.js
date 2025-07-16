@@ -15,7 +15,8 @@ import bodyParser from 'body-parser';
 // Import route modules
 import routeBlog from './route/blog/routeBlog.js';
 import routeStore from './route/store/routeStore.js';
-import routeUser from './route/user/routeUser.js';
+import routeProfile from './route/user/routeProfile.js';
+import routeSettings from './route/user/routeSetting.js';
 
 dotenv.config();
 
@@ -26,10 +27,40 @@ import('d3').then(d3 => {
   bisectRight = d3.bisectRight;
 });
 
+
+// Enhanced CORS configuration
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    const allowedOrigins = [
+      'http://localhost:3000',
+      'http://localhost:3001',
+      'http://127.0.0.1:3000',
+      'http://127.0.0.1:3001',
+      process.env.CLIENT_URL
+    ].filter(Boolean);
+    
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      console.log(`[CORS] Blocked origin: ${origin}`);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  exposedHeaders: ['X-Total-Count'],
+  maxAge: 86400 // 24 hours
+};
+
+
 // Configure CORS
 app.use(cors({
   origin: process.env.CLIENT_URL || 'http://localhost:3000',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }));
@@ -44,7 +75,32 @@ app.use('/uploads', express.static('uploads'));
 // Use route modules - FIXED: Add user routes
 app.use('/api', routeBlog);
 app.use('/api', routeStore);
-app.use('/api', routeUser);  // ADD USER ROUTES
+app.use('/api', routeProfile);  
+app.use('/api', routeSettings); 
+// ADD USER ROUTES
+
+
+
+// Apply CORS before other middleware
+app.use(cors(corsOptions));
+
+// Add explicit OPTIONS handling for preflight requests
+app.options('*', cors(corsOptions));
+
+// Add request logging middleware
+app.use((req, res, next) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.path}`);
+  next();
+});
+
+// Error handling for CORS
+app.use((err, req, res, next) => {
+  if (err && err.message === 'Not allowed by CORS') {
+    res.status(403).json({ error: 'CORS policy violation' });
+  } else {
+    next(err);
+  }
+});
 
 
 function authenticationToken(req, res, next) {
@@ -672,7 +728,7 @@ app.post('/api/blog/sync/:slug', async (req, res) => {
       console.log(`[Server] Syncing all blogs for user: ${username}`);
       
       // Find the user
-      const user = await UserModel.findOne({ username: username.toLowerCase() });
+      const user = await UserModel.findOne({ username: username });
       
       if (!user) {
         return res.status(404).json({
