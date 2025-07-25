@@ -18,6 +18,7 @@ import polyline from '@mapbox/polyline';
 import HeaderHome from "../../components/header/HeaderHome.js"; 
 import { createAuth0Client } from '@auth0/auth0-spa-js';
 import * as element from "../../components/elements.js";
+// import HeaderHome from "../../components/header/HeaderHome.js"; 
 import createStoreCard from "../../components/cards/store/cardStore.js";
 import { cardBlog } from "../../components/cards/blog/cardBlog.js";
 import { fieldText } from "../../components/form/Form.js";
@@ -32,13 +33,13 @@ const SERVER_URL = 'http://localhost:4500';  // Main server
 
 const ProfileScreen = {
   render: async () => {
-    console.log('[ProfileScreen] Starting render...');
+    console.log('[ProfileScreen.js:33] Starting render...');
     
     // Parse the URL to get the username
     const request = parseRequestUrl();
     const usernameFromUrl = ProfileScreen.request?.username || ProfileScreen.request?.resource || request.username || request.resource;
     
-    console.log('[ProfileScreen] URL parsed:', { usernameFromUrl, request, ProfileScreenRequest: ProfileScreen.request });
+    console.log('[ProfileScreen.js:39] URL parsed:', { usernameFromUrl, request, ProfileScreenRequest: ProfileScreen.request });
     
     // Check if user is logged in
     const accessToken = localStorage.getItem('accessToken');
@@ -47,6 +48,8 @@ const ProfileScreen = {
     // Determine if this is the current user's profile or someone else's
     const isOwnProfile = accessToken && currentUsername && currentUsername === usernameFromUrl;
     const isAuthenticated = !!accessToken;
+    
+    console.log('[ProfileScreen.js:48] Profile check:', { isOwnProfile, isAuthenticated, currentUsername, usernameFromUrl });
     
     console.log('[ProfileScreen] Profile context:', { 
       isOwnProfile, 
@@ -200,7 +203,7 @@ const ProfileScreen = {
           <section class="profile-carousels-section col05 row01">
             
             <!-- Recently Visited Stores Carousel -->
-            <div id="recently-visited-carousel col05 row01" class="content-carousel" style="display: none;">
+            <div id="recently-visited-carousel col05 row01" class="content-carousel">
               <div class="carousel-header col05 row01">
                 <h3 class="carousel-title">Recently Visited</h3>
                 <button class="carousel-view-all" data-target="places">View All</button>
@@ -319,6 +322,7 @@ const ProfileScreen = {
     after_render: async () => {
       console.log('[ProfileScreen] Starting after_render...');
       
+      
       // Parse the URL to get the username
       const request = parseRequestUrl();
       const usernameFromUrl = ProfileScreen.request?.username || ProfileScreen.request?.resource || request.username || request.resource;
@@ -435,6 +439,7 @@ const ProfileScreen = {
         }
       }
       
+      
       // Fetch own profile data (authenticated) from main server
       async function fetchOwnProfileData() {
         try {
@@ -468,6 +473,35 @@ const ProfileScreen = {
         }
       }
       
+      
+    async function loadStats(userData) {
+      try {
+        console.log('[ProfileScreen.js:416] Loading stats...');
+        
+        // Update stats from userData
+        const statsElements = {
+          'stats-check-ins': userData.stats?.checkIns || 0,
+          'stats-visits': userData.stats?.visitHistory || 0,
+          'stats-followers': userData.stats?.followers || 0,
+          'stats-following': userData.stats?.following || 0,
+          'stats-stars': userData.stats?.neumadicStars || 0
+        };
+        
+        Object.entries(statsElements).forEach(([id, value]) => {
+          const element = document.getElementById(id);
+          if (element) {
+            element.textContent = value.toLocaleString();
+          }
+        });
+        
+        console.log('[ProfileScreen.js:433] Stats loaded successfully');
+        
+      } catch (error) {
+        console.error('[ProfileScreen.js:436] Error loading stats:', error);
+      }
+    }
+    
+
       // Fetch public profile data (no authentication required) from main server
       async function fetchPublicProfileData(username) {
         try {
@@ -705,101 +739,118 @@ const ProfileScreen = {
         }
       }
       
-      // Load carousels for above-the-fold content
-      async function loadCarousels(userData, isOwn) {
-        try {
-          console.log('[ProfileScreen] Loading carousels...');
-          
-          // Load recently visited stores carousel
-          await loadRecentlyVisitedCarousel(userData, isOwn);
-          
-          // Load blog posts carousel
-          await loadBlogPostsCarousel(userData, isOwn);
-          
-        } catch (error) {
-          console.error('[ProfileScreen] Error loading carousels:', error);
-        }
+    async function loadCarousels(userData, isOwn) {
+      try {
+        console.log('[ProfileScreen.js:442] Loading carousels...');
+        
+        // Load recently visited stores carousel
+        await loadRecentlyVisitedCarousel(userData, isOwn);
+        
+        // Load blog posts carousel
+        await loadBlogPostsCarousel(userData, isOwn);
+        
+      } catch (error) {
+        console.error('[ProfileScreen.js:451] Error loading carousels:', error);
       }
+    }
       
-      // Load recently visited stores carousel
-      async function loadRecentlyVisitedCarousel(userData, isOwn) {
+    ///////////////////////// START FIXED RECENTLY VISITED CAROUSEL /////////////////////////
+    async function loadRecentlyVisitedCarousel(userData, isOwn) {
+      try {
+        console.log('[ProfileScreen.js:457] Loading recently visited stores carousel...');
+        
+        const carouselElement = document.getElementById('recently-visited-carousel');
+        const contentElement = document.getElementById('recently-visited-content');
+        
+        if (!contentElement) return;
+        
+        // Get unique stores from visitHistory, most recent first
+        const visitHistory = userData.visitHistory || [];
+        const uniqueStoreIds = new Map(); // Use Map to maintain order while deduplicating
+        
+        // Process visit history to get unique stores with most recent timestamp
+        visitHistory.forEach(visit => {
+          const storeId = visit.storeId;
+          if (!uniqueStoreIds.has(storeId) || visit.visitedAt > uniqueStoreIds.get(storeId).visitedAt) {
+            uniqueStoreIds.set(storeId, {
+              storeId: storeId,
+              storeName: visit.storeName,
+              visitedAt: visit.visitedAt
+            });
+          }
+        });
+        
+        // Convert to array and limit to 6 most recent
+        const recentStores = Array.from(uniqueStoreIds.values())
+          .sort((a, b) => new Date(b.visitedAt) - new Date(a.visitedAt))
+          .slice(0, 6);
+        
+        console.log('[ProfileScreen.js:485] Recent stores to fetch:', recentStores);
+        
+        if (recentStores.length === 0) {
+          contentElement.innerHTML = '<div class="empty-state"><p>No stores visited yet</p></div>';
+          return;
+        }
+        
+        // Extract just the store IDs for bulk fetch
+        const storeIds = recentStores.map(store => store.storeId);
+        
+        // Bulk fetch store details using the new endpoint
+        console.log('[ProfileScreen.js:496] Bulk fetching store details for IDs:', storeIds);
+        
         try {
-          console.log('[ProfileScreen] Loading recently visited stores carousel...');
-          
-          const carouselElement = document.getElementById('recently-visited-carousel');
-          const contentElement = document.getElementById('recently-visited-content');
-          
-          if (!contentElement) return;
-          
-          // Get unique stores from visitHistory, most recent first
-          const visitHistory = userData.visitHistory || [];
-          const uniqueStoreIds = new Map(); // Use Map to maintain order while deduplicating
-          
-          // Process visit history to get unique stores with most recent timestamp
-          visitHistory.forEach(visit => {
-            const storeId = visit.storeId;
-            const timestamp = new Date(visit.timestamp);
-            
-            if (!uniqueStoreIds.has(storeId) || timestamp > uniqueStoreIds.get(storeId).timestamp) {
-              uniqueStoreIds.set(storeId, {
-                storeId: storeId,
-                timestamp: timestamp,
-                visitedAt: visit.timestamp
-              });
-            }
+          const response = await fetch(`${SERVER_URL}/api/stores/bulk`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ storeIds })
           });
           
-          // Convert Map to array and sort by most recent visit
-          const sortedStores = Array.from(uniqueStoreIds.values())
-            .sort((a, b) => b.timestamp - a.timestamp);
-          
-          console.log('[ProfileScreen] Unique stores from visit history:', sortedStores);
-          
-          if (sortedStores.length === 0) {
-            contentElement.innerHTML = '<div class="empty-state"><p>No places visited yet</p></div>';
-            return;
+          if (!response.ok) {
+            throw new Error(`Failed to fetch stores: ${response.status}`);
           }
           
-          // Fetch store details from server (limit to 6 for carousel)
-          const storePromises = sortedStores.slice(0, 6).map(async storeData => {
-            try {
-              const response = await fetch(`${SERVER_URL}/api/stores/${storeData.storeId}`);
-              if (response.ok) {
-                const data = await response.json();
-                return {
-                  // Format data for createStoreCard
-                  slug: storeData.storeId,
-                  title: data.store?.hero?.storeName || data.store?.title || storeData.storeId,
-                  gallery: data.store?.hero?.gallery || [],
-                  thumbnail: data.store?.hero?.gallery?.[0] || '',
-                  city: data.store?.hero?.city || data.store?.location?.city || '',
-                  region: data.store?.hero?.state || data.store?.location?.state || '',
-                  ratings: [{
-                    key: data.store?.hero?.rating || 0,
-                    value: data.store?.hero?.review_count || 0
-                  }],
-                  storeType: data.store?.hero?.storeType?.[0] || data.store?.category?.categoryType || 'work',
-                  best: data.store?.overview?.[0]?.summary?.experience || [],
-                  addressMin: `${data.store?.hero?.city || ''}, ${data.store?.hero?.state || ''}`,
-                  visitedAt: storeData.visitedAt
-                };
-              }
-              return null;
-            } catch (error) {
-              console.warn('[ProfileScreen] Error fetching store details for:', storeData.storeId, error);
-              return null;
-            }
-          });
+          const data = await response.json();
+          const stores = data.stores || [];
           
-          const storeDetails = (await Promise.all(storePromises)).filter(Boolean);
+          console.log('[ProfileScreen.js:513] Bulk fetch returned', stores.length, 'stores');
           
-          if (storeDetails.length === 0) {
+          if (stores.length === 0) {
             contentElement.innerHTML = '<div class="empty-state"><p>Unable to load store details</p></div>';
             return;
           }
           
+          // Format store data for cardStore component
+          const formattedStores = stores.map(store => {
+            // Find the visit data for this store
+            const visitData = recentStores.find(v => v.storeId === store.slug);
+            
+            return {
+              slug: store.slug,
+              title: store.hero?.storeName || store.title || visitData?.storeName || 'Unknown Store',
+              thumbnail: store.hero?.gallery?.[0] || store.media?.hero || '',
+              gallery: store.hero?.gallery || [],
+              city: store.hero?.city || store.location?.neighborhood?.city || 'Unknown',
+              region: store.hero?.state || store.location?.neighborhood?.state || 'CA',
+              ratings: [{
+                key: store.hero?.rating || 0,
+                value: store.hero?.review_count || 0
+              }],
+              storeType: Array.isArray(store.hero?.storeType) ? store.hero.storeType[0] : (store.hero?.storeType || 'work'),
+              best: store.overview?.[0]?.summary?.experience?.map(exp => exp.label) || [],
+              addressMin: `${store.hero?.city || 'Unknown'}, ${store.hero?.state || 'CA'}`,
+              visitedAt: visitData?.visitedAt
+            };
+          });
+          
+          // Sort by visit date to maintain order
+          formattedStores.sort((a, b) => new Date(b.visitedAt) - new Date(a.visitedAt));
+          
+          console.log('[ProfileScreen.js:547] Formatted stores for carousel:', formattedStores);
+          
           // Create carousel using arrayCarousel
-          const carouselHTML = arrayCarousel(createStoreCard).render(storeDetails, {
+          const carouselHTML = arrayCarousel(createStoreCard).render(formattedStores, {
             limit: 6,
             showControls: true,
             className: 'stores-carousel',
@@ -816,189 +867,179 @@ const ProfileScreen = {
           // Initialize carousel after render
           arrayCarousel(createStoreCard).afterRender('.stores-carousel');
           
-          console.log('[ProfileScreen] Recently visited carousel loaded with', storeDetails.length, 'stores');
+          console.log('[ProfileScreen.js:567] Recently visited carousel loaded with', formattedStores.length, 'stores');
           
-        } catch (error) {
-          console.error('[ProfileScreen] Error loading recently visited carousel:', error);
-          const contentElement = document.getElementById('recently-visited-content');
-          if (contentElement) {
-            contentElement.innerHTML = '<div class="error-state"><p>Error loading recently visited places</p></div>';
-          }
+        } catch (fetchError) {
+          console.error('[ProfileScreen.js:570] Error fetching store details:', fetchError);
+          
+          // Fallback: show basic store info from visitHistory
+          const fallbackHTML = recentStores.map(store => `
+            <div class="store-card-fallback">
+              <h4>${store.storeName || 'Unknown Store'}</h4>
+              <p>ID: ${store.storeId}</p>
+            </div>
+          `).join('');
+          
+          contentElement.innerHTML = `
+            <div class="fallback-stores">
+              ${fallbackHTML}
+            </div>
+          `;
+        }
+        
+      } catch (error) {
+        console.error('[ProfileScreen.js:588] Error loading recently visited carousel:', error);
+        const contentElement = document.getElementById('recently-visited-content');
+        if (contentElement) {
+          contentElement.innerHTML = '<div class="error-state"><p>Error loading recently visited places</p></div>';
         }
       }
-      
-      async function loadBlogPostsCarousel(userData, isOwn) {
-        try {
-          console.log('[ProfileScreen] Loading blog posts carousel...');
-          console.log('[ProfileScreen] User data:', userData);
-          console.log('[ProfileScreen] Username:', userData.username);
-          console.log('[ProfileScreen] Is own profile:', isOwn);
-          
-          const carouselElement = document.getElementById('blog-posts-carousel');
-          const contentElement = document.getElementById('blog-posts-content');
-          
-          if (!contentElement) {
-            console.log('[ProfileScreen] Blog posts content element not found');
-            return;
-          }
-          
-          // Method 1: Check if user data already has blogPosts
-          if (userData.blogPosts && userData.blogPosts.length > 0) {
-            console.log('[ProfileScreen] Using blogPosts from userData:', userData.blogPosts.length);
-            
-            // Format blog data for cardBlog component
-            const formattedBlogs = userData.blogPosts.map(post => ({
-              slug: post.slug,
-              title: post.title,
-              snippet: post.snippet || '',
-              category: post.category || 'dine',
-              tag: post.tags || [],
-              thumbnail: post.thumbnail || '',
-              publishedAt: post.publishedAt,
-              author: userData
-            }));
-            
-            // Create carousel using arrayCarousel
-            const carouselHTML = arrayCarousel(cardBlog).render(formattedBlogs, {
-              limit: 6,
-              showControls: true,
-              id: 'blog-carousel',
-              className: 'blogs-carousel col05 row01',
-              emptyMessage: 'No blog posts yet'
-            });
-            
-            contentElement.innerHTML = carouselHTML;
-            
-            if (carouselElement) {
-              carouselElement.style.display = 'grid';
-            }
-            
-            arrayCarousel(cardBlog).afterRender('#blogs-carousel');
-            
-            console.log('[ProfileScreen] Blog posts carousel loaded from userData');
-            return;
-          }
-          
-          // Method 2: Fetch from blog endpoint
-          console.log('[ProfileScreen] Fetching blogs from API...');
-      
-          // Try multiple endpoints
-          const endpoints = [
-            `/api/user/${userData.username}/blogs`,
-            `/api/blog?author=${userData.username}&status=published&limit=6&sort=newest`,
-            `/api/blogs?author=${userData.username}&limit=6`
-          ];
-          
-          let blogs = [];
-          let success = false;
-          
-          // Method 1: Check if user data already has blogPosts
-          if (userData.blogPosts && Array.isArray(userData.blogPosts) && userData.blogPosts.length > 0) {
-            console.log('[ProfileScreen] Using blogPosts from userData:', userData.blogPosts.length);
-            blogs = userData.blogPosts.filter(post => !isOwn || post.status === 'published');
-          } 
-          // Method 2: Fetch from blog API
-          else if (userData.username) {
-            console.log('[ProfileScreen] Fetching blogs from API for username:', userData.username);
-            
-            try {
-              const blogParams = `?author=${userData.username}&status=published&limit=6&sort=newest`;
-              const response = await fetch(`${SERVER_URL}/api/blog${blogParams}`);
-              
-              if (response.ok) {
-                const data = await response.json();
-                blogs = data.blogs || [];
-                console.log('[ProfileScreen] Fetched blogs from API:', blogs.length);
-              } else {
-                console.error('[ProfileScreen] Failed to fetch blogs:', response.status);
-              }
-            } catch (error) {
-              console.error('[ProfileScreen] Error fetching blogs:', error);
-            }
-          }
-          
-          // If still no blogs, show empty state
-          if (!blogs || blogs.length === 0) {
-            contentElement.innerHTML = '<div class="empty-state"><p>No blog posts yet</p></div>';
-            if (carouselElement) {
-              carouselElement.style.display = 'none';
-            }
-            return;
-          }
-      
-          for (const endpoint of endpoints) {
-            try {
-              const url = `${SERVER_URL}${endpoint}`;
-              console.log('[ProfileScreen] Trying endpoint:', url);
-              
-              const response = await fetch(url);
-              console.log('[ProfileScreen] Response status:', response.status);
-              
-              if (response.ok) {
-                const data = await response.json();
-                console.log('[ProfileScreen] Response data:', data);
-                
-                // Extract blogs from different response formats
-                blogs = data.blogPosts || data.blogs || data.data || [];
-                
-                if (blogs.length > 0) {
-                  success = true;
-                  console.log('[ProfileScreen] Found blogs:', blogs.length);
-                  break;
-                }
-              }
-            } catch (error) {
-              console.error('[ProfileScreen] Error fetching from endpoint:', endpoint, error);
-            }
-          }
-          
-          if (!success || blogs.length === 0) {
-            console.log('[ProfileScreen] No blogs found from any endpoint');
-            contentElement.innerHTML = '<div class="empty-state"><p>No blog posts yet</p></div>';
-            return;
-          }
+    }
+    ///////////////////////// END FIXED RECENTLY VISITED CAROUSEL /////////////////////////
+    
+    async function loadBlogPostsCarousel(userData, isOwn) {
+      try {
+        console.log('[ProfileScreen.js:599] Loading blog posts carousel...');
+        console.log('[ProfileScreen.js:600] User data:', userData);
+        console.log('[ProfileScreen.js:601] Username:', userData.username);
+        console.log('[ProfileScreen.js:602] Is own profile:', isOwn);
+        
+        const carouselElement = document.getElementById('blog-posts-carousel');
+        const contentElement = document.getElementById('blog-posts-content');
+        
+        if (!contentElement) {
+          console.log('[ProfileScreen.js:608] Blog posts content element not found');
+          return;
+        }
+        
+        // Method 1: Check if user data already has blogPosts
+        if (userData.blogPosts && userData.blogPosts.length > 0) {
+          console.log('[ProfileScreen.js:614] Using blogPosts from userData:', userData.blogPosts.length);
           
           // Format blog data for cardBlog component
-          const formattedBlogs = blogs.map(blog => ({
-            slug: blog.slug,
-            title: blog.title,
-            snippet: blog.snippet?.text || blog.snippet || '',
-            category: blog.category?.category || blog.category || 'dine',
-            tag: blog.tag?.[0]?.tags || blog.tags || [],
-            thumbnail: blog.media?.thumbnail || blog.media?.hero || blog.thumbnail || '',
-            publishedAt: blog.publishedAt,
-            author: blog.author || userData
+          const formattedBlogs = userData.blogPosts.map(post => ({
+            slug: post.slug,
+            title: post.title,
+            snippet: post.snippet || '',
+            category: post.category || 'dine',
+            tag: post.tags || [],
+            thumbnail: post.thumbnail || '',
+            publishedAt: post.publishedAt,
+            author: userData
           }));
-          
-          console.log('[ProfileScreen] Formatted blogs:', formattedBlogs);
           
           // Create carousel using arrayCarousel
           const carouselHTML = arrayCarousel(cardBlog).render(formattedBlogs, {
             limit: 6,
             showControls: true,
-            className: 'blogs-carousel',
+            id: 'blog-carousel',
+            className: 'blogs-carousel col05 row01',
             emptyMessage: 'No blog posts yet'
           });
           
           contentElement.innerHTML = carouselHTML;
           
           if (carouselElement) {
-            carouselElement.style.display = 'block';
+            carouselElement.style.display = 'grid';
           }
           
-          // Initialize carousel after render
-          arrayCarousel(cardBlog).afterRender('.blogs-carousel');
+          arrayCarousel(cardBlog).afterRender('#blogs-carousel');
           
-          console.log('[ProfileScreen] Blog posts carousel loaded with', formattedBlogs.length, 'posts');
+          console.log('[ProfileScreen.js:644] Blog posts carousel loaded from userData');
+          return;
+        }
+        
+        // Method 2: Fetch from blog endpoint
+        console.log('[ProfileScreen.js:649] Fetching blogs from API...');
+        
+        try {
+          const blogParams = `?author=${userData.username}&status=published&limit=6&sort=newest`;
+          const response = await fetch(`${SERVER_URL}/api/blog${blogParams}`);
           
-        } catch (error) {
-          console.error('[ProfileScreen] Error loading blog posts carousel:', error);
-          const contentElement = document.getElementById('blog-posts-content');
-          if (contentElement) {
+          if (response.ok) {
+            const data = await response.json();
+            const blogs = data.blogs || [];
+            console.log('[ProfileScreen.js:658] Fetched blogs from API:', blogs.length);
+            
+            if (blogs.length > 0) {
+              // Format blog data for cardBlog component
+              const formattedBlogs = blogs.map(blog => ({
+                slug: blog.slug,
+                title: blog.title,
+                snippet: blog.snippet?.text || '',
+                category: blog.category?.category || 'dine',
+                tag: blog.tag?.[0]?.tags || blog.tags || [],
+                thumbnail: blog.media?.thumbnail || blog.media?.hero || blog.thumbnail || '',
+                publishedAt: blog.publishedAt,
+                author: blog.author
+              }));
+              
+              // Create carousel using arrayCarousel
+              const carouselHTML = arrayCarousel(cardBlog).render(formattedBlogs, {
+                limit: 6,
+                showControls: true,
+                id: 'blog-carousel',
+                className: 'blogs-carousel col05 row01',
+                emptyMessage: 'No blog posts yet'
+              });
+              
+              contentElement.innerHTML = carouselHTML;
+              
+              if (carouselElement) {
+                carouselElement.style.display = 'grid';
+              }
+              
+              arrayCarousel(cardBlog).afterRender('#blogs-carousel');
+              
+              console.log('[ProfileScreen.js:689] Blog posts carousel loaded from API');
+            } else {
+              contentElement.innerHTML = '<div class="empty-state"><p>No blog posts yet</p></div>';
+            }
+          } else {
+            console.error('[ProfileScreen.js:694] Failed to fetch blogs:', response.status);
             contentElement.innerHTML = '<div class="error-state"><p>Error loading blog posts</p></div>';
           }
+        } catch (error) {
+          console.error('[ProfileScreen.js:698] Error fetching blogs:', error);
+          contentElement.innerHTML = '<div class="error-state"><p>Error loading blog posts</p></div>';
+        }
+        
+      } catch (error) {
+        console.error('[ProfileScreen.js:703] Error loading blog posts carousel:', error);
+        const contentElement = document.getElementById('blog-posts-content');
+        if (contentElement) {
+          contentElement.innerHTML = '<div class="error-state"><p>Error loading blog posts</p></div>';
         }
       }
+    }
+
+    async function loadTabContent(tabName) {
+      try {
+        console.log('[ProfileScreen.js:713] Loading content for tab:', tabName);
+        
+        const request = parseRequestUrl();
+        const username = ProfileScreen.request?.username || ProfileScreen.request?.resource || request.username || request.resource;
+        const isOwn = localStorage.getItem('username') === username;
+        
+        switch (tabName) {
+          case 'activity':
+            await loadActivityContent(isOwn);
+            break;
+          case 'places':
+            await loadPlacesContent(isOwn);
+            break;
+          case 'posts':
+            await loadPostsContent(isOwn);
+            break;
+          case 'about':
+            await loadAboutContent();
+            break;
+        }
+        
+      } catch (error) {
+        console.error('[ProfileScreen.js:735] Error loading tab content:', error);
+      }
+    }
       
       // Updated loadPostsContent function for the Posts tab
       async function loadPostsContent(isOwn, username = null) {
@@ -1514,7 +1555,7 @@ const ProfileScreen = {
       // Setup filtering
       function setupFiltering() {
         try {
-          console.log('[ProfileScreen] Setting up filtering...');
+          console.log('[ProfileScreen.js:761] Setting up filtering...');
           
           const distanceFilter = document.getElementById('distance-filter');
           const categoryFilter = document.getElementById('category-filter');
@@ -1524,7 +1565,7 @@ const ProfileScreen = {
           if (distanceFilter) {
             distanceFilter.addEventListener('change', () => {
               const value = distanceFilter.value;
-              console.log('[ProfileScreen] Distance filter changed:', value);
+              console.log('[ProfileScreen.js:772] Distance filter changed:', value);
               // TODO: Implement distance filtering
             });
           }
@@ -1533,7 +1574,7 @@ const ProfileScreen = {
           if (categoryFilter) {
             categoryFilter.addEventListener('change', () => {
               const value = categoryFilter.value;
-              console.log('[ProfileScreen] Category filter changed:', value);
+              console.log('[ProfileScreen.js:781] Category filter changed:', value);
               // TODO: Implement category filtering
             });
           }
@@ -1541,58 +1582,59 @@ const ProfileScreen = {
           // Clear filters
           if (clearFiltersBtn) {
             clearFiltersBtn.addEventListener('click', () => {
-              console.log('[ProfileScreen] Clear filters clicked');
+              console.log('[ProfileScreen.js:789] Clear filters clicked');
               if (distanceFilter) distanceFilter.value = 'all';
               if (categoryFilter) categoryFilter.value = 'all';
               // TODO: Reset filtered content
             });
           }
           
-          console.log('[ProfileScreen] Filtering set up successfully');
+          console.log('[ProfileScreen.js:796] Filtering set up successfully');
           
         } catch (error) {
-          console.error('[ProfileScreen] Error setting up filtering:', error);
+          console.error('[ProfileScreen.js:799] Error setting up filtering:', error);
         }
       }
       
       // Setup carousel navigation
-      function setupCarouselNavigation() {
-        try {
-          console.log('[ProfileScreen] Setting up carousel navigation...');
-          
-          const viewAllButtons = document.querySelectorAll('.carousel-view-all');
-          
-          viewAllButtons.forEach(button => {
-            button.addEventListener('click', () => {
-              const target = button.getAttribute('data-target');
-              
-              // Switch to the appropriate tab
-              const tabButtons = document.querySelectorAll('.tab-btn');
-              const tabContents = document.querySelectorAll('.tab-content');
-              
-              // Remove active class from all buttons and contents
-              tabButtons.forEach(btn => btn.classList.remove('active'));
-              tabContents.forEach(content => content.classList.remove('active'));
-              
-              // Add active class to target tab
-              const targetButton = document.querySelector(`[data-tab="${target}"]`);
-              const targetContent = document.getElementById(`${target}-tab`);
-              
-              if (targetButton) targetButton.classList.add('active');
-              if (targetContent) targetContent.classList.add('active');
-              
-              console.log('[ProfileScreen] Carousel view all clicked, switched to tab:', target);
-            });
+      
+    function setupCarouselNavigation() {
+      try {
+        console.log('[ProfileScreen.js:805] Setting up carousel navigation...');
+        
+        const viewAllButtons = document.querySelectorAll('.carousel-view-all');
+        
+        viewAllButtons.forEach(button => {
+          button.addEventListener('click', () => {
+            const target = button.getAttribute('data-target');
+            
+            // Switch to the appropriate tab
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            // Remove active class from all buttons and contents
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            // Add active class to target tab
+            const targetButton = document.querySelector(`[data-tab="${target}"]`);
+            const targetContent = document.getElementById(`${target}-tab`);
+            
+            if (targetButton) targetButton.classList.add('active');
+            if (targetContent) targetContent.classList.add('active');
+            
+            console.log('[ProfileScreen.js:828] Carousel view all clicked, switched to tab:', target);
           });
-          
-          console.log('[ProfileScreen] Carousel navigation set up successfully');
-          
-        } catch (error) {
-          console.error('[ProfileScreen] Error setting up carousel navigation:', error);
-        }
+        });
+        
+        console.log('[ProfileScreen.js:832] Carousel navigation set up successfully');
+        
+      } catch (error) {
+        console.error('[ProfileScreen.js:835] Error setting up carousel navigation:', error);
       }
     }
-  };
+  }
+};
 
 export default ProfileScreen;
 

@@ -14,80 +14,124 @@ const createStoreCard = {
   render: (data) => {
     console.log("[cardStore.js:14] Card Store Data:", data); // Debug log
 
-    // Extract data with default values
+
+    // Extract data with proper default values and structure
     const {
-      thumbnail,
-      logo,
-      title,
+      // Basic info
+      slug,
+      title = 'Unknown Store',
+      thumbnail = '',
+      logo = '',
+      
+      // Gallery and media
       gallery = [],
       galleryHTML = '',
       galleryURL = '',
       galleryLimit = 3,
-      tagLimit = 3,
-      headline,
-      publishedAt,
+      
+      // Store attributes
       storeType,
+      categoryType,
       environment,
       noiseLevel,
       parking,
-      text,
+      
+      // Text content
+      text = '',
+      headline = '',
+      publishedAt,
+      
+      // Ratings and metrics
       neustar,
       neustarHTML = '',
-      categoryType,
-      storeCurrentStatusHTML = '',
-      region,
+      ratings = [],
+      review_count = 0,
+      rating = 0,
+      
+      // Location info
+      city = 'Unknown',
+      region = 'CA', 
+      state = 'CA',
+      address = '',
+      addressMin = '',
+      storeRegion,
+      
+      // Store status
       storeCurrentStatus = '',
+      storeCurrentStatusHTML = '',
+      storeRange = null,
+      
+      // Attributes and tags
+      best = [],
       bestHTML = '',
       genre,
-      best = [],
       nearby,
-      ratings = [],
-      address,
-      storeRegion,
-      city,
       designator,
       metaTagLabel = [],
       metaTagLimit = 3,
-      storeRange = null,
       storeAttributes = [],
       tagAttributes = [],
+      tagLimit = 3,
       tagLimit: attrTagLimit = 3,
-      addressMin = '',
     } = data;
 
-    console.log("[cardStore.js:58] Processing store card data for:", title || text); // Line 58
+    console.log("[cardStore.js:78] Processing store card for:", title); // Line 78
 
-    // Generate store rating data
+    // Generate store rating data with fallbacks
     const storeRatingData = {
-      review: ratings.length > 0 ? ratings[0].value : 0,
-      rating: ratings.length > 0 ? ratings[0].key : 0,
+      review: ratings.length > 0 ? ratings[0].value : (review_count || 0),
+      rating: ratings.length > 0 ? ratings[0].key : (rating || 0),
       glyph: 'glyph-rating-star',
     };
 
     // Generate store title data
     const storeTitleData = {
-      title: title || text,
-      location: addressMin || `${city}, ${region}`
+      title: title || text || 'Unknown Store',
+      location: addressMin || `${city}, ${region || state}`
     };
+   
+    // Generate store type data - handle both string and array formats
+    let storeTypeDisplay = '';
+    if (storeType) {
+      if (typeof storeType === 'string') {
+        storeTypeDisplay = storeType;
+      } else if (Array.isArray(storeType) && storeType.length > 0) {
+        // If it's an array of objects with 'alias' property
+        if (storeType[0].alias) {
+          storeTypeDisplay = storeType[0].alias;
+        } else {
+          storeTypeDisplay = storeType[0];
+        }
+      }
+    } else if (categoryType) {
+      storeTypeDisplay = categoryType;
+    } else {
+      storeTypeDisplay = 'store';
+    }
 
     // Generate store type data
     const storeTypeData = {
-      type: storeType || categoryType
+      type: storeTypeDisplay
     };
+
+    console.log("[cardStore.js:113] Store type resolved to:", storeTypeDisplay); // Line 113
 
     // Generate components
     const storeTitle = geotag.geotagStore.render(storeTitleData);
     const storeRating = geotag.geotagRating.render(storeRatingData);
     const storeTypeComponent = geotag.geotagType.render(storeTypeData);
     
-    // Handle gallery/thumbnail
+    // Handle gallery/thumbnail with proper fallbacks
     let mediaThumbnail = '';
     if (gallery && gallery.length > 0) {
-      console.log("[cardStore.js:85] Using gallery image:", gallery[0]); // Line 85
+      console.log("[cardStore.js:123] Using gallery image:", gallery[0]); // Line 123
       mediaThumbnail = media.mediaThumbnail.render(gallery[0]);
     } else if (thumbnail) {
-      console.log("[cardStore.js:88] Using thumbnail:", thumbnail); // Line 88
+      console.log("[cardStore.js:126] Using thumbnail:", thumbnail); // Line 126
       mediaThumbnail = media.mediaThumbnail.render(thumbnail);
+    } else {
+      console.log("[cardStore.js:129] No image available, using placeholder"); // Line 129
+      mediaThumbnail = media.mediaThumbnail.render('/images/placeholder-store.jpg');
     }
 
     // Generate attributes pills (max 3)
@@ -101,7 +145,35 @@ const createStoreCard = {
       limit: attrTagLimit
     };
 
-    const attrTag = tag.attrTag.render(attrTagData);
+    // const attrTag = tag.attrTag.render(attrTagData);
+
+    // Generate attributes pills from best array (max 3)
+    let attrTag = '';
+    if (best && Array.isArray(best) && best.length > 0) {
+      const attributes = best.slice(0, 3).map(item => {
+        // Handle both string and object formats
+        if (typeof item === 'string') {
+          return {
+            text: item,
+            icon: 'glyph-check-15'
+          };
+        } else if (item.label) {
+          return {
+            text: item.label,
+            icon: 'glyph-check-15'
+          };
+        }
+        return null;
+      }).filter(Boolean);
+
+      if (attributes.length > 0) {
+        const attrTagData = {
+          data: attributes,
+          limit: attrTagLimit
+        };
+        attrTag = tag.attrTag.render(attrTagData);
+      }
+    }
 
     // Generate store status if available
     const statusHTML = storeCurrentStatus ? `
@@ -119,30 +191,37 @@ const createStoreCard = {
 
     console.log("[cardStore.js:118] Generating card HTML"); // Line 118
 
+    // Generate the store URL - use slug if available, otherwise create from title
+    const storeUrl = slug ? `/${slug}` : `/${title?.toLowerCase().replace(/\s+/g, '-') || 'store'}`;
+
     return `
-      <a href="/${title?.toLowerCase().replace(/\s+/g, '-')}" class="store card col01">
-        <div class="col01 grid02 card-store">
-          <div class="col01 background media">
-            ${mediaThumbnail}
+    card
+    <a href="${storeUrl}" class="store card col01">
+      <div class="col01 grid02 card-store">
+        <div class="col01 background media">
+          ${mediaThumbnail}
+          ${attrTag ? `
             <div class="tag-container">
               <div class="tag">
                 ${attrTag}
               </div>
             </div>
+          ` : ''}
+        </div>
+        
+        <div class="col01 row01 overlay">
+          <div class="col01 row01 grid02 top primary">
+            <div class="col01 row01 pill left">
+              ${storeRating}
+              ${statusHTML}
+            </div>
+            <div class="col01 row01 pill right">
+              ${storeTypeComponent}
+              ${rangeHTML}
+            </div>
           </div>
           
-          <div class="col01 row01 overlay">
-            <div class="col01 row01 grid02 top primary">
-              <div class="col01 row01 pill left">
-                ${storeRating}
-                ${statusHTML}
-              </div>
-              <div class="col01 row01 pill right">
-                ${storeTypeComponent}
-                ${rangeHTML}
-              </div>
-            </div>
-            
+          ${attrTag ? `
             <div class="col01 row01 middle tertiary">
               <div class="subtitle">
                 <div class="attributes">
@@ -150,17 +229,18 @@ const createStoreCard = {
                 </div>
               </div>
             </div>
+          ` : ''}
 
-            <div class="col01 row01 bottom secondary">
-              <div class="pill">
-                ${storeTitle}
-              </div>
+          <div class="col01 row01 bottom secondary">
+            <div class="pill">
+              ${storeTitle}
             </div>
           </div>
         </div>
-      </a>
-    `;
-  },
+      </div>
+    </a>
+  `;
+},
   ///////////////////////// END FIXED ASYNC RENDER /////////////////////////
 
   after_render: async () => {
@@ -171,7 +251,10 @@ const createStoreCard = {
     
     cards.forEach(card => {
       const mediaContainer = card.querySelector('.background.media');
-      const images = mediaContainer.querySelectorAll('.media-img-m');
+      const images = mediaContainer?.querySelectorAll('.media-img-m');
+      
+      if (!images || images.length === 0) return;
+      
       let currentImageIndex = 0;
       let interval;
 
@@ -203,7 +286,14 @@ const createStoreCard = {
         });
         currentImageIndex = 0;
       });
+
+      // Add click tracking
+      card.addEventListener('click', (e) => {
+        console.log("[cardStore.js:269] Store card clicked:", card.href); // Line 269
+      });
     });
+    
+    console.log("[cardStore.js:273] Store cards initialized:", cards.length); // Line 273
   }
 };
 

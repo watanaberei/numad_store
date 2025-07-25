@@ -5,8 +5,8 @@
   "email": "to.reiwatanabe@gmail.com",
   "password": "$2b$10$U.g1qHT8NfSh0J0iLLh87.0jNmN5g23Vs1z5JjrWh6aRyq1KpRTua",
   "username": "neumad",
-  "lastName": [],
-  "birthdate": [],
+  "lastName": "Watanabe",
+  "birthdate": null,
   "savedStores": [],
   "checkedInStores": [],
   "impressionsLiked": [],
@@ -59,7 +59,7 @@
     "$date": "2025-05-28T04:16:28.409Z"
   },
   "updatedAt": {
-    "$date": "2025-06-21T05:29:36.698Z"
+    "$date": "2025-07-19T08:00:44.968Z"
   },
   "__v": 0,
   "checkedInStore": null,
@@ -224,5 +224,29 @@
     }
   ],
   "likedBlogs": [],
-  "savedBlogs": []
+  "savedBlogs": [],
+  "additionalName": "Rei Watanabe",
+  "firstName": "Rei",
+  "gender": "male",
+  "headline": "Creator",
+  "overview": "Creator of Neumad",
+  "company": "Rei Watanabe LLC",
+  "industry": "",
+  "profession": "Entrepreneur",
+  "website": "https://www.Reiwatanabe.com",
+  "city": "Long Island",
+  "country": "United States",
+  "phoneNumber": "13108186503",
+  "postalCode": "11050",
+  "state": "NY",
+  "socialMedia": [
+    {
+      "_id": {
+        "$oid": "687b50aa93f891fabeb2a4a4"
+      }
+    }
+  ],
+  "profileVisibility": {
+    "activity": "public"
+  }
 }]
